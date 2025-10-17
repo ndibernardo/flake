@@ -38,6 +38,36 @@
             ];
           };
         };
+        templates = {
+          clojure = {
+            path = ./templates/clojure;
+            description = "Clojure development environment";
+          };
+          elixir = {
+            path = ./templates/elixir;
+            description = "Elixir development environment";
+          };
+          java = {
+            path = ./templates/java;
+            description = "Java development environment";
+          };
+          nix = {
+            path = ./templates/nix;
+            description = "Nix development environment";
+          };
+          rust = {
+            path = ./templates/rust;
+            description = "Rust development environment";
+          };
+          zig = {
+            path = ./templates/zig;
+            description = "Zig development environment";
+          };
+          zig-master = {
+            path = ./templates/zig-master;
+            description = "Zig nightly development environment";
+          };
+        };
       };
       perSystem =
         { pkgs, ... }:
