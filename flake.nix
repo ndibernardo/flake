@@ -93,6 +93,10 @@
             path = ./templates/rust;
             description = "Rust development environment";
           };
+          scala = {
+            path = ./templates/scala;
+            description = "Scala development environment";
+          };
           zig = {
             path = ./templates/zig;
             description = "Zig development environment";
