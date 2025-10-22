@@ -1,11 +1,12 @@
-{ pkgs, ... }:
+{ isDesktop, inputs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
-    ./desktop
     ./development
-    ./fonts.nix
-  ];
+  ] ++ (lib.optionals isDesktop [
+    ./desktop
+  ]);
 
   home = {
     username = "nil";

@@ -9,13 +9,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+    };
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
+    inputs@{ flake-parts, nixos-wsl, ... }:
+    let
+      homeManagerConfiguration = ./home;
+    in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -26,13 +32,41 @@
           nixos = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-              ./nixos
+              ./hosts/desktop
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users.nil = ./home;
+                  users.nil = import homeManagerConfiguration {
+                    isDesktop = true;
+                    inputs = inputs;
+                  };
+                };
+              }
+            ];
+          };
+        };
+        nixosConfigurations = {
+          wsl = inputs.nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ./hosts/wsl
+              nixos-wsl.nixosModules.default
+              {
+                wsl.enable = true;
+                wsl.defaultUser = "nil";
+                wsl.wslConf.network.hostname = "wsl";
+              }
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.nil = import homeManagerConfiguration {
+                    isDesktop = false;
+                    inputs = inputs;
+                  };
                 };
               }
             ];

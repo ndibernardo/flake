@@ -2,13 +2,13 @@
 
 {
   imports = [
-    ./audio.nix
-    ./gnome.nix
+    ../../nixos/audio.nix
+    ../../nixos/gnome.nix
+    ../../nixos/nix.nix
+    ../../nixos/ssh.nix
+    ../../nixos/virtualisation.nix
     ./hardware.nix
     ./networking.nix
-    ./nix.nix
-    ./ssh.nix
-    ./virtualisation.nix
   ];
 
   time.timeZone = "Europe/Rome";
