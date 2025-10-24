@@ -2,9 +2,11 @@
 {
   programs.git = {
     enable = true;
-    user = {
-      email = "nicola.dibernardo@icloud.com";
-      name = "ndibernardo";
+    settings = {
+      user = { 
+        email = "nicola.dibernardo@icloud.com";
+        name = "ndibernardo";
+      };
     };
     ignores = [
       ".classpath"
