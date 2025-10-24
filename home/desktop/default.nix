@@ -11,6 +11,7 @@
   home = {
     packages = with pkgs; [
       firefox-devedition
+      google-chrome
       jetbrains.idea-ultimate
       mullvad-vpn
       nicotine-plus
