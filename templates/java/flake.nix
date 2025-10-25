@@ -30,6 +30,8 @@
               jdk
               maven
               jdt-language-server
+              nixd
+              nixfmt
             ];
 
             shellHook = ''

@@ -29,6 +29,8 @@
               rustfmt
               clippy
               rust-analyzer
+              nixd
+              nixfmt
             ];
 
             shellHook = ''

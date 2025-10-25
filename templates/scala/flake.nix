@@ -34,6 +34,8 @@
               scala
               sbt
               coursier
+              nixd
+              nixfmt
             ];
 
             shellHook = ''

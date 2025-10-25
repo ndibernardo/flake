@@ -31,6 +31,8 @@
             packages = with pkgs; [
               zig-overlay.master
               zls
+              nixd
+              nixfmt
             ];
 
             shellHook = ''

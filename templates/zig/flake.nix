@@ -26,6 +26,8 @@
             packages = with pkgs; [
               zig
               zls
+              nixd
+              nixfmt
             ];
 
             shellHook = ''

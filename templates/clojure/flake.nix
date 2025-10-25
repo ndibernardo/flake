@@ -38,6 +38,8 @@
               leiningen
               babashka
               clj-kondo
+              nixd
+              nixfmt
             ];
 
             shellHook = ''

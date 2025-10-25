@@ -26,6 +26,8 @@
             packages = with pkgs; [
               elixir
               elixir-ls
+              nixd
+              nixfmt
             ];
 
             shellHook = ''
