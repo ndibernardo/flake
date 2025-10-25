@@ -9,7 +9,7 @@
       font-family = "Berkeley Mono";
       font-style = "Book SemiCondensed";
       font-size = "12";
-      theme = "Gruvbox Dark Hard";
+      theme = "Tomorrow Night";
     };
   };
 }

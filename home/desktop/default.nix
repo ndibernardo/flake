@@ -13,11 +13,13 @@
       firefox-devedition
       google-chrome
       jetbrains.idea-ultimate
+      jetbrains.rust-rover
       mullvad-vpn
       nicotine-plus
       puddletag
       spotify
       thunderbird
+      vscode
     ];
   };
 }

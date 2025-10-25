@@ -28,7 +28,7 @@
       theme = {
         mode = "system";
         light = "Gruvbox Light";
-        dark = "Gruvbox Dark Hard";
+        dark = "Tomorrow Night";
       };
       ui_font_family = "Inter";
       ui_font_size = 15;
