@@ -27,7 +27,7 @@
       load_direnv = "shell_hook";
       theme = {
         mode = "system";
-        light = "Gruvbox Light";
+        light = "JetBrains Light";
         dark = "Tomorrow Night";
       };
       ui_font_family = "Inter";

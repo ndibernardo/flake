@@ -30,7 +30,7 @@
               clippy
               rust-analyzer
               nixd
-              nixfmt
+              nixfmt-rfc-style
             ];
 
             shellHook = ''

@@ -32,7 +32,7 @@
               zig-overlay.master
               zls
               nixd
-              nixfmt
+              nixfmt-rfc-style
             ];
 
             shellHook = ''

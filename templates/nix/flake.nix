@@ -25,7 +25,7 @@
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               nixd
-              nixpkgs-fmt
+              nixfmt-rfc-style
               statix
               deadnix
             ];

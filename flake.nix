@@ -114,7 +114,7 @@
             packages = with pkgs; [
               gnumake
               nixd
-              nixfmt
+              nixfmt-rfc-style
             ];
           };
         };

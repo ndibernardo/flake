@@ -39,7 +39,7 @@
               babashka
               clj-kondo
               nixd
-              nixfmt
+              nixfmt-rfc-style
             ];
 
             shellHook = ''

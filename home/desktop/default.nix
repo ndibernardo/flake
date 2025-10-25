@@ -4,7 +4,6 @@
     ./emacs.nix
     ./ghostty.nix
     ./fonts.nix
-    ./gtk.nix
     ./zed.nix
   ];
 

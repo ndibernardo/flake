@@ -31,7 +31,7 @@
               maven
               jdt-language-server
               nixd
-              nixfmt
+              nixfmt-rfc-style
             ];
 
             shellHook = ''

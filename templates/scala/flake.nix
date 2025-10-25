@@ -35,7 +35,7 @@
               sbt
               coursier
               nixd
-              nixfmt
+              nixfmt-rfc-style
             ];
 
             shellHook = ''
