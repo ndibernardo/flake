@@ -9,6 +9,15 @@ let
       sha256 = "FRqBpvC3XyO677rtKbBOJL2kanIM6sdv9UqjZSyxkqw=";
     };
   };
+  direnv-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "direnv-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "NotAShelf";
+      repo = "direnv.nvim";
+      rev = "4dfc8758a1deab45e37b7f3661e0fd3759d85788";
+      sha256 = "KqO8uDbVy4sVVZ6mHikuO+SWCzWr97ZuFRC8npOPJIE=";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -24,6 +33,7 @@ in
       cmp-path
       comment-nvim
       conform-nvim
+      direnv-nvim
       fidget-nvim
       friendly-snippets
       gitsigns-nvim
@@ -33,6 +43,7 @@ in
       nvim-colorizer-lua
       nvim-lspconfig
       nvim-surround
+      ir_black
       (nvim-treesitter.withPlugins (p: [
         p.bash
         p.c
@@ -51,6 +62,8 @@ in
         p.zig
       ]))
       nvim-treesitter-textobjects
+      nvim-tree-lua
+      nvim-web-devicons
       oil-nvim
       plenary-nvim
       tairiki

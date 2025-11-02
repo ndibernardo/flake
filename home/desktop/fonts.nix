@@ -12,15 +12,16 @@
   home = {
     packages = with pkgs; [
       b612
+      berkeley-mono
       commit-mono
       fira-code
       hack-font
       inter
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
-      noto-fonts-extra
+      noto-fonts-color-emoji
       noto-fonts-monochrome-emoji
+      nerd-fonts.symbols-only
     ];
   };
 }

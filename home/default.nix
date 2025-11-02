@@ -4,7 +4,8 @@
 {
   imports = [
     ./development
-  ] ++ (lib.optionals isDesktop [
+  ]
+  ++ (lib.optionals isDesktop [
     ./desktop
   ]);
 
@@ -14,12 +15,18 @@
 
     packages = with pkgs; [
       curl
+      claude-code
       docker-compose
       fastfetch
+      rustup
       fzf
       gnumake
       htop
       ripgrep
+      pkg-config
+      openssl
+      zip
+      unzip
     ];
 
     stateVersion = "25.05";

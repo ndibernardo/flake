@@ -1,23 +1,18 @@
 { pkgs, ... }:
 {
   imports = [
-    ./emacs.nix
-    ./ghostty.nix
+    ./alacritty.nix
     ./fonts.nix
-    ./zed.nix
   ];
 
   home = {
     packages = with pkgs; [
       firefox-devedition
+      brave
       google-chrome
-      jetbrains.idea-ultimate
-      jetbrains.rust-rover
       mullvad-vpn
-      nicotine-plus
-      puddletag
       spotify
-      thunderbird
+      ungoogled-chromium
       vscode
     ];
   };

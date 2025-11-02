@@ -60,6 +60,7 @@ wk.add({
 })
 
 map.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "[P]roject [V]iew" })
+map.set("n", "<leader>pt", "<CMD>NvimTreeToggle<CR>", { desc = "[P]roject [T]ree" })
 map.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Selection Up" })
 map.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Selection Down" })
 map.set("n", "J", "mzJ`z")
@@ -171,6 +172,39 @@ require("conform").setup({
   },
 })
 
+-- Direnv
+require("direnv").setup({
+  -- Path to the direnv executable
+  bin = "direnv",
+
+  -- Whether to automatically load direnv when entering a directory with .envrc
+  autoload_direnv = false,
+
+  -- Statusline integration
+  statusline = {
+    -- Enable statusline component
+    enabled = true,
+    -- Icon to display in statusline
+    icon = "󱚟",
+  },
+
+  -- Keyboard mappings
+  keybindings = {
+    allow = "<Leader>da",
+    deny = "<Leader>dd",
+    reload = "<Leader>dr",
+    edit = "<Leader>de",
+  },
+
+  -- Notification settings
+  notifications = {
+    -- Log level (vim.log.levels.INFO, ERROR, etc.)
+    level = vim.log.levels.INFO,
+    -- Don't show notifications during autoload
+    silent_autoload = true,
+  },
+})
+
 -- LSP
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -213,7 +247,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 require("fidget").setup {}
-
 
 vim.lsp.enable({ 'lua_ls', 'nixd', 'rust_analyzer', 'zls' })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -339,6 +372,20 @@ require("oil").setup({
   }
 })
 
+-- Nvim-tree
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = false,
+  },
+})
+
 -- Theme: A better Tomorrow
 require('tairiki').setup({
   palette              = 'dimmed', -- main palette, available options: dark, light, dimmed, tomorrow, light_legacy
@@ -375,7 +422,9 @@ require('tairiki').setup({
   colors               = function(colors, opts) end,
   highlights           = function(groups, colors, opts) end,
 })
-require("tairiki").load()
+
+-- require("tairiki").load()
+vim.cmd 'colorscheme ir_black'
 
 -- Telescope
 require("telescope").setup({

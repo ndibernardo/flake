@@ -3,7 +3,7 @@
 {
   imports = [
     ../../nixos/audio.nix
-    ../../nixos/gnome.nix
+    ../../nixos/desktop.nix
     ../../nixos/nix.nix
     ../../nixos/ssh.nix
     ../../nixos/virtualisation.nix
