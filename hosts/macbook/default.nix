@@ -39,6 +39,20 @@
     shell = pkgs.zsh;
   };
 
+  fonts.packages = with pkgs; [
+    berkeley-mono
+    nerd-fonts.symbols-only
+    font-awesome
+  ];
+
+  system.activationScripts.fonts.text = ''
+    mkdir -p /Users/nicola/Library/Fonts
+    ${pkgs.rsync}/bin/rsync -av --delete \
+      ${pkgs.berkeley-mono}/share/fonts/truetype/ \
+      /Users/nicola/Library/Fonts/BerkeleyMonoNerd/ 2>/dev/null || true
+    echo "Fonts activated. You may need to restart applications."
+  '';
+
   environment.systemPackages = with pkgs; [
     gcc
     man-pages

@@ -3,6 +3,8 @@
   requireFile,
   stdenvNoCC,
   unzip,
+  fontforge,
+  nerd-font-patcher,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -29,29 +31,38 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     unzip
+    nerd-font-patcher
   ];
 
   unpackPhase = ''
     unzip $src
   '';
 
+  buildPhase = ''
+    mkdir -p patched
+    # Patch TTF files with complete Nerd Font symbol set
+    for font in $(find . -name "*.ttf" -o -name "*.otf"); do
+      echo "Patching $font..."
+      nerd-font-patcher --complete --careful --outputdir patched "$font" || true
+    done
+  '';
+
   installPhase = ''
-    runHook preInstall
-
-    install -D -m444 -t $out/share/fonts/truetype TX-02-${finalAttrs.ticket}/*.ttf
-
-    runHook postInstall
+    mkdir -p $out/share/fonts/truetype
+    # Install patched fonts
+    find patched -name "*Nerd*.ttf" -exec cp {} $out/share/fonts/truetype/ \;
+    find patched -name "*Nerd*.otf" -exec cp {} $out/share/fonts/opentype/ \; 2>/dev/null || true
   '';
 
   meta = {
     description = "Berkeley Mono Typeface";
-    longDescription = "Berkeley Mono™ is a love letter to the golden era of computing. 
-    The era that gave rise to a generation of people who celebrated automation and reveled 
-    in the joy of computing, when transistors replaced cogs, and machine-readable typefaces 
-    were developed, for when humans and machines truly interfaced on an unprecedented scale. 
-    It wears a UNIX T-shirt and aspires to be etched on control panels in black synthetic lacquer. 
-    It is Adrian Frutiger visits Bell Labs. It is Gene Kranz's command. 
-    It operates with calibrated precision and has a datasheet. 
+    longDescription = "Berkeley Mono™ is a love letter to the golden era of computing.
+    The era that gave rise to a generation of people who celebrated automation and reveled
+    in the joy of computing, when transistors replaced cogs, and machine-readable typefaces
+    were developed, for when humans and machines truly interfaced on an unprecedented scale.
+    It wears a UNIX T-shirt and aspires to be etched on control panels in black synthetic lacquer.
+    It is Adrian Frutiger visits Bell Labs. It is Gene Kranz's command.
+    It operates with calibrated precision and has a datasheet.
     Berkeley Mono is a typeface for professionals.";
     homepage = "https://berkeleygraphics.com/typefaces/berkeley-mono";
     license = lib.licenses.unfree;

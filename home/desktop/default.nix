@@ -1,11 +1,14 @@
-{ isDarwin ? false }:
+{
+  isDarwin ? false,
+}:
 { pkgs, lib, ... }:
 {
-  imports =
-    [
-      ./alacritty.nix
-      ./fonts.nix
-    ];
+  imports = [
+    ./alacritty.nix
+  ]
+  ++ lib.optionals (!isDarwin) [
+    ./fonts.nix
+  ];
 
   home = {
     packages =

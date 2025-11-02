@@ -60,12 +60,12 @@
 
       font = {
         normal = {
-          family = "Berkeley Mono";
-          style = "Retina SemiCondensed";
+          family = "BerkeleyMono Nerd Font";
+          style = "SemiCondensed Retina";
         };
         bold = {
-          family = "Berkeley Mono";
-          style = "Retina SemiCondensed";
+          family = "BerkeleyMono Nerd Font";
+          style = "SemiCondensed Retina";
         };
         size = if pkgs.stdenv.isDarwin then 13 else 11;
         offset = {
@@ -76,6 +76,7 @@
           x = 0;
           y = 0;
         };
+        builtin_box_drawing = false;
       };
 
       bell = {
