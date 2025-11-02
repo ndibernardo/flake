@@ -12,9 +12,11 @@
       ".classpath"
       ".direnv"
       ".dir-locals.el"
+      ".DS_STORE"
       ".idea"
       ".project"
       ".settings"
+      "target"
       "TAGS"
     ];
   };

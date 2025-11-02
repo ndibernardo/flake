@@ -1,17 +1,24 @@
-{ isDesktop, inputs, ... }:
+{
+  username,
+  homeDirectory,
+  isDesktop,
+  isDarwin ? false,
+  inputs,
+  ...
+}:
 { pkgs, lib, ... }:
 
 {
-  imports = [
-    ./development
-  ]
-  ++ (lib.optionals isDesktop [
-    ./desktop
-  ]);
+  imports =
+    [
+      ./development
+    ]
+    ++ (lib.optionals isDesktop [
+      (import ./desktop { inherit isDarwin; })
+    ]);
 
   home = {
-    username = "nil";
-    homeDirectory = "/home/nil";
+    inherit username homeDirectory;
 
     packages = with pkgs; [
       curl

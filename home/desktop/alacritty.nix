@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.alacritty = {
@@ -61,13 +61,13 @@
       font = {
         normal = {
           family = "Berkeley Mono";
-          style = "Book SemiCondensed";
+          style = "Retina SemiCondensed";
         };
         bold = {
           family = "Berkeley Mono";
-          style = "Bold";
+          style = "Retina SemiCondensed";
         };
-        size = 11;
+        size = if pkgs.stdenv.isDarwin then 13 else 11;
         offset = {
           x = 0;
           y = 0;

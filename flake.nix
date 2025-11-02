@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
     };
@@ -18,7 +22,12 @@
   };
 
   outputs =
-    inputs@{ flake-parts, nixos-wsl, ... }:
+    inputs@{
+      flake-parts,
+      nix-darwin,
+      nixos-wsl,
+      ...
+    }:
     let
       homeManagerConfiguration = ./home;
     in
@@ -39,6 +48,8 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   users.nil = import homeManagerConfiguration {
+                    username = "nil";
+                    homeDirectory = "/home/nil";
                     isDesktop = true;
                     inputs = inputs;
                   };
@@ -64,7 +75,31 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   users.nil = import homeManagerConfiguration {
+                    username = "nil";
+                    homeDirectory = "/home/nil";
                     isDesktop = false;
+                    inputs = inputs;
+                  };
+                };
+              }
+            ];
+          };
+        };
+        darwinConfigurations = {
+          macbook = nix-darwin.lib.darwinSystem {
+            system = "aarch64-darwin";
+            modules = [
+              ./hosts/macbook
+              inputs.home-manager.darwinModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.nicola = import homeManagerConfiguration {
+                    username = "nicola";
+                    homeDirectory = "/Users/nicola";
+                    isDesktop = true;
+                    isDarwin = true;
                     inputs = inputs;
                   };
                 };
