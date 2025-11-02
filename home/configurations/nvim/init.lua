@@ -252,8 +252,8 @@ vim.lsp.enable({ 'lua_ls', 'nixd', 'rust_analyzer', 'zls' })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 vim.lsp.config['rust_analyzer'] = {
-  on_attach = function(_, bufnr)
-    vim.lsp.inlay_hint.enable(bufnr)
+  on_attach = function()
+    vim.lsp.inlay_hint.enable()
   end,
   capabilities = lsp_capabilities,
   settings = {}
@@ -274,6 +274,11 @@ vim.lsp.config['lua_ls'] = {
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
+        ignoreDir = {
+          'result',
+          '.direnv'
+        },
+        checkThirdParty = false,
       },
       telemetry = {
         enable = false,
