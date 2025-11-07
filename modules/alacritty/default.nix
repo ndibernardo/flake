@@ -45,8 +45,8 @@
           lines = 0;
         };
         padding = {
-          x = 2;
-          y = 2;
+          x = 5;
+          y = 5;
         };
         dynamic_padding = false;
         decorations = "full";
@@ -61,11 +61,11 @@
       font = {
         normal = {
           family = "Berkeley Mono";
-          style = "SemiCondensed Book";
+          style = "Book SemiCondensed";
         };
         bold = {
           family = "Berkeley Mono";
-          style = "SemiCondensed Book";
+          style = "Bold SemiCondensed";
         };
         size = 12;
         offset = {

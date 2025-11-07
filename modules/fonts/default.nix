@@ -6,6 +6,7 @@
       antialiasing = true;
       hinting = "slight";
       subpixelRendering = "rgb";
+      defaultFonts.monospace = [ "Berkeley Mono Book SemiCondensed" ];
     };
   };
 

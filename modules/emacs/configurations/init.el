@@ -70,8 +70,17 @@
 
 ;; Appearance
 (setq doom-gruvbox-dark-variant "hard")
-(load-theme 'doom-gruvbox t)
-(set-face-attribute 'default nil :font "Berkeley Mono Book" :width 'semi-condensed :height 120)
+(load-theme 'doom-ir-black t)
+
+(custom-set-faces
+ '(default
+   ((t (:family "Berkeley Mono"
+                :foundry "USGC"
+                :slant normal
+                :weight medium
+                :height 120
+                :width semi-condensed)))))
+
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
                                        ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
                                        "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
