@@ -23,7 +23,7 @@
     config = {
       allowUnfree = true;
       packageOverrides = pkgs: {
-        berkeley-mono = pkgs.callPackage ../packages/berkeley-mono.nix { };
+        berkeley-mono = pkgs.callPackage ../../packages/berkeley-mono.nix { };
       };
     };
   };

@@ -60,14 +60,14 @@
 
       font = {
         normal = {
-          family = "BerkeleyMono Nerd Font";
-          style = "SemiCondensed Retina";
+          family = "Berkeley Mono";
+          style = "SemiCondensed Book";
         };
         bold = {
-          family = "BerkeleyMono Nerd Font";
-          style = "SemiCondensed Retina";
+          family = "Berkeley Mono";
+          style = "SemiCondensed Book";
         };
-        size = if pkgs.stdenv.isDarwin then 13 else 11;
+        size = 12;
         offset = {
           x = 0;
           y = 0;

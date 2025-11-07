@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ../../nixos/audio.nix
-    ../../nixos/desktop.nix
-    ../../nixos/nix.nix
-    ../../nixos/ssh.nix
-    ../../nixos/virtualisation.nix
+    ../../modules/audio
+    ../../modules/desktop
+    ../../modules/nix
+    ../../modules/ssh
+    ../../modules/virtualisation
     ./hardware.nix
     ./networking.nix
   ];

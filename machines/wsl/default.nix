@@ -2,7 +2,7 @@
 
 {
   imports = [
-     ../../nixos/nix.nix
+     ../../modules/nix
   ];
 
   users.users.nil = {

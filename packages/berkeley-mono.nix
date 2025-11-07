@@ -40,18 +40,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     mkdir -p patched
-    # Patch TTF files with complete Nerd Font symbol set
-    for font in $(find . -name "*.ttf" -o -name "*.otf"); do
+    for font in $(find . -name "*.ttf"); do
       echo "Patching $font..."
-      nerd-font-patcher --complete --careful --outputdir patched "$font" || true
+      nerd-font-patcher --complete --careful --makegroups -1 --outputdir patched "$font" || true
     done
   '';
 
   installPhase = ''
     mkdir -p $out/share/fonts/truetype
-    # Install patched fonts
-    find patched -name "*Nerd*.ttf" -exec cp {} $out/share/fonts/truetype/ \;
-    find patched -name "*Nerd*.otf" -exec cp {} $out/share/fonts/opentype/ \; 2>/dev/null || true
+    find patched -name "*.ttf" -exec cp {} $out/share/fonts/truetype/ \;
   '';
 
   meta = {

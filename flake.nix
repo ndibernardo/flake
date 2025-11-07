@@ -28,9 +28,6 @@
       nixos-wsl,
       ...
     }:
-    let
-      homeManagerConfiguration = ./home;
-    in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -41,18 +38,13 @@
           nixos = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-              ./hosts/desktop
+              ./machines/desktop
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users.nil = import homeManagerConfiguration {
-                    username = "nil";
-                    homeDirectory = "/home/nil";
-                    isDesktop = true;
-                    inputs = inputs;
-                  };
+                  users.nil = ./machines/desktop/home;
                 };
               }
             ];
@@ -62,7 +54,7 @@
           wsl = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-              ./hosts/wsl
+              ./machines/wsl
               nixos-wsl.nixosModules.default
               {
                 wsl.enable = true;
@@ -74,12 +66,7 @@
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users.nil = import homeManagerConfiguration {
-                    username = "nil";
-                    homeDirectory = "/home/nil";
-                    isDesktop = false;
-                    inputs = inputs;
-                  };
+                  users.nil = ./machines/wsl/home;
                 };
               }
             ];
@@ -89,19 +76,13 @@
           macbook = nix-darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [
-              ./hosts/macbook
+              ./machines/macbook
               inputs.home-manager.darwinModules.home-manager
               {
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users.nicola = import homeManagerConfiguration {
-                    username = "nicola";
-                    homeDirectory = "/Users/nicola";
-                    isDesktop = true;
-                    isDarwin = true;
-                    inputs = inputs;
-                  };
+                  users.nicola = ./machines/macbook/home;
                 };
               }
             ];

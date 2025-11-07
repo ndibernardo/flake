@@ -25,7 +25,7 @@ in
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    extraLuaConfig = lib.fileContents ../configurations/nvim/init.lua;
+    extraLuaConfig = lib.fileContents ./configurations/init.lua;
     plugins = with pkgs.vimPlugins; [
       cmp_luasnip
       cmp-cmdline

@@ -21,8 +21,8 @@
       ];
       kernelModules = [ ];
       luks.devices = {
-        "luks-a812501a-768b-4724-b62c-be7d431e556a" = {
-          device = "/dev/disk/by-uuid/a812501a-768b-4724-b62c-be7d431e556a";
+        "luks-41a2b634-9f1b-46c0-a307-b45cf7acaf30" = {
+          device = "/dev/disk/by-uuid/41a2b634-9f1b-46c0-a307-b45cf7acaf30";
         };
       };
     };
@@ -44,6 +44,7 @@
     extraModulePackages = [ ];
     supportedFilesystems = [
       "ntfs"
+      "xfs"
     ];
   };
 
@@ -69,7 +70,7 @@
 
   fileSystems = {
     "/boot" = {
-      device = "/dev/disk/by-uuid/16BB-7B8E";
+      device = "/dev/disk/by-uuid/89F2-8922";
       fsType = "vfat";
       options = [
         "fmask=0077"
@@ -78,8 +79,8 @@
     };
 
     "/" = {
-      device = "/dev/disk/by-uuid/6d02362d-cc95-42a9-87e2-75898820f211";
-      fsType = "ext4";
+      device = "/dev/disk/by-uuid/b192171b-8fb1-4b75-ad8d-032edcaca0d3";
+      fsType = "xfs";
     };
 
     "/run/media/nil/64603C01603BD88E" = {
@@ -103,7 +104,7 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-uuid/3f95fb45-3e54-40fe-9634-0d5b0be6d200";
+      device = "/dev/disk/by-uuid/d57bb2a6-87b9-424e-a363-362b6283042a";
     }
   ];
 

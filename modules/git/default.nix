@@ -10,6 +10,7 @@
     };
     ignores = [
       ".classpath"
+      ".claude"
       ".direnv"
       ".dir-locals.el"
       ".DS_STORE"

@@ -26,6 +26,7 @@ let
           git-gutter
           git-gutter-fringe
           gcmh
+          kaolin-themes
           ligature
           lsp-mode
           magit
@@ -63,8 +64,8 @@ let
 in
 {
   home.file = {
-    ".config/emacs/early-init.el".source = ../configurations/emacs/early-init.el;
-    ".config/emacs/init.el".source = ../configurations/emacs/init.el;
+    ".config/emacs/early-init.el".source = ./configurations/early-init.el;
+    ".config/emacs/init.el".source = ./configurations/init.el;
   };
 
   programs = {
