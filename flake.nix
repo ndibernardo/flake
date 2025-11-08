@@ -44,6 +44,7 @@
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
+                  backupFileExtension = "backup";
                   users.nil = ./machines/desktop/home;
                 };
               }
