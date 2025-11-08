@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
-     ../../modules/nix
+    ../../modules/nix
+    inputs.nixos-wsl.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   users.users.nil = {
@@ -40,5 +42,16 @@
 
   programs.zsh.enable = true;
   programs.nix-ld.enable = true;
+
+  wsl.enable = true;
+  wsl.defaultUser = "nil";
+  wsl.wslConf.network.hostname = "wsl";
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.nil = ./home;
+  };
+
   system.stateVersion = "25.05";
 }

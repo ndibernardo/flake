@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -9,6 +9,7 @@
     ../../modules/virtualisation
     ./hardware.nix
     ./networking.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   time.timeZone = "Europe/Rome";
@@ -79,5 +80,13 @@
   programs.nix-ld.enable = true;
   programs.steam.enable = true;
   programs.zsh.enable = true;
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    users.nil = ./home;
+  };
+
   system.stateVersion = "25.05";
 }

@@ -1,6 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
+  imports = [
+    inputs.home-manager.darwinModules.home-manager
+  ];
+
   nix = {
     enable = true;
     gc = {
@@ -62,6 +66,12 @@
   ];
 
   programs.zsh.enable = true;
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.nicola = ./home;
+  };
 
   system = {
     stateVersion = 5;
