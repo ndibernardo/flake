@@ -17,7 +17,11 @@
       commit-mono
       fira-code
       hack-font
+      inconsolata
       inter
+      jetbrains-mono
+      terminus_font
+      terminus_font_ttf
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -15,7 +15,7 @@
     ../../../modules/waybar
   ];
 
-  home = {                    
+  home = {
     username = "nil";
     homeDirectory = "/home/nil";
 
@@ -30,12 +30,13 @@
       zip
       unzip
       spotify
-      ungoogled-chromium
       vscode
     ];
 
     stateVersion = "25.05";
   };
 
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+  };
 }

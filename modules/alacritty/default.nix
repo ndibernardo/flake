@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.alacritty = {
@@ -8,7 +8,7 @@
       colors = {
         primary = {
           background = "0x000000";
-          foreground = "0xb5b3aa";
+          foreground = "0xfdfbee";
         };
 
         cursor = {
@@ -61,7 +61,7 @@
       font = {
         normal = {
           family = "Berkeley Mono";
-          style = "Book SemiCondensed";
+          style = "Retina SemiCondensed";
         };
         bold = {
           family = "Berkeley Mono";
