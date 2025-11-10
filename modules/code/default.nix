@@ -3,83 +3,73 @@
 {
   programs.vscode = {
     enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      anthropic.claude-code
-      bbenoist.nix
-      ms-azuretools.vscode-containers
-      ms-vscode-remote.remote-ssh
-      ms-vscode-remote.remote-containers
-      ms-vscode.remote-explorer
-      ms-vscode-remote.remote-wsl
-      ms-vscode.powershell
-      rust-lang.rust-analyzer
-      vscodevim.vim
-      shd101wyy.markdown-preview-enhanced
-      tamasfe.even-better-toml
-      ziglang.vscode-zig
-      zxh404.vscode-proto3
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "theme-irblack";
-        publisher = "gerane";
-        version = "latest";
-        sha256 = "sha256-jd9OHGyBhZCxF35cE1S+eX1ooewbbisqbygqlSI37DQ==";
-      }
-    ];
+    profiles.default.extensions =
+      with pkgs.vscode-extensions;
+      [
+        anthropic.claude-code
+        bbenoist.nix
+        ms-azuretools.vscode-containers
+        ms-vscode-remote.remote-ssh
+        ms-vscode-remote.remote-containers
+        ms-vscode.remote-explorer
+        ms-vscode-remote.remote-wsl
+        ms-vscode.powershell
+        rust-lang.rust-analyzer
+        vscodevim.vim
+        shd101wyy.markdown-preview-enhanced
+        tamasfe.even-better-toml
+        ziglang.vscode-zig
+        zxh404.vscode-proto3
+      ]
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "theme-irblack";
+          publisher = "gerane";
+          version = "latest";
+          sha256 = "sha256-jd9OHGyBhZCxF35cE1S+eX1ooewbbisqbygqlSI37DQ==";
+        }
+      ];
 
-    # User settings
     profiles.default.userSettings = {
-      # Editor settings
-      "editor.cursorBlinking" = "solid";
-      "editor.stickyScroll.enabled" = false;
-      "editor.minimap.enabled" = false;
-      "editor.tabSize" = 2;
-      "editor.fontSize" = 12;
-      "editor.fontFamily" = "'Berkeley Mono Retina SemiCondensed', 'Fira Code Retina', Consolas, 'Courier New', monospace";
-      "editor.renderWhitespace" = "all";
-      "editor.guides.indentation" = false;
+      "breadcrumbs.enabled" = false;
       "editor.bracketPairColorization.enabled" = false;
-      "editor.renderLineHighlight" = "none";
-      "editor.hideCursorInOverviewRuler" = true;
-      "editor.overviewRulerBorder" = false;
+      "editor.cursorBlinking" = "solid";
+      "editor.fontFamily" = "'Berkeley Mono', 'Fira Code Retina', Consolas, 'Courier New', monospace";
+      "editor.fontSize" = 13;
       "editor.formatOnSave" = true;
-
-      # Scrollbar settings
+      "editor.guides.indentation" = false;
+      "editor.hideCursorInOverviewRuler" = true;
+      "editor.minimap.enabled" = false;
+      "editor.overviewRulerBorder" = false;
+      "editor.renderLineHighlight" = "none";
+      "editor.renderWhitespace" = "all";
       "editor.scrollbar.horizontal" = "hidden";
       "editor.scrollbar.vertical" = "hidden";
-
-      # Terminal settings
-      "terminal.integrated.fontSize" = 12;
-
-      # Workbench settings
-      "workbench.activityBar.location" = "top";
-      "workbench.secondarySideBar.defaultVisibility" = "hidden";
-      "workbench.sideBar.location" = "right";
-      "workbench.tree.indent" = 12;
-      "workbench.colorTheme" = "IR_Black";
-      "workbench.tree.renderIndentGuides" = "none";
-      "workbench.layoutControl.type" = "menu";
-
-      # Privacy settings
-      "telemetry.telemetryLevel" = "off";
-
-      # UI elements
-      "breadcrumbs.enabled" = false;
-      "window.commandCenter" = false;
-
-      # Explorer settings
+      "editor.stickyScroll.enabled" = false;
+      "editor.tabSize" = 2;
+      "editor.tokenColorCustomizations" = {
+        "[IR_Black]" = {
+          "textMateRules" = [
+            {
+              "scope" = "entity.name.type.rust";
+              "settings" = {
+                "foreground" = "#FFFFB6";
+                "fontStyle" = "";
+              };
+            }
+          ];
+        };
+      };
       "explorer.decorations.colors" = false;
-
-      # File watcher exclusions
       "files.watcherExclude" = {
         "**/.bloop" = true;
         "**/.metals" = true;
       };
-
-      # Language-specific settings
-      "zig.zls.enabled" = "on";
-
-      # Color customizations
+      "telemetry.telemetryLevel" = "off";
+      "terminal.integrated.fontSize" = 12;
+      "window.commandCenter" = false;
+      "window.zoomLevel" = 1.1;
+      "workbench.activityBar.location" = "top";
       "workbench.colorCustomizations" = {
         "[IR_Black]" = {
           "editor.background" = "#000000";
@@ -124,24 +114,14 @@
           "list.hoverBackground" = "#0a0a0a";
         };
       };
-
-      # Token color customizations
-      "editor.tokenColorCustomizations" = {
-        "[IR_Black]" = {
-          "textMateRules" = [
-            {
-              "scope" = "entity.name.type.rust";
-              "settings" = {
-                "foreground" = "#FFFFB6";
-                "fontStyle" = "";
-              };
-            }
-          ];
-        };
-      };
+      "workbench.colorTheme" = "IR_Black";
+      "workbench.layoutControl.type" = "menu";
+      "workbench.secondarySideBar.defaultVisibility" = "hidden";
+      "workbench.sideBar.location" = "right";
+      "workbench.tree.indent" = 12;
+      "workbench.tree.renderIndentGuides" = "none";
+      "zig.zls.enabled" = "on";
     };
-
-    # Keybindings
     profiles.default.keybindings = [
       {
         "key" = "shift+enter";
