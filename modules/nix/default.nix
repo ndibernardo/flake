@@ -24,6 +24,7 @@
       allowUnfree = true;
       packageOverrides = pkgs: {
         berkeley-mono = pkgs.callPackage ../../packages/berkeley-mono.nix { };
+        pragmata-pro = pkgs.callPackage ../../packages/pragmata-pro.nix { };
       };
     };
   };
