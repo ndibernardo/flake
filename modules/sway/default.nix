@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Book SemiCondensed 12' --tb '#000000' --tf '#a8ff60' --fb '#000000' --ff '#fdfbee' --nb '#000000' --nf '#fdfbee' --hb '#96cbfe' --hf '#000000' --sb '#96cbfe' --sf '#000000' --scb '#6c6c66' --scf '#fdfbee' -B 5 --bdr '#000000'";
+  bemenuCommand = "bemenu-run --fn 'JetBrains Mono 12' --tb '#000000' --tf '#a8ff60' --fb '#000000' --ff '#fdfbee' --nb '#000000' --nf '#fdfbee' --hb '#96cbfe' --hf '#000000' --sb '#96cbfe' --sf '#000000' --scb '#6c6c66' --scf '#fdfbee' -B 5 --bdr '#000000'";
 in
 {
   wayland.windowManager.sway = {
@@ -15,7 +15,7 @@ in
       menu = bemenuCommand;
 
       fonts = {
-        names = [ "Berkeley Mono Retina SemiCondensed " ];
+        names = [ "JetBrains Mono" ];
         size = 11.0;
       };
 

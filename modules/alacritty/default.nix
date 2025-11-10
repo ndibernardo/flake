@@ -60,12 +60,12 @@
 
       font = {
         normal = {
-          family = "Berkeley Mono";
-          style = "Retina SemiCondensed";
+          family = "JetBrains Mono";
+          style = "Regular";
         };
         bold = {
-          family = "Berkeley Mono";
-          style = "Bold SemiCondensed";
+          family = "JetBrains Mono";
+          style = "Bold";
         };
         size = 12;
         offset = {

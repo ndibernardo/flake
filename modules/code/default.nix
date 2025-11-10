@@ -32,9 +32,10 @@
 
     profiles.default.userSettings = {
       "breadcrumbs.enabled" = false;
+      "claudeCode.useTerminal" = true;
       "editor.bracketPairColorization.enabled" = false;
       "editor.cursorBlinking" = "solid";
-      "editor.fontFamily" = "'Berkeley Mono', 'Fira Code Retina', Consolas, 'Courier New', monospace";
+      "editor.fontFamily" = "'JetBrains Mono', 'Fira Code Retina', Consolas, 'Courier New', monospace";
       "editor.fontSize" = 13;
       "editor.formatOnSave" = true;
       "editor.guides.indentation" = false;
@@ -66,7 +67,7 @@
         "**/.metals" = true;
       };
       "telemetry.telemetryLevel" = "off";
-      "terminal.integrated.fontSize" = 12;
+      "terminal.integrated.fontSize" = 13;
       "window.commandCenter" = false;
       "window.zoomLevel" = 1.1;
       "workbench.activityBar.location" = "top";
@@ -120,7 +121,6 @@
       "workbench.sideBar.location" = "right";
       "workbench.tree.indent" = 12;
       "workbench.tree.renderIndentGuides" = "none";
-      "zig.zls.enabled" = "on";
     };
     profiles.default.keybindings = [
       {

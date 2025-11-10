@@ -216,8 +216,8 @@
       * {
         border: none;
         border-radius: 0;
-        font-family: 'Berkeley Mono SemiCondensed Book';
-        font-size: 13px;
+        font-family: 'JetBrains Mono';
+        font-size: 14px;
         min-height: 26px;
       }
 
