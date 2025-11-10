@@ -6,6 +6,7 @@
     ../../modules/desktop
     ../../modules/nix
     ../../modules/ssh
+    ../../modules/steam
     ../../modules/virtualisation
     ./hardware.nix
     ./networking.nix
@@ -77,8 +78,6 @@
     zsh
   ];
 
-  programs.nix-ld.enable = true;
-  programs.steam.enable = true;
   programs.zsh.enable = true;
 
   home-manager = {
