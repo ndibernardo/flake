@@ -5,16 +5,17 @@
     ../../../modules/alacritty
     ../../../modules/emacs
     ../../../modules/direnv
+    ../../../modules/fonts
     ../../../modules/git
     ../../../modules/nvim
     ../../../modules/tmux
     ../../../modules/zsh
-    ../../../modules/fonts
+    ../../../modules/vscode
   ];
 
   home = {                    
     username = "nicola";
-    homeDirectory = "/home/nicola";
+    homeDirectory = "/Users/nicola";
 
     packages = with pkgs; [
       curl
