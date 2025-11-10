@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 {
-  imports = [ 
+  imports = [
     ../../../modules/alacritty
     ../../../modules/emacs
     ../../../modules/direnv
@@ -10,7 +10,7 @@
     ../../../modules/nvim
     ../../../modules/tmux
     ../../../modules/zsh
-    ../../../modules/vscode
+    ../../../modules/code
   ];
 
   home = {                    

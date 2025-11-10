@@ -71,6 +71,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.nicola = ./home;
+    backupFileExtension = "backup";
   };
 
   system = {

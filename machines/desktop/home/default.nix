@@ -3,6 +3,7 @@
 {
   imports = [
     ../../../modules/alacritty
+    ../../../modules/code
     ../../../modules/emacs
     ../../../modules/direnv
     ../../../modules/firefox
@@ -30,7 +31,6 @@
       zip
       unzip
       spotify
-      vscode
     ];
 
     stateVersion = "25.05";
