@@ -30,11 +30,11 @@
           "memory"
           "temperature"
           "backlight"
-          "keyboard-state"
+          # "keyboard-state"
           "sway/language"
           "clock"
           "tray"
-          "custom/power"
+          # "custom/power"
         ];
 
         "keyboard-state" = {
@@ -54,7 +54,10 @@
         "sway/scratchpad" = {
           format = "{icon} {count}";
           show-empty = false;
-          format-icons = [ "" "" ];
+          format-icons = [
+            ""
+            ""
+          ];
           tooltip = true;
           tooltip-format = "{app}: {title}";
         };
@@ -115,12 +118,26 @@
         temperature = {
           critical-threshold = 80;
           format = "{temperatureC}°C {icon}";
-          format-icons = [ "" "" "" ];
+          format-icons = [
+            ""
+            ""
+            ""
+          ];
         };
 
         backlight = {
           format = "{percent}% {icon}";
-          format-icons = [ "" "" "" "" "" "" "" "" "" ];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
 
         power-profiles-daemon = {
@@ -159,7 +176,11 @@
             phone = "";
             portable = "";
             car = "";
-            default = [ "" "" "" ];
+            default = [
+              ""
+              ""
+              ""
+            ];
           };
           on-click = "pavucontrol-qt";
         };

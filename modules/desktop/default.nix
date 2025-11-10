@@ -10,6 +10,12 @@
 
   services.dbus.enable = true;
 
+  # Enable gnome-keyring for NetworkManager password storage
+  services.gnome.gnome-keyring.enable = true;
+
+  # Auto-unlock keyring at Sway login
+  security.pam.services.sway.enableGnomeKeyring = true;
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
