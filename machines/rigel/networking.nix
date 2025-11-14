@@ -14,7 +14,7 @@
   programs.mtr.enable = true;
 
   networking = {
-    hostName = "nixos";
+    hostName = "rigel";
 
     firewall = {
       enable = true;

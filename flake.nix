@@ -34,27 +34,27 @@
       ];
       flake = {
         nixosConfigurations = {
-          nixos = inputs.nixpkgs.lib.nixosSystem {
+          rigel = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
-              ./machines/desktop
+              ./machines/rigel
             ];
           };
-          wsl = inputs.nixpkgs.lib.nixosSystem {
+          meissa = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
-              ./machines/wsl
+              ./machines/meissa
             ];
           };
         };
         darwinConfigurations = {
-          macbook = nix-darwin.lib.darwinSystem {
+          saiph = nix-darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             specialArgs = { inherit inputs; };
             modules = [
-              ./machines/macbook
+              ./machines/saiph
             ];
           };
         };

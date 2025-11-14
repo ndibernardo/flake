@@ -45,7 +45,7 @@
 
   wsl.enable = true;
   wsl.defaultUser = "nil";
-  wsl.wslConf.network.hostname = "wsl";
+  wsl.wslConf.network.hostname = "meissa";
 
   home-manager = {
     useGlobalPkgs = true;

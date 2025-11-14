@@ -74,6 +74,9 @@
     backupFileExtension = "backup";
   };
 
+  networking.hostName = "saiph";
+  networking.computerName = "saiph";
+
   system = {
     stateVersion = 5;
   };
