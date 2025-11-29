@@ -10,7 +10,6 @@
     ../../../modules/nvim
     ../../../modules/tmux
     ../../../modules/zsh
-    ../../../modules/code
   ];
 
   home = {                    

@@ -3,7 +3,6 @@
 {
   imports = [
     ../../../modules/alacritty
-    ../../../modules/code
     ../../../modules/emacs
     ../../../modules/direnv
     ../../../modules/firefox
@@ -14,6 +13,7 @@
     ../../../modules/fonts
     ../../../modules/sway
     ../../../modules/waybar
+    ../../../modules/zed
   ];
 
   home = {
@@ -30,6 +30,8 @@
       ripgrep
       zip
       unzip
+      postman
+      dbeaver-bin
       spotify
     ];
 
