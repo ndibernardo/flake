@@ -5,6 +5,8 @@
 ;;; Code:
 (require 'cl-lib)
 
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+
 ;; y-or-n prompt
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -41,6 +43,8 @@
 (setq temp-buffer-resize-mode t)
 (setq window-divider-default-right-width 1)
 
+(global-auto-revert-mode t)
+
 ;; No menubar
 (menu-bar-mode -1)
 ;; No scrollbar
@@ -69,8 +73,7 @@
 (setq-default fill-column 100)
 
 ;; Appearance
-(setq doom-gruvbox-dark-variant "hard")
-(load-theme 'doom-ir-black t)
+(load-theme 'kaolin-dark t)
 
 (custom-set-faces
  '(default
@@ -96,8 +99,13 @@
                                        "\\\\" "://"))
 (global-ligature-mode t)
 
-(setq doom-modeline-icon nil)
-(add-hook 'after-init-hook #'doom-modeline-mode)
+(setq git-gutter:update-interval 0.02)
+(add-hook 'prog-mode-hook 'git-gutter-mode)
+
+(require 'git-gutter-fringe)
+(define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+(define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+(define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom)
 
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -125,15 +133,9 @@
 (setq flycheck-emacs-lisp-load-path 'inherit)
 (add-hook 'prog-mode-hook 'flycheck-mode)
 
-;; Git
-(setq git-gutter:update-interval 0.02)
-(add-hook 'prog-mode-hook 'git-gutter-mode)
-
-(require 'git-gutter-fringe)
-(define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-(define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-(define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom)
-
+(setq flycheck-mode-line '(:eval (replace-regexp-in-string
+                                  "FlyC" "φ"
+                                  (flycheck-mode-line-status-text))))
 ;; LSP
 (setq lsp-ui-doc-enable nil)
 (setq lsp-completion-provider :none)
@@ -175,7 +177,6 @@
 (setq treemacs-filewatch-mode t)
 (setq treemacs-follow-mode t)
 (setq treemacs-hide-gitignored-files-mode t)
-(setq treemacs-position 'right)
 (setq treemacs-no-png-images t)
 (setq treemacs-text-scale -0.2)
 (setq treemacs-user-mode-line-format 'none)

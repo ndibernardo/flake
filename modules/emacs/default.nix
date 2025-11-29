@@ -18,14 +18,13 @@ let
           corfu
           direnv
           diminish
-          doom-modeline
           doom-themes
           exec-path-from-shell
           expand-region
           flycheck
+          gcmh
           git-gutter
           git-gutter-fringe
-          gcmh
           kaolin-themes
           ligature
           lsp-mode
@@ -50,6 +49,7 @@ let
         ]
         ++ [
           dockerfile-mode
+          docker-compose-mode
           markdown-mode
           nix-mode
           rust-mode
