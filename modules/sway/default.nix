@@ -24,7 +24,7 @@ in
       };
 
       window = {
-        border = 0.5;
+        border = 1;
         titlebar = false;
       };
 
@@ -215,6 +215,13 @@ in
 
       floating = {
         modifier = "Mod4";
+      };
+
+      output = {
+        "DP-4" = {
+          mode = "3840x2160@240.016Hz";
+          position = "0,0";
+        };
       };
     };
 
