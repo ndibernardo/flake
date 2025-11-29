@@ -7,6 +7,7 @@
     ../../../modules/direnv
     ../../../modules/firefox
     ../../../modules/git
+    ../../../modules/gtk
     ../../../modules/nvim
     ../../../modules/tmux
     ../../../modules/zsh

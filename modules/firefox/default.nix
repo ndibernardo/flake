@@ -96,6 +96,14 @@
           Value = true;
           Status = "locked";
         };
+        "ui.systemUsesDarkTheme" = {
+          Value = 1;
+          Status = "locked";
+        };
+        "layout.css.prefers-color-scheme.content-override" = {
+          Value = 0;
+          Status = "locked";
+        };
       };
       PromptForDownloadLocation = false;
       SearchSuggestEnabled = false;
