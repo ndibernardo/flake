@@ -428,8 +428,8 @@ require('tairiki').setup({
   highlights           = function(groups, colors, opts) end,
 })
 
--- require("tairiki").load()
-vim.cmd 'colorscheme ir_black'
+require("tairiki").load()
+-- vim.cmd 'colorscheme ir_black'
 
 -- Telescope
 require("telescope").setup({
