@@ -3,7 +3,6 @@
   requireFile,
   stdenvNoCC,
   unzip,
-  fontforge,
   nerd-font-patcher,
 }:
 
