@@ -216,8 +216,10 @@
       * {
         border: none;
         border-radius: 0;
-        font-family: 'JetBrains Mono';
-        font-size: 14px;
+        font-family: 'Berkeley Mono';
+        font-stretch: semi-condensed;
+        font-weight: 600;
+        font-size: 16px;
         min-height: 26px;
       }
 
