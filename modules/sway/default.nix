@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 let
-  bemenuCommand = "bemenu-run --fn 'JetBrains Mono 12' --tb '#000000' --tf '#a8ff60' --fb '#000000' --ff '#fdfbee' --nb '#000000' --nf '#fdfbee' --hb '#96cbfe' --hf '#000000' --sb '#96cbfe' --sf '#000000' --scb '#6c6c66' --scf '#fdfbee' -B 5 --bdr '#000000'";
+  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#000000' --tf '#a8ff60' --fb '#000000' --ff '#fdfbee' --nb '#000000' --nf '#fdfbee' --hb '#96cbfe' --hf '#000000' --sb '#96cbfe' --sf '#000000' --scb '#6c6c66' --scf '#fdfbee' -B 5 --bdr '#000000'";
+  wallpaperPath = ../../pictures/renoir-seascape-1879.jpg;
 in
 {
   wayland.windowManager.sway = {
@@ -15,7 +16,7 @@ in
       menu = bemenuCommand;
 
       fonts = {
-        names = [ "JetBrains Mono" ];
+        names = [ "Berkeley Mono Medium SemiCondensed" ];
         size = 11.0;
       };
 
@@ -84,6 +85,11 @@ in
         }
         {
           command = "gsettings set org.gnome.desktop.interface cursor-size 16";
+        }
+        {
+          command = ''
+            swaybg --image ${wallpaperPath} --mode fill
+          '';
         }
         {
           command = ''
@@ -226,6 +232,7 @@ in
     pavucontrol
     grim
     slurp
+    swaybg
     swayidle
     swaylock
     wl-clipboard
