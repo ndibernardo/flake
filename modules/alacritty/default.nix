@@ -3,39 +3,38 @@
 {
   programs.alacritty = {
     enable = true;
-
     settings = {
       colors = {
         primary = {
-          background = "0x000000";
-          foreground = "0xfdfbee";
+          background = "0x1d1f21";
+          foreground = "0xc5c8c6";
         };
 
         cursor = {
-          text = "0x000000";
-          cursor = "0xb5b3aa";
+          text = "0x1d1f21";
+          cursor = "0xffffff";
         };
 
         normal = {
-          black = "0x000000";
-          red = "0xff6c60";
-          green = "0xa8ff60";
-          yellow = "0xffffb6";
-          blue = "0x96cbfe";
-          magenta = "0xff73fd";
-          cyan = "0xc6c5fe";
-          white = "0xb5b3aa";
+          black = "0x1d1f21";
+          red = "0xcc6666";
+          green = "0xb5bd68";
+          yellow = "0xe6c547";
+          blue = "0x81a2be";
+          magenta = "0xb294bb";
+          cyan = "0x70c0ba";
+          white = "0x373b41";
         };
 
         bright = {
-          black = "0x6c6c66";
-          red = "0xe9c062";
-          green = "0x242422";
-          yellow = "0x484844";
-          blue = "0x918f88";
-          magenta = "0xd9d7cc";
-          cyan = "0xb18a3d";
-          white = "0xfdfbee";
+          black = "0x666666";
+          red = "0xff3334";
+          green = "0x9ec400";
+          yellow = "0xf0c674";
+          blue = "0x81a2be";
+          magenta = "0xb77ee0";
+          cyan = "0x54ced6";
+          white = "0x282a2e";
         };
       };
 
@@ -60,12 +59,12 @@
 
       font = {
         normal = {
-          family = "JetBrains Mono";
-          style = "Regular";
+          family = "Berkeley Mono";
+          style = "Medium SemiCondensed";
         };
         bold = {
-          family = "JetBrains Mono";
-          style = "Bold";
+          family = "Berkeley Mono";
+          style = "Bold SemiCondensed";
         };
         size = 12;
         offset = {
