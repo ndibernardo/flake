@@ -18,6 +18,15 @@ let
       sha256 = "KqO8uDbVy4sVVZ6mHikuO+SWCzWr97ZuFRC8npOPJIE=";
     };
   };
+  cyberdream-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "cyberdream-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "scottmckendry";
+      repo = "cyberdream.nvim";
+      rev = "22b993f79c7aab934c00bfc3437d41f4621974dc";
+      sha256 = "sha256-OWG/ypaIGntv6stPq/yroP5yn9jYedKWfoFeuON8yaI=";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -33,6 +42,7 @@ in
       cmp-path
       comment-nvim
       conform-nvim
+      cyberdream-nvim
       direnv-nvim
       fidget-nvim
       friendly-snippets

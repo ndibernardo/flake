@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
-  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#000000' --tf '#a8ff60' --fb '#000000' --ff '#fdfbee' --nb '#000000' --nf '#fdfbee' --hb '#96cbfe' --hf '#000000' --sb '#96cbfe' --sf '#000000' --scb '#6c6c66' --scf '#fdfbee' -B 5 --bdr '#000000'";
-  wallpaperPath = ../../pictures/renoir-seascape-1879.jpg;
+  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#000000' --tf '#5ef1ff' --fb '#000000' --ff '#ffffff' --nb '#000000' --nf '#ffffff' --hb '#5ea1ff' --hf '#000000' --sb '#5ea1ff' --sf '#000000' --scb '#3c4048' --scf '#ffffff' -B 5 --bdr '#000000'";
 in
 {
   wayland.windowManager.sway = {
@@ -25,45 +24,45 @@ in
       };
 
       window = {
-        border = 2;
+        border = 0.5;
         titlebar = false;
       };
 
       colors = {
         focused = {
-          background = "#8ba4b0";
-          border = "#8ba4b0";
-          childBorder = "#8ba4b0";
-          indicator = "#8ba4b0";
-          text = "#090E13";
+          background = "#5ea1ff";
+          border = "#5ea1ff";
+          childBorder = "#5ea1ff";
+          indicator = "#5ef1ff";
+          text = "#000000";
         };
         unfocused = {
-          background = "#090E13";
-          border = "#090E13";
-          childBorder = "#22262D";
-          indicator = "#090E13";
-          text = "#C5C9C7";
+          background = "#000000";
+          border = "#16181a";
+          childBorder = "#16181a";
+          indicator = "#16181a";
+          text = "#ffffff";
         };
         focusedInactive = {
-          background = "#090E13";
-          border = "#090E13";
-          childBorder = "#22262D";
-          indicator = "#090E13";
-          text = "#F8F8F8";
+          background = "#000000";
+          border = "#3c4048";
+          childBorder = "#3c4048";
+          indicator = "#3c4048";
+          text = "#ffffff";
         };
         urgent = {
-          background = "#f53fa1";
-          border = "#f53fa1";
-          childBorder = "#f53fa1";
-          indicator = "#f53fa1";
-          text = "#F8F8F8";
+          background = "#ff6e5e";
+          border = "#ff6e5e";
+          childBorder = "#ff6e5e";
+          indicator = "#ff6e5e";
+          text = "#000000";
         };
         placeholder = {
-          background = "#090E13";
-          border = "#090E13";
-          childBorder = "#090E13";
-          indicator = "#F8F8F8";
-          text = "#F8F8F8";
+          background = "#000000";
+          border = "#16181a";
+          childBorder = "#16181a";
+          indicator = "#ffffff";
+          text = "#ffffff";
         };
       };
 
@@ -88,7 +87,7 @@ in
         }
         {
           command = ''
-            swaybg --image ${wallpaperPath} --mode fill
+            swaybg -c 000000
           '';
         }
         {

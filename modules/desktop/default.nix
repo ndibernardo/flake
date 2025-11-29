@@ -16,6 +16,9 @@
   # Auto-unlock keyring at Sway login
   security.pam.services.sway.enableGnomeKeyring = true;
 
+  # Ly display manager
+  services.displayManager.ly.enable = true;
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;

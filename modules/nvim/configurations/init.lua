@@ -428,8 +428,16 @@ require('tairiki').setup({
   highlights           = function(groups, colors, opts) end,
 })
 
-require("tairiki").load()
--- vim.cmd 'colorscheme ir_black'
+-- Theme: Cyberdream
+require('cyberdream').setup({
+  transparent = true,
+  italic_comments = true,
+  hide_fillchars = false,
+  borderless_telescope = true,
+  terminal_colors = true,
+})
+
+vim.cmd("colorscheme cyberdream")
 
 -- Telescope
 require("telescope").setup({
