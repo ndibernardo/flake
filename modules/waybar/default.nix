@@ -224,7 +224,7 @@
       }
 
       window#waybar {
-        background-color: rgba(0, 0, 0, 0.42);
+        background-color: rgba(0, 0, 0, 0.90);
         border-bottom: none;
         color: #eeeeee;
         transition-property: background-color;
