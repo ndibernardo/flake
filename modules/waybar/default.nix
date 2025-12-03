@@ -12,8 +12,6 @@
         modules-left = [
           "sway/workspaces"
           "sway/mode"
-          "sway/scratchpad"
-          "custom/media"
         ];
 
         modules-center = [
@@ -21,20 +19,15 @@
         ];
 
         modules-right = [
-          "mpd"
-          "idle_inhibitor"
-          "pulseaudio"
           "network"
-          "power-profiles-daemon"
+          "custom/mullvad"
+          "custom/tailscale"
           "cpu"
           "memory"
-          "temperature"
           "backlight"
-          # "keyboard-state"
           "sway/language"
           "clock"
           "tray"
-          # "custom/power"
         ];
 
         "keyboard-state" = {
@@ -182,7 +175,7 @@
               ""
             ];
           };
-          on-click = "pavucontrol-qt";
+          on-click = "pavucontrol";
         };
 
         "custom/media" = {
@@ -195,6 +188,32 @@
           };
           escape = true;
           exec = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null";
+        };
+
+        "custom/mullvad" = {
+          format = "{}";
+          return-type = "json";
+          interval = 5;
+          exec = ''
+            if ${pkgs.mullvad}/bin/mullvad status | grep -q "Connected"; then
+              echo '{"text":"vpn","class":"connected","tooltip":"Mullvad: Connected"}'
+            else
+              echo '{"text":"vpn","class":"disconnected","tooltip":"Mullvad: Disconnected"}'
+            fi
+          '';
+        };
+
+        "custom/tailscale" = {
+          format = "{}";
+          return-type = "json";
+          interval = 5;
+          exec = ''
+            if ${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -e '.BackendState == "Running"' > /dev/null 2>&1; then
+              echo '{"text":"tailscale0","class":"connected","tooltip":"Tailscale: Connected"}'
+            else
+              echo '{"text":"tailscale0","class":"disconnected","tooltip":"Tailscale: Disconnected"}'
+            fi
+          '';
         };
 
         "custom/power" = {
@@ -359,6 +378,16 @@
         border: 2px solid #e2a478;
         margin: 0px 10px 0px 0px;
         border-radius: 5px;
+      }
+
+      #custom-mullvad.connected,
+      #custom-tailscale.connected {
+        color: #5ef1ff;
+      }
+
+      #custom-mullvad.disconnected,
+      #custom-tailscale.disconnected {
+        color: #555555;
       }
     '';
   };

@@ -223,6 +223,16 @@ in
           position = "0,0";
         };
       };
+
+      assigns = {
+        "1" = [{ app_id = "^firefox$"; }];
+        "4" = [
+          { class = "^Spotify$"; }
+          { app_id = "^puddletag$"; }
+          { app_id = "^org.nicotine_plus.Nicotine$"; }
+        ];
+        "5" = [{ class = "^steam$"; }];
+      };
     };
 
     extraOptions = [ "--unsupported-gpu" ];
