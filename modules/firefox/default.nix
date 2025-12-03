@@ -3,6 +3,34 @@
   programs.firefox = {
     enable = true;
     profiles.default = {
+      containers = {
+        google = {
+          id = 1;
+          name = "Google";
+          color = "blue";
+          icon = "fence";
+        };
+        youtube = {
+          id = 2;
+          name = "YouTube";
+          color = "red";
+          icon = "fence";
+        };
+        x = {
+          id = 3;
+          name = "X";
+          color = "blue";
+          icon = "fence";
+        };
+      };
+
+      containersForce = true;
+
+      settings = {
+        "privacy.userContext.enabled" = true;
+        "privacy.userContext.ui.enabled" = true;
+      };
+
       search = {
         default = "HTMLDuckDuckGo";
         engines = {
@@ -102,6 +130,70 @@
         };
         "layout.css.prefers-color-scheme.content-override" = {
           Value = 0;
+          Status = "locked";
+        };
+        "privacy.resistFingerprinting" = {
+          Value = true;
+          Status = "locked";
+        };
+        "privacy.trackingprotection.enabled" = {
+          Value = true;
+          Status = "locked";
+        };
+        "privacy.trackingprotection.socialtracking.enabled" = {
+          Value = true;
+          Status = "locked";
+        };
+        "privacy.donottrackheader.enabled" = {
+          Value = true;
+          Status = "locked";
+        };
+        "privacy.partition.network_state.ocsp_cache" = {
+          Value = true;
+          Status = "locked";
+        };
+        "media.peerconnection.ice.default_address_only" = {
+          Value = true;
+          Status = "locked";
+        };
+        "media.peerconnection.ice.no_host" = {
+          Value = true;
+          Status = "locked";
+        };
+        "geo.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "webgl.disabled" = {
+          Value = true;
+          Status = "locked";
+        };
+        "network.dns.disablePrefetch" = {
+          Value = true;
+          Status = "locked";
+        };
+        "network.prefetch-next" = {
+          Value = false;
+          Status = "locked";
+        };
+        "network.predictor.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "network.http.referer.XOriginTrimmingPolicy" = {
+          Value = 2;
+          Status = "locked";
+        };
+        "browser.newtabpage.activity-stream.showSponsored" = {
+          Value = false;
+          Status = "locked";
+        };
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = {
+          Value = false;
+          Status = "locked";
+        };
+        "browser.contentblocking.category" = {
+          Value = "strict";
           Status = "locked";
         };
       };
