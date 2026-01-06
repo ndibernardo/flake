@@ -311,11 +311,20 @@ vim.lsp.config['zls'] = {
   },
 }
 
--- Lualine
+local colors = require('lualine.themes.auto')
+for _, mode in pairs(colors) do
+  mode.b = { bg = '#000000', fg = '#ffffff' }
+  mode.c = { bg = '#000000', fg = '#ffffff' }
+end
+
+colors.normal.a.fg = '#ffffff'
+colors.normal.b.fg = '#ffffff'
+colors.normal.c.fg = '#ffffff'
+
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = 'auto',
+    theme = colors,
     component_separators = "|",
     section_separators = "",
     disabled_filetypes = {
@@ -391,53 +400,11 @@ require("nvim-tree").setup({
   },
 })
 
--- Theme: A better Tomorrow
-require('tairiki').setup({
-  palette              = 'dimmed', -- main palette, available options: dark, light, dimmed, tomorrow, light_legacy
-  default_dark         = 'tomorrow',
-  default_light        = 'light',
-  transparent          = false,
-  terminal             = false,
-  end_of_buffer        = false,
-  visual_bold          = false,
-  cmp_itemkind_reverse = false,
-  diagnostics          = {
-    darker     = false,
-    background = true,
-    undercurl  = false,
-  },
-  code_style           = {
-    comments = { italic = true },
-    conditionals = {},
-    keywords = {},
-    functions = {},
-    strings = {},
-    variables = {},
-    parameters = {},
-    types = {},
-  },
-  lualine              = {
-    transparent = true,
-  },
-  plugins              = {
-    all = true,
-    none = false,
-    auto = false,
-  },
-  colors               = function(colors, opts) end,
-  highlights           = function(groups, colors, opts) end,
-})
-
--- Theme: Cyberdream
-require('cyberdream').setup({
-  transparent = true,
-  italic_comments = true,
-  hide_fillchars = false,
-  borderless_telescope = true,
-  terminal_colors = true,
-})
-
-vim.cmd("colorscheme cyberdream")
+-- Use default theme with transparent background
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 
 -- Telescope
 require("telescope").setup({
@@ -476,15 +443,10 @@ pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "ui-select")
 
 -- Treesitter
-require("nvim-treesitter.configs").setup({
-  ensure_installed = {},
-  auto_install = false,
-  sync_install = false,
+require("nvim-treesitter").setup({
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = true,
   },
   indent = { enable = true },
-  modules = {},
-  ignore_install = {},
 })

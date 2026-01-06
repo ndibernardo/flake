@@ -8,16 +8,10 @@
     hybrid-sleep.enable = false;
   };
 
-  services.dbus.enable = true;
-
-  # Enable gnome-keyring for NetworkManager password storage
-  services.gnome.gnome-keyring.enable = true;
-
-  # Auto-unlock keyring at Sway login
-  security.pam.services.sway.enableGnomeKeyring = true;
-
-  # Ly display manager
   services.displayManager.ly.enable = true;
+  services.dbus.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sway.enableGnomeKeyring = true;
 
   xdg.portal = {
     enable = true;
@@ -37,7 +31,7 @@
 
   # Install system-level utilities
   environment.systemPackages = with pkgs; [
-    xfce.thunar
+    thunar
     xdg-utils
   ];
 }

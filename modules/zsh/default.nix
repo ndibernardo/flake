@@ -12,7 +12,7 @@
       zed = "zeditor";
     };
     initContent = ''
-      PROMPT='%F{green}%n@%m%f %F{blue}%~%f %(!.#.$) '
+      PROMPT='%F{cyan}%n@%m%f %F{white}%~%f %(!.#.$) '
     '';
   };
 }

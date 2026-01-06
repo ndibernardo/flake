@@ -6,7 +6,7 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        height = 20;
         spacing = 4;
 
         modules-left = [
@@ -19,6 +19,7 @@
         ];
 
         modules-right = [
+          "pulseaudio"
           "network"
           "custom/mullvad"
           "custom/tailscale"
@@ -239,13 +240,12 @@
         font-stretch: semi-condensed;
         font-weight: 600;
         font-size: 16px;
-        min-height: 26px;
       }
 
       window#waybar {
-        background-color: rgba(0, 0, 0, 0.90);
+        background-color: #000000;
         border-bottom: none;
-        color: #eeeeee;
+        color: #c5c8c6;
         transition-property: background-color;
         transition-duration: .5s;
       }
@@ -263,7 +263,7 @@
       }
 
       #bluetooth {
-        min-width: 32px;
+        min-width: 30px;
       }
 
       #cpu.warning {
@@ -274,24 +274,17 @@
         background-color: rgba(0, 0, 0, 0);
       }
 
-      #custom-audio-internal,
-      #custom-audio-motu,
-      #custom-audio-hdmi {
-        min-width: 32px;
-      }
-
       #workspaces {
         margin: 0px 0px 0px 0px;
       }
 
       #workspaces button {
-        padding: 4px 6px;
-        color: #555555;
+        padding: 2px 6px;
+        color: #969896;
         border-radius: 0px;
-        border: 0px solid #333;
+        border: 0px solid #282a2e;
         box-shadow: none;
-        min-width: 32px;
-        background-color: rgba(0, 0, 0, 0);
+        background-color: rgba(29, 31, 33, 0);
       }
 
       #workspaces button.active {
@@ -333,36 +326,37 @@
         box-shadow: inherit;
         text-shadow: inherit;
         background: transparent;
-        color: #ffffff;
-        border: 0px solid #333;
+        color: #c5c8c6;
+        border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.focused {
-        color: #eeeeee;
-        border: 0px solid #333;
+        color: #1d1f21;
+        background-color: #54beaf;
+        border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.focused:hover {
-        color: #ffffff;
-        border: 0px solid #333;
+        color: #1d1f21;
+        border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.urgent {
-        color: #ffffff;
-        background-color: #e27878;
-        border: 0px solid #333;
+        color: #1d1f21;
+        background-color: #cc6666;
+        border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #language {
-        color: #cccccc;
+        color: #c5c8c6;
       }
 
       #tray {
-        background-color: rgba(0, 0, 0, 0);
+        background-color: rgba(29, 31, 33, 0);
       }
 
       #tray image {
@@ -374,20 +368,20 @@
       }
 
       #mode {
-        background-color: rgba(0, 0, 0, 0);
-        border: 2px solid #e2a478;
+        background-color: rgba(29, 31, 33, 0);
+        border: 2px solid #f0c674;
         margin: 0px 10px 0px 0px;
         border-radius: 5px;
       }
 
       #custom-mullvad.connected,
       #custom-tailscale.connected {
-        color: #5ef1ff;
+        color: #8abeb7;
       }
 
       #custom-mullvad.disconnected,
       #custom-tailscale.disconnected {
-        color: #555555;
+        color: #969896;
       }
     '';
   };

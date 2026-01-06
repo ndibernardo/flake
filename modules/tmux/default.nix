@@ -43,21 +43,20 @@
       # Bind prefix twice to send prefix
       bind C-Space send-prefix
 
-      # Color scheme - transparent background with blue highlights
-      set -g status-style "bg=default,fg=#b5b3aa"
-      set -g window-status-style "bg=default,fg=#6c6c66"
+      set -g status-style "bg=#000000,fg=#dddddd"
+      set -g window-status-style "bg=default,fg=#dddddd"
       set -g window-status-format " #I: #W "
-      set -g window-status-current-style "bg=#96cbfe,fg=#000000,bold"
+      set -g window-status-current-style "bg=#54beaf,fg=#000000,bold"
       set -g window-status-current-format " #I: #W "
-      set -g pane-border-style "fg=#6c6c66"
-      set -g pane-active-border-style "fg=#96cbfe"
-      set -g message-style "bg=#96cbfe,fg=#000000"
+      set -g pane-border-style "fg=#747c84"
+      set -g pane-active-border-style "fg=#54beaf"
+      set -g message-style "bg=#54beaf,fg=#000000"
 
       # Status bar configuration
       set -g status-interval 2
       set -g status-right-length 59
       set -g status-left ""
-      set -g status-right '#[bg=#96cbfe,fg=#000000] %Y-%m-%d  %H:%M '
+      set -g status-right '#[bg=#54beaf,fg=#000000] %Y-%m-%d  %H:%M '
       set-option -g status-position top
 
       # Add spacing between window tabs

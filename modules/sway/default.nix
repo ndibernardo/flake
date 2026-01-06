@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#000000' --tf '#5ef1ff' --fb '#000000' --ff '#ffffff' --nb '#000000' --nf '#ffffff' --hb '#5ea1ff' --hf '#000000' --sb '#5ea1ff' --sf '#000000' --scb '#3c4048' --scf '#ffffff' -B 5 --bdr '#000000'";
+  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#000000' --tf '#54beaf' --fb '#000000' --ff '#c5c8c6' --nb '#000000' --nf '#c5c8c6' --hb '#54beaf' --hf '#1d1f21' --sb '#54beaf' --sf '#1d1f21' --scb '#969896' --scf '#c5c8c6' -B 5 --bdr '#000000'";
 in
 {
   wayland.windowManager.sway = {
@@ -11,7 +11,7 @@ in
     };
     config = {
       modifier = "Mod4";
-      terminal = "alacritty";
+      terminal = "foot";
       menu = bemenuCommand;
 
       fonts = {
@@ -30,39 +30,39 @@ in
 
       colors = {
         focused = {
-          background = "#5ea1ff";
-          border = "#5ea1ff";
-          childBorder = "#5ea1ff";
-          indicator = "#5ef1ff";
-          text = "#000000";
+          background = "#54beaf";
+          border = "#54beaf";
+          childBorder = "#54beaf";
+          indicator = "#8abeb7";
+          text = "#1d1f21";
         };
         unfocused = {
-          background = "#000000";
-          border = "#16181a";
-          childBorder = "#16181a";
-          indicator = "#16181a";
-          text = "#ffffff";
+          background = "#1d1f21";
+          border = "#282a2e";
+          childBorder = "#282a2e";
+          indicator = "#282a2e";
+          text = "#c5c8c6";
         };
         focusedInactive = {
-          background = "#000000";
-          border = "#3c4048";
-          childBorder = "#3c4048";
-          indicator = "#3c4048";
-          text = "#ffffff";
+          background = "#1d1f21";
+          border = "#969896";
+          childBorder = "#969896";
+          indicator = "#969896";
+          text = "#c5c8c6";
         };
         urgent = {
-          background = "#ff6e5e";
-          border = "#ff6e5e";
-          childBorder = "#ff6e5e";
-          indicator = "#ff6e5e";
-          text = "#000000";
+          background = "#cc6666";
+          border = "#cc6666";
+          childBorder = "#cc6666";
+          indicator = "#cc6666";
+          text = "#1d1f21";
         };
         placeholder = {
-          background = "#000000";
-          border = "#16181a";
-          childBorder = "#16181a";
-          indicator = "#ffffff";
-          text = "#ffffff";
+          background = "#1d1f21";
+          border = "#282a2e";
+          childBorder = "#282a2e";
+          indicator = "#c5c8c6";
+          text = "#c5c8c6";
         };
       };
 
@@ -87,11 +87,6 @@ in
         }
         {
           command = ''
-            swaybg -c 000000
-          '';
-        }
-        {
-          command = ''
             swayidle -w \
               timeout 1800 'swaylock -f -c 000000' \
               timeout 2400 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
@@ -106,7 +101,7 @@ in
         in
         lib.mkOptionDefault {
           # Terminal
-          "${modifier}+Return" = "exec alacritty";
+          "${modifier}+Return" = "exec foot";
 
           # Kill window
           "${modifier}+Shift+q" = "kill";
@@ -225,13 +220,13 @@ in
       };
 
       assigns = {
-        "1" = [{ app_id = "^firefox$"; }];
-        "4" = [
-          { class = "^Spotify$"; }
+        "5" = [ { class = "^steam$"; } ];
+        "8" = [
           { app_id = "^puddletag$"; }
+        ];
+        "9" = [
           { app_id = "^org.nicotine_plus.Nicotine$"; }
         ];
-        "5" = [{ class = "^steam$"; }];
       };
     };
 
