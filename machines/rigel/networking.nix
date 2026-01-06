@@ -1,5 +1,4 @@
 { lib, ... }:
-
 {
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
@@ -18,8 +17,11 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 2234 ];
       trustedInterfaces = [ "tailscale0" ];
+      allowedTCPPorts = [
+        2234
+        5001
+      ];
     };
 
     networkmanager = {
@@ -29,17 +31,23 @@
     nftables = {
       enable = true;
     };
-    
+
     useDHCP = lib.mkDefault true;
   };
-  
-  services.fail2ban = {
-    enable = true;
-    maxretry = 10;
-    bantime-increment.enable = true;
+
+  services = {
+    fail2ban = {
+      enable = true;
+      maxretry = 10;
+      bantime-increment.enable = true;
+    };
+
+    mullvad-vpn = {
+      enable = true;
+    };
+
+    tailscale = {
+      enable = true;
+    };
   };
-
-  services.tailscale.enable = true;
-
-  services.mullvad-vpn.enable = true;
 }
