@@ -16,6 +16,7 @@
         "flakes"
         "pipe-operators"
       ];
+      warn-dirty = false;
     };
   };
 
