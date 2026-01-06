@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
   boot = {
@@ -21,8 +26,8 @@
       ];
       kernelModules = [ ];
       luks.devices = {
-        "luks-41a2b634-9f1b-46c0-a307-b45cf7acaf30" = {
-          device = "/dev/disk/by-uuid/41a2b634-9f1b-46c0-a307-b45cf7acaf30";
+        "luks-2a87686a-00bc-4ca7-82a7-a08f31de13e9" = {
+          device = "/dev/disk/by-uuid/2a87686a-00bc-4ca7-82a7-a08f31de13e9";
         };
       };
     };
@@ -44,7 +49,6 @@
     extraModulePackages = [ ];
     supportedFilesystems = [
       "ntfs"
-      "xfs"
     ];
   };
 
@@ -68,9 +72,33 @@
     };
   };
 
+  # Use a newer version of OpenRGB
+  services.hardware = {
+    openrgb = {
+      enable = true;
+      package = pkgs.openrgb.overrideAttrs (oa: {
+        version = "1.0rc2";
+        src = pkgs.fetchFromGitLab {
+          inherit (oa.src) owner repo;
+          rev = "release_candidate_1.0rc2";
+          sha256 = "sha256-vdIA9i1ewcrfX5U7FkcRR+ISdH5uRi9fz9YU5IkPKJQ=";
+        };
+        patches = [ ];
+        postPatch = ''
+            substituteInPlace scripts/build-udev-rules.sh \
+            --replace-fail "/usr/bin/env" "${pkgs.lib.getExe' pkgs.coreutils "env"}" \
+            --replace-fail chmod "${pkgs.lib.getExe' pkgs.coreutils "chmod"}"
+
+            substituteInPlace OpenRGB.pro \
+            --replace-fail "/etc/systemd/system" "$out/etc/systemd/system"
+       '';
+      });
+    };
+  };
+
   fileSystems = {
     "/boot" = {
-      device = "/dev/disk/by-uuid/89F2-8922";
+      device = "/dev/disk/by-uuid/D152-C017";
       fsType = "vfat";
       options = [
         "fmask=0077"
@@ -79,8 +107,8 @@
     };
 
     "/" = {
-      device = "/dev/disk/by-uuid/b192171b-8fb1-4b75-ad8d-032edcaca0d3";
-      fsType = "xfs";
+      device = "/dev/mapper/luks-2a87686a-00bc-4ca7-82a7-a08f31de13e9";
+      fsType = "ext4";
     };
 
     "/run/media/nil/64603C01603BD88E" = {
@@ -102,11 +130,9 @@
     };
   };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/d57bb2a6-87b9-424e-a363-362b6283042a";
-    }
-  ];
+  swapDevices = [{
+      device = "/dev/disk/by-uuid/8473236f-47c8-4903-a4ad-53f0cccb17fc";
+  }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
