@@ -26,7 +26,6 @@
           jdk = pkgs."jdk${toString javaVersion}";
 
           clojure = pkgs.clojure.override { jdk = jdk; };
-          clojure-lsp = pkgs.clojure-lsp.override { jdk = jdk; };
           leiningen = pkgs.leiningen.override { jdk = jdk; };
         in
         {
