@@ -27,7 +27,7 @@
         alpha = 1.0;
 
         # Primary colors
-        background = "000000";
+        background = "18181B";
         foreground = "dddddd";
 
         # Normal colors
