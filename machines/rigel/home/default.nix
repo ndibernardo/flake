@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../../modules/code
     ../../../modules/emacs
     ../../../modules/direnv
     ../../../modules/firefox
