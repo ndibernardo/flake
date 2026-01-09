@@ -72,7 +72,7 @@
 
 (setq-default fill-column 100)
 
-(load-theme 'kaolin-dark t)
+(load-theme 'doom-dark t)
 
 (custom-set-faces
  '(default
