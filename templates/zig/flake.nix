@@ -27,7 +27,7 @@
               zig
               zls
               nixd
-              nixfmt-rfc-style
+              nixfmt
             ];
 
             shellHook = ''

@@ -27,7 +27,7 @@
               elixir
               elixir-ls
               nixd
-              nixfmt-rfc-style
+              nixfmt
             ];
 
             shellHook = ''

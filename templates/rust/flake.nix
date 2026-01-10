@@ -43,7 +43,7 @@
             packages = [
               rustToolchain
               pkgs.nixd
-              pkgs.nixfmt-rfc-style
+              pkgs.nixfmt
             ];
 
             shellHook = ''

@@ -68,7 +68,7 @@
               gnumake
               lua-language-server
               nixd
-              nixfmt-rfc-style
+              nixfmt
             ];
           };
         };
