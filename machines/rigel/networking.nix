@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
@@ -44,6 +44,7 @@
 
     mullvad-vpn = {
       enable = true;
+      package = pkgs.mullvad-vpn;
     };
 
     tailscale = {

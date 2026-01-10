@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../../../modules/code
     ../../../modules/emacs
     ../../../modules/direnv
     ../../../modules/firefox
@@ -39,7 +38,13 @@
       lutris
       zathura
       mupdf
+      telegram-desktop
     ];
+
+    sessionVariables = {
+      BROWSER = "firefox";
+      TERMINAL = "foot";
+    };
 
     stateVersion = "25.05";
   };
@@ -48,25 +53,16 @@
     enable = true;
   };
 
-  # Set default applications
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # Browser
       "text/html" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
 
-      # File manager
       "inode/directory" = "thunar.desktop";
     };
-  };
-
-  # Set environment variables for default applications
-  home.sessionVariables = {
-    BROWSER = "firefox";
-    TERMINAL = "foot";
   };
 }
