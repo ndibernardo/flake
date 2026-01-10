@@ -26,31 +26,29 @@
       colors = {
         alpha = 1.0;
 
-        # Primary colors
-        background = "000000";
-        foreground = "dddddd";
+        # Gruvbox Dark Hard
+        background = "1d2021";
+        foreground = "ebdbb2";
 
         # Normal colors
-        regular0 = "000000"; # black
-        regular1 = "cf9292"; # red
-        regular2 = "73cc98"; # green
-        regular3 = "c7ae95"; # yellow
-        regular4 = "95aec7"; # blue
-        regular5 = "ae95c7"; # magenta
-        regular6 = "7bd3c5"; # cyan
-        regular7 = "dddddd"; # white
+        regular0 = "282828"; # black
+        regular1 = "cc241d"; # red
+        regular2 = "98971a"; # green
+        regular3 = "d79921"; # yellow
+        regular4 = "458588"; # blue
+        regular5 = "b16286"; # magenta
+        regular6 = "689d6a"; # cyan
+        regular7 = "a89984"; # white
 
         # Bright colors
-        bright0 = "747c84"; # bright black
-        bright1 = "cf9292"; # bright red
-        bright2 = "73cc98"; # bright green
-        bright3 = "c7ae95"; # bright yellow
-        bright4 = "95aec7"; # bright blue
-        bright5 = "ae95c7"; # bright magenta
-        bright6 = "7bd3c5"; # bright cyan
-        bright7 = "ffffff"; # bright white
-
-        cursor = "000000 dddddd";
+        bright0 = "928374"; # bright black
+        bright1 = "fb4934"; # bright red
+        bright2 = "b8bb26"; # bright green
+        bright3 = "fabd2f"; # bright yellow
+        bright4 = "83a598"; # bright blue
+        bright5 = "d3869b"; # bright magenta
+        bright6 = "8ec07c"; # bright cyan
+        bright7 = "ebdbb2"; # bright white
       };
 
       bell = {
