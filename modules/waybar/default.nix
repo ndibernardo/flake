@@ -196,11 +196,13 @@
           return-type = "json";
           interval = 5;
           exec = ''
-            if ${pkgs.mullvad}/bin/mullvad status | grep -q "Connected"; then
-              echo '{"text":"vpn","class":"connected","tooltip":"Mullvad: Connected"}'
-            else
-              echo '{"text":"vpn","class":"disconnected","tooltip":"Mullvad: Disconnected"}'
-            fi
+            status=$(${pkgs.mullvad-vpn}/bin/mullvad status)
+             if echo "$status" | grep -q "Connected"; then
+               ip=$(echo "$status" | grep -oP 'IPv4: \K[0-9.]+' || echo "N/A")
+               echo "{\"text\":\"vpn $ip\",\"class\":\"connected\",\"tooltip\":\"Mullvad: Connected\\nIP: $ip\"}"
+             else
+               echo '{"text":"vpn","class":"disconnected","tooltip":"Mullvad: Disconnected"}'
+             fi
           '';
         };
 
@@ -210,7 +212,8 @@
           interval = 5;
           exec = ''
             if ${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -e '.BackendState == "Running"' > /dev/null 2>&1; then
-              echo '{"text":"tailscale0","class":"connected","tooltip":"Tailscale: Connected"}'
+              ip=$(${pkgs.tailscale}/bin/tailscale ip -4 2>/dev/null || echo "N/A")
+              echo "{\"text\":\"tailscale0 $ip\",\"class\":\"connected\",\"tooltip\":\"Tailscale: Connected\\nIP: $ip\"}"
             else
               echo '{"text":"tailscale0","class":"disconnected","tooltip":"Tailscale: Disconnected"}'
             fi
