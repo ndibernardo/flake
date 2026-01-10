@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#000000' --tf '#54beaf' --fb '#000000' --ff '#c5c8c6' --nb '#000000' --nf '#c5c8c6' --hb '#54beaf' --hf '#1d1f21' --sb '#54beaf' --sf '#1d1f21' --scb '#969896' --scf '#c5c8c6' -B 5 --bdr '#000000'";
+  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#1d2021' --tf '#83a598' --fb '#1d2021' --ff '#ebdbb2' --nb '#1d2021' --nf '#ebdbb2' --ab '#1d2021' --af '#ebdbb2' --hb '#83a598' --hf '#1d2021' --sb '#83a598' --sf '#1d2021' --scb '#928374' --scf '#ebdbb2' -B 5 --bdr '#1d2021'";
 in
 {
   wayland.windowManager.sway = {
@@ -30,39 +30,39 @@ in
 
       colors = {
         focused = {
-          background = "#54beaf";
-          border = "#54beaf";
-          childBorder = "#54beaf";
-          indicator = "#8abeb7";
-          text = "#1d1f21";
+          background = "#83a598";
+          border = "#83a598";
+          childBorder = "#83a598";
+          indicator = "#458588";
+          text = "#1d2021";
         };
         unfocused = {
-          background = "#1d1f21";
-          border = "#282a2e";
-          childBorder = "#282a2e";
-          indicator = "#282a2e";
-          text = "#c5c8c6";
+          background = "#1d2021";
+          border = "#3c3836";
+          childBorder = "#3c3836";
+          indicator = "#3c3836";
+          text = "#ebdbb2";
         };
         focusedInactive = {
-          background = "#1d1f21";
-          border = "#969896";
-          childBorder = "#969896";
-          indicator = "#969896";
-          text = "#c5c8c6";
+          background = "#1d2021";
+          border = "#928374";
+          childBorder = "#928374";
+          indicator = "#928374";
+          text = "#ebdbb2";
         };
         urgent = {
-          background = "#cc6666";
-          border = "#cc6666";
-          childBorder = "#cc6666";
-          indicator = "#cc6666";
-          text = "#1d1f21";
+          background = "#fb4934";
+          border = "#fb4934";
+          childBorder = "#fb4934";
+          indicator = "#fb4934";
+          text = "#1d2021";
         };
         placeholder = {
-          background = "#1d1f21";
-          border = "#282a2e";
-          childBorder = "#282a2e";
-          indicator = "#c5c8c6";
-          text = "#c5c8c6";
+          background = "#1d2021";
+          border = "#3c3836";
+          childBorder = "#3c3836";
+          indicator = "#ebdbb2";
+          text = "#ebdbb2";
         };
       };
 
@@ -92,6 +92,9 @@ in
               timeout 2400 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
               before-sleep 'swaylock -f -c 000000'
           '';
+        }
+        {
+          command = "swaybg -c '#131819'";
         }
       ];
 

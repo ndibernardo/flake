@@ -75,7 +75,6 @@ in
   home.file = {
     ".config/emacs/early-init.el".source = ./configurations/early-init.el;
     ".config/emacs/init.el".source = ./configurations/init.el;
-    ".config/emacs/themes/doom-dark-theme.el".source = ./configurations/themes/doom-dark-theme.el;
   };
 
   programs = {
