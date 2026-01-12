@@ -28,6 +28,7 @@ in
       fidget-nvim
       friendly-snippets
       gitsigns-nvim
+      kanso-nvim
       lualine-nvim
       luasnip
       nvim-cmp

@@ -6,35 +6,35 @@
     settings = {
       colors = {
         primary = {
-          background = "0x000000";
-          foreground = "0xdddddd";
+          background = "0x090E13";
+          foreground = "0xC5C9C7";
         };
 
         cursor = {
-          text = "0x000000";
-          cursor = "0xdddddd";
+          text = "0x090E13";
+          cursor = "0xC5C9C7";
         };
 
         normal = {
-          black = "0x000000";
-          red = "0xcf9292";
-          green = "0x73cc98";
-          yellow = "0xc7ae95";
-          blue = "0x95aec7";
-          magenta = "0xae95c7";
-          cyan = "0x7bd3c5";
-          white = "0xdddddd";
+          black = "0x090E13";
+          red = "0xCA675F";
+          green = "0x7F9F6E";
+          yellow = "0xCAAC7A";
+          blue = "0x7EAABA";
+          magenta = "0xA08AA2";
+          cyan = "0xC5C9C7";
+          white = "0xA4A7A4";
         };
 
         bright = {
-          black = "0x747c84";
-          red = "0xcf9292";
-          green = "0x73cc98";
-          yellow = "0xc7ae95";
-          blue = "0x95aec7";
-          magenta = "0xae95c7";
-          cyan = "0x7bd3c5";
-          white = "0xffffff";
+          black = "0x909398";
+          red = "0xED5965";
+          green = "0x7CAF7C";
+          yellow = "0xEDC272";
+          blue = "0x6EBBD4";
+          magenta = "0x8A88B0";
+          cyan = "0x6BAE97";
+          white = "0xC5C9C7";
         };
       };
 
