@@ -76,23 +76,7 @@
   services.hardware = {
     openrgb = {
       enable = true;
-      package = pkgs.openrgb.overrideAttrs (oa: {
-        version = "1.0rc2";
-        src = pkgs.fetchFromGitLab {
-          inherit (oa.src) owner repo;
-          rev = "release_candidate_1.0rc2";
-          sha256 = "sha256-vdIA9i1ewcrfX5U7FkcRR+ISdH5uRi9fz9YU5IkPKJQ=";
-        };
-        patches = [ ];
-        postPatch = ''
-            substituteInPlace scripts/build-udev-rules.sh \
-            --replace-fail "/usr/bin/env" "${pkgs.lib.getExe' pkgs.coreutils "env"}" \
-            --replace-fail chmod "${pkgs.lib.getExe' pkgs.coreutils "chmod"}"
-
-            substituteInPlace OpenRGB.pro \
-            --replace-fail "/etc/systemd/system" "$out/etc/systemd/system"
-       '';
-      });
+      package = pkgs.openrgb;
     };
   };
 
@@ -130,9 +114,11 @@
     };
   };
 
-  swapDevices = [{
+  swapDevices = [
+    {
       device = "/dev/disk/by-uuid/8473236f-47c8-4903-a4ad-53f0cccb17fc";
-  }];
+    }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
