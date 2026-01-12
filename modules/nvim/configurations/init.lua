@@ -275,10 +275,14 @@ vim.lsp.config['lua_ls'] = {
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
         ignoreDir = {
+          '.git',
+          '.direnv',
           'result',
-          '.direnv'
         },
+        ignoreSubmodules = true,
         checkThirdParty = false,
+        maxPreload = 2000,
+        preloadFileSize = 1000,
       },
       telemetry = {
         enable = false,
@@ -314,7 +318,7 @@ vim.lsp.config['zls'] = {
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = colors,
+    theme = 'auto',
     component_separators = "|",
     section_separators = "",
     disabled_filetypes = {

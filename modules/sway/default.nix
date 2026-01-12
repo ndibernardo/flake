@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#000000' --tf '#54beaf' --fb '#000000' --ff '#c5c8c6' --nb '#000000' --nf '#c5c8c6' --hb '#54beaf' --hf '#1d1f21' --sb '#54beaf' --sf '#1d1f21' --scb '#969896' --scf '#c5c8c6' -B 5 --bdr '#000000'";
+  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#090E13' --tf '#C5C9C7' --fb '#090E13' --ff '#C5C9C7' --nb '#090E13' --nf '#C5C9C7' --hb '#C5C9C7' --hf '#090E13' --sb '#C5C9C7' --sf '#090E13' --scb '#909398' --scf '#C5C9C7' -B 5 --bdr '#090E13'";
 in
 {
   wayland.windowManager.sway = {
@@ -30,39 +30,39 @@ in
 
       colors = {
         focused = {
-          background = "#54beaf";
-          border = "#54beaf";
-          childBorder = "#54beaf";
-          indicator = "#8abeb7";
-          text = "#1d1f21";
+          background = "#C5C9C7";
+          border = "#C5C9C7";
+          childBorder = "#C5C9C7";
+          indicator = "#6BAE97";
+          text = "#090E13";
         };
         unfocused = {
-          background = "#1d1f21";
+          background = "#090E13";
           border = "#282a2e";
           childBorder = "#282a2e";
           indicator = "#282a2e";
-          text = "#c5c8c6";
+          text = "#C5C9C7";
         };
         focusedInactive = {
-          background = "#1d1f21";
-          border = "#969896";
-          childBorder = "#969896";
-          indicator = "#969896";
-          text = "#c5c8c6";
+          background = "#090E13";
+          border = "#909398";
+          childBorder = "#909398";
+          indicator = "#909398";
+          text = "#C5C9C7";
         };
         urgent = {
-          background = "#cc6666";
-          border = "#cc6666";
-          childBorder = "#cc6666";
-          indicator = "#cc6666";
-          text = "#1d1f21";
+          background = "#ED5965";
+          border = "#ED5965";
+          childBorder = "#ED5965";
+          indicator = "#ED5965";
+          text = "#090E13";
         };
         placeholder = {
-          background = "#1d1f21";
+          background = "#090E13";
           border = "#282a2e";
           childBorder = "#282a2e";
-          indicator = "#c5c8c6";
-          text = "#c5c8c6";
+          indicator = "#C5C9C7";
+          text = "#C5C9C7";
         };
       };
 
@@ -213,6 +213,9 @@ in
       };
 
       output = {
+        "*" = {
+          bg = "#0e151d solid_color";
+        };
         "DP-4" = {
           mode = "3840x2160@240.016Hz";
           position = "0,0";
