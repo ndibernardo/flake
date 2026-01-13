@@ -13,6 +13,7 @@
     };
     initContent = ''
       PROMPT='%F{cyan}%n@%m%f %F{white}%~%f %(!.#.$) '
+      bindkey '^R' history-incremental-search-backward
     '';
   };
 }
