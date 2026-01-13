@@ -28,3 +28,7 @@ endif
 .PHONY: update
 update:
 	nix --extra-experimental-features nix-command --extra-experimental-features flakes flake update
+
+.PHONY: diff
+diff:
+	nix store diff-closures /run/booted-system /run/current-system
