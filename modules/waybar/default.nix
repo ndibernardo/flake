@@ -246,9 +246,9 @@
       }
 
       window#waybar {
-        background-color: #090E13;
+        background-color: #000000;
         border-bottom: none;
-        color: #C5C9C7;
+        color: #c5c8c6;
         transition-property: background-color;
         transition-duration: .5s;
       }
@@ -283,11 +283,11 @@
 
       #workspaces button {
         padding: 2px 6px;
-        color: #909398;
+        color: #969896;
         border-radius: 0px;
         border: 0px solid #282a2e;
         box-shadow: none;
-        background-color: rgba(9, 14, 19, 0);
+        background-color: rgba(29, 31, 33, 0);
       }
 
       #workspaces button.active {
@@ -329,37 +329,37 @@
         box-shadow: inherit;
         text-shadow: inherit;
         background: transparent;
-        color: #C5C9C7;
+        color: #c5c8c6;
         border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.focused {
-        color: #090E13;
-        background-color: #C5C9C7;
+        color: #1d1f21;
+        background-color: #54beaf;
         border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.focused:hover {
-        color: #090E13;
+        color: #1d1f21;
         border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.urgent {
-        color: #090E13;
-        background-color: #ED5965;
+        color: #1d1f21;
+        background-color: #cc6666;
         border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #language {
-        color: #C5C9C7;
+        color: #c5c8c6;
       }
 
       #tray {
-        background-color: rgba(9, 14, 19, 0);
+        background-color: rgba(29, 31, 33, 0);
       }
 
       #tray image {
@@ -371,20 +371,20 @@
       }
 
       #mode {
-        background-color: rgba(9, 14, 19, 0);
-        border: 2px solid #EDC272;
+        background-color: rgba(29, 31, 33, 0);
+        border: 2px solid #f0c674;
         margin: 0px 10px 0px 0px;
         border-radius: 5px;
       }
 
       #custom-mullvad.connected,
       #custom-tailscale.connected {
-        color: #6BAE97;
+        color: #8abeb7;
       }
 
       #custom-mullvad.disconnected,
       #custom-tailscale.disconnected {
-        color: #909398;
+        color: #969896;
       }
     '';
   };
