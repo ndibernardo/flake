@@ -39,6 +39,7 @@
       zathura
       mupdf
       telegram-desktop
+      calibre
     ];
 
     sessionVariables = {
