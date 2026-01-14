@@ -94,7 +94,7 @@ in
           '';
         }
         {
-          command = "swaybg -c '#131819'";
+          command = "swaybg -c '#1d2021'";
         }
       ];
 

@@ -12,6 +12,7 @@
     ../../../modules/nvim
     ../../../modules/qt
     ../../../modules/tmux
+    ../../../modules/zed
     ../../../modules/zsh
     ../../../modules/fonts
     ../../../modules/sway

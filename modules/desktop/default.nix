@@ -9,6 +9,8 @@
   };
 
   services.displayManager.ly.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.desktopManager.gnome.enable = true;
   services.dbus.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sway.enableGnomeKeyring = true;
