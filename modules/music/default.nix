@@ -25,10 +25,10 @@
   home.packages = with pkgs; [
     spek
     mpc
-    spotify
     nicotine-plus
     puddletag
     picard
+    renoise
     rmpc
   ];
 
