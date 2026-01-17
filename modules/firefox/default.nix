@@ -1,14 +1,13 @@
 { ... }:
+let
+  lock = value: {
+    Value = value;
+    Status = "locked";
+  };
+in
 {
   programs.firefox = {
     enable = true;
-    profiles.default = {
-      settings = {
-        "privacy.userContext.enabled" = true;
-        "privacy.userContext.ui.enabled" = true;
-      };
-    };
-
     policies = {
       AutofillAddressEnabled = false;
       AutofillCreditCardEnabled = false;
@@ -35,108 +34,41 @@
       NewTabPage = false;
       OfferToSaveLogins = false;
       Preferences = {
-        "browser.aboutConfig.showWarning" = {
-          Value = false;
-          Status = "locked";
-        };
-        "browser.newtabpage.activity-stream.feeds.topsites" = {
-          Value = false;
-          Status = "locked";
-        };
-        "browser.toolbars.bookmarks.visibility" = {
-          Value = "always";
-          Status = "locked";
-        };
-        "findbar.highlightAll" = {
-          Value = true;
-          Status = "locked";
-        };
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = {
-          Value = true;
-          Status = "locked";
-        };
-        "trailhead.firstrun.didSeeAboutWelcome" = {
-          Value = true;
-          Status = "locked";
-        };
-        "ui.systemUsesDarkTheme" = {
-          Value = 1;
-          Status = "locked";
-        };
-        "layout.css.prefers-color-scheme.content-override" = {
-          Value = 0;
-          Status = "locked";
-        };
-        "privacy.resistFingerprinting" = {
-          Value = true;
-          Status = "locked";
-        };
-        "privacy.trackingprotection.enabled" = {
-          Value = true;
-          Status = "locked";
-        };
-        "privacy.trackingprotection.socialtracking.enabled" = {
-          Value = true;
-          Status = "locked";
-        };
-        "privacy.donottrackheader.enabled" = {
-          Value = true;
-          Status = "locked";
-        };
-        "privacy.partition.network_state.ocsp_cache" = {
-          Value = true;
-          Status = "locked";
-        };
-        "media.peerconnection.ice.default_address_only" = {
-          Value = true;
-          Status = "locked";
-        };
-        "media.peerconnection.ice.no_host" = {
-          Value = true;
-          Status = "locked";
-        };
-        "geo.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "webgl.disabled" = {
-          Value = true;
-          Status = "locked";
-        };
-        "network.dns.disablePrefetch" = {
-          Value = true;
-          Status = "locked";
-        };
-        "network.prefetch-next" = {
-          Value = false;
-          Status = "locked";
-        };
-        "network.predictor.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "network.http.referer.XOriginTrimmingPolicy" = {
-          Value = 2;
-          Status = "locked";
-        };
-        "browser.newtabpage.activity-stream.showSponsored" = {
-          Value = false;
-          Status = "locked";
-        };
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = {
-          Value = false;
-          Status = "locked";
-        };
-        "browser.contentblocking.category" = {
-          Value = "strict";
-          Status = "locked";
-        };
+        "browser.aboutConfig.showWarning" = lock false;
+        "browser.contentblocking.category" = lock "strict";
+        "browser.newtabpage.activity-stream.feeds.topsites" = lock false;
+        "browser.newtabpage.activity-stream.showSponsored" = lock false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock false;
+        "browser.toolbars.bookmarks.visibility" = lock "always";
+        "findbar.highlightAll" = lock true;
+        "geo.enabled" = lock false;
+        "layout.css.prefers-color-scheme.content-override" = lock 0;
+        "media.peerconnection.ice.default_address_only" = lock true;
+        "media.peerconnection.ice.no_host" = lock true;
+        "network.dns.disablePrefetch" = lock true;
+        "network.http.referer.XOriginTrimmingPolicy" = lock 2;
+        "network.predictor.enabled" = lock false;
+        "network.prefetch-next" = lock false;
+        "privacy.donottrackheader.enabled" = lock true;
+        "privacy.partition.network_state.ocsp_cache" = lock true;
+        "privacy.resistFingerprinting" = lock true;
+        "privacy.trackingprotection.enabled" = lock true;
+        "privacy.trackingprotection.socialtracking.enabled" = lock true;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = lock true;
+        "trailhead.firstrun.didSeeAboutWelcome" = lock true;
+        "webgl.disabled" = lock true;
       };
       PromptForDownloadLocation = false;
       SearchSuggestEnabled = false;
       UserMessaging = {
         ExtensionRecommendations = false;
         SkipOnboarding = true;
+      };
+    };
+    profiles.default = {
+      settings = {
+        "privacy.userContext.enabled" = true;
+        "privacy.userContext.ui.enabled" = true;
       };
     };
   };
