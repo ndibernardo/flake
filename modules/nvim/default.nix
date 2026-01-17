@@ -9,6 +9,22 @@ let
       sha256 = "KqO8uDbVy4sVVZ6mHikuO+SWCzWr97ZuFRC8npOPJIE=";
     };
   };
+
+  nostromo-theme = pkgs.vimUtils.buildVimPlugin {
+    name = "nostromo-theme";
+    src = ./theme;
+  };
+
+  koda-theme = pkgs.vimUtils.buildVimPlugin {
+    name = "koda-theme";
+    src = pkgs.fetchFromGitHub {
+      owner = "oskarnurm";
+      repo = "koda.nvim";
+      rev = "b21e91effca3b6238a6ee970699ee93c04f5e602";
+      sha256 = "sha256-sQXhxv7VND+iSWjIdSiMeaaVUtQ2iTIU58RJs3x/zvo=";
+    };
+  };
+
 in
 {
   programs.neovim = {
@@ -25,14 +41,15 @@ in
       comment-nvim
       conform-nvim
       direnv-nvim
+      nostromo-theme
+      koda-theme
       fidget-nvim
       friendly-snippets
       gitsigns-nvim
-      gruvbox-nvim
-      lualine-nvim
       luasnip
       nvim-cmp
       nvim-colorizer-lua
+      colorbuddy-nvim
       nvim-lspconfig
       nvim-surround
       (nvim-treesitter.withPlugins (p: [

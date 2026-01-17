@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#1d2021' --tf '#83a598' --fb '#1d2021' --ff '#ebdbb2' --nb '#1d2021' --nf '#ebdbb2' --ab '#1d2021' --af '#ebdbb2' --hb '#83a598' --hf '#1d2021' --sb '#83a598' --sf '#1d2021' --scb '#928374' --scf '#ebdbb2' -B 5 --bdr '#1d2021'";
+  bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 12' --tb '#141D22' --tf '#A5FBFF' --fb '#141D22' --ff '#A5FBFF' --nb '#141D22' --nf '#A5FBFF' --ab '#141D22' --af '#A5FBFF' --hb '#A5FBFF' --hf '#141D22' --sb '#A5FBFF' --sf '#141D22' --scb '#3a4c4e' --scf '#A5FBFF' -B 5 --bdr '#141D22'";
 in
 {
   wayland.windowManager.sway = {
@@ -11,7 +11,7 @@ in
     };
     config = {
       modifier = "Mod4";
-      terminal = "foot";
+      terminal = "ghostty";
       menu = bemenuCommand;
 
       fonts = {
@@ -30,39 +30,46 @@ in
 
       colors = {
         focused = {
-          background = "#83a598";
-          border = "#83a598";
-          childBorder = "#83a598";
-          indicator = "#458588";
-          text = "#1d2021";
+          background = "#141D22";
+          border = "#A5FBFF";
+          childBorder = "#A5FBFF";
+          indicator = "#3df2ad";
+          text = "#A5FBFF";
         };
         unfocused = {
-          background = "#1d2021";
-          border = "#3c3836";
-          childBorder = "#3c3836";
-          indicator = "#3c3836";
-          text = "#ebdbb2";
+          background = "#141D22";
+          border = "#1D1C19";
+          childBorder = "#1D1C19";
+          indicator = "#1D1C19";
+          text = "#3a4c4e";
         };
         focusedInactive = {
-          background = "#1d2021";
-          border = "#928374";
-          childBorder = "#928374";
-          indicator = "#928374";
-          text = "#ebdbb2";
+          background = "#141D22";
+          border = "#3a4c4e";
+          childBorder = "#3a4c4e";
+          indicator = "#3a4c4e";
+          text = "#92dde1";
         };
         urgent = {
-          background = "#fb4934";
-          border = "#fb4934";
-          childBorder = "#fb4934";
-          indicator = "#fb4934";
-          text = "#1d2021";
+          background = "#dd513c";
+          border = "#dd513c";
+          childBorder = "#dd513c";
+          indicator = "#dd513c";
+          text = "#141D22";
         };
         placeholder = {
-          background = "#1d2021";
-          border = "#3c3836";
-          childBorder = "#3c3836";
-          indicator = "#ebdbb2";
-          text = "#ebdbb2";
+          background = "#141D22";
+          border = "#1D1C19";
+          childBorder = "#1D1C19";
+          indicator = "#A5FBFF";
+          text = "#A5FBFF";
+        };
+      };
+
+      input = {
+        "*" = {
+          xkb_layout = "us";
+          xkb_variant = "intl";
         };
       };
 
@@ -94,7 +101,7 @@ in
           '';
         }
         {
-          command = "swaybg -c '#1d2021'";
+          command = "swaybg -c '#141D22'";
         }
       ];
 
@@ -104,7 +111,7 @@ in
         in
         lib.mkOptionDefault {
           # Terminal
-          "${modifier}+Return" = "exec foot";
+          "${modifier}+Return" = "exec ghostty";
 
           # Kill window
           "${modifier}+Shift+q" = "kill";

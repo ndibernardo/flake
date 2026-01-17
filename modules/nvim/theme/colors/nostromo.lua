@@ -1,0 +1,165 @@
+local colorbuddy = require('colorbuddy')
+
+-- Clear any existing highlighting
+colorbuddy.colorscheme('nostromo')
+
+local Color = colorbuddy.Color
+local colors = colorbuddy.colors
+local Group = colorbuddy.Group
+local groups = colorbuddy.groups
+local styles = colorbuddy.styles
+
+-- Define colors
+Color.new('bg', '#141D22')
+Color.new('fg', '#A5FBFF')
+Color.new('red', '#dd513c')
+Color.new('green', '#3df2ad')
+Color.new('yellow', '#FFFF84')
+Color.new('blue', '#34A2DF')
+Color.new('cyan', '#4DDCFF')
+Color.new('magenta', '#eb78c3')
+Color.new('orange', '#3f9bbc')
+Color.new('comment', '#3a4c4e')
+Color.new('gray', '#1D1C19')
+Color.new('param', '#92dde1')
+Color.new('selection', '#365878')
+
+-- UI
+Group.new('Normal', colors.fg, colors.bg)
+Group.new('NormalFloat', colors.fg, colors.none)
+Group.new('FloatBorder', colors.fg, colors.none)
+Group.new('CursorLine', colors.none, colors.none)
+Group.new('CursorLineNr', colors.fg, colors.none)
+Group.new('LineNr', colors.comment, colors.none)
+Group.new('SignColumn', colors.none, colors.none)
+Group.new('VertSplit', colors.comment, colors.none)
+Group.new('WinSeparator', colors.comment, colors.none)
+Group.new('StatusLine', colors.fg, colors.bg)
+Group.new('StatusLineNC', colors.comment, colors.bg)
+Group.new('Pmenu', colors.fg, colors.gray)
+Group.new('PmenuSel', colors.bg, colors.red)
+Group.new('Visual', colors.none, colors.selection)
+
+-- Syntax
+Group.new('Comment', colors.comment, colors.none)
+Group.new('Constant', colors.cyan, colors.none)
+Group.new('String', colors.orange, colors.none)
+Group.new('Character', colors.orange, colors.none)
+Group.new('Number', colors.cyan, colors.none)
+Group.new('Boolean', colors.cyan, colors.none)
+Group.new('Float', colors.cyan, colors.none)
+
+Group.new('Identifier', colors.fg, colors.none)
+Group.new('Function', colors.green, colors.none)
+
+Group.new('Statement', colors.red, colors.none)
+Group.new('Conditional', colors.red, colors.none)
+Group.new('Repeat', colors.red, colors.none)
+Group.new('Label', colors.red, colors.none)
+Group.new('Operator', colors.red, colors.none)
+Group.new('Keyword', colors.red, colors.none)
+Group.new('Exception', colors.red, colors.none)
+
+Group.new('PreProc', colors.red, colors.none)
+Group.new('Include', colors.red, colors.none)
+Group.new('Define', colors.red, colors.none)
+Group.new('Macro', colors.green, colors.none)
+Group.new('PreCondit', colors.red, colors.none)
+
+Group.new('Type', colors.cyan, colors.none)
+Group.new('StorageClass', colors.red, colors.none)
+Group.new('Structure', colors.cyan, colors.none)
+Group.new('Typedef', colors.cyan, colors.none)
+
+Group.new('Special', colors.fg, colors.none)
+Group.new('SpecialChar', colors.orange, colors.none)
+Group.new('Tag', colors.red, colors.none)
+Group.new('Delimiter', colors.red, colors.none)
+Group.new('SpecialComment', colors.comment, colors.none)
+Group.new('Debug', colors.red, colors.none)
+
+Group.new('Underlined', colors.fg, colors.none, styles.underline)
+Group.new('Ignore', colors.comment, colors.none)
+Group.new('Error', colors.red, colors.none)
+Group.new('Todo', colors.yellow, colors.none)
+Group.new('Bold', colors.none, colors.none, styles.bold)
+Group.new('Italic', colors.none, colors.none, styles.NONE)
+
+-- Treesitter
+Group.new('@function', colors.green, colors.none)
+Group.new('@function.call', colors.green, colors.none)
+Group.new('@function.method', colors.green, colors.none)
+Group.new('@method', colors.green, colors.none)
+Group.new('@method.call', colors.green, colors.none)
+Group.new('@type', colors.cyan, colors.none)
+Group.new('@type.builtin', colors.cyan, colors.none)
+Group.new('@class', colors.cyan, colors.none)
+Group.new('@constructor', colors.cyan, colors.none)
+Group.new('@enum', colors.cyan, colors.none)
+Group.new('@variant', colors.cyan, colors.none)
+Group.new('@punctuation.delimiter', colors.red, colors.none)
+Group.new('@punctuation.bracket', colors.fg, colors.none)
+Group.new('@punctuation.special', colors.red, colors.none)
+Group.new('@keyword', colors.red, colors.none)
+Group.new('@keyword.function', colors.red, colors.none)
+Group.new('@keyword.operator', colors.red, colors.none)
+Group.new('@keyword.return', colors.red, colors.none)
+Group.new('@variable', colors.fg, colors.none)
+Group.new('@variable.builtin', colors.fg, colors.none)
+Group.new('@parameter', colors.param, colors.none)
+Group.new('@string', colors.orange, colors.none)
+Group.new('@number', colors.cyan, colors.none)
+Group.new('@boolean', colors.cyan, colors.none)
+Group.new('@constant', colors.cyan, colors.none)
+
+-- LSP
+Group.new('DiagnosticError', colors.red, colors.none)
+Group.new('DiagnosticWarn', colors.yellow, colors.none)
+Group.new('DiagnosticInfo', colors.cyan, colors.none)
+Group.new('DiagnosticHint', colors.green, colors.none)
+
+-- LSP Inlay Hints (no italics, match background)
+Group.new('LspInlayHint', colors.comment, colors.bg)
+Group.new('@lsp.type.parameter', colors.param, colors.none)
+Group.new('@lsp.type.property', colors.fg, colors.none)
+
+-- LSP References (match selection color)
+Group.new('LspReferenceRead', colors.none, colors.selection)
+Group.new('LspReferenceWrite', colors.none, colors.selection)
+Group.new('LspReferenceText', colors.none, colors.selection)
+
+-- Git
+Group.new('DiffAdd', colors.green, colors.none)
+Group.new('DiffChange', colors.yellow, colors.none)
+Group.new('DiffDelete', colors.red, colors.none)
+Group.new('DiffText', colors.cyan, colors.none)
+
+-- Additional UI elements
+Group.new('FloatTitle', colors.fg, colors.none)
+Group.new('Title', colors.cyan, colors.none)
+Group.new('Directory', colors.cyan, colors.none)
+Group.new('SpecialKey', colors.comment, colors.none)
+Group.new('NonText', colors.comment, colors.none)
+Group.new('EndOfBuffer', colors.bg, colors.none)
+Group.new('MatchParen', colors.yellow, colors.none, styles.bold)
+Group.new('IncSearch', colors.bg, colors.yellow)
+Group.new('Search', colors.bg, colors.cyan)
+Group.new('Substitute', colors.bg, colors.green)
+Group.new('Question', colors.cyan, colors.none)
+Group.new('MoreMsg', colors.green, colors.none)
+Group.new('ModeMsg', colors.fg, colors.none)
+Group.new('WarningMsg', colors.yellow, colors.none)
+Group.new('ErrorMsg', colors.red, colors.none)
+Group.new('QuickFixLine', colors.none, colors.selection)
+Group.new('Folded', colors.comment, colors.gray)
+Group.new('FoldColumn', colors.comment, colors.none)
+
+-- Nvim-tree
+Group.new('NvimTreeCursorLine', colors.none, colors.selection)
+Group.new('NvimTreeFolderName', colors.fg, colors.none)
+Group.new('NvimTreeOpenedFolderName', colors.cyan, colors.none)
+Group.new('NvimTreeEmptyFolderName', colors.comment, colors.none)
+Group.new('NvimTreeIndentMarker', colors.comment, colors.none)
+Group.new('NvimTreeNormal', colors.fg, colors.bg)
+Group.new('NvimTreeNormalNC', colors.fg, colors.bg)
+Group.new('NvimTreeWinSeparator', colors.comment, colors.none)
