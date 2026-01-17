@@ -72,8 +72,6 @@
 
 (setq-default fill-column 100)
 
-(setq doom-gruvbox-dark-variant "hard")
-
 (load-theme 'doom-dark t)
 
 (custom-set-faces
