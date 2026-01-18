@@ -9,10 +9,7 @@
   };
 
   services.displayManager.ly.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.desktopManager.gnome.enable = true;
   services.dbus.enable = true;
-  services.gnome.gnome-keyring.enable = true;
   security.pam.services.sway.enableGnomeKeyring = true;
 
   xdg.portal = {
@@ -21,8 +18,6 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # Sway is now configured via home-manager
-  # Enable sway at system level for session management
   programs.sway = {
     enable = true;
     wrapperFeatures = {
@@ -31,7 +26,6 @@
     };
   };
 
-  # Install system-level utilities
   environment.systemPackages = with pkgs; [
     thunar
     xdg-utils

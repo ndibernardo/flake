@@ -2,21 +2,24 @@
 
 {
   imports = [
-    ../../../modules/emacs
-    ../../../modules/direnv
-    ../../../modules/firefox
+    ../../../modules/alacritty
     ../../../modules/foot
+    ../../../modules/direnv
+    ../../../modules/emacs
+    ../../../modules/firefox
+    ../../../modules/fonts
     ../../../modules/git
     ../../../modules/gtk
     ../../../modules/music
     ../../../modules/nvim
+    ../../../modules/photography
     ../../../modules/qt
+    ../../../modules/reading
+    ../../../modules/sway
     ../../../modules/tmux
+    ../../../modules/waybar
     ../../../modules/zed
     ../../../modules/zsh
-    ../../../modules/fonts
-    ../../../modules/sway
-    ../../../modules/waybar
   ];
 
   home = {
@@ -24,23 +27,19 @@
     homeDirectory = "/home/nil";
 
     packages = with pkgs; [
-      curl
       claude-code
+      curl
+      dbeaver-bin
       docker-compose
-      evince
       fastfetch
       fzf
       htop
-      ripgrep
-      zip
-      unzip
-      postman
-      dbeaver-bin
       lutris
-      zathura
-      mupdf
+      postman
+      ripgrep
       telegram-desktop
-      calibre
+      unzip
+      zip
     ];
 
     sessionVariables = {
@@ -65,6 +64,13 @@
       "x-scheme-handler/unknown" = "firefox.desktop";
 
       "inode/directory" = "thunar.desktop";
+
+      "image/png" = "pinta.desktop";
+      "image/jpeg" = "pinta.desktop";
+      "image/gif" = "pinta.desktop";
+      "image/bmp" = "pinta.desktop";
+      "image/webp" = "pinta.desktop";
+      "image/tiff" = "pinta.desktop";
     };
   };
 }
