@@ -41,8 +41,17 @@ opt.incsearch        = true
 opt.guicursor        = ""
 opt.termguicolors    = true
 
-opt.scrolloff        = 8
-opt.updatetime       = 50
+require("tokyonight").setup({
+  transparent = true,
+  styles = {
+    sidebars = "transparent",
+    floats = "transparent",
+  },
+})
+vim.cmd.colorscheme "tokyonight"
+
+opt.scrolloff  = 8
+opt.updatetime = 50
 
 opt.isfname:append("@-@")
 
@@ -246,7 +255,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-require("fidget").setup {}
+require("fidget").setup {
+  notification = {
+    window = {
+      winblend = 0,
+    },
+  },
+}
 
 vim.lsp.enable({ 'lua_ls', 'nixd', 'rust_analyzer', 'zls' })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -311,59 +326,13 @@ vim.lsp.config['zls'] = {
   },
 }
 
+
 require('lualine').setup({
   options = {
-    icons_enabled = true,
-    theme = colors,
+    theme = 'tokyonight',
     component_separators = "|",
     section_separators = "",
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    always_show_tabline = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-      refresh_time = 16, -- ~60fps
-      events = {
-        'WinEnter',
-        'BufEnter',
-        'BufWritePost',
-        'SessionLoadPost',
-        'FileChangedShellPost',
-        'VimResized',
-        'Filetype',
-        'CursorMoved',
-        'CursorMovedI',
-        'ModeChanged',
-      },
-    }
   },
-  sections = {
-    lualine_a = { 'mode' },
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'filename' },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = { 'location' },
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
 })
 
 -- A better file explorer
@@ -390,44 +359,10 @@ require("nvim-tree").setup({
   },
 })
 
--- Gruvbox colorscheme
-require("gruvbox").setup({
-  terminal_colors = true,
-  undercurl = true,
-  underline = true,
-  bold = true,
-  italic = {
-    strings = false,
-    emphasis = false,
-    comments = false,
-    operators = false,
-    folds = false,
-  },
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = false,
-  contrast = "hard",
-  palette_overrides = {},
-  overrides = {
-    ["Delimiter"] = { link = "GruvboxGray" },
-    ["@punctuation.delimiter"] = { link = "GruvboxGray" },
-    ["@punctuation.bracket"] = { link = "GruvboxGray" },
-    ["@punctuation.special"] = { link = "GruvboxGray" },
-    ["@constructor"] = { link = "GruvboxGray" },
-    ["@property"] = { link = "Normal" },
-    ["@function.builtin"] = { link = "GruvboxRed" },
-    ["@keyword.import"] = { link = "GruvboxRed" },
-    ["@variable.builtin"] = { link = "GruvboxBlue" },
-    ["Operator"] = { link = "GruvboxBlue" },
-  },
-  dim_inactive = false,
-  transparent_mode = false,
-})
-vim.o.background = "dark"
-vim.cmd([[colorscheme gruvbox]])
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 
 -- Telescope
 require("telescope").setup({

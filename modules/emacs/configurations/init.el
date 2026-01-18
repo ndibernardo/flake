@@ -72,7 +72,7 @@
 
 (setq-default fill-column 100)
 
-(load-theme 'doom-dark t)
+(load-theme 'doom-tokyo-night t)
 
 (custom-set-faces
  '(default
@@ -81,7 +81,10 @@
                 :slant normal
                 :weight medium
                 :height 120
-                :width semi-condensed)))))
+                :width semi-condensed
+                :background "#000000"))))
+ '(line-number ((t (:background nil))))
+ '(line-number-current-line ((t (:background nil)))))
 
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
                                        ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="

@@ -26,31 +26,31 @@
       colors = {
         alpha = 1.0;
 
-        # Primary colors
+        # Tokyo Night
         background = "000000";
-        foreground = "dddddd";
+        foreground = "c0caf5";
 
         # Normal colors
-        regular0 = "000000"; # black
-        regular1 = "cf9292"; # red
-        regular2 = "73cc98"; # green
-        regular3 = "c7ae95"; # yellow
-        regular4 = "95aec7"; # blue
-        regular5 = "ae95c7"; # magenta
-        regular6 = "7bd3c5"; # cyan
-        regular7 = "dddddd"; # white
+        regular0 = "15161e"; # black
+        regular1 = "f7768e"; # red
+        regular2 = "9ece6a"; # green
+        regular3 = "e0af68"; # yellow
+        regular4 = "7aa2f7"; # blue
+        regular5 = "bb9af7"; # magenta
+        regular6 = "7dcfff"; # cyan
+        regular7 = "a9b1d6"; # white
 
         # Bright colors
-        bright0 = "747c84"; # bright black
-        bright1 = "cf9292"; # bright red
-        bright2 = "73cc98"; # bright green
-        bright3 = "c7ae95"; # bright yellow
-        bright4 = "95aec7"; # bright blue
-        bright5 = "ae95c7"; # bright magenta
-        bright6 = "7bd3c5"; # bright cyan
-        bright7 = "ffffff"; # bright white
+        bright0 = "414868"; # bright black
+        bright1 = "f7768e"; # bright red
+        bright2 = "9ece6a"; # bright green
+        bright3 = "e0af68"; # bright yellow
+        bright4 = "7aa2f7"; # bright blue
+        bright5 = "bb9af7"; # bright magenta
+        bright6 = "7dcfff"; # bright cyan
+        bright7 = "c0caf5"; # bright white
 
-        cursor = "000000 dddddd";
+        cursor = "000000 c0caf5";
       };
 
       bell = {

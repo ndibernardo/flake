@@ -24,11 +24,13 @@ in
       cmp-path
       comment-nvim
       conform-nvim
+      cyberdream-nvim
       direnv-nvim
       fidget-nvim
       friendly-snippets
       gitsigns-nvim
       gruvbox-nvim
+      tokyonight-nvim
       lualine-nvim
       luasnip
       nvim-cmp

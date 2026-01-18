@@ -335,14 +335,14 @@
       }
 
       #workspaces button.focused {
-        color: #1d1f21;
-        background-color: #54beaf;
+        color: #481477;
+        background-color: #ebed60;
         border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.focused:hover {
-        color: #1d1f21;
+        color: #481477;
         border: 0px solid #282a2e;
         box-shadow: none;
       }

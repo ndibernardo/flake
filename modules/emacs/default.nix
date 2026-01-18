@@ -22,14 +22,12 @@ let
             direnv
             diminish
             doom-themes
-            ef-themes
             exec-path-from-shell
             expand-region
             flycheck
             gcmh
             git-gutter
             git-gutter-fringe
-            kaolin-themes
             ligature
             lsp-mode
             magit
