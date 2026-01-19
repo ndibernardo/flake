@@ -13,9 +13,6 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-    };
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
@@ -39,13 +36,6 @@
             specialArgs = { inherit inputs; };
             modules = [
               ./machines/rigel
-            ];
-          };
-          meissa = inputs.nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit inputs; };
-            modules = [
-              ./machines/meissa
             ];
           };
         };

@@ -6,7 +6,6 @@
       antialiasing = true;
       hinting = "slight";
       subpixelRendering = "rgb";
-      defaultFonts.monospace = [ "Berkeley Mono" ];
     };
   };
 
@@ -17,8 +16,10 @@
       commit-mono
       fira-code
       hack-font
+      jetbrains-mono
       inconsolata
       inter
+      nerd-fonts.fira-code
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji

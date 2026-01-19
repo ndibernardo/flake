@@ -1,8 +1,6 @@
 { pkgs, ... }:
 let
   customPackages = {
-    clojure = pkgs.clojure.override { jdk = pkgs.jdk21; };
-
     emacs = (
       (pkgs.emacsPackagesFor (
         pkgs.emacs-pgtk.overrideAttrs (oldAttrs: {
@@ -92,10 +90,6 @@ in
   };
 
   home.packages = with pkgs; [
-    jdk21
-    customPackages.clojure
-    clojure-lsp
-    rust-analyzer
     nixd
     nixfmt
     sbcl

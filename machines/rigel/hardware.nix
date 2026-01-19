@@ -45,6 +45,8 @@
       "nvidia_drm"
     ];
 
+    kernelPackages = pkgs.linuxPackages_latest;
+
     blacklistedKernelModules = [ "nouveau" ];
     extraModulePackages = [ ];
     supportedFilesystems = [
@@ -68,7 +70,7 @@
       modesetting.enable = true;
       nvidiaSettings = true;
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
   };
 

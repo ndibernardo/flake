@@ -12,7 +12,7 @@
       zed = "zeditor";
     };
     initContent = ''
-      PROMPT='%F{cyan}%n@%m%f %F{white}%~%f %(!.#.$) '
+      PROMPT='%n@%m %~ %(!.#.$) '
       bindkey '^R' history-incremental-search-backward
     '';
   };
