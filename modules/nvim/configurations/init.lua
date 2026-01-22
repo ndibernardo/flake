@@ -53,6 +53,8 @@ vim.api.nvim_set_keymap('n', '<ScrollWheelRight>', 'l', { noremap = true, silent
 
 vim.diagnostic.config({ virtual_text = true })
 
+
+
 -- Remaps
 wk.add({
     { "<leader>s", group = "[S]earch" },
@@ -172,41 +174,7 @@ require("conform").setup({
     },
 })
 
--- Direnv
-require("direnv").setup({
-    -- Path to the direnv executable
-    bin = "direnv",
-
-    -- Whether to automatically load direnv when entering a directory with .envrc
-    autoload_direnv = false,
-
-    -- Statusline integration
-    statusline = {
-        -- Enable statusline component
-        enabled = true,
-        -- Icon to display in statusline
-        icon = "󱚟",
-    },
-
-    -- Keyboard mappings
-    keybindings = {
-        allow = "<Leader>da",
-        deny = "<Leader>dd",
-        reload = "<Leader>dr",
-        edit = "<Leader>de",
-    },
-
-    -- Notification settings
-    notifications = {
-        -- Log level (vim.log.levels.INFO, ERROR, etc.)
-        level = vim.log.levels.INFO,
-        -- Don't show notifications during autoload
-        silent_autoload = true,
-    },
-})
-
 -- LSP
-
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
     callback = function(event)
@@ -317,15 +285,6 @@ vim.lsp.config['zls'] = {
     },
 }
 
-
-require('lualine').setup({
-    options = {
-        theme = 'tokyonight',
-        component_separators = "|",
-        section_separators = "",
-    },
-})
-
 -- A better file explorer
 require("oil").setup({
     default_file_explorer = true,
@@ -335,6 +294,35 @@ require("oil").setup({
         show_hidden = true,
     }
 })
+
+require('kanso').setup({
+    bold = true,      -- enable bold fonts
+    italics = false,  -- enable italics
+    compile = false,  -- enable compiling the colorscheme
+    undercurl = true, -- enable undercurls
+    commentStyle = { italic = false },
+    functionStyle = {},
+    keywordStyle = { italic = false },
+    statementStyle = {},
+    typeStyle = {},
+    transparent = false,   -- do not set background color
+    dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true, -- define vim.g.terminal_color_{0,17}
+    colors = {             -- add/modify theme and palette colors
+        palette = {},
+        theme = { zen = {}, pearl = {}, ink = {}, all = {} },
+    },
+    overrides = function(colors) -- add/modify highlights
+        return {}
+    end,
+    background = {      -- map the value of 'background' option to a theme
+        dark = "zen",   -- try "zen", "mist" or "pearl" !
+        light = "pearl" -- try "zen", "mist" or "ink" !
+    },
+    foreground = "saturated",
+})
+
+vim.cmd.colorscheme "kanso-zen"
 
 -- Nvim-tree
 require("nvim-tree").setup({
@@ -349,11 +337,6 @@ require("nvim-tree").setup({
         dotfiles = false,
     },
 })
-
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 
 -- Telescope
 require("telescope").setup({
