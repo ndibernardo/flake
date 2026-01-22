@@ -4,12 +4,11 @@
 {
   programs.zsh = {
     enable = true;
-    autosuggestion.enable = true;
     enableCompletion = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
       ll = "ls -la";
-      zed = "zeditor";
     };
     initContent = ''
       PROMPT='%n@%m %~ %(!.#.$) '
