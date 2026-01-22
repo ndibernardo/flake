@@ -5,7 +5,7 @@
     enable = true;
 
     # Use Ctrl+Space as prefix
-    prefix = "C-Space";
+    prefix = "C-a";
 
     # Use vi mode keys
     keyMode = "vi";
@@ -43,20 +43,21 @@
       # Bind prefix twice to send prefix
       bind C-Space send-prefix
 
-      set -g status-style "bg=#000000,fg=#dddddd"
-      set -g window-status-style "bg=default,fg=#dddddd"
+      # Kanso Zen theme colors
+      set -g status-style "bg=#090E13,fg=#C5C9C7"
+      set -g window-status-style "bg=default,fg=#717C7C"
       set -g window-status-format " #I: #W "
-      set -g window-status-current-style "bg=#54beaf,fg=#000000,bold"
+      set -g window-status-current-style "bg=#98BB6C,fg=#090E13,bold"
       set -g window-status-current-format " #I: #W "
-      set -g pane-border-style "fg=#747c84"
-      set -g pane-active-border-style "fg=#54beaf"
-      set -g message-style "bg=#54beaf,fg=#000000"
+      set -g pane-border-style "fg=#393B44"
+      set -g pane-active-border-style "fg=#98BB6C"
+      set -g message-style "bg=#DCA561,fg=#090E13"
 
       # Status bar configuration
       set -g status-interval 2
       set -g status-right-length 59
       set -g status-left ""
-      set -g status-right '#[bg=#54beaf,fg=#000000] %Y-%m-%d  %H:%M '
+      set -g status-right '#[bg=#98BB6C,fg=#090E13] %Y-%m-%d  %H:%M '
       set-option -g status-position top
 
       # Add spacing between window tabs
