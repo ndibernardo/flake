@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../../modules/alacritty
     ../../../modules/direnv
     ../../../modules/emacs
     ../../../modules/fonts
@@ -17,7 +18,6 @@
 
     packages = with pkgs; [
       _1password-gui
-      alacritty
       calibre
       claude-code
       curl
@@ -43,7 +43,6 @@
       todoist-electron
       telegram-desktop
       unzip
-      zed-editor
       zip
     ];
 
