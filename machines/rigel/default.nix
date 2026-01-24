@@ -76,6 +76,7 @@
     man-pages-posix
     vim
     zsh
+    gparted
   ];
 
   programs.zsh.enable = true;
@@ -85,7 +86,14 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users.nil = ./home;
+    users.nil = {
+      programs.home-manager.enable = true;
+      home = {
+        username = "nil";
+        homeDirectory = "/home/nil";
+        stateVersion = "25.05";
+      };
+    };
   };
 
   system.stateVersion = "25.05";
