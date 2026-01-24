@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  programs.tmux = {
+  home-manager.users.nil.programs.tmux = {
     enable = true;
 
     # Use Ctrl+Space as prefix

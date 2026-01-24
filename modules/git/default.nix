@@ -1,9 +1,9 @@
 { ... }:
 {
-  programs.git = {
+  home-manager.users.nil.programs.git = {
     enable = true;
     settings = {
-      user = { 
+      user = {
         email = "nicola.dibernardo@icloud.com";
         name = "ndibernardo";
       };

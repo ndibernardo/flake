@@ -19,13 +19,11 @@ let
             corfu
             direnv
             diminish
-            doom-themes
             exec-path-from-shell
             expand-region
             flycheck
             gcmh
-            git-gutter
-            git-gutter-fringe
+            kaolin-themes
             ligature
             lsp-mode
             magit
@@ -54,6 +52,7 @@ let
           ++ [
             dockerfile-mode
             docker-compose-mode
+            glsl-mode
             markdown-mode
             nix-mode
             rust-mode
@@ -68,20 +67,19 @@ let
   };
 in
 {
-  home.file = {
+  home-manager.users.nil.home.file = {
     ".config/emacs/early-init.el".source = ./configurations/early-init.el;
     ".config/emacs/init.el".source = ./configurations/init.el;
-    ".config/emacs/themes/doom-dark-theme.el".source = ./configurations/themes/doom-dark-theme.el;
   };
 
-  programs = {
+  home-manager.users.nil.programs = {
     emacs = {
       enable = true;
       package = customPackages.emacs;
     };
   };
 
-  services = {
+  home-manager.users.nil.services = {
     emacs = {
       enable = true;
       package = customPackages.emacs;
@@ -89,7 +87,7 @@ in
     };
   };
 
-  home.packages = with pkgs; [
+  home-manager.users.nil.home.packages = with pkgs; [
     nixd
     nixfmt
     sbcl
