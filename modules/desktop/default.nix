@@ -1,15 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, flakeModules, ... }:
 
 {
   imports = [
-    ../alacritty
-    ../direnv
-    ../emacs
-    ../fonts
-    ../git
-    ../nvim
-    ../tmux
-    ../zsh
+    "${flakeModules}/alacritty"
+    "${flakeModules}/direnv"
+    "${flakeModules}/emacs"
+    "${flakeModules}/fonts"
+    "${flakeModules}/git"
+    "${flakeModules}/nvim"
+    "${flakeModules}/tmux"
+    "${flakeModules}/zsh"
     ./waybar.nix
   ];
 

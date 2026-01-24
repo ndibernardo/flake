@@ -19,6 +19,9 @@
       flake-parts,
       ...
     }:
+    let
+      flakeModules = ./modules;
+    in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -28,7 +31,7 @@
         nixosConfigurations = {
           rigel = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = { inherit inputs; };
+            specialArgs = { inherit inputs flakeModules; };
             modules = [
               ./machines/rigel
             ];

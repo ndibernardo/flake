@@ -1,13 +1,13 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, flakeModules, ... }:
 
 {
   imports = [
-    ../../modules/audio
-    ../../modules/desktop
-    ../../modules/nix
-    ../../modules/ssh
-    ../../modules/steam
-    ../../modules/virtualisation
+    "${flakeModules}/audio"
+    "${flakeModules}/desktop"
+    "${flakeModules}/nix"
+    "${flakeModules}/ssh"
+    "${flakeModules}/steam"
+    "${flakeModules}/virtualisation"
     ./hardware.nix
     ./networking.nix
     inputs.home-manager.nixosModules.home-manager
