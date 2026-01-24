@@ -1,5 +1,5 @@
 {
-  description = "Clojure development environment";
+  description = "C development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -21,30 +21,21 @@
           pkgs,
           ...
         }:
-        let
-          javaVersion = 21;
-          jdk = pkgs."jdk${toString javaVersion}";
-
-          clojure = pkgs.clojure.override { jdk = jdk; };
-          leiningen = pkgs.leiningen.override { jdk = jdk; };
-        in
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              jdk
-              clojure
-              clojure-lsp
-              leiningen
-              babashka
-              clj-kondo
+              clang
+              clang-tools
+              gnumake
+              cmake
+              gdb
               nixd
               nixfmt
             ];
 
             shellHook = ''
-              echo "Clojure development environment"
-              echo "Java version: $(java -version 2>&1 | head -n 1)"
-              echo "Clojure version: $(clojure --version)"
+              echo "C development environment"
+              echo "$(clang --version | head -n 1)"
             '';
           };
         };

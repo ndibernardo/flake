@@ -2,7 +2,7 @@
   description = "Scala development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
@@ -31,6 +31,7 @@
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
+              jdk
               scala
               sbt
               coursier
@@ -40,8 +41,8 @@
 
             shellHook = ''
               echo "Scala development environment"
-              echo "Java version: $(java -version 2>&1 | head -n 1)"
-              echo "Scala version: $(scala --version)"
+              echo "Java version: $(java --version 2>&1 | head -n 1)"
+              echo "Scala version: $(scala --version 2>&1 | head -n 1)"
             '';
           };
         };

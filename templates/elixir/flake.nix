@@ -2,7 +2,7 @@
   description = "Elixir development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
@@ -32,7 +32,7 @@
 
             shellHook = ''
               echo "Elixir development environment"
-              echo "Elixir version: $(elixir --version | head -n 1)"
+              echo "$(elixir --version 2>&1 | head -n 3 | tail -n 1)"
             '';
           };
         };
