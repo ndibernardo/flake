@@ -53,8 +53,6 @@ vim.api.nvim_set_keymap('n', '<ScrollWheelRight>', 'l', { noremap = true, silent
 
 vim.diagnostic.config({ virtual_text = true })
 
-
-
 -- Remaps
 wk.add({
     { "<leader>s", group = "[S]earch" },
