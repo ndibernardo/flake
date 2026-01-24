@@ -72,20 +72,18 @@
 
 (setq-default fill-column 100)
 
-(load-theme 'doom-tokyo-night t)
+;; Theme and faces
+(load-theme 'modus-operandi t)
 
 (custom-set-faces
- '(default
-   ((t (:family "Berkeley Mono"
-                :foundry "USGC"
-                :slant normal
-                :weight medium
-                :height 120
-                :width semi-condensed
-                :background "#000000"))))
+ '(default ((nil (:font "Victor Mono" :height 130 :weight semi-bold))))
  '(line-number ((t (:background nil))))
- '(line-number-current-line ((t (:background nil)))))
+ '(fringe ((t (:background nil))))
+ '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
+ '(mode-line ((t (:box nil))))
+ '(mode-line-inactive ((t (:box nil)))))
 
+;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
                                        ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
                                        "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
@@ -99,15 +97,7 @@
                                        "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
                                        "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
                                        "\\\\" "://"))
-(global-ligature-mode t)
-
-(setq git-gutter:update-interval 0.02)
-(add-hook 'prog-mode-hook 'git-gutter-mode)
-
-(require 'git-gutter-fringe)
-(define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-(define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-(define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom)
+(global-ligature-mode nil)
 
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -413,21 +403,8 @@ If point was already at that position, move point to beginning of line."
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "<s-up>") 'beginning-of-buffer)
-(global-set-key (kbd "<s-down>") 'end-of-buffer)
-(global-set-key (kbd "<s-right>") 'move-end-of-line)
-(global-set-key (kbd "s-+") 'text-scale-increase)
-(global-set-key (kbd "s--") 'text-scale-decrease)
 (global-set-key (kbd "<M-up>") 'backward-paragraph)
 (global-set-key (kbd "<M-down>") 'forward-paragraph)
-(global-set-key (kbd "s-w") 'kill-this-buffer)
-(global-set-key (kbd "s-a") 'mark-whole-buffer)
-(global-set-key (kbd "s-c") 'kill-ring-save)
-(global-set-key (kbd "s-v") 'yank)
-(global-set-key (kbd "S-s") 'save-buffer)
-(global-set-key (kbd "s-l") 'goto-line)
-(global-set-key (kbd "s-z") 'undo)
-(global-set-key (kbd "s-/") 'comment-or-uncomment-region)
 (global-set-key (kbd "<mouse-8>") 'xref-go-back)
 (global-set-key (kbd "<mouse-9>") 'xref-go-forward)
 
