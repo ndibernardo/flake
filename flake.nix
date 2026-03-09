@@ -29,11 +29,11 @@
       ];
       flake = {
         nixosConfigurations = {
-          rigel = inputs.nixpkgs.lib.nixosSystem {
+          wintermute = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs flakeModules; };
             modules = [
-              ./machines/rigel
+              ./machines/wintermute
             ];
           };
         };

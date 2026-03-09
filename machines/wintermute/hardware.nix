@@ -26,8 +26,8 @@
       ];
       kernelModules = [ ];
       luks.devices = {
-        "luks-2a87686a-00bc-4ca7-82a7-a08f31de13e9" = {
-          device = "/dev/disk/by-uuid/2a87686a-00bc-4ca7-82a7-a08f31de13e9";
+        "luks-e8eb023d-65f2-4922-9292-e8eaff31abcf" = {
+          device = "/dev/disk/by-uuid/e8eb023d-65f2-4922-9292-e8eaff31abcf";
         };
       };
     };
@@ -45,12 +45,11 @@
       "nvidia_drm"
     ];
 
-    kernelPackages = pkgs.linuxPackages_latest;
-
     blacklistedKernelModules = [ "nouveau" ];
     extraModulePackages = [ ];
     supportedFilesystems = [
       "ntfs"
+      "xfs"
     ];
   };
 
@@ -70,11 +69,10 @@
       modesetting.enable = true;
       nvidiaSettings = true;
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
 
-  # Use a newer version of OpenRGB
   services.hardware = {
     openrgb = {
       enable = true;
@@ -84,7 +82,7 @@
 
   fileSystems = {
     "/boot" = {
-      device = "/dev/disk/by-uuid/D152-C017";
+      device = "/dev/disk/by-uuid/FB69-FC30";
       fsType = "vfat";
       options = [
         "fmask=0077"
@@ -93,8 +91,8 @@
     };
 
     "/" = {
-      device = "/dev/mapper/luks-2a87686a-00bc-4ca7-82a7-a08f31de13e9";
-      fsType = "ext4";
+      device = "/dev/mapper/luks-e8eb023d-65f2-4922-9292-e8eaff31abcf";
+      fsType = "xfs";
     };
 
     "/run/media/nil/64603C01603BD88E" = {
@@ -116,11 +114,9 @@
     };
   };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/8473236f-47c8-4903-a4ad-53f0cccb17fc";
-    }
-  ];
+  swapDevices = [{
+      device = "/dev/disk/by-uuid/c809c2f4-c09c-4708-a82d-22eca5310c6d";
+  }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

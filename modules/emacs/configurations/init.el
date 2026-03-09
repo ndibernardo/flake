@@ -76,7 +76,13 @@
 (load-theme 'modus-operandi t)
 
 (custom-set-faces
- '(default ((nil (:font "Victor Mono" :height 130 :weight semi-bold))))
+'(default
+   ((t (:family "Berkeley Mono"
+                :foundry "USGC"
+                :slant normal
+                :weight medium
+                :height 120
+                :width semi-condensed))))
  '(line-number ((t (:background nil))))
  '(fringe ((t (:background nil))))
  '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))

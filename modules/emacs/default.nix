@@ -86,10 +86,4 @@ in
       startWithUserSession = true;
     };
   };
-
-  home-manager.users.nil.home.packages = with pkgs; [
-    nixd
-    nixfmt
-    sbcl
-  ];
 }

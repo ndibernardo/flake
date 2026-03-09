@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   home-manager.users.nil.programs.waybar = {
     enable = true;
@@ -11,12 +10,12 @@
         spacing = 4;
 
         modules-left = [
-          "niri/workspaces"
-          "niri/mode"
+          "sway/workspaces"
+          "sway/mode"
         ];
 
         modules-center = [
-          "niri/window"
+          "sway/window"
         ];
 
         modules-right = [
@@ -40,6 +39,21 @@
             locked = "";
             unlocked = "";
           };
+        };
+
+        "sway/mode" = {
+          format = "<span style=\"italic\">{}</span>";
+        };
+
+        "sway/scratchpad" = {
+          format = "{icon} {count}";
+          show-empty = false;
+          format-icons = [
+            ""
+            ""
+          ];
+          tooltip = true;
+          tooltip-format = "{app}: {title}";
         };
 
         mpd = {
@@ -182,13 +196,11 @@
           return-type = "json";
           interval = 5;
           exec = ''
-            status=$(${pkgs.mullvad-vpn}/bin/mullvad status)
-             if echo "$status" | grep -q "Connected"; then
-               ip=$(echo "$status" | grep -oP 'IPv4: \K[0-9.]+' || echo "N/A")
-               echo "{\"text\":\"vpn $ip\",\"class\":\"connected\",\"tooltip\":\"Mullvad: Connected\\nIP: $ip\"}"
-             else
-               echo '{"text":"vpn","class":"disconnected","tooltip":"Mullvad: Disconnected"}'
-             fi
+            if ${pkgs.mullvad}/bin/mullvad status | grep -q "Connected"; then
+              echo '{"text":"vpn","class":"connected","tooltip":"Mullvad: Connected"}'
+            else
+              echo '{"text":"vpn","class":"disconnected","tooltip":"Mullvad: Disconnected"}'
+            fi
           '';
         };
 
@@ -198,10 +210,9 @@
           interval = 5;
           exec = ''
             if ${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -e '.BackendState == "Running"' > /dev/null 2>&1; then
-              ip=$(${pkgs.tailscale}/bin/tailscale ip -4 2>/dev/null || echo "N/A")
-              echo "{\"text\":\"tailscale0 $ip\",\"class\":\"connected\",\"tooltip\":\"Tailscale: Connected\\nIP: $ip\"}"
+              echo '{"text":"ts","class":"connected","tooltip":"Tailscale: Connected"}'
             else
-              echo '{"text":"tailscale0","class":"disconnected","tooltip":"Tailscale: Disconnected"}'
+              echo '{"text":"ts","class":"disconnected","tooltip":"Tailscale: Disconnected"}'
             fi
           '';
         };
@@ -225,13 +236,14 @@
       * {
         border: none;
         border-radius: 0;
-        font-family: 'B612';
+        font-family: 'Berkeley Mono';
+        font-stretch: semi-condensed;
         font-weight: 600;
         font-size: 16px;
       }
 
       window#waybar {
-        background-color: #1d1f21;
+        background-color: #000000;
         border-bottom: none;
         color: #c5c8c6;
         transition-property: background-color;
@@ -321,13 +333,13 @@
 
       #workspaces button.focused {
         color: #1d1f21;
-        background-color: #c5c8c6;
+        background-color: #54beaf;
         border: 0px solid #282a2e;
         box-shadow: none;
       }
 
       #workspaces button.focused:hover {
-        color: #481477;
+        color: #1d1f21;
         border: 0px solid #282a2e;
         box-shadow: none;
       }
@@ -373,8 +385,4 @@
       }
     '';
   };
-
-  home-manager.users.nil.home.packages = with pkgs; [
-    pavucontrol
-  ];
 }
