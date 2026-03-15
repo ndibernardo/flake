@@ -5,7 +5,7 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    initLua = lib.fileContents ./configurations/init.lua;
+    extraLuaConfig = lib.fileContents ./configurations/init.lua;
     plugins = with pkgs.vimPlugins; [
       cmp_luasnip
       cmp-cmdline
@@ -30,6 +30,7 @@
       telescope-nvim
       telescope-fzf-native-nvim
       undotree
+      vague-nvim
       vim-rhubarb
       vim-fugitive
       vim-sleuth

@@ -60,7 +60,7 @@
       font = {
         normal = {
           family = "Berkeley Mono";
-          style = "Medium SemiCondensed";
+          style = "Regular SemiCondensed";
         };
         bold = {
           family = "Berkeley Mono";
@@ -75,7 +75,7 @@
           x = 0;
           y = 0;
         };
-        builtin_box_drawing = false;
+        builtin_box_drawing = true;
       };
 
       bell = {

@@ -382,3 +382,14 @@ require("nvim-treesitter").setup({
     },
     indent = { enable = true },
 })
+
+-- Vague
+require("vague").setup({
+    -- Don't set background
+    transparent = true,
+    -- Disable bold/italic globally
+    bold = false,
+    italic = false,
+})
+
+vim.cmd("colorscheme vague")

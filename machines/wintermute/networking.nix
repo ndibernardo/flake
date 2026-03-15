@@ -1,10 +1,5 @@
 { pkgs, lib, ... }:
 {
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
-  };
-
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -18,10 +13,6 @@
     firewall = {
       enable = true;
       trustedInterfaces = [ "tailscale0" ];
-      allowedTCPPorts = [
-        2234
-        5001
-      ];
     };
 
     networkmanager = {
