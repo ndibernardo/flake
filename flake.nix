@@ -6,13 +6,10 @@
       url = "github:hercules-ci/flake-parts";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-25.11";
-    };
-    nixpkgs-unstable = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
   };

@@ -82,6 +82,7 @@
 
         AllowTcpForwarding no
         AllowAgentForwarding no
+        AllowUsers nil
         MaxAuthTries 3
         MaxSessions 2
         TCPKeepAlive no

@@ -1,4 +1,5 @@
 {
+  config,
   flakeModules,
   inputs,
   pkgs,
@@ -46,6 +47,7 @@
             extraConfig = {
               gtk-application-prefer-dark-theme = 1;
             };
+            theme = null;
           };
           theme = {
             name = "Adwaita-dark";

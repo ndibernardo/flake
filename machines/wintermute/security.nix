@@ -5,35 +5,10 @@
 }:
 
 {
-  environment = {
-    defaultPackages = lib.mkForce [ ];
-  };
-
-  programs = {
-    firejail = {
-      enable = true;
-      wrappedBinaries = {
-        librewolf = {
-          executable = "${pkgs.librewolf}/bin/librewolf";
-          profile = "${pkgs.firejail}/etc/firejail/librewolf.profile";
-        };
-        nicotine = {
-          executable = "${pkgs.nicotine-plus}/bin/nicotine";
-          profile = "${pkgs.firejail}/etc/firejail/nicotine.profile";
-        };
-        steam = {
-          executable = "${pkgs.steam}/bin/steam";
-          profile = "${pkgs.firejail}/etc/firejail/steam.profile";
-        };
-        ungoogled-chromium = {
-          executable = "${pkgs.ungoogled-chromium}/bin/chromium";
-          profile = "${pkgs.firejail}/etc/firejail/chromium.profile";
-        };
-      };
-    };
-  };
 
   security = {
+    protectKernelImage = true;
+
     audit = {
       enable = true;
       rules = [
@@ -52,34 +27,6 @@
   };
 
   services = {
-    clamav = {
-      daemon = {
-        enable = true;
-      };
-      scanner = {
-        enable = true;
-        interval = "*-*-* 04:00:00";
-        scanDirectories = [
-          "/etc"
-          "/home"
-          "/tmp"
-          "/var/lib"
-          "/var/tmp"
-        ];
-      };
-      updater = {
-        enable = true;
-        frequency = 12;
-      };
-    };
-
-    cron = {
-      enable = true;
-      systemCronJobs = [
-        "0 11 * * * ${pkgs.aide}/bin/aide --check --config /var/lib/aide/aide.conf"
-      ];
-    };
-
     dbus = {
       enable = true;
       implementation = "broker";
@@ -151,12 +98,6 @@
           UMask = "0077";
         };
       };
-    };
-  };
-
-  users = {
-    groups = {
-      netdev = { };
     };
   };
 }

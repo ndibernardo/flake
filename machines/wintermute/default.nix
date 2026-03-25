@@ -25,7 +25,9 @@
       _1password-cli
       _1password-gui
       aide
+      brave
       bemenu
+      claude-code
       brightnessctl
       clamav
       curl
@@ -60,7 +62,7 @@
       wget
       wl-clipboard
       xdg-utils
-      xfce.thunar
+      thunar
       zip
     ];
   };

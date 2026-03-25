@@ -26,8 +26,8 @@
       ];
       kernelModules = [ ];
       luks.devices = {
-        "luks-e8eb023d-65f2-4922-9292-e8eaff31abcf" = {
-          device = "/dev/disk/by-uuid/e8eb023d-65f2-4922-9292-e8eaff31abcf";
+        "luks-a073c911-3be5-45ed-a361-2e8f44745fe9" = {
+          device = "/dev/disk/by-uuid/a073c911-3be5-45ed-a361-2e8f44745fe9";
         };
       };
     };
@@ -41,14 +41,14 @@
       "kernel.unprivileged_bpf_disabled" = 1;
       "kernel.unprivileged_userns_clone" = 1;
 
-      "dev.tty.ldisk_autoload" = 0;
+      "dev.tty.ldisc_autoload" = 0;
       "vm.unprivileged_userfaultfd" = 0;
       "kernel.kexec_load_disabled" = 1;
       "kernel.perf_event_paranoid" = 3;
 
       "net.core.bpf_jit_harden" = 2;
 
-      "net.ipv4.conf.all.forwarding" = 0;
+      "net.ipv4.conf.all.forwarding" = false;
       "net.ipv4.conf.all.accept_redirects" = 0;
       "net.ipv4.conf.default.accept_redirects" = 0;
 
@@ -59,7 +59,7 @@
       "net.ipv4.conf.default.log_martians" = true;
 
       "net.ipv4.conf.all.rp_filter" = true;
-      "net.ipv4.conf.all.send_redirects" = false;
+      "net.ipv4.conf.all.send_redirects" = 0;
 
       "net.ipv4.tcp_fastopen" = 3;
       "net.ipv4.tcp_congestion_control" = "bbr";
@@ -72,7 +72,7 @@
       "nouveau.modeset=0"
     ];
 
-    kernelPackages = pkgs.linuxPackages_hardened;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernelModules = [
       "kvm-amd"
@@ -158,7 +158,7 @@
 
   fileSystems = {
     "/boot" = {
-      device = "/dev/disk/by-uuid/FB69-FC30";
+      device = "/dev/disk/by-uuid/F5F4-F8CF";
       fsType = "vfat";
       options = [
         "fmask=0077"
@@ -167,7 +167,7 @@
     };
 
     "/" = {
-      device = "/dev/mapper/luks-e8eb023d-65f2-4922-9292-e8eaff31abcf";
+      device = "/dev/mapper/luks-a073c911-3be5-45ed-a361-2e8f44745fe9";
       fsType = "xfs";
     };
 
@@ -202,7 +202,7 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-uuid/c809c2f4-c09c-4708-a82d-22eca5310c6d";
+      device = "/dev/disk/by-uuid/f2bd5d17-861e-4ff7-88e2-9cd320fad661";
     }
   ];
 
