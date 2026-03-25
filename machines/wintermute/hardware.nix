@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   lib,
   ...
 }:
@@ -130,30 +129,8 @@
   };
 
   hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-
     cpu.amd.updateMicrocode = lib.mkDefault true;
-
     enableAllFirmware = true;
-
-    graphics.enable = true;
-
-    nvidia = {
-      modesetting.enable = true;
-      nvidiaSettings = true;
-      open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-    };
-  };
-
-  services.hardware = {
-    openrgb = {
-      enable = true;
-      package = pkgs.openrgb;
-    };
   };
 
   fileSystems = {
@@ -207,4 +184,6 @@
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  system.stateVersion = "25.11";
 }

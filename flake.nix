@@ -2,54 +2,23 @@
   description = "Nicola's Nix configuration flake";
 
   inputs = {
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    import-tree.url = "github:vic/import-tree";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
   outputs =
-    inputs@{
-      flake-parts,
-      ...
-    }:
-    let
-      flakeModules = ./modules;
-    in
+    inputs@{ flake-parts, import-tree, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        (import-tree ./parts)
+        (import-tree ./modules)
+      ];
       systems = [
         "x86_64-linux"
         "aarch64-darwin"
       ];
-      flake = {
-        nixosConfigurations = {
-          wintermute = inputs.nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit inputs flakeModules; };
-            modules = [
-              ./machines/wintermute
-            ];
-          };
-        };
-        templates = import ./templates;
-      };
-      perSystem =
-        { pkgs, ... }:
-        {
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs; [
-              gnumake
-              lua-language-server
-              nixd
-              nixfmt
-            ];
-          };
-        };
     };
 }
