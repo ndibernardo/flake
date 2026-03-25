@@ -1,14 +1,7 @@
 { ... }:
-
 {
-  virtualisation = {
-    docker = {
-      enable = true;
-      storageDriver = "overlay2";
-      autoPrune.enable = true;
-    };
-
-    oci-containers = {
+  flake.nixosModules.containers = {
+    virtualisation.oci-containers = {
       backend = "docker";
       containers."jellyfin" = {
         autoStart = true;
@@ -19,9 +12,7 @@
           "/run/media/nil/64603C01603BD88E/Library:/media"
         ];
         ports = [ "8096:8096" ];
-        environment = {
-          JELLYFIN_LOG_DIR = "/log";
-        };
+        environment.JELLYFIN_LOG_DIR = "/log";
       };
     };
   };
