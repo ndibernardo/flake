@@ -17,6 +17,7 @@
       "emacs"
       "fail2ban"
       "fonts"
+      "fuzzel"
       "git"
       "gnupg"
       "gtk"
@@ -27,11 +28,13 @@
       "mtr"
       "mullvad"
       "neovim"
+      "niri"
       "nix"
       "nvidia"
       "openrgb"
       "openssh"
       "packages"
+      "qt"
       "steam"
       "sway"
       "systemd"
@@ -39,6 +42,7 @@
       "tmux"
       "users"
       "waybar"
+      "zsh"
     ];
     nixosModules = [
       inputs.home-manager.nixosModules.home-manager

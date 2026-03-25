@@ -15,9 +15,13 @@
             modules-left = [
               "sway/workspaces"
               "sway/mode"
+              "niri/workspaces"
             ];
 
-            modules-center = [ "sway/window" ];
+            modules-center = [
+              "sway/window"
+              "niri/window"
+            ];
 
             modules-right = [
               "pulseaudio"
