@@ -116,6 +116,9 @@ map.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "[U]ndo tree" })
 
 -- Plugins
 
+-- Colorizer
+require 'colorizer'.setup()
+
 -- Completion
 luasnip.config.setup {}
 
@@ -292,37 +295,6 @@ require("oil").setup({
     }
 })
 
-require('kanso').setup({
-    bold = true,
-    italics = false,
-    compile = false,
-    undercurl = true,
-    commentStyle = { italic = false },
-    functionStyle = {},
-    keywordStyle = { italic = false },
-    statementStyle = {},
-    typeStyle = {},
-    transparent = false,
-    dimInactive = false,
-    terminalColors = true,
-    colors = {
-        palette = {},
-        theme = { zen = {}, pearl = {}, ink = {}, all = {} },
-    },
-    overrides = function(colors)
-        return {}
-    end,
-    background = {
-        dark = "zen",
-        light = "pearl"
-    },
-    foreground = "saturated",
-})
-
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 
 -- Nvim-tree
 require("nvim-tree").setup({
@@ -374,6 +346,38 @@ require("telescope").setup({
 pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "ui-select")
 
+-- Themes
+require('kanso').setup({
+    bold = true,
+    italics = false,
+    compile = false,
+    undercurl = true,
+    commentStyle = { italic = false },
+    functionStyle = {},
+    keywordStyle = { italic = false },
+    statementStyle = {},
+    typeStyle = {},
+    transparent = true,
+    dimInactive = false,
+    terminalColors = true,
+    colors = {
+        palette = {},
+        theme = { zen = {}, pearl = {}, ink = {}, all = {} },
+    },
+    background = {
+        dark = "zen",
+        light = "pearl"
+    },
+    foreground = "saturated",
+})
+
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
+
+vim.cmd("colorscheme kanso-zen")
+
 -- Treesitter
 require("nvim-treesitter").setup({
     highlight = {
@@ -382,14 +386,3 @@ require("nvim-treesitter").setup({
     },
     indent = { enable = true },
 })
-
--- Vague
-require("vague").setup({
-    -- Don't set background
-    transparent = true,
-    -- Disable bold/italic globally
-    bold = false,
-    italic = false,
-})
-
-vim.cmd("colorscheme vague")

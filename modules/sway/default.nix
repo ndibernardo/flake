@@ -5,11 +5,10 @@
       pkgs,
       lib,
       user,
+      font,
+      colors,
       ...
     }:
-    let
-      bemenuCommand = "bemenu-run --fn 'Berkeley Mono Medium SemiCondensed 13' --tb '#000000' --tf '#54beaf' --fb '#000000' --ff '#c5c8c6' --nb '#000000' --nf '#c5c8c6' --hb '#54beaf' --hf '#1d1f21' --sb '#54beaf' --sf '#1d1f21' --scb '#969896' --scf '#c5c8c6' -B 5 --bdr '#000000'";
-    in
     {
       home-manager.users.${user.name}.wayland.windowManager.sway = {
         enable = true;
@@ -20,11 +19,11 @@
         config = {
           modifier = "Mod4";
           terminal = "alacritty";
-          menu = bemenuCommand;
+          menu = "fuzzel";
 
           fonts = {
-            names = [ "Berkeley Mono Regular SemiCondensed" ];
-            size = 12.0;
+            names = [ "${font.family} ${font.style}" ];
+            size = font.size * 1.0;
           };
 
           gaps.inner = 10;
@@ -36,39 +35,39 @@
 
           colors = {
             focused = {
-              background = "#54beaf";
-              border = "#54beaf";
-              childBorder = "#54beaf";
-              indicator = "#8abeb7";
-              text = "#1d1f21";
+              background = colors.accent;
+              border = colors.accent;
+              childBorder = colors.accent;
+              indicator = colors.accentDim;
+              text = colors.base;
             };
             unfocused = {
-              background = "#1d1f21";
-              border = "#282a2e";
-              childBorder = "#282a2e";
-              indicator = "#282a2e";
-              text = "#c5c8c6";
+              background = colors.base;
+              border = colors.surface;
+              childBorder = colors.surface;
+              indicator = colors.surface;
+              text = colors.fg;
             };
             focusedInactive = {
-              background = "#1d1f21";
-              border = "#969896";
-              childBorder = "#969896";
-              indicator = "#969896";
-              text = "#c5c8c6";
+              background = colors.base;
+              border = colors.muted;
+              childBorder = colors.muted;
+              indicator = colors.muted;
+              text = colors.fg;
             };
             urgent = {
-              background = "#cc6666";
-              border = "#cc6666";
-              childBorder = "#cc6666";
-              indicator = "#cc6666";
-              text = "#1d1f21";
+              background = colors.red;
+              border = colors.red;
+              childBorder = colors.red;
+              indicator = colors.red;
+              text = colors.base;
             };
             placeholder = {
-              background = "#1d1f21";
-              border = "#282a2e";
-              childBorder = "#282a2e";
-              indicator = "#c5c8c6";
-              text = "#c5c8c6";
+              background = colors.base;
+              border = colors.surface;
+              childBorder = colors.surface;
+              indicator = colors.fg;
+              text = colors.fg;
             };
           };
 
@@ -98,7 +97,7 @@
             lib.mkOptionDefault {
               "${modifier}+Return" = "exec alacritty";
               "${modifier}+Shift+q" = "kill";
-              "${modifier}+d" = "exec ${bemenuCommand}";
+              "${modifier}+d" = "exec fuzzel";
               "${modifier}+Shift+c" = "reload";
               "${modifier}+Shift+e" =
                 "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
@@ -189,6 +188,7 @@
 
         extraConfig = ''
           workspace 1
+          output * bg ${colors.black} solid_color
         '';
       };
 

@@ -1,7 +1,13 @@
 { ... }:
 {
   flake.nixosModules.waybar = (
-    { pkgs, user, ... }:
+    {
+      pkgs,
+      user,
+      font,
+      colors,
+      ...
+    }:
     {
       home-manager.users.${user.name}.programs.waybar = {
         enable = true;
@@ -229,16 +235,16 @@
           * {
             border: none;
             border-radius: 0;
-            font-family: 'Berkeley Mono';
+            font-family: '${font.family}';
             font-stretch: semi-condensed;
             font-weight: 600;
-            font-size: 16px;
+            font-size: ${toString (font.size + 3)}px;
           }
 
           window#waybar {
-            background-color: #000000;
+            background-color: rgba(0, 0, 0, 0.92);
             border-bottom: none;
-            color: #c5c8c6;
+            color: ${colors.fg};
             transition-property: background-color;
             transition-duration: .5s;
           }
@@ -272,12 +278,12 @@
           }
 
           #workspaces button {
-            padding: 2px 6px;
-            color: #969896;
+            padding: 4px 6px;
+            color: ${colors.muted};
             border-radius: 0px;
-            border: 0px solid #282a2e;
+            border: 0px solid #333;
             box-shadow: none;
-            background-color: rgba(29, 31, 33, 0);
+            background-color: rgba(0, 0, 0, 0);
           }
 
           #workspaces button.active {
@@ -319,37 +325,36 @@
             box-shadow: inherit;
             text-shadow: inherit;
             background: transparent;
-            color: #c5c8c6;
-            border: 0px solid #282a2e;
+            color: ${colors.brightWhite};
+            border: 0px solid #333;
             box-shadow: none;
           }
 
           #workspaces button.focused {
-            color: #1d1f21;
-            background-color: #54beaf;
-            border: 0px solid #282a2e;
+            color: ${colors.fg};
+            border: 0px solid #333;
             box-shadow: none;
           }
 
           #workspaces button.focused:hover {
-            color: #1d1f21;
-            border: 0px solid #282a2e;
+            color: ${colors.brightWhite};
+            border: 0px solid #333;
             box-shadow: none;
           }
 
           #workspaces button.urgent {
-            color: #1d1f21;
-            background-color: #cc6666;
-            border: 0px solid #282a2e;
+            color: ${colors.brightWhite};
+            background-color: ${colors.red};
+            border: 0px solid #333;
             box-shadow: none;
           }
 
           #language {
-            color: #c5c8c6;
+            color: ${colors.fg};
           }
 
           #tray {
-            background-color: rgba(29, 31, 33, 0);
+            background-color: rgba(0, 0, 0, 0);
           }
 
           #tray image {
@@ -361,20 +366,20 @@
           }
 
           #mode {
-            background-color: rgba(29, 31, 33, 0);
-            border: 2px solid #f0c674;
+            background-color: rgba(0, 0, 0, 0);
+            border: 2px solid ${colors.yellow};
             margin: 0px 10px 0px 0px;
             border-radius: 5px;
           }
 
           #custom-mullvad.connected,
           #custom-tailscale.connected {
-            color: #8abeb7;
+            color: ${colors.accentDim};
           }
 
           #custom-mullvad.disconnected,
           #custom-tailscale.disconnected {
-            color: #969896;
+            color: ${colors.muted};
           }
         '';
       };
