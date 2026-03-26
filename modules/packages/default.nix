@@ -15,15 +15,11 @@
       environment.systemPackages = with pkgs; [
         _1password-cli
         _1password-gui
-        aide
         brave
-        bemenu
         claude-code
         brightnessctl
-        clamav
         curl
         docker-compose
-        doublecmd
         fzf
         gcc
         git
@@ -31,7 +27,6 @@
         grim
         htop
         killall
-        librewolf
         lutris
         lynis
         man-pages

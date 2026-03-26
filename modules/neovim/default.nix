@@ -1,7 +1,12 @@
 { ... }:
 {
   flake.nixosModules.neovim = (
-    { pkgs, lib, user, ... }:
+    {
+      pkgs,
+      lib,
+      user,
+      ...
+    }:
     {
       home-manager.users.${user.name}.programs.neovim = {
         enable = true;
@@ -33,7 +38,6 @@
           telescope-nvim
           telescope-fzf-native-nvim
           undotree
-          vague-nvim
           vim-rhubarb
           vim-fugitive
           vim-sleuth

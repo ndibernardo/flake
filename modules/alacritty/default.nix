@@ -1,39 +1,39 @@
 { ... }:
 {
   flake.nixosModules.alacritty = (
-    { user, ... }:
+    { user, font, colors, colorLib, ... }:
     {
     home-manager.users.${user.name}.programs.alacritty = {
       enable = true;
       settings = {
         colors = {
           primary = {
-            background = "0x000000";
-            foreground = "0xdddddd";
+            background = colors.black;
+            foreground = colors.white;
           };
           cursor = {
-            text = "0x000000";
-            cursor = "0xdddddd";
+            text   = colors.black;
+            cursor = colors.white;
           };
           normal = {
-            black = "0x000000";
-            red = "0xcf9292";
-            green = "0x73cc98";
-            yellow = "0xc7ae95";
-            blue = "0x95aec7";
-            magenta = "0xae95c7";
-            cyan = "0x7bd3c5";
-            white = "0xdddddd";
+            black   = colors.black;
+            red     = colors.red;
+            green   = colors.green;
+            yellow  = colors.yellow;
+            blue    = colors.blue;
+            magenta = colors.magenta;
+            cyan    = colors.cyan;
+            white   = colors.white;
           };
           bright = {
-            black = "0x747c84";
-            red = "0xcf9292";
-            green = "0x73cc98";
-            yellow = "0xc7ae95";
-            blue = "0x95aec7";
-            magenta = "0xae95c7";
-            cyan = "0x7bd3c5";
-            white = "0xffffff";
+            black   = colors.brightBlack;
+            red     = colors.brightRed;
+            green   = colors.brightGreen;
+            yellow  = colors.brightYellow;
+            blue    = colors.brightBlue;
+            magenta = colors.brightMagenta;
+            cyan    = colors.brightCyan;
+            white   = colors.brightWhite;
           };
         };
 
@@ -58,14 +58,14 @@
 
         font = {
           normal = {
-            family = "Berkeley Mono";
-            style = "Regular SemiCondensed";
+            family = font.family;
+            style = font.style;
           };
           bold = {
-            family = "Berkeley Mono";
+            family = font.family;
             style = "Bold SemiCondensed";
           };
-          size = 13;
+          size = font.size;
           offset = {
             x = 0;
             y = 0;
