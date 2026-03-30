@@ -16,10 +16,11 @@
         _1password-cli
         _1password-gui
         brave
+        chromium
         claude-code
-        brightnessctl
         curl
         docker-compose
+        firefox
         fzf
         gcc
         git
@@ -42,13 +43,12 @@
         swaybg
         swayidle
         swaylock
-        ungoogled-chromium
+        thunar
         unzip
         vim
         wget
         wl-clipboard
         xdg-utils
-        thunar
         zip
       ];
     }
