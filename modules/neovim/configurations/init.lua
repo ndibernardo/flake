@@ -358,6 +358,7 @@ require('kanso').setup({
     statementStyle = {},
     typeStyle = {},
     transparent = true,
+    minimal = true,
     dimInactive = false,
     terminalColors = true,
     colors = {

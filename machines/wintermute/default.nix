@@ -1,36 +1,33 @@
 { inputs, ... }:
+let
+  colors_marathon = {
+    black         = "#000000";
+    red           = "#e03355";
+    green         = "#c2fe0c";
+    yellow        = "#fd6c1d";
+    blue          = "#5a2aff";
+    magenta       = "#f81d78";
+    cyan          = "#63ede0";
+    white         = "#c8c8d4";
+    brightBlack   = "#3a3a52";
+    brightRed     = "#ff4466";
+    brightGreen   = "#d0ff20";
+    brightYellow  = "#ff8844";
+    brightBlue    = "#7a52ff";
+    brightMagenta = "#ff50a0";
+    brightCyan    = "#88f5ee";
+    brightWhite   = "#ffffff";
+    base          = "#0e0e1a";
+    surface       = "#1a1a2e";
+    muted         = "#56566e";
+    accent        = "#c2fe0c";
+    accentDim     = "#8aba0a";
+    fg            = "#bcbccc";
+  };
+in
 {
   machines.wintermute = {
     system = "x86_64-linux";
-    colors = {
-      black = "#040606";
-      red = "#C34043";
-      green = "#98BB6C";
-      yellow = "#DCA561";
-      blue = "#7FB4CA";
-      magenta = "#938AA9";
-      cyan = "#7AA89F";
-      white = "#C5C9C7";
-      brightBlack = "#717C7C";
-      brightRed = "#E46876";
-      brightGreen = "#98BB6C";
-      brightYellow = "#E6C384";
-      brightBlue = "#658594";
-      brightMagenta = "#938AA9";
-      brightCyan = "#7AA89F";
-      brightWhite = "#DCD7BA";
-      base = "#040606";
-      surface = "#293030";
-      muted = "#555555";
-      accent = "#536161";
-      accentDim = "#6b7c7c";
-      fg = "#eeeeee";
-    };
-    font = {
-      family = "Berkeley Mono";
-      style = "Regular SemiCondensed";
-      size = 13;
-    };
     modules = [
       "alacritty"
       "audio"

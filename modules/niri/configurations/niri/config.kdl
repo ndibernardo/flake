@@ -3,11 +3,8 @@ input {
         xkb {
             layout "us(intl)"
         }
-
         numlock
     }
-
-    // focus-follows-mouse max-scroll-amount="100%"
 }
 
 output "DP-4" {
@@ -18,10 +15,10 @@ output "DP-4" {
 
 layout {
     gaps 10
-    center-focused-column "always"
-    always-center-single-column
+    center-focused-column "on-overflow"
+    //always-center-single-cumn
 
-    background-color "#000000"
+    background-color "#040606"
 
     preset-column-widths {
         proportion 0.33333
@@ -32,9 +29,9 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        width 2
-        active-color "#54beaf"
-        inactive-color "#282a2e"
+        width 1
+        active-color "#C5C9C7"
+        inactive-color "#22262D"
     }
 
     shadow {

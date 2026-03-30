@@ -13,7 +13,7 @@
           ll = "ls -la";
         };
         initContent = ''
-          PROMPT='%F{cyan}%n@%m %~ %(!.#.$)%f '
+          PROMPT='%F{blue}%n@%m %~ %(!.#.$)%f '
           bindkey '^R' history-incremental-search-backward
         '';
       };

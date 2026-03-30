@@ -1,29 +1,26 @@
 { ... }:
 {
   flake.nixosModules.fuzzel = (
-    { user, font, colors, colorLib, ... }:
-    let
-      rgba = colorLib.rgba;
-    in
+    { user, ... }:
     {
       home-manager.users.${user.name}.programs.fuzzel = {
         enable = true;
         settings = {
           main = {
-            font = "${font.family}:size=${toString font.size}:style=${font.style}";
+            font = "Berkeley Mono:size=14:style=Regular SemiCondensed";
             terminal = "alacritty -e";
             width = 30;
             lines = 10;
             prompt = ''">> "'';
           };
           colors = {
-            background       = rgba colors.black;
-            text             = rgba colors.white;
-            match            = rgba colors.cyan;
-            selection        = rgba colors.accent;
-            selection-text   = rgba colors.base;
-            selection-match  = rgba colors.base;
-            border           = rgba colors.surface;
+            background      = "040606ff";
+            text            = "C5C9C7ff";
+            match           = "7AA89Fff";
+            selection       = "7AA89Fff";
+            selection-text  = "040606ff";
+            selection-match = "040606ff";
+            border          = "22262Dff";
           };
           border = {
             width = 2;
