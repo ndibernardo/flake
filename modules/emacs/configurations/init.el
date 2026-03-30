@@ -73,21 +73,25 @@
 (setq-default fill-column 100)
 
 ;; Theme and faces
-(load-theme 'modus-operandi t)
-
 (custom-set-faces
 '(default
    ((t (:family "Berkeley Mono"
                 :foundry "USGC"
                 :slant normal
                 :weight medium
-                :height 120
+                :height 130
                 :width semi-condensed))))
  '(line-number ((t (:background nil))))
  '(fringe ((t (:background nil))))
  '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
+
+(setq kanagawa-themes-custom-colors '((bg "#040606")))
+(setq kanagawa-themes-keyword-italic nil)
+(setq kanagawa-themes-comment-italic nil)
+
+(load-theme 'kanagawa-wave t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
