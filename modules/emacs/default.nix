@@ -19,12 +19,14 @@
               avy
               consult
               corfu
+              doom-themes
               direnv
               diminish
               exec-path-from-shell
               expand-region
               flycheck
               gcmh
+              kanagawa-themes
               kaolin-themes
               ligature
               lsp-mode
