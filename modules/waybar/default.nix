@@ -4,8 +4,6 @@
     {
       pkgs,
       user,
-      font,
-      colors,
       ...
     }:
     {
@@ -15,7 +13,7 @@
           mainBar = {
             layer = "top";
             position = "top";
-            height = 20;
+            height = 32;
             spacing = 4;
 
             modules-left = [
@@ -36,7 +34,6 @@
               "custom/tailscale"
               "cpu"
               "memory"
-              "backlight"
               "sway/language"
               "clock"
               "tray"
@@ -112,21 +109,6 @@
               critical-threshold = 80;
               format = "{temperatureC}°C {icon}";
               format-icons = [
-                ""
-                ""
-                ""
-              ];
-            };
-
-            backlight = {
-              format = "{percent}% {icon}";
-              format-icons = [
-                ""
-                ""
-                ""
-                ""
-                ""
-                ""
                 ""
                 ""
                 ""
@@ -235,16 +217,16 @@
           * {
             border: none;
             border-radius: 0;
-            font-family: '${font.family}';
+            font-family: 'Berkeley Mono';
             font-stretch: semi-condensed;
             font-weight: 600;
-            font-size: ${toString (font.size + 3)}px;
+            font-size: 17px;
           }
 
           window#waybar {
-            background-color: rgba(0, 0, 0, 0.92);
+            background-color: #040606;
             border-bottom: none;
-            color: ${colors.fg};
+            color: #C5C9C7;
             transition-property: background-color;
             transition-duration: .5s;
           }
@@ -279,7 +261,7 @@
 
           #workspaces button {
             padding: 4px 6px;
-            color: ${colors.muted};
+            color: #717C7C;
             border-radius: 0px;
             border: 0px solid #333;
             box-shadow: none;
@@ -325,32 +307,32 @@
             box-shadow: inherit;
             text-shadow: inherit;
             background: transparent;
-            color: ${colors.brightWhite};
+            color: #DCD7BA;
             border: 0px solid #333;
             box-shadow: none;
           }
 
           #workspaces button.focused {
-            color: ${colors.fg};
+            color: #C5C9C7;
             border: 0px solid #333;
             box-shadow: none;
           }
 
           #workspaces button.focused:hover {
-            color: ${colors.brightWhite};
+            color: #DCD7BA;
             border: 0px solid #333;
             box-shadow: none;
           }
 
           #workspaces button.urgent {
-            color: ${colors.brightWhite};
-            background-color: ${colors.red};
+            color: #DCD7BA;
+            background-color: #C34043;
             border: 0px solid #333;
             box-shadow: none;
           }
 
           #language {
-            color: ${colors.fg};
+            color: #C5C9C7;
           }
 
           #tray {
@@ -367,19 +349,19 @@
 
           #mode {
             background-color: rgba(0, 0, 0, 0);
-            border: 2px solid ${colors.yellow};
+            border: 2px solid #DCA561;
             margin: 0px 10px 0px 0px;
             border-radius: 5px;
           }
 
           #custom-mullvad.connected,
           #custom-tailscale.connected {
-            color: ${colors.accentDim};
+            color: #7AA89F;
           }
 
           #custom-mullvad.disconnected,
           #custom-tailscale.disconnected {
-            color: ${colors.muted};
+            color: #717C7C;
           }
         '';
       };

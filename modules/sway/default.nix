@@ -5,8 +5,6 @@
       pkgs,
       lib,
       user,
-      font,
-      colors,
       ...
     }:
     {
@@ -22,8 +20,8 @@
           menu = "fuzzel";
 
           fonts = {
-            names = [ "${font.family} ${font.style}" ];
-            size = font.size * 1.0;
+            names = [ "Berkeley Mono Regular SemiCondensed" ];
+            size = 14.0;
           };
 
           gaps.inner = 10;
@@ -35,39 +33,39 @@
 
           colors = {
             focused = {
-              background = colors.accent;
-              border = colors.accent;
-              childBorder = colors.accent;
-              indicator = colors.accentDim;
-              text = colors.base;
+              background = "#C5C9C7";
+              border = "#C5C9C7";
+              childBorder = "#C5C9C7";
+              indicator = "#7AA89F";
+              text = "#040606";
             };
             unfocused = {
-              background = colors.base;
-              border = colors.surface;
-              childBorder = colors.surface;
-              indicator = colors.surface;
-              text = colors.fg;
+              background = "#040606";
+              border = "#22262D";
+              childBorder = "#22262D";
+              indicator = "#22262D";
+              text = "#717C7C";
             };
             focusedInactive = {
-              background = colors.base;
-              border = colors.muted;
-              childBorder = colors.muted;
-              indicator = colors.muted;
-              text = colors.fg;
+              background = "#040606";
+              border = "#393B44";
+              childBorder = "#393B44";
+              indicator = "#393B44";
+              text = "#717C7C";
             };
             urgent = {
-              background = colors.red;
-              border = colors.red;
-              childBorder = colors.red;
-              indicator = colors.red;
-              text = colors.base;
+              background = "#C34043";
+              border = "#C34043";
+              childBorder = "#C34043";
+              indicator = "#C34043";
+              text = "#040606";
             };
             placeholder = {
-              background = colors.base;
-              border = colors.surface;
-              childBorder = colors.surface;
-              indicator = colors.fg;
-              text = colors.fg;
+              background = "#040606";
+              border = "#22262D";
+              childBorder = "#22262D";
+              indicator = "#717C7C";
+              text = "#717C7C";
             };
           };
 
@@ -188,7 +186,7 @@
 
         extraConfig = ''
           workspace 1
-          output * bg ${colors.black} solid_color
+          output * bg #040606 solid_color
         '';
       };
 
