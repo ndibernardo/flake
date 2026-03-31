@@ -1,0 +1,43 @@
+{ pkgs, ... }:
+{
+  machine.packages = with pkgs; [
+    _1password-cli
+    _1password-gui
+    claude-code
+    curl
+    docker-compose
+    fzf
+    gcc
+    git
+    glib
+    google-chrome
+    grim
+    htop
+    jetbrains.idea
+    killall
+    lutris
+    lynis
+    man-pages
+    man-pages-posix
+    nicotine-plus
+    nixd
+    nixfmt
+    obsidian
+    pavucontrol
+    puddletag
+    ripgrep
+    slurp
+    spek
+    swaybg
+    swayidle
+    swaylock
+    thunar
+    unzip
+    vim
+    vscode
+    wget
+    wl-clipboard
+    xdg-utils
+    zip
+  ];
+}
