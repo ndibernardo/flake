@@ -9,14 +9,16 @@
       environment.systemPackages = with pkgs; [
         niri
         xwayland-satellite
+        swaybg
       ];
 
       home-manager.users.${user.name} = {
         xdg.configFile."niri/config.kdl".source = ./configurations/niri/config.kdl;
+        xdg.configFile."niri/.wallpaper".source = ./wallpaper/.wallpaper;
 
         home.sessionVariables = {
-          BROWSER = "brave";
-          TERMINAL = "alacritty";
+          BROWSER = "firefox";
+          TERMINAL = "foot";
         };
       };
     }
