@@ -16,7 +16,7 @@
         };
         config = {
           modifier = "Mod4";
-          terminal = "alacritty";
+          terminal = "foot";
           menu = "fuzzel";
 
           fonts = {
@@ -93,7 +93,7 @@
               modifier = "Mod4";
             in
             lib.mkOptionDefault {
-              "${modifier}+Return" = "exec alacritty";
+              "${modifier}+Return" = "exec foot";
               "${modifier}+Shift+q" = "kill";
               "${modifier}+d" = "exec fuzzel";
               "${modifier}+Shift+c" = "reload";
