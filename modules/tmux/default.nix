@@ -35,7 +35,7 @@
           set -g status-style "bg=#040606,fg=#C5C9C7"
           set -g window-status-style "bg=default,fg=#717C7C"
           set -g window-status-format " #I: #W "
-          set -g window-status-current-style "bg=#7AA89F,fg=#040606,bold"
+          set -g window-status-current-style "bg=#9CA39F,fg=#040606,bold"
           set -g window-status-current-format " #I: #W "
           set -g pane-border-style "fg=#22262D"
           set -g pane-active-border-style "fg=#C5C9C7"
@@ -45,7 +45,7 @@
           set -g status-interval 2
           set -g status-right-length 59
           set -g status-left ""
-          set -g status-right '#[bg=#7AA89F,fg=#040606] %Y-%m-%d  %H:%M '
+          set -g status-right '#[bg=#9CA39F,fg=#040606] %Y-%m-%d  %H:%M '
           set-option -g status-position top
 
           # Add spacing between window tabs
