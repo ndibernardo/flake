@@ -25,6 +25,7 @@
           fidget-nvim
           friendly-snippets
           gitsigns-nvim
+          gruvbox-nvim
           kanso-nvim
           nvim-cmp
           nvim-colorizer-lua
