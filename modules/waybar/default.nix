@@ -220,11 +220,11 @@
             font-family: 'Berkeley Mono';
             font-stretch: semi-condensed;
             font-weight: 600;
-            font-size: 17px;
+            font-size: 15px;
           }
 
           window#waybar {
-            background-color: #040606;
+            background-color: rgba(4, 6, 6, 0.90);
             border-bottom: none;
             color: #C5C9C7;
             transition-property: background-color;
