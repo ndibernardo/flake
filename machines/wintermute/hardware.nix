@@ -166,15 +166,6 @@
         "uid=1000"
       ];
     };
-
-    "/run/media/nil/7E7662DA766292A7" = {
-      device = "/dev/disk/by-uuid/7E7662DA766292A7";
-      fsType = "ntfs-3g";
-      options = [
-        "rw"
-        "uid=1000"
-      ];
-    };
   };
 
   swapDevices = [
