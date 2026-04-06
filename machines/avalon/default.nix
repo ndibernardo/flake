@@ -13,6 +13,7 @@
       "neovim"
       "nix"
       "packages"
+      "tailscale"
       "tmux"
       "users"
       "zsh"
