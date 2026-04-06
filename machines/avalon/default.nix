@@ -5,6 +5,7 @@
     modules = [
       "atuin"
       "direnv"
+      "docker"
       "documentation"
       "git"
       "home-manager"
