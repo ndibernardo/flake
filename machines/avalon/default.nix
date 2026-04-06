@@ -3,6 +3,7 @@
   machines.avalon = {
     system = "x86_64-linux";
     modules = [
+      "atuin"
       "direnv"
       "documentation"
       "git"
