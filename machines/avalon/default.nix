@@ -13,7 +13,7 @@
       "locale"
       "neovim"
       "nix"
-      "packages"
+      "nixpkgs"
       "tailscale"
       "tmux"
       "users"

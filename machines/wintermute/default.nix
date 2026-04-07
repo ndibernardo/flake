@@ -31,7 +31,7 @@
       "nvidia"
       "openrgb"
       "openssh"
-      "packages"
+      "nixpkgs"
       "qt"
       "steam"
       "sway"
