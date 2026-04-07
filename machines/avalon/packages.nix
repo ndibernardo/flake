@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  machine.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     curl
     fzf
     gcc
