@@ -347,62 +347,13 @@ pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "ui-select")
 
 -- Themes
-require('gruvbox').setup({
+require('eigengrau').setup({
+    transparent     = true,
+    italic_comments = false,
     terminal_colors = true,
-    undercurl = true,
-    underline = true,
-    bold = true,
-    italic = {
-        strings = false,
-        emphasis = false,
-        comments = false,
-        operators = false,
-        folds = false,
-    },
-    strikethrough = true,
-    invert_selection = false,
-    invert_signs = false,
-    invert_tabline = false,
-    invert_intend_guides = false,
-    inverse = true,
-    contrast = "hard",
-    palette_overrides = {},
-    overrides = {},
-    dim_inactive = false,
-    transparent_mode = true,
 })
 
-require('kanso').setup({
-    bold = true,
-    italics = false,
-    compile = false,
-    undercurl = true,
-    commentStyle = { italic = false },
-    functionStyle = {},
-    keywordStyle = { italic = false },
-    statementStyle = {},
-    typeStyle = {},
-    transparent = true,
-    minimal = true,
-    dimInactive = false,
-    terminalColors = true,
-    colors = {
-        palette = {},
-        theme = { zen = {}, pearl = {}, ink = {}, all = {} },
-    },
-    background = {
-        dark = "zen",
-        light = "pearl"
-    },
-    foreground = "saturated",
-})
-
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
-
-vim.cmd("colorscheme kanso")
+vim.cmd("colorscheme eigengrau")
 
 -- Treesitter
 require("nvim-treesitter").setup({
