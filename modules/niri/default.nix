@@ -10,6 +10,7 @@
         niri
         xwayland-satellite
         swaybg
+        noctalia-shell
       ];
 
       home-manager.users.${user.name} = {
