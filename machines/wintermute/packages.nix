@@ -28,6 +28,7 @@
     ripgrep
     slurp
     spek
+    solaar
     swaybg
     swayidle
     swaylock

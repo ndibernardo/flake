@@ -131,6 +131,7 @@
   hardware = {
     cpu.amd.updateMicrocode = lib.mkDefault true;
     enableAllFirmware = true;
+    logitech.wireless.enable = true;
   };
 
   fileSystems = {
