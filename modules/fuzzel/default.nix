@@ -8,19 +8,19 @@
         settings = {
           main = {
             font = "Berkeley Mono:size=14:style=Regular SemiCondensed";
-            terminal = "alacritty -e";
+            terminal = "ghostty -e";
             width = 30;
             lines = 10;
             prompt = ''">> "'';
           };
           colors = {
-            background      = "040606ff";
-            text            = "C5C9C7ff";
-            match           = "7AA89Fff";
-            selection       = "7AA89Fff";
-            selection-text  = "040606ff";
-            selection-match = "040606ff";
-            border          = "22262Dff";
+            background      = "16161dff"; # bg
+            text            = "b2b2bbff"; # fg
+            match           = "4db5bdff"; # teal – functions
+            selection       = "22222cff"; # bg-highlight
+            selection-text  = "b2b2bbff"; # fg
+            selection-match = "4db5bdff"; # teal
+            border          = "3a3a48ff"; # base4 – outline
           };
           border = {
             width = 2;
