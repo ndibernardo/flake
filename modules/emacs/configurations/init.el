@@ -79,19 +79,17 @@
                 :foundry "USGC"
                 :slant normal
                 :weight medium
-                :height 130
+                :height 120
                 :width semi-condensed))))
  '(line-number ((t (:background nil))))
  '(fringe ((t (:background nil))))
  '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
+ 
+(setq doom-themes-enable-italic nil)
 
-(setq kanagawa-themes-custom-colors '((bg "#040606")))
-(setq kanagawa-themes-keyword-italic nil)
-(setq kanagawa-themes-comment-italic nil)
-
-(load-theme 'kanagawa-wave t)
+(load-theme 'doom-eigengrau t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
