@@ -1,9 +1,16 @@
 input {
     keyboard {
         xkb {
-            layout "us(intl)"
+            layout "us"
+            variant "intl"
         }
         numlock
+    }
+    mouse {
+        accel-speed 0.09
+        accel-profile "flat"
+        scroll-factor 5.0
+        middle-emulation
     }
 }
 
@@ -16,8 +23,6 @@ output "DP-4" {
 layout {
     gaps 10
     center-focused-column "on-overflow"
-    //always-center-single-cumn
-
     background-color "#040606"
 
     preset-column-widths {
@@ -29,8 +34,8 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        width 3
-        active-color "#9CA39F"
+        width 2
+        active-color "#aaccff"
         inactive-color "#22262D"
     }
 
@@ -49,7 +54,11 @@ cursor {
     xcursor-size 16
 }
 
-spawn-at-startup "waybar"
+environment {
+  GTK_IM_MODULE "simple"
+}
+
+spawn-at-startup "noctalia-shell"
 spawn-at-startup "sh" "-c" "swaybg -i $HOME/.config/niri/.wallpaper -m fill"
 
 hotkey-overlay {}
@@ -61,11 +70,6 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 animations {}
 
 window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
-
-window-rule {
     clip-to-geometry true
     draw-border-with-background false
 }
@@ -75,11 +79,16 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match app-id=r#"firefox$"#
+    default-column-width { proportion 0.66667; }
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+T                 hotkey-overlay-title="Open a Terminal: foot"   { spawn "foot"; }
-    Mod+Return            hotkey-overlay-title="Open a Terminal: foot"   { spawn "foot"; }
+    Mod+T                 hotkey-overlay-title="Open a Terminal: ghostty"   { spawn "ghostty"; }
+    Mod+Return            hotkey-overlay-title="Open a Terminal: ghostty"   { spawn "ghostty"; }
     Mod+D                 hotkey-overlay-title="Run an Application: fuzzel"   { spawn "fuzzel"; }
     Super+Alt+L           hotkey-overlay-title="Lock the Screen: swaylock"    { spawn "swaylock"; }
 
