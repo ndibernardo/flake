@@ -7,13 +7,10 @@
     curl
     docker-compose
     fzf
-    gcc
     git
     glib
-    google-chrome
     grim
     htop
-    jetbrains.idea
     killall
     lutris
     lynis
@@ -22,7 +19,6 @@
     nicotine-plus
     nixd
     nixfmt
-    obsidian
     pavucontrol
     puddletag
     ripgrep
@@ -35,7 +31,6 @@
     thunar
     unzip
     vim
-    vscode
     wget
     wl-clipboard
     xdg-utils

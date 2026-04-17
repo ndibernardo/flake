@@ -68,7 +68,6 @@
         home.file = {
           ".config/emacs/early-init.el".source = ./configurations/early-init.el;
           ".config/emacs/init.el".source = ./configurations/init.el;
-          ".config/emacs/themes/doom-eigengrau-theme.el".source = ./doom-eigengrau/doom-eigengrau-theme.el;
         };
         programs.emacs = {
           enable = true;

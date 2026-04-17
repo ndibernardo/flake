@@ -5,9 +5,6 @@
 ;;; Code:
 (require 'cl-lib)
 
-(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-
-;; y-or-n prompt
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Utf-8
@@ -88,8 +85,8 @@
  '(mode-line-inactive ((t (:box nil)))))
  
 (setq doom-themes-enable-italic nil)
+(load-theme 'modus-operandi t)
 
-(load-theme 'doom-eigengrau t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"

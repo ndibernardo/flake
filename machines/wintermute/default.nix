@@ -3,7 +3,10 @@
   machines.wintermute = {
     system = "x86_64-linux";
     modules = [
+      "alacritty"
       "atuin"
+      "bash"
+      "bemenu"
       "audio"
       "bluetooth"
       "containers"
@@ -14,11 +17,8 @@
       "fail2ban"
       "firefox"
       "fonts"
-      "ghostty"
-      "fuzzel"
       "git"
       "gnupg"
-      "gtk"
       "home-manager"
       "ld"
       "locale"
@@ -26,20 +26,16 @@
       "mtr"
       "mullvad"
       "neovim"
-      "niri"
       "nix"
-      "noctalia"
       "nvidia"
       "openrgb"
       "openssh"
       "nixpkgs"
-      "qt"
       "steam"
+      "sway"
       "systemd"
       "tailscale"
-      "tmux"
       "users"
-      "zsh"
     ];
     nixosModules = [
       inputs.home-manager.nixosModules.home-manager
