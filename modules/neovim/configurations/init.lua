@@ -347,44 +347,23 @@ pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "ui-select")
 
 -- Themes
-vim.cmd("colorscheme quiet")
-
-vim.api.nvim_set_hl(0, "Normal",       { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalNC",     { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat",  { bg = "none" })
-vim.api.nvim_set_hl(0, "FloatBorder",  { bg = "none" })
-vim.api.nvim_set_hl(0, "SignColumn",   { bg = "none" })
-vim.api.nvim_set_hl(0, "EndOfBuffer",  { bg = "none" })
-
--- Light gray highlights coherent with alabaster terminal colors
-local hl = vim.api.nvim_set_hl
-hl(0, "Visual",             { bg = "#DDDDDD" })
-hl(0, "Search",             { bg = "#DDDDDD", fg = "#434343" })
-hl(0, "IncSearch",          { bg = "#BBBBBB", fg = "#434343" })
-hl(0, "CurSearch",          { bg = "#BBBBBB", fg = "#434343" })
-hl(0, "CursorLine",         { bg = "#EEEEEE" })
-hl(0, "LspReferenceText",   { bg = "#E4E4E4" })
-hl(0, "LspReferenceRead",   { bg = "#E4E4E4" })
-hl(0, "LspReferenceWrite",  { bg = "#DDDDDD" })
-hl(0, "TelescopeSelection", { bg = "#DDDDDD", fg = "#434343" })
-hl(0, "TelescopeMatching",  { fg = "#325CC0", bold = true })
-hl(0, "PmenuSel",           { bg = "#DDDDDD", fg = "#434343" })
-hl(0, "Pmenu",              { bg = "#F0F0F0", fg = "#434343" })
-hl(0, "GitSignsAdd",        { fg = "#448C27", bg = "none" })
-hl(0, "GitSignsChange",     { fg = "#CB9000", bg = "none" })
-hl(0, "GitSignsDelete",     { fg = "#AA3731", bg = "none" })
-
-require("gitsigns").setup({
-    signs = {
-        add          = { text = "▌" },
-        change       = { text = "▌" },
-        delete       = { text = "▌" },
-        topdelete    = { text = "▌" },
-        changedelete = { text = "▌" },
-        untracked    = { text = "" },
+require("modus-themes").setup({
+    style = "modus_operandi",
+    transparent = true,
+    dim_inactive = false,
+    hide_inactive_statusline = false,
+    line_nr_column_background = false,
+    sign_column_background = false,
+    styles = {
+        comments = { italic = false },
+        keywords = { italic = false },
+        functions = {},
+        variables = {},
     },
-    attach_to_untracked = false,
+    on_colors = function(_) end,
+    on_highlights = function() end,
 })
+vim.cmd("colorscheme modus")
 
 -- Treesitter
 require("nvim-treesitter").setup({

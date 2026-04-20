@@ -27,6 +27,7 @@
           fidget-nvim
           friendly-snippets
           gitsigns-nvim
+          modus-themes-nvim
           nvim-cmp
           nvim-colorizer-lua
           nvim-lspconfig
