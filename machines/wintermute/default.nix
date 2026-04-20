@@ -3,7 +3,6 @@
   machines.wintermute = {
     system = "x86_64-linux";
     modules = [
-      "alacritty"
       "atuin"
       "bash"
       "bemenu"
@@ -17,8 +16,10 @@
       "fail2ban"
       "firefox"
       "fonts"
+      "foot"
       "git"
       "gnupg"
+      "gtk"
       "home-manager"
       "ld"
       "locale"

@@ -66,6 +66,7 @@
     };
 
     kernelParams = [
+      "btmtk.reset_on_close=0"
       "nvidia-drm.modeset=1"
       "nvidia-drm.fbdev=1"
       "nouveau.modeset=0"
@@ -133,6 +134,12 @@
     enableAllFirmware = true;
     logitech.wireless.enable = true;
   };
+
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="31e9", ATTR{idProduct}=="0002", \
+    RUN+="${pkgs.kmod}/bin/modprobe -r snd_usb_audio", \
+    RUN+="${pkgs.kmod}/bin/modprobe snd_usb_audio"
+  '';
 
   fileSystems = {
     "/boot" = {
