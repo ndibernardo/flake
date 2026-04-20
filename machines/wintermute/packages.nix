@@ -16,6 +16,7 @@
     lynis
     man-pages
     man-pages-posix
+    mullvad-browser
     nicotine-plus
     nixd
     nixfmt
@@ -28,8 +29,10 @@
     swaybg
     swayidle
     swaylock
+    tor-browser
     thunar
     unzip
+    usbutils
     vim
     wget
     wl-clipboard
