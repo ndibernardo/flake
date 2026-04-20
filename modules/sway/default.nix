@@ -22,7 +22,7 @@
         done
       '';
 
-      cycle-focus = pkgs.writers.writePython3Bin "sway-cycle-focus" {} ''
+      cycle-focus = pkgs.writers.writePython3Bin "sway-cycle-focus" { } ''
         import subprocess
         import json
         import sys
@@ -89,7 +89,10 @@
       '';
     in
     {
-      environment.systemPackages = [ cycle-focus float-toggle ];
+      environment.systemPackages = [
+        cycle-focus
+        float-toggle
+      ];
 
       home-manager.users.${user.name}.wayland.windowManager.sway = {
         enable = true;
@@ -99,7 +102,7 @@
         };
         config = {
           modifier = "Mod4";
-          terminal = "alacritty msg create-window";
+          terminal = "footclient";
           menu = "bemenu-toggle";
 
           fonts = {
@@ -162,7 +165,8 @@
           seat."*".xcursor_theme = "Adwaita 16";
 
           startup = [
-            { command = "alacritty --daemon"; }
+            { command = "foot --server"; }
+            { command = "openrgb --profile white"; }
             { command = "systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
             {
               command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
@@ -184,7 +188,7 @@
               modifier = "Mod4";
             in
             lib.mkOptionDefault {
-              "${modifier}+Return" = "exec alacritty msg create-window";
+              "${modifier}+Return" = "exec footclient";
               "${modifier}+Tab" = "exec sway-cycle-focus next";
               "${modifier}+Shift+Tab" = "exec sway-cycle-focus prev";
               "${modifier}+q" = "kill";
@@ -274,21 +278,21 @@
               colors = {
                 statusline = "#000000";
                 background = "#F7F7F7";
-                separator  = "#BBBBBB";
+                separator = "#BBBBBB";
                 inactiveWorkspace = {
-                  border     = "#F7F7F7";
+                  border = "#F7F7F7";
                   background = "#F7F7F7";
-                  text       = "#777777";
+                  text = "#777777";
                 };
                 focusedWorkspace = {
-                  border     = "#000000";
+                  border = "#000000";
                   background = "#000000";
-                  text       = "#F7F7F7";
+                  text = "#F7F7F7";
                 };
                 urgentWorkspace = {
-                  border     = "#AA3731";
+                  border = "#AA3731";
                   background = "#AA3731";
-                  text       = "#F7F7F7";
+                  text = "#F7F7F7";
                 };
               };
               extraConfig = ''
@@ -298,7 +302,6 @@
                 status_edge_padding 12
                 status_padding 4
                 workspace_min_width 32
-                tray_output none
               '';
             }
           ];
