@@ -47,7 +47,7 @@
 
       "net.core.bpf_jit_harden" = 2;
 
-      "net.ipv4.conf.all.forwarding" = false;
+      "net.ipv4.conf.all.forwarding" = 0;
       "net.ipv4.conf.all.accept_redirects" = 0;
       "net.ipv4.conf.default.accept_redirects" = 0;
 
@@ -57,8 +57,25 @@
       "net.ipv4.conf.all.log_martians" = true;
       "net.ipv4.conf.default.log_martians" = true;
 
-      "net.ipv4.conf.all.rp_filter" = true;
+      "net.ipv4.conf.all.rp_filter" = 1;
+      "net.ipv4.conf.default.rp_filter" = 1;
       "net.ipv4.conf.all.send_redirects" = 0;
+      "net.ipv4.conf.default.send_redirects" = 0;
+      "net.ipv4.conf.all.accept_source_route" = 0;
+      "net.ipv4.conf.default.accept_source_route" = 0;
+      "net.ipv6.conf.all.accept_source_route" = 0;
+
+      "net.ipv4.tcp_syncookies" = 1;
+      "net.ipv4.tcp_timestamps" = 0;
+      "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
+      "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
+
+      "kernel.dmesg_restrict" = 1;
+      "kernel.randomize_va_space" = 2;
+      "kernel.yama.ptrace_scope" = 1;
+
+      "fs.protected_hardlinks" = 1;
+      "fs.protected_symlinks" = 1;
 
       "net.ipv4.tcp_fastopen" = 3;
       "net.ipv4.tcp_congestion_control" = "bbr";
@@ -86,10 +103,6 @@
       "nouveau"
       "rds"
       "sctp"
-      "tipc"
-      "dccp"
-      "sctp"
-      "rds"
       "tipc"
       "n-hdlc"
       "ax25"
@@ -125,7 +138,7 @@
     extraModulePackages = [ ];
     supportedFilesystems = [
       "ntfs"
-      "xfs"
+      "btrfs"
     ];
   };
 
@@ -152,8 +165,87 @@
     };
 
     "/" = {
-      device = "/dev/mapper/luks-a073c911-3be5-45ed-a361-2e8f44745fe9";
-      fsType = "xfs";
+      device = "/dev/disk/by-uuid/bf35e77c-0f4c-48d2-8722-1d49771c4276";
+      fsType = "btrfs";
+      options = [
+        "subvol=@"
+        "compress=zstd"
+        "noatime"
+        "ssd"
+        "discard=async"
+      ];
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-uuid/bf35e77c-0f4c-48d2-8722-1d49771c4276";
+      fsType = "btrfs";
+      options = [
+        "subvol=@home"
+        "compress=zstd"
+        "noatime"
+        "ssd"
+        "discard=async"
+        "nosuid"
+        "nodev"
+      ];
+    };
+
+    "/var" = {
+      device = "/dev/disk/by-uuid/bf35e77c-0f4c-48d2-8722-1d49771c4276";
+      fsType = "btrfs";
+      options = [
+        "subvol=@var"
+        "compress=zstd"
+        "noatime"
+        "ssd"
+        "discard=async"
+        "nosuid"
+        "nodev"
+        "noexec"
+      ];
+    };
+
+    "/tmp" = {
+      device = "/dev/disk/by-uuid/bf35e77c-0f4c-48d2-8722-1d49771c4276";
+      fsType = "btrfs";
+      options = [
+        "subvol=@tmp"
+        "compress=zstd"
+        "noatime"
+        "ssd"
+        "discard=async"
+        "nosuid"
+        "nodev"
+        "noexec"
+      ];
+    };
+
+    "/nix" = {
+      device = "/dev/disk/by-uuid/bf35e77c-0f4c-48d2-8722-1d49771c4276";
+      fsType = "btrfs";
+      options = [
+        "subvol=@nix"
+        "compress=zstd"
+        "noatime"
+        "ssd"
+        "discard=async"
+        "nodev"
+      ];
+    };
+
+    "/.snapshots" = {
+      device = "/dev/disk/by-uuid/bf35e77c-0f4c-48d2-8722-1d49771c4276";
+      fsType = "btrfs";
+      options = [
+        "subvol=@snapshots"
+        "compress=zstd"
+        "noatime"
+        "ssd"
+        "discard=async"
+        "nosuid"
+        "nodev"
+        "noexec"
+      ];
     };
 
     "/proc" = {
