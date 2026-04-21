@@ -1,16 +1,14 @@
 { ... }:
 {
+  boot.extraModprobeConfig = ''
+    install dccp /bin/true
+    install sctp /bin/true
+    install rds /bin/true
+    install tipc /bin/true
+  '';
+
   security = {
     protectKernelImage = true;
-    audit = {
-      enable = true;
-      rules = [
-        "-a exit,always -F arch=b64 -S execve"
-      ];
-    };
-    auditd = {
-      enable = true;
-    };
     rtkit = {
       enable = true;
     };
@@ -35,10 +33,8 @@
         enable = false;
       };
     };
-
-    logrotate = {
-      enable = true;
-    };
   };
+
+  services.sysstat.enable = true;
 
 }
