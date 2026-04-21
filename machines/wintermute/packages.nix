@@ -34,6 +34,7 @@
     unzip
     usbutils
     vim
+    vulnix
     wget
     wl-clipboard
     xdg-utils
