@@ -36,6 +36,7 @@
     unzip
     vim
     vscode
+    vulnix
     wget
     wl-clipboard
     xdg-utils
