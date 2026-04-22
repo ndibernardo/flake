@@ -347,13 +347,20 @@ pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "ui-select")
 
 -- Themes
-require('eigengrau').setup({
-    transparent     = true,
-    italic_comments = false,
+require('gruvbox').setup({
     terminal_colors = true,
+    contrast        = "hard",
+    bold            = false,
+    italic          = {
+        strings   = false,
+        emphasis  = false,
+        comments  = false,
+        operators = false,
+        folds     = false,
+    },
 })
 
-vim.cmd("colorscheme eigengrau")
+vim.cmd("colorscheme gruvbox")
 
 -- Treesitter
 require("nvim-treesitter").setup({

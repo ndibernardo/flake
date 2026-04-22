@@ -7,12 +7,6 @@
       user,
       ...
     }:
-    let
-      eigengrau-nvim = pkgs.vimUtils.buildVimPlugin {
-        name = "eigengrau-nvim";
-        src = ./eigengrau-nvim;
-      };
-    in
     {
       home-manager.users.${user.name}.programs.neovim = {
         enable = true;
@@ -30,7 +24,7 @@
           comment-nvim
           conform-nvim
           direnv-vim
-          eigengrau-nvim
+          gruvbox-nvim
           fidget-nvim
           friendly-snippets
           gitsigns-nvim
