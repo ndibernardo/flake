@@ -92,8 +92,8 @@ Personal customization of Jack Rusher's original doom-eigengrau."
    (vertical-bar   (doom-darken base1 0.1))
    (selection      dark-blue)
    (builtin        magenta)                             ; #DB85D9
-   (comments       (if doom-eigengrau-brighter-comments dark-cyan orange)) ; #DADA86 warm yellow
-   (doc-comments   (doom-lighten (if doom-eigengrau-brighter-comments dark-cyan orange) 0.15))
+   (comments       (if doom-eigengrau-brighter-comments dark-cyan base5))
+   (doc-comments   (doom-lighten (if doom-eigengrau-brighter-comments dark-cyan base5) 0.25))
    (constants      violet)                              ; #B286DB
    (functions      teal)                                ; #4db5bd
    (keywords       green)                               ; #86DA87
