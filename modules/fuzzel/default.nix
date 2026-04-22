@@ -14,13 +14,13 @@
             prompt = ''">> "'';
           };
           colors = {
-            background      = "16161dff"; # bg
-            text            = "b2b2bbff"; # fg
-            match           = "4db5bdff"; # teal – functions
-            selection       = "22222cff"; # bg-highlight
-            selection-text  = "b2b2bbff"; # fg
-            selection-match = "4db5bdff"; # teal
-            border          = "3a3a48ff"; # base4 – outline
+            background      = "1d2021ff"; # bg hard
+            text            = "ebdbb2ff"; # fg
+            match           = "fabd2fff"; # yellow
+            selection       = "504945ff"; # bg3
+            selection-text  = "ebdbb2ff"; # fg
+            selection-match = "fabd2fff"; # yellow
+            border          = "3c3836ff"; # bg1
           };
           border = {
             width = 2;
