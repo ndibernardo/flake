@@ -86,10 +86,11 @@
  '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
- 
-(setq doom-themes-enable-italic nil)
 
-(load-theme 'doom-eigengrau t)
+(setq doom-themes-enable-italic nil)
+(setq doom-gruvbox-dark-variant "hard")
+
+(load-theme 'doom-gruvbox t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
