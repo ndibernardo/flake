@@ -23,7 +23,7 @@ output "DP-4" {
 layout {
     gaps 10
     center-focused-column "on-overflow"
-    background-color "#040606"
+    background-color "#1d2021"
 
     preset-column-widths {
         proportion 0.33333
@@ -35,8 +35,8 @@ layout {
 
     focus-ring {
         width 2
-        active-color "#aaccff"
-        inactive-color "#22262D"
+        active-color "#83a598"
+        inactive-color "#3c3836"
     }
 
     shadow {
