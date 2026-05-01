@@ -1,30 +1,48 @@
 { inputs, ... }:
 {
-  machines.avalon = {
+  machines.mizar = {
     system = "x86_64-linux";
     modules = [
       "atuin"
+      "bash"
+      "bemenu"
+      "audio"
+      "bluetooth"
+      "containers"
       "direnv"
       "docker"
       "documentation"
+      "emacs"
+      "fail2ban"
+      "firefox"
+      "fonts"
+      "foot"
       "git"
+      "gnupg"
+      "gtk"
       "home-manager"
       "ld"
       "locale"
+      "mtr"
+      "mullvad"
       "neovim"
       "nix"
+      "nvidia"
+      "openrgb"
+      "openssh"
       "nixpkgs"
+      "steam"
+      "sway"
+      "systemd"
       "tailscale"
-      "tmux"
       "users"
-      "zsh"
     ];
     nixosModules = [
       inputs.home-manager.nixosModules.home-manager
-      inputs.nixos-wsl.nixosModules.wsl
       ./hardware.nix
       ./networking.nix
       ./packages.nix
+      ./security.nix
     ];
     user = {
       name = "nil";

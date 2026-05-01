@@ -33,7 +33,7 @@
           nvim-lspconfig
           nvim-surround
           nvim-tree-lua
-          nvim-treesitter
+          nvim-treesitter.withAllGrammars
           nvim-web-devicons
           oil-nvim
           plenary-nvim

@@ -6,6 +6,7 @@
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
+        backupFileExtension = "backup";
         users.${user.name} = {
           home = {
             inherit (user) homeDirectory;

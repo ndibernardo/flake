@@ -72,21 +72,18 @@
 ;; Theme and faces
 (custom-set-faces
 '(default
-   ((t (:family "Berkeley Mono"
-                :foundry "USGC"
+   ((t (:family "Iosevka SS08 Extended"
                 :slant normal
-                :weight medium
                 :height 120
-                :width semi-condensed))))
+                :background "#F7F7F7"))))
  '(line-number ((t (:background nil))))
  '(fringe ((t (:background nil))))
  '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
- 
+
 (setq doom-themes-enable-italic nil)
 (load-theme 'modus-operandi t)
-
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
@@ -149,8 +146,7 @@
 
 (add-hook 'lsp-completion-mode-hook 'corfu-lsp-setup)
 
-;; Ensure direnv is loaded before LSP starts
-(add-hook 'lsp-before-initialize-hook 'direnv-update-environment)
+(advice-add 'lsp :before (lambda (&rest _) (direnv-update-environment)))
 
 ;; Marginalia
 (add-hook 'after-init-hook 'marginalia-mode)

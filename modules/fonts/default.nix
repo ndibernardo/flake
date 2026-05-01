@@ -17,8 +17,6 @@
           };
         };
         packages = with pkgs; [
-          berkeley-mono
-          fira-code
           (iosevka-bin.override { variant = "Aile"; })
           (iosevka-bin.override { variant = "SS08"; })
           noto-fonts

@@ -22,57 +22,37 @@
         done
       '';
 
-      cycle-focus = pkgs.writers.writePython3Bin "sway-cycle-focus" { } ''
-        import subprocess
-        import json
-        import sys
+      cycle-focus = pkgs.writeShellScriptBin "sway-cycle-focus" ''
+        direction=''${1:-next}
+        jq=${pkgs.jq}/bin/jq
 
+        # collect leaf con_ids across all workspaces (nodes with a pid and no children)
+        mapfile -t ids < <(swaymsg -t get_tree | $jq -r '
+          def leaves:
+            if (.pid? and .pid != null) and ((.nodes // []) | length == 0)
+            then .id
+            else ((.nodes // []) + (.floating_nodes // []))[] | leaves
+            end;
+          .. | objects | select(.type == "workspace") | leaves
+        ')
 
-        def find_ws(node, name):
-            if node.get("type") == "workspace" and node.get("name") == name:
-                return node
-            for child in node.get("nodes", []):
-                r = find_ws(child, name)
-                if r:
-                    return r
-            return None
+        n=''${#ids[@]}
+        (( n <= 1 )) && exit 0
 
+        cur=$(swaymsg -t get_tree | $jq -r '.. | objects | select(.focused == true) | .id')
 
-        def leaves(node):
-            result = []
-            if node.get("pid") and not node.get("nodes"):
-                result.append(node["id"])
-            for child in node.get("nodes", []) + node.get("floating_nodes", []):
-                result.extend(leaves(child))
-            return result
+        pos=0
+        for i in "''${!ids[@]}"; do
+          [[ "''${ids[$i]}" == "$cur" ]] && pos=$i && break
+        done
 
+        if [[ "$direction" == "next" ]]; then
+          target=''${ids[$(( (pos + 1) % n ))]}
+        else
+          target=''${ids[$(( (pos - 1 + n) % n ))]}
+        fi
 
-        def find_focused(node):
-            if node.get("focused"):
-                return node["id"]
-            for child in node.get("nodes", []) + node.get("floating_nodes", []):
-                r = find_focused(child)
-                if r is not None:
-                    return r
-            return None
-
-
-        direction = sys.argv[1] if len(sys.argv) > 1 else "next"
-        tree = json.loads(subprocess.check_output(["swaymsg", "-t", "get_tree"]))
-        workspaces = json.loads(
-            subprocess.check_output(["swaymsg", "-t", "get_workspaces"])
-        )
-        ws_name = next(w["name"] for w in workspaces if w["focused"])
-
-        ws = find_ws(tree, ws_name)
-        ids = leaves(ws) if ws else []
-        cur = find_focused(tree)
-        n = len(ids)
-
-        if n > 1:
-            pos = ids.index(cur) if cur in ids else 0
-            target = ids[(pos + (1 if direction == "next" else -1)) % n]
-            subprocess.run(["swaymsg", f"[con_id={target}] focus"])
+        swaymsg "[con_id=$target] focus"
       '';
 
       float-toggle = pkgs.writeShellScriptBin "sway-float-toggle" ''
@@ -94,35 +74,56 @@
         float-toggle
       ];
 
+      services.xserver.displayManager.lightdm.enable = false;
+
+      programs.sway = {
+        enable = true;
+        wrapperFeatures = {
+          base = true;
+          gtk = true;
+        };
+      };
+
+      # security.pam.services.login.enableGnomeKeyring = true;
+      #
+      # services.gnome.gnome-keyring.enable = true;
+      #
+      # xdg.portal = {
+      #   enable = true;
+      #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      #   wlr.enable = true;
+      # };
+
       home-manager.users.${user.name}.wayland.windowManager.sway = {
         enable = true;
+        extraOptions = [ "--unsupported-gpu" ];
         systemd = {
           enable = true;
           variables = [ "--all" ];
         };
+
         config = {
+          menu = "bemenu-toggle";
           modifier = "Mod4";
           terminal = "footclient";
-          menu = "bemenu-toggle";
 
           fonts = {
             names = [ "Iosevka Aile" ];
             size = 11.0;
           };
 
-          gaps.inner = 10;
+          gaps = {
+            inner = 5;
+          };
 
           window = {
             border = 5;
             titlebar = false;
           };
 
-          focus = {
-            followMouse = "always";
-            mouseWarping = "container";
+          floating = {
+            modifier = "Mod4";
           };
-
-          input."*".scroll_factor = "5";
 
           colors = {
             focused = {
@@ -162,15 +163,27 @@
             };
           };
 
+          focus = {
+            followMouse = "always";
+            mouseWarping = "container";
+          };
+
+          input."*" = {
+            scroll_factor = "5";
+            xkb_layout = "us";
+            xkb_variant = "intl";
+          };
+
           seat."*".xcursor_theme = "Adwaita 16";
+
+          output."DP-4" = {
+            mode = "3840x2160@240.016Hz";
+            position = "0,0";
+          };
 
           startup = [
             { command = "foot --server"; }
-            { command = "openrgb --profile white"; }
-            { command = "systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
-            {
-              command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
-            }
+            { command = "openrgb --mode static --color 9C9C9C"; }
             { command = "gsettings set org.gnome.desktop.interface cursor-theme Adwaita"; }
             { command = "gsettings set org.gnome.desktop.interface cursor-size 16"; }
             {
@@ -195,7 +208,9 @@
               "${modifier}+d" = "exec bemenu-toggle";
               "${modifier}+Shift+c" = "reload";
               "${modifier}+Shift+e" =
-                "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
+                "exec swaynag -t warning -m 'You pressed the exit shortcut. "
+                + "Do you really want to exit sway? "
+                + "This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
               # Focus
               "${modifier}+h" = "focus left";
               "${modifier}+j" = "focus down";
@@ -273,7 +288,7 @@
               statusCommand = "${statusbar}";
               fonts = {
                 names = [ "Iosevka Aile" ];
-                size = 11.0;
+                size = 12.0;
               };
               colors = {
                 statusline = "#000000";
@@ -298,80 +313,36 @@
               extraConfig = ''
                 strip_workspace_numbers yes
                 height 28
-                gaps 8 600
+                gaps 5 600
                 status_edge_padding 12
                 status_padding 4
                 workspace_min_width 32
               '';
             }
           ];
-
-          floating.modifier = "Mod4";
-
-          output."DP-4" = {
-            mode = "3840x2160@240.016Hz";
-            position = "0,0";
-          };
-
-          assigns = {
-            "5" = [ { class = "^steam$"; } ];
-            "8" = [ { app_id = "^puddletag$"; } ];
-            "9" = [ { app_id = "^org.nicotine_plus.Nicotine$"; } ];
-          };
         };
-
-        extraOptions = [ "--unsupported-gpu" ];
 
         extraConfig = ''
           workspace 1
           output * bg #767676 solid_color
           title_align left
 
-          # Gesture navigation
-          bindgesture swipe:4:left workspace prev
-          bindgesture swipe:4:right workspace next
-          bindgesture swipe:3:down focus up
-          bindgesture swipe:3:up focus down
-          bindgesture swipe:3:left focus right
-          bindgesture swipe:3:right focus left
-
           # Media keys (--locked so they work on the lock screen)
-          bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+          bindsym --locked XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
           bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
           bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-          bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+          bindsym --locked XF86AudioMicMute     exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
           bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-          bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-
-          # Uncomment to make all windows float by default
-          # for_window [app_id=".*"] floating enable
-          # for_window [class=".*"] floating enable
+          bindsym --locked XF86MonBrightnessUp   exec brightnessctl set 5%+
 
           # Titlebar only for floating windows
-          for_window [tiling] border pixel 3
+          for_window [tiling]   border pixel 3
           for_window [floating] border normal 3
 
           # Screenshots
-          bindsym Print exec ${pkgs.grim}/bin/grim -t png
-          bindsym Mod4+Print exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" -t png
+          bindsym Print       exec ${pkgs.grim}/bin/grim -t png
+          bindsym Mod4+Print  exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" -t png
         '';
-      };
-
-      programs.sway = {
-        enable = true;
-        wrapperFeatures = {
-          base = true;
-          gtk = true;
-        };
-      };
-
-      security.pam.services.sway.enableGnomeKeyring = true;
-      services.gnome.gnome-keyring.enable = true;
-
-      xdg.portal = {
-        enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        wlr.enable = true;
       };
     }
   );
