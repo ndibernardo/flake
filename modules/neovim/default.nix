@@ -17,6 +17,7 @@
         withPython3 = false;
         initLua = lib.fileContents ./configurations/init.lua;
         plugins = with pkgs.vimPlugins; [
+          tokyonight-nvim
           cmp_luasnip
           cmp-cmdline
           cmp-nvim-lsp
@@ -24,8 +25,7 @@
           comment-nvim
           conform-nvim
           direnv-vim
-          gruvbox-nvim
-          fidget-nvim
+fidget-nvim
           friendly-snippets
           gitsigns-nvim
           nvim-cmp

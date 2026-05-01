@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   networking = {
-    hostName = "wintermute";
+    hostName = "mizar";
     firewall = {
       enable = true;
       trustedInterfaces = [ "tailscale0" ];

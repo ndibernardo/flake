@@ -4,7 +4,9 @@
     { config, ... }:
     {
       hardware = {
-        graphics.enable = true;
+        graphics = {
+          enable = true;
+        };
         nvidia = {
           modesetting.enable = true;
           nvidiaSettings = true;

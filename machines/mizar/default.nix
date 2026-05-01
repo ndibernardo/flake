@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  machines.wintermute = {
+  machines.mizar = {
     system = "x86_64-linux";
     modules = [
       "atuin"
@@ -13,33 +13,28 @@
       "emacs"
       "fail2ban"
       "firefox"
+      "fish"
       "fonts"
       "ghostty"
-      "fuzzel"
       "git"
+      "desktop"
       "gnupg"
-      "gtk"
       "home-manager"
       "ld"
       "locale"
-      "ly"
       "mtr"
       "mullvad"
       "neovim"
-      "niri"
       "nix"
-      "noctalia"
       "nvidia"
       "openrgb"
       "openssh"
       "nixpkgs"
-      "qt"
       "steam"
       "systemd"
       "tailscale"
       "tmux"
       "users"
-      "zsh"
     ];
     nixosModules = [
       inputs.home-manager.nixosModules.home-manager
