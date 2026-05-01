@@ -13,7 +13,7 @@
           window-padding-y = 10;
           scrollback-limit = 10000;
 
-          theme = "Gruvbox Dark Hard";
+          theme = "TokyoNight";
         };
       };
     }

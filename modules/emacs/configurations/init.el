@@ -84,6 +84,7 @@
  '(line-number ((t (:background nil))))
  '(fringe ((t (:background nil))))
  '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
+ '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
 
@@ -153,8 +154,8 @@
 
 (add-hook 'lsp-completion-mode-hook 'corfu-lsp-setup)
 
-;; Ensure direnv is loaded before LSP starts
-(add-hook 'lsp-before-initialize-hook 'direnv-update-environment)
+(advice-add 'lsp :before (lambda (&rest _) (direnv-update-environment)))
+
 
 ;; Marginalia
 (add-hook 'after-init-hook 'marginalia-mode)

@@ -3,19 +3,16 @@
   environment.systemPackages = with pkgs; [
     _1password-cli
     _1password-gui
-    claude-code
     curl
     docker-compose
     fzf
-    gcc
     git
-    glib
-    google-chrome
-    grim
+    gimp
     htop
     jetbrains.idea
     killall
-    lutris
+    krita
+    # lutris
     lynis
     man-pages
     man-pages-posix
@@ -23,18 +20,12 @@
     nixd
     nixfmt
     obsidian
-    pavucontrol
     puddletag
     ripgrep
-    slurp
     spek
     solaar
-    swaybg
-    swayidle
-    swaylock
-    thunar
+    ungoogled-chromium
     unzip
-    vim
     vscode
     vulnix
     wget
