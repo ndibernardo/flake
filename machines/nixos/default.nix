@@ -1,12 +1,13 @@
 { inputs, ... }:
 {
-  machines.mizar = {
+  machines.nixos = {
     system = "x86_64-linux";
     modules = [
       "atuin"
       "audio"
       "bluetooth"
       "containers"
+      "desktop"
       "direnv"
       "docker"
       "documentation"
@@ -15,21 +16,26 @@
       "firefox"
       "fish"
       "fonts"
+      "fuzzel"
       "ghostty"
       "git"
-      "desktop"
       "gnupg"
+      "gtk"
       "home-manager"
       "ld"
       "locale"
+      "ly"
       "mtr"
       "mullvad"
       "neovim"
+      "niri"
       "nix"
+      "nixpkgs"
+      "noctalia"
       "nvidia"
       "openrgb"
       "openssh"
-      "nixpkgs"
+      "qt"
       "steam"
       "systemd"
       "tailscale"
