@@ -3,34 +3,24 @@
   environment.systemPackages = with pkgs; [
     _1password-cli
     _1password-gui
+    claude-code
     curl
     docker-compose
     fzf
-    git
-    gimp
     htop
-    jetbrains.idea
     killall
     krita
-    # lutris
-    lynis
+    lutris
     man-pages
     man-pages-posix
-    nicotine-plus
     nixd
     nixfmt
     obsidian
-    puddletag
+    pcmanfm
     ripgrep
-    spek
     solaar
-    ungoogled-chromium
     unzip
-    vscode
-    vulnix
     wget
-    wl-clipboard
-    xdg-utils
     zip
   ];
 }

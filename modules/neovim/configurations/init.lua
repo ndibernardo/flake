@@ -357,24 +357,31 @@ require("nvim-treesitter").setup({
 })
 
 -- Theme
-require("tokyonight").setup({
-    style = "night",
-    styles = {
-        comments = { italic = false },
-        keywords = { italic = false },
+require('kanso').setup({
+    bold = true,
+    italics = false,
+    compile = false,
+    undercurl = true,
+    commentStyle = { italic = false },
+    functionStyle = {},
+    keywordStyle = { italic = false },
+    statementStyle = {},
+    typeStyle = {},
+    transparent = false,
+    dimInactive = false,
+    terminalColors = true,
+    colors = {
+        palette = {},
+        theme = { zen = {}, pearl = {}, ink = {}, all = {} },
     },
-    on_highlights = function(hl, c)
-        hl["@type"]            = { fg = c.fg }
-        hl["@type.builtin"]    = { fg = c.fg }
-        hl["@type.definition"] = { fg = c.fg }
-        local prompt = "#2d3149"
-        hl.TelescopeNormal = { bg = c.bg_dark, fg = c.fg_dark }
-        hl.TelescopeBorder = { bg = c.bg_dark, fg = c.bg_dark }
-        hl.TelescopePromptNormal = { bg = prompt }
-        hl.TelescopePromptBorder = { bg = prompt, fg = prompt }
-        hl.TelescopePromptTitle = { bg = prompt, fg = prompt }
-        hl.TelescopePreviewTitle = { bg = c.bg_dark, fg = c.bg_dark }
-        hl.TelescopeResultsTitle = { bg = c.bg_dark, fg = c.bg_dark }
+    overrides = function(colors)
+        return {}
     end,
+    background = {
+        dark = "ink",
+        light = "pearl"
+    },
+    foreground = "saturated",
 })
-vim.cmd.colorscheme("tokyonight")
+
+vim.cmd.colorscheme "kanso-ink"

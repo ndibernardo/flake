@@ -7,7 +7,6 @@
         config.allowUnfree = true;
         overlays = [
           (final: prev: {
-            berkeley-mono = final.callPackage ../../packages/berkeley-mono.nix { };
             solaar = prev.solaar.overrideAttrs (_: {
               version = "unstable-2025-04-13";
               src = final.fetchFromGitHub {
