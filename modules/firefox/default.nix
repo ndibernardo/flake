@@ -1,9 +1,6 @@
 { ... }:
 {
-  flake.nixosModules.firefox = (
-    { user, ... }:
-    {
-      programs.firefox.enable = true;
-    }
-  );
+  flake.nixosModules.firefox = {
+    programs.firefox.enable = true;
+  };
 }
