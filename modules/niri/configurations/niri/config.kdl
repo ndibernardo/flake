@@ -23,7 +23,7 @@ output "DP-4" {
 layout {
     gaps 10
     center-focused-column "on-overflow"
-    background-color "#1d2021"
+    background-color "#f5f5f5"
 
     preset-column-widths {
         proportion 0.33333
@@ -35,15 +35,15 @@ layout {
 
     focus-ring {
         width 2
-        active-color "#83a598"
-        inactive-color "#3c3836"
+        active-color "#2981ca"
+        inactive-color "#d0d0d0"
     }
 
     shadow {
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
+        softness 20
+        spread 3
+        offset x=0 y=4
+        color "#00000020"
     }
 
     struts {}
@@ -59,7 +59,7 @@ environment {
 }
 
 spawn-at-startup "noctalia-shell"
-spawn-at-startup "sh" "-c" "swaybg -i $HOME/.config/niri/.wallpaper -m fill"
+spawn-at-startup "swaybg" "-c" "#4a4d54"
 
 hotkey-overlay {}
 

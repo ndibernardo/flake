@@ -362,6 +362,8 @@ require("nvim-treesitter").setup({
 })
 
 -- Theme
+vim.o.background = "light"
+
 require('kanso').setup({
     bold = true,
     italics = false,
@@ -372,7 +374,7 @@ require('kanso').setup({
     keywordStyle = { italic = false },
     statementStyle = {},
     typeStyle = {},
-    transparent = false,
+    transparent = true,
     dimInactive = false,
     terminalColors = true,
     colors = {
@@ -380,13 +382,109 @@ require('kanso').setup({
         theme = { zen = {}, pearl = {}, ink = {}, all = {} },
     },
     overrides = function(colors)
-        return {}
+        return {
+            -- Syntax: pragmata palette
+            Comment                    = { fg = "#194E00" },
+            ["@comment"]               = { fg = "#194E00" },
+            String                     = { fg = "#56283c" },
+            ["@string"]                = { fg = "#56283c" },
+            ["@string.special"]        = { fg = "#56283c" },
+            Character                  = { fg = "#56283c" },
+            Keyword                    = { fg = "#000000", bold = true },
+            ["@keyword"]               = { fg = "#000000", bold = true },
+            ["@keyword.function"]      = { fg = "#000000", bold = true },
+            ["@keyword.return"]        = { fg = "#000000", bold = true },
+            Statement                  = { fg = "#000000", bold = true },
+            Conditional                = { fg = "#000000", bold = true },
+            Repeat                     = { fg = "#000000", bold = true },
+            Function                   = { fg = "#000000" },
+            ["@function"]              = { fg = "#000000" },
+            ["@function.call"]         = { fg = "#000000" },
+            ["@function.builtin"]      = { fg = "#000000", bold = true },
+            Identifier                 = { fg = "#000000" },
+            ["@variable"]              = { fg = "#000000" },
+            ["@parameter"]             = { fg = "#000000" },
+            Constant                   = { fg = "#1e73be" },
+            ["@constant"]              = { fg = "#1e73be" },
+            ["@constant.builtin"]      = { fg = "#1e73be" },
+            Boolean                    = { fg = "#1e73be" },
+            Number                     = { fg = "#1e73be" },
+            Float                      = { fg = "#1e73be" },
+            Type                       = { fg = "#1e73be" },
+            ["@type"]                  = { fg = "#1e73be" },
+            ["@type.builtin"]          = { fg = "#1e73be" },
+            ["@property"]              = { fg = "#1e73be" },
+            ["@variable.member"]       = { fg = "#1e73be" },
+            Operator                   = { fg = "#e41507" },
+            ["@operator"]              = { fg = "#e41507" },
+            ["@punctuation"]           = { fg = "#e41507" },
+            ["@punctuation.bracket"]   = { fg = "#e41507" },
+            ["@punctuation.delimiter"] = { fg = "#e41507" },
+            ["@punctuation.special"]   = { fg = "#e41507" },
+            PreProc                    = { fg = "#e41507" },
+            Special                    = { fg = "#e41507" },
+            SpecialChar                = { fg = "#e41507" },
+            Delimiter                  = { fg = "#e41507" },
+            Error                      = { fg = "#e41507", bold = true },
+            ErrorMsg                   = { fg = "#e41507", bold = true },
+            Todo                       = { fg = "#e41507", bold = true },
+            WarningMsg                 = { fg = "#E6BB00", bold = true },
+            -- UI (transparent bg preserved)
+            LineNr                     = { fg = "#606060", bg = "NONE" },
+            CursorLineNr               = { fg = "#000000", bold = true, bg = "NONE" },
+            SignColumn                 = { bg = "NONE" },
+            FoldColumn                 = { bg = "NONE" },
+            Visual                     = { bg = "#d0d0d0" },
+            Search                     = { bg = "#e0e0e0", bold = true },
+            IncSearch                  = { bg = "#a0a0a0", fg = "#ffffff" },
+            CurSearch                  = { bg = "#a0a0a0", fg = "#ffffff" },
+            MatchParen                 = { bg = "#e0e0e0", bold = true },
+            -- Diff / GitSigns
+            DiffAdd                    = { bg = "#e0ffe0", fg = "#194E00" },
+            DiffDelete                 = { bg = "#ffe0e0", fg = "#e41507" },
+            DiffChange                 = { bg = "#ffffe0", fg = "#9E7400" },
+            DiffText                   = { bg = "#ffffe0", fg = "#9E7400", bold = true },
+            GitSignsAdd                = { fg = "#194E00" },
+            GitSignsChange             = { fg = "#9E7400" },
+            GitSignsDelete             = { fg = "#e41507" },
+            -- Splits / status
+            WinSeparator               = { fg = "#e8e8e8", bg = "NONE" },
+            VertSplit                  = { fg = "#e8e8e8", bg = "NONE" },
+            StatusLine                 = { fg = "#000000", bg = "NONE" },
+            StatusLineNC               = { fg = "#505050", bg = "NONE" },
+            -- Pmenu / floats
+            Pmenu                      = { fg = "#000000", bg = "NONE" },
+            PmenuSel                   = { fg = "#000000", bg = "#d0d0d0", bold = true },
+            PmenuSbar                  = { bg = "#e0e0e0" },
+            PmenuThumb                 = { bg = "#a0a0a0" },
+            NormalFloat                = { fg = "#000000", bg = "NONE" },
+            FloatBorder                = { fg = "#d0d0d0", bg = "NONE" },
+            -- Links / markup
+            ["@text.uri"]              = { fg = "#2981ca", underline = true },
+            ["@markup.link"]           = { fg = "#2981ca", underline = true },
+            ["@markup.link.url"]       = { fg = "#2981ca", underline = true },
+            -- nvim-tree
+            NvimTreeNormal             = { bg = "NONE" },
+            NvimTreeNormalNC           = { bg = "NONE" },
+            NvimTreeWinSeparator       = { fg = "#e8e8e8", bg = "NONE" },
+            NvimTreeFolderName         = { fg = "#2981ca", bold = true },
+            NvimTreeOpenedFolderName   = { fg = "#2981ca", bold = true },
+            NvimTreeFolderIcon         = { fg = "#2981ca" },
+            NvimTreeRootFolder         = { fg = "#000000", bold = true },
+            NvimTreeSymlink            = { fg = "#2E998E" },
+            -- Telescope
+            TelescopeNormal            = { bg = "NONE" },
+            TelescopeBorder            = { fg = "#d0d0d0", bg = "NONE" },
+            TelescopeSelection         = { bg = "#d0d0d0" },
+            TelescopeMatching          = { fg = "#2981ca", bold = true },
+            TelescopePromptPrefix      = { fg = "#2981ca", bold = true },
+        }
     end,
     background = {
         dark = "ink",
-        light = "pearl"
+        light = "pearl",
     },
     foreground = "saturated",
 })
 
-vim.cmd.colorscheme "kanso-ink"
+vim.cmd.colorscheme "kanso-pearl"
