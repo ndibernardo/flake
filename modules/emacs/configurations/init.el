@@ -81,10 +81,7 @@
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
 
-(setq doom-themes-enable-italic nil)
-(setq doom-gruvbox-dark-variant "hard")
-
-(load-theme 'doom-gruvbox t)
+(load-theme 'pragmata t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"

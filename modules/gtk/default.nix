@@ -6,7 +6,7 @@
       home-manager.users.${user.name} = {
         dconf = {
           enable = true;
-          settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+          settings."org/gnome/desktop/interface".color-scheme = "prefer-light";
         };
 
         gtk = {
@@ -20,17 +20,17 @@
             package = pkgs.adwaita-icon-theme;
           };
           theme = {
-            name = "Adwaita-dark";
+            name = "Adwaita";
             package = pkgs.gnome-themes-extra;
           };
-          gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+          gtk3.extraConfig.gtk-application-prefer-dark-theme = 0;
           gtk4 = {
-            extraConfig.gtk-application-prefer-dark-theme = 1;
+            extraConfig.gtk-application-prefer-dark-theme = 0;
             theme = null;
           };
         };
 
-        home.sessionVariables.GTK_THEME = "Adwaita-dark";
+        home.sessionVariables.GTK_THEME = "Adwaita";
       };
     }
   );

@@ -16,7 +16,6 @@
 
       home-manager.users.${user.name} = {
         xdg.configFile."niri/config.kdl".source = ./configurations/niri/config.kdl;
-        xdg.configFile."niri/.wallpaper".source = ./wallpaper/.wallpaper;
 
         home.sessionVariables = {
           BROWSER = "firefox";
