@@ -13,12 +13,14 @@
     lutris
     man-pages
     man-pages-posix
+    nautilus
     nixd
     nixfmt
     obsidian
-    pcmanfm
     ripgrep
+    spotify
     solaar
+    telegram-desktop
     unzip
     wget
     zip

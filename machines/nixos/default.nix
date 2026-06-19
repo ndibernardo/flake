@@ -7,7 +7,6 @@
       "audio"
       "bluetooth"
       "containers"
-      "desktop"
       "direnv"
       "docker"
       "documentation"
