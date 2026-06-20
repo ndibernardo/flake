@@ -11,12 +11,18 @@
         xwayland-satellite
         swaybg
         noctalia-shell
-        xdg-desktop-portal-gtk
       ];
+
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+      xdg.portal = {
+        enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        config.common.default = "gtk";
+      };
 
       home-manager.users.${user.name} = {
         xdg.configFile."niri/config.kdl".source = ./configurations/niri/config.kdl;
-        xdg.configFile."niri/.wallpaper".source = ./wallpaper/.wallpaper;
 
         home.sessionVariables = {
           BROWSER = "firefox";
