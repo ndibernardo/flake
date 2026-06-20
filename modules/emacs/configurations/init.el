@@ -72,6 +72,10 @@
 
 (setq-default fill-column 100)
 
+(set-face-attribute 'default nil :family "PragmataPro Mono" :height 130)
+(set-face-attribute 'fixed-pitch nil :family "PragmataPro Mono" :height 130)
+(set-face-attribute 'variable-pitch nil :family "PragmataPro Mono" :height 130)
+
 ;; Theme and faces
 (custom-set-faces
  '(line-number ((t (:background nil))))
