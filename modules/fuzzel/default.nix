@@ -7,7 +7,7 @@
         enable = true;
         settings = {
           main = {
-            font = "Berkeley Mono:size=14:style=Regular SemiCondensed";
+            font = "PragmataPro Mono:size=14";
             terminal = "ghostty -e";
             width = 30;
             lines = 10;
@@ -16,11 +16,11 @@
           colors = {
             background      = "f5f5f5ff"; # bg
             text            = "000000ff"; # fg
-            match           = "2981caff"; # blue
+            match           = "ff5000ff"; # te orange
             selection       = "e0e0e0ff"; # region
             selection-text  = "000000ff"; # fg
-            selection-match = "2981caff"; # blue
-            border          = "d0d0d0ff"; # border
+            selection-match = "ff5000ff"; # te orange
+            border          = "ff5000ff"; # te orange
           };
           border = {
             width = 2;
