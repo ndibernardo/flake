@@ -17,7 +17,6 @@
         withPython3 = false;
         initLua = lib.fileContents ./configurations/init.lua;
         plugins = with pkgs.vimPlugins; [
-          kanso-nvim
           cmp_luasnip
           cmp-cmdline
           cmp-nvim-lsp

@@ -361,32 +361,252 @@ require("nvim-treesitter").setup({
     indent = { enable = true },
 })
 
--- Theme
-require('kanso').setup({
-    bold = true,
-    italics = false,
-    compile = false,
-    undercurl = true,
-    commentStyle = { italic = false },
-    functionStyle = {},
-    keywordStyle = { italic = false },
-    statementStyle = {},
-    typeStyle = {},
-    transparent = false,
-    dimInactive = false,
-    terminalColors = true,
-    colors = {
-        palette = {},
-        theme = { zen = {}, pearl = {}, ink = {}, all = {} },
-    },
-    overrides = function(colors)
-        return {}
-    end,
-    background = {
-        dark = "ink",
-        light = "pearl"
-    },
-    foreground = "saturated",
-})
+-- Theme: pragmata
+vim.o.background = "light"
+vim.cmd("hi clear")
+if vim.fn.exists("syntax_on") == 1 then vim.cmd("syntax reset") end
+vim.g.colors_name = "pragmata"
 
-vim.cmd.colorscheme "kanso-ink"
+local p = {
+    bg        = "NONE",
+    bg_dim    = "#eeeeee",
+    bg_alt    = "#ececec",
+    bg_high   = "#e8e8e8",
+    bg_sel    = "#e0e0e0",
+    bg_strong = "#d0d0d0",
+    border    = "#d0d0d0",
+    fg        = "#000000",
+    fg_alt    = "#404040",
+    fg_muted  = "#505050",
+    fg_dim    = "#606060",
+    blue      = "#2981ca",
+    blue_dark = "#1e73be",
+    green     = "#194E00",
+    green_alt = "#329033",
+    red       = "#e41507",
+    orange    = "#ff5000",
+    yellow    = "#E6BB00",
+    burgundy  = "#56283c",
+    purple    = "#9805AE",
+    teal      = "#2E998E",
+}
+
+local function hl(group, spec) vim.api.nvim_set_hl(0, group, spec) end
+
+-- Editor
+hl("Normal", { fg = p.fg, bg = p.bg })
+hl("NormalNC", { fg = p.fg, bg = p.bg })
+hl("NormalFloat", { fg = p.fg, bg = p.bg })
+hl("FloatBorder", { fg = p.border, bg = p.bg })
+hl("CursorLine", { bg = p.bg_dim })
+hl("CursorLineNr", { fg = p.fg, bold = true })
+hl("LineNr", { fg = p.fg_dim })
+hl("SignColumn", { bg = p.bg })
+hl("FoldColumn", { bg = p.bg })
+hl("ColorColumn", { bg = p.bg_dim })
+hl("Visual", { bg = p.bg_strong })
+hl("VisualNOS", { bg = p.bg_strong })
+hl("Search", { bg = p.orange, fg = p.fg })
+hl("IncSearch", { bg = p.orange, fg = p.fg, bold = true })
+hl("CurSearch", { bg = p.orange, fg = p.fg, bold = true })
+hl("MatchParen", { bg = p.bg_sel, bold = true })
+hl("WinSeparator", { fg = p.bg_high, bg = p.bg })
+hl("VertSplit", { fg = p.bg_high, bg = p.bg })
+hl("StatusLine", { fg = p.fg, bg = p.bg_high })
+hl("StatusLineNC", { fg = p.fg_muted, bg = p.bg_alt })
+hl("TabLine", { fg = p.fg_muted, bg = p.bg_alt })
+hl("TabLineSel", { fg = p.fg, bg = p.bg, bold = true })
+hl("TabLineFill", { bg = p.bg_alt })
+hl("Pmenu", { fg = p.fg, bg = p.bg_high })
+hl("PmenuSel", { fg = p.fg, bg = p.orange, bold = true })
+hl("PmenuSbar", { bg = p.bg_sel })
+hl("PmenuThumb", { bg = p.fg_dim })
+hl("WildMenu", { fg = p.fg, bg = p.orange })
+hl("Directory", { fg = p.blue, bold = true })
+hl("Title", { fg = p.fg, bold = true })
+hl("Question", { fg = p.blue })
+hl("ModeMsg", { fg = p.fg, bold = true })
+hl("MoreMsg", { fg = p.green_alt })
+hl("EndOfBuffer", { fg = p.bg })
+hl("NonText", { fg = p.fg_dim })
+hl("SpecialKey", { fg = p.fg_dim })
+hl("Whitespace", { fg = p.bg_strong })
+hl("Conceal", { fg = p.fg_dim })
+hl("Folded", { fg = p.fg_muted, bg = p.bg_dim })
+hl("Error", { fg = p.red, bold = true })
+hl("ErrorMsg", { fg = p.red, bold = true })
+hl("WarningMsg", { fg = p.orange, bold = true })
+
+-- Syntax
+hl("Comment", { fg = p.green })
+hl("String", { fg = p.burgundy })
+hl("Character", { fg = p.burgundy })
+hl("Constant", { fg = p.blue_dark })
+hl("Boolean", { fg = p.blue_dark })
+hl("Number", { fg = p.blue_dark })
+hl("Float", { fg = p.blue_dark })
+hl("Identifier", { fg = p.fg })
+hl("Function", { fg = p.fg })
+hl("Statement", { fg = p.fg, bold = true })
+hl("Conditional", { fg = p.fg, bold = true })
+hl("Repeat", { fg = p.fg, bold = true })
+hl("Label", { fg = p.fg, bold = true })
+hl("Keyword", { fg = p.fg, bold = true })
+hl("Exception", { fg = p.red, bold = true })
+hl("Operator", { fg = p.red })
+hl("PreProc", { fg = p.red })
+hl("Include", { fg = p.red })
+hl("Define", { fg = p.red })
+hl("Macro", { fg = p.red })
+hl("PreCondit", { fg = p.red })
+hl("Type", { fg = p.blue_dark })
+hl("StorageClass", { fg = p.blue_dark })
+hl("Structure", { fg = p.blue_dark })
+hl("Typedef", { fg = p.blue_dark })
+hl("Special", { fg = p.red })
+hl("SpecialChar", { fg = p.red })
+hl("Tag", { fg = p.blue })
+hl("Delimiter", { fg = p.red })
+hl("SpecialComment", { fg = p.green, italic = true })
+hl("Debug", { fg = p.orange })
+hl("Underlined", { underline = true })
+hl("Todo", { fg = p.orange, bold = true })
+
+-- Treesitter
+hl("@comment", { link = "Comment" })
+hl("@string", { link = "String" })
+hl("@string.special", { fg = p.burgundy })
+hl("@character", { link = "Character" })
+hl("@number", { link = "Number" })
+hl("@boolean", { link = "Boolean" })
+hl("@float", { link = "Float" })
+hl("@constant", { link = "Constant" })
+hl("@constant.builtin", { fg = p.blue_dark, bold = true })
+hl("@variable", { fg = p.fg })
+hl("@variable.builtin", { fg = p.fg, bold = true })
+hl("@parameter", { fg = p.fg })
+hl("@field", { fg = p.fg })
+hl("@property", { fg = p.fg })
+hl("@function", { fg = p.fg })
+hl("@function.call", { fg = p.fg })
+hl("@function.builtin", { fg = p.fg, bold = true })
+hl("@function.macro", { fg = p.red })
+hl("@method", { fg = p.fg })
+hl("@method.call", { fg = p.fg })
+hl("@constructor", { fg = p.blue_dark })
+hl("@keyword", { fg = p.fg, bold = true })
+hl("@keyword.function", { fg = p.fg, bold = true })
+hl("@keyword.return", { fg = p.fg, bold = true })
+hl("@keyword.operator", { fg = p.red })
+hl("@conditional", { fg = p.fg, bold = true })
+hl("@repeat", { fg = p.fg, bold = true })
+hl("@type", { fg = p.blue_dark })
+hl("@type.builtin", { fg = p.blue_dark, bold = true })
+hl("@type.definition", { fg = p.blue_dark, bold = true })
+hl("@operator", { fg = p.red })
+hl("@punctuation", { fg = p.red })
+hl("@punctuation.bracket", { fg = p.red })
+hl("@punctuation.delimiter", { fg = p.red })
+hl("@punctuation.special", { fg = p.red })
+hl("@tag", { fg = p.blue })
+hl("@tag.attribute", { fg = p.blue_dark })
+hl("@text.uri", { fg = p.blue, underline = true })
+hl("@markup.link", { fg = p.blue, underline = true })
+hl("@markup.link.url", { fg = p.blue, underline = true })
+hl("@markup.heading", { fg = p.fg, bold = true })
+
+-- Diagnostics
+hl("DiagnosticError", { fg = p.red })
+hl("DiagnosticWarn", { fg = p.orange })
+hl("DiagnosticInfo", { fg = p.blue })
+hl("DiagnosticHint", { fg = p.teal })
+hl("DiagnosticOk", { fg = p.green_alt })
+hl("DiagnosticUnderlineError", { undercurl = true, sp = p.red })
+hl("DiagnosticUnderlineWarn", { undercurl = true, sp = p.orange })
+hl("DiagnosticUnderlineInfo", { undercurl = true, sp = p.blue })
+hl("DiagnosticUnderlineHint", { undercurl = true, sp = p.teal })
+hl("DiagnosticVirtualTextError", { fg = p.red, bg = p.bg })
+hl("DiagnosticVirtualTextWarn", { fg = p.orange, bg = p.bg })
+hl("DiagnosticVirtualTextInfo", { fg = p.blue, bg = p.bg })
+hl("DiagnosticVirtualTextHint", { fg = p.teal, bg = p.bg })
+
+-- LSP
+hl("LspReferenceText", { bg = p.bg_sel })
+hl("LspReferenceRead", { bg = p.bg_sel })
+hl("LspReferenceWrite", { bg = p.bg_sel, underline = true })
+hl("LspInlayHint", { fg = p.fg_dim })
+hl("LspSignatureActiveParameter", { fg = p.orange, bold = true })
+
+-- Diff / GitSigns
+hl("DiffAdd", { bg = "#e0ffe0", fg = p.green })
+hl("DiffDelete", { bg = "#ffe0e0", fg = p.red })
+hl("DiffChange", { bg = "#ffffe0", fg = p.orange })
+hl("DiffText", { bg = "#ffffe0", fg = p.orange, bold = true })
+hl("GitSignsAdd", { fg = p.green })
+hl("GitSignsChange", { fg = p.orange })
+hl("GitSignsDelete", { fg = p.red })
+hl("GitSignsAddNr", { fg = p.green })
+hl("GitSignsChangeNr", { fg = p.orange })
+hl("GitSignsDeleteNr", { fg = p.red })
+
+-- nvim-tree
+hl("NvimTreeNormal", { fg = p.fg, bg = p.bg })
+hl("NvimTreeNormalNC", { fg = p.fg, bg = p.bg })
+hl("NvimTreeWinSeparator", { fg = p.bg_high, bg = p.bg })
+hl("NvimTreeFolderName", { fg = p.blue, bold = true })
+hl("NvimTreeOpenedFolderName", { fg = p.blue, bold = true })
+hl("NvimTreeEmptyFolderName", { fg = p.fg_muted })
+hl("NvimTreeFolderIcon", { fg = p.blue })
+hl("NvimTreeOpenedFile", { fg = p.fg, bold = true })
+hl("NvimTreeRootFolder", { fg = p.fg, bold = true })
+hl("NvimTreeSymlink", { fg = p.teal })
+hl("NvimTreeExecFile", { fg = p.green_alt })
+hl("NvimTreeSpecialFile", { fg = p.orange })
+hl("NvimTreeGitDirty", { fg = p.orange })
+hl("NvimTreeGitNew", { fg = p.green })
+hl("NvimTreeGitDeleted", { fg = p.red })
+hl("NvimTreeIndentMarker", { fg = p.bg_strong })
+
+-- Telescope
+hl("TelescopeNormal", { fg = p.fg, bg = p.bg })
+hl("TelescopeBorder", { fg = p.border, bg = p.bg })
+hl("TelescopePromptNormal", { fg = p.fg, bg = p.bg_dim })
+hl("TelescopePromptBorder", { fg = p.border, bg = p.bg_dim })
+hl("TelescopePromptTitle", { fg = "#f5f5f5", bg = p.orange, bold = true })
+hl("TelescopePromptPrefix", { fg = p.orange, bold = true })
+hl("TelescopePromptCounter", { fg = p.fg_dim })
+hl("TelescopeResultsTitle", { fg = p.fg_muted })
+hl("TelescopePreviewTitle", { fg = p.fg_muted })
+hl("TelescopeSelection", { fg = p.fg, bg = p.bg_sel })
+hl("TelescopeSelectionCaret", { fg = p.orange, bg = p.bg_sel })
+hl("TelescopeMultiSelection", { fg = p.fg })
+hl("TelescopeMatching", { fg = p.orange, bold = true })
+
+-- which-key
+hl("WhichKey", { fg = p.green_alt })
+hl("WhichKeyGroup", { fg = p.fg, bold = true })
+hl("WhichKeyDesc", { fg = p.fg })
+hl("WhichKeySeparator", { fg = p.fg_dim })
+hl("WhichKeyFloat", { bg = p.bg })
+
+-- Fidget
+hl("FidgetTitle", { fg = p.orange, bold = true })
+hl("FidgetTask", { fg = p.fg_muted })
+
+-- Terminal
+vim.g.terminal_color_0  = "#f5f5f5"
+vim.g.terminal_color_1  = p.red
+vim.g.terminal_color_2  = p.green_alt
+vim.g.terminal_color_3  = p.orange
+vim.g.terminal_color_4  = p.blue
+vim.g.terminal_color_5  = p.purple
+vim.g.terminal_color_6  = p.teal
+vim.g.terminal_color_7  = p.fg
+vim.g.terminal_color_8  = p.fg_dim
+vim.g.terminal_color_9  = p.red
+vim.g.terminal_color_10 = p.green_alt
+vim.g.terminal_color_11 = p.yellow
+vim.g.terminal_color_12 = p.blue_dark
+vim.g.terminal_color_13 = p.purple
+vim.g.terminal_color_14 = p.teal
+vim.g.terminal_color_15 = p.fg

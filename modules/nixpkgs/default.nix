@@ -16,6 +16,8 @@
                 hash = "sha256-VFLuRzbriuWmhbm4n4NNboVTZ6Y6njmImNtq/Phu1Z0=";
               };
             });
+            berkeley-mono = final.callPackage ../../packages/berkeley-mono.nix { };
+            pragmata-pro = final.callPackage ../../packages/pragmata-pro.nix { };
           })
         ];
       };

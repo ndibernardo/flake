@@ -72,6 +72,10 @@
 
 (setq-default fill-column 100)
 
+(set-face-attribute 'default nil :family "PragmataPro Mono" :height 130)
+(set-face-attribute 'fixed-pitch nil :family "PragmataPro Mono" :height 130)
+(set-face-attribute 'variable-pitch nil :family "PragmataPro Mono" :height 130)
+
 ;; Theme and faces
 (custom-set-faces
  '(line-number ((t (:background nil))))
@@ -81,10 +85,7 @@
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
 
-(setq doom-themes-enable-italic nil)
-(setq doom-gruvbox-dark-variant "hard")
-
-(load-theme 'doom-gruvbox t)
+(load-theme 'pragmata t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
