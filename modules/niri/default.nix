@@ -18,7 +18,6 @@
       xdg.portal = {
         enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        config.common.default = "gtk";
       };
 
       home-manager.users.${user.name} = {

@@ -45,6 +45,8 @@
       "nvidia_drm"
     ];
 
+    kernelPackages = pkgs.linuxPackages_latest;
+
     blacklistedKernelModules = [
       "dccp"
       "nouveau"
@@ -94,25 +96,28 @@
     logitech.wireless.enable = true;
   };
 
-  fileSystems."/" =
-  { device = "/dev/mapper/luks-1a9bbf8e-7008-42a2-8d61-dae96fe92d54";
+  fileSystems."/" = {
+    device = "/dev/mapper/luks-1a9bbf8e-7008-42a2-8d61-dae96fe92d54";
     fsType = "ext4";
   };
-    
-  fileSystems."/run/media/nil/64603C01603BD88E" = {
-      device = "/dev/disk/by-uuid/64603C01603BD88E";
-      fsType = "ntfs-3g";
-      options = [
-        "rw"
-        "uid=1000"
-      ];
-    };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4D08-3849";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems."/run/media/nil/64603C01603BD88E" = {
+    device = "/dev/disk/by-uuid/64603C01603BD88E";
+    fsType = "ntfs-3g";
+    options = [
+      "rw"
+      "uid=1000"
+    ];
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/4D08-3849";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
 
   swapDevices = [ ];
 
