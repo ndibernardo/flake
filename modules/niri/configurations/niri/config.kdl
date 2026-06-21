@@ -56,8 +56,10 @@ cursor {
 
 environment {
   GTK_IM_MODULE "simple"
+  DISPLAY ":0"
 }
 
+spawn-at-startup "xwayland-satellite"
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "swaybg" "-c" "#4a4d54"
 
@@ -82,6 +84,11 @@ window-rule {
 window-rule {
     match app-id=r#"firefox$"#
     default-column-width { proportion 0.66667; }
+}
+
+window-rule {
+    match app-id=r#"^steam_app_"#
+    open-fullscreen true
 }
 
 binds {

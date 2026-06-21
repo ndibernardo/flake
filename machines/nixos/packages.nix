@@ -7,6 +7,7 @@
     curl
     docker-compose
     fzf
+    gamemode
     htop
     killall
     krita
