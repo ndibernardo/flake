@@ -201,7 +201,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
-            -- client.server_capabilities.semanticTokensProvider = nil
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                 buffer = event.buf,
                 callback = vim.lsp.buf.document_highlight,
@@ -223,8 +222,28 @@ require("fidget").setup {
     },
 }
 
-vim.lsp.enable({ 'lua_ls', 'nixd', 'pyright', 'rust_analyzer', 'zls' })
+vim.lsp.enable({ 'elixirls', 'gopls', 'lua_ls', 'nixd', 'pyright', 'rust_analyzer', 'zls' })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+vim.lsp.config['elixirls'] = {
+    capabilities = lsp_capabilities,
+    settings = {},
+}
+
+vim.lsp.config['gopls'] = {
+    on_attach = function()
+        vim.lsp.inlay_hint.enable()
+    end,
+    capabilities = lsp_capabilities,
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            staticcheck = true,
+        },
+    },
+}
 
 vim.lsp.config['rust_analyzer'] = {
     on_attach = function()
