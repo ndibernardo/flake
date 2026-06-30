@@ -278,9 +278,23 @@ if one already exists."
 ;; Docker Compose
 (add-to-list 'auto-mode-alist '("docker-compose\\'" . docker-compose-mode))
 
+;; Elixir
+(require 'elixir-mode)
+(add-to-list 'auto-mode-alist '("\\.\\(ex\\|exs\\|heex\\)\\'" . elixir-mode))
+(add-hook 'elixir-mode-hook 'lsp)
+
+;; Go
+(require 'go-mode)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+(add-hook 'go-mode-hook 'lsp)
+
 ;; Nix
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 (add-hook 'nix-mode-hook 'lsp)
+
+;; Python
+(require 'lsp-pyright)
+(add-hook 'python-mode-hook 'lsp)
 
 ;; Rust
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))

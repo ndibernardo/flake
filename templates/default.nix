@@ -7,6 +7,10 @@
     path = ./elixir;
     description = "Elixir development environment";
   };
+  go = {
+    path = ./go;
+    description = "Go development environment";
+  };
   java = {
     path = ./java;
     description = "Java development environment";
