@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       This file needs to be manually downloaded.
 
       Place the zip file in the Nix store by running:
-      nix-prefetch-url --type sha256 file://\$PWD/${name}
+      nix-prefetch-url --type sha256 file://$PWD/${name}
     '';
   };
 

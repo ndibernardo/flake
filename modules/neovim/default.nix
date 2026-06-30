@@ -7,6 +7,17 @@
       user,
       ...
     }:
+    let
+      tairiki = pkgs.vimUtils.buildVimPlugin {
+        name = "tairiki";
+        src = pkgs.fetchFromGitHub {
+          owner = "deparr";
+          repo = "tairiki.nvim";
+          rev = "7dd9a81f96280cfd4789582c7165787b456f1577";
+          sha256 = "FRqBpvC3XyO677rtKbBOJL2kanIM6sdv9UqjZSyxkqw=";
+        };
+      };
+    in
     {
       home-manager.users.${user.name}.programs.neovim = {
         enable = true;
@@ -27,6 +38,7 @@
           fidget-nvim
           friendly-snippets
           gitsigns-nvim
+          tairiki
           nvim-cmp
           nvim-colorizer-lua
           nvim-lspconfig

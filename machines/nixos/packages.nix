@@ -4,25 +4,26 @@
     _1password-cli
     _1password-gui
     claude-code
+    calibre
     curl
     docker-compose
+    evince
     fzf
     gamemode
     htop
     killall
-    krita
     lutris
-    man-pages
-    man-pages-posix
-    nautilus
     nixd
     nixfmt
     obsidian
+    puddletag
     ripgrep
     spotify
     solaar
-    telegram-desktop
+    tauon
+    thunar
     unzip
+    vscode
     wget
     zip
   ];
