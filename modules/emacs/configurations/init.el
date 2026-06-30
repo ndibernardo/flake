@@ -5,8 +5,6 @@
 ;;; Code:
 (require 'cl-lib)
 
-(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-
 ;; y-or-n prompt
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -72,9 +70,7 @@
 
 (setq-default fill-column 100)
 
-(set-face-attribute 'default nil :family "PragmataPro Mono" :height 130)
-(set-face-attribute 'fixed-pitch nil :family "PragmataPro Mono" :height 130)
-(set-face-attribute 'variable-pitch nil :family "PragmataPro Mono" :height 130)
+(set-face-attribute 'default nil :family "Berkeley Mono" :height 140)
 
 ;; Theme and faces
 (custom-set-faces
@@ -83,9 +79,18 @@
  '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(mode-line ((t (:box nil))))
- '(mode-line-inactive ((t (:box nil)))))
+ '(mode-line-inactive ((t (:box nil))))
+ '(lsp-face-semhl-property  ((t (:foreground unspecified))))
+ '(lsp-face-semhl-member    ((t (:foreground unspecified))))
+ '(lsp-face-semhl-variable  ((t (:foreground unspecified))))
+ '(lsp-face-semhl-parameter    ((t (:foreground unspecified))))
+ '(font-lock-variable-name-face  ((t (:foreground unspecified))))
+ '(font-lock-preprocessor-face  ((t (:foreground "#cc6666"))))
+ '(lsp-face-semhl-macro         ((t (:foreground "#cc6666")))))
 
-(load-theme 'pragmata t)
+(setq doom-themes-enable-italic nil)
+
+(load-theme 'doom-tomorrow-night t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
@@ -138,6 +143,7 @@
 (setq lsp-headerline-breadcrumb-enable nil)
 (setq lsp-modeline-code-actions-enable nil)
 (setq lsp-semantic-tokens-enable t)
+(setq lsp-semantic-tokens-allow-ranged-requests nil)
 (setq lsp-inlay-hint-enable t)
 (setq lsp-inlay-hints-mode t)
 

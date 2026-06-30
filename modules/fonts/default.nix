@@ -19,23 +19,34 @@
             lcdfilter = "default";
           };
           defaultFonts = {
-            monospace = [ "PragmataPro Mono" "Berkeley Mono" "JetBrains Mono" ];
-            sansSerif = [ "IBM Plex Sans" "Noto Sans" ];
-            serif     = [ "IBM Plex Serif" "Noto Serif" ];
-            emoji     = [ "Noto Color Emoji" ];
+            monospace = [
+              "JetBrains Mono"
+              "Berkeley Mono"
+              "PragmataPro Mono"
+            ];
+            sansSerif = [
+              "Noto Sans"
+              "IBM Plex Sans"
+            ];
+            serif = [
+              "Noto Serif"
+              "IBM Plex Serif"
+            ];
+            emoji = [ "Noto Color Emoji" ];
           };
         };
         packages = with pkgs; [
           berkeley-mono
-          pragmata-pro
           fira-code
-          jetbrains-mono
           ibm-plex
+          inconsolata
+          jetbrains-mono
+          pragmata-pro
+          nerd-fonts.symbols-only
           noto-fonts
           noto-fonts-cjk-sans
           noto-fonts-cjk-serif
           noto-fonts-color-emoji
-          nerd-fonts.symbols-only
         ];
       };
     }

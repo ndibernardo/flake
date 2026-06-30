@@ -68,7 +68,6 @@
         home.file = {
           ".config/emacs/early-init.el".source = ./configurations/early-init.el;
           ".config/emacs/init.el".source = ./configurations/init.el;
-          ".config/emacs/themes/pragmata-theme.el".source = ./themes/pragmata-theme.el;
         };
         programs.emacs = {
           enable = true;

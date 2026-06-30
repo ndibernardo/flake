@@ -27,19 +27,19 @@
       "mtr"
       "mullvad"
       "neovim"
-      "niri"
       "nix"
       "nixpkgs"
-      "noctalia"
       "nvidia"
       "openrgb"
       "openssh"
       "qt"
       "steam"
+      "sway"
       "systemd"
       "tailscale"
       "tmux"
       "users"
+      "waybar"
     ];
     nixosModules = [
       inputs.home-manager.nixosModules.home-manager

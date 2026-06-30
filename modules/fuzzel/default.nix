@@ -7,20 +7,20 @@
         enable = true;
         settings = {
           main = {
-            font = "PragmataPro Mono:size=14";
+            font = "Berkeley Mono:size=14";
             terminal = "ghostty -e";
             width = 30;
             lines = 10;
             prompt = ''">> "'';
           };
           colors = {
-            background      = "f5f5f5ff"; # bg
-            text            = "000000ff"; # fg
-            match           = "ff5000ff"; # te orange
-            selection       = "e0e0e0ff"; # region
-            selection-text  = "000000ff"; # fg
-            selection-match = "ff5000ff"; # te orange
-            border          = "ff5000ff"; # te orange
+            background      = "1d1f21ff";
+            text            = "c5c8c6ff";
+            match           = "81a2beff";
+            selection       = "373b41ff";
+            selection-text  = "c5c8c6ff";
+            selection-match = "81a2beff";
+            border          = "282a2eff";
           };
           border = {
             width = 2;
