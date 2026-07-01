@@ -112,7 +112,7 @@
 
           focus = {
             followMouse = "always";
-            mouseWarping = "container";
+            mouseWarping = false;
           };
 
           input."*".scroll_factor = "5";
@@ -166,7 +166,7 @@
 
           startup = [
             { command = "waybar"; }
-            { command = "openrgb --profile white"; }
+            { command = "openrgb --mode static --color 000000"; }
             {
               command = "systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
             }
