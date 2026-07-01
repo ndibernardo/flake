@@ -15,7 +15,7 @@
         escapeTime = 0;
         historyLimit = 10000;
         mouse = true;
-        terminal = "screen-256color";
+        terminal = "tmux-256color";
         clock24 = true;
 
         plugins = with pkgs.tmuxPlugins; [
@@ -29,23 +29,25 @@
         ];
 
         extraConfig = ''
+          set -as terminal-features ",xterm-256color:RGB"
+
           # Bind prefix twice to send prefix
           bind C-Space send-prefix
 
-          set -g status-style "bg=#040606,fg=#C5C9C7"
-          set -g window-status-style "bg=default,fg=#717C7C"
+          set -g status-style "bg=#1d1f21,fg=#c5c8c6"
+          set -g window-status-style "bg=default,fg=#969896"
           set -g window-status-format " #I: #W "
-          set -g window-status-current-style "bg=#9CA39F,fg=#040606,bold"
+          set -g window-status-current-style "bg=#81a2be,fg=#1d1f21,bold"
           set -g window-status-current-format " #I: #W "
-          set -g pane-border-style "fg=#22262D"
-          set -g pane-active-border-style "fg=#C5C9C7"
-          set -g message-style "bg=#DCA561,fg=#040606"
+          set -g pane-border-style "fg=#373b41"
+          set -g pane-active-border-style "fg=#81a2be"
+          set -g message-style "bg=#de935f,fg=#1d1f21"
 
           # Status bar configuration
           set -g status-interval 2
           set -g status-right-length 59
           set -g status-left ""
-          set -g status-right '#[bg=#9CA39F,fg=#040606] %Y-%m-%d  %H:%M '
+          set -g status-right '#[bg=#81a2be,fg=#1d1f21] %Y-%m-%d  %H:%M '
           set-option -g status-position top
 
           # Add spacing between window tabs
