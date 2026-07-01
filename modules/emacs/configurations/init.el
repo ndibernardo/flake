@@ -225,12 +225,6 @@ if one already exists."
 (add-to-list 'auto-mode-alist '("\\.\\(c\\|h\\)\\'" . c-mode))
 (add-hook 'c-mode-hook 'lsp)
 
-;; Common Lisp
-(require 'slime)
-(setq inferior-lisp-program "sbcl")
-(setq slime-contribs '(slime-fancy))
-(add-hook 'lisp-mode-hook 'paredit-mode)
-
 ;; Clojure
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
@@ -272,6 +266,12 @@ if one already exists."
 (with-eval-after-load 'clj-refactor
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
+;; Common Lisp
+(require 'slime)
+(setq inferior-lisp-program "sbcl")
+(setq slime-contribs '(slime-fancy))
+(add-hook 'lisp-mode-hook 'paredit-mode)
+
 ;; Docker
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
@@ -283,6 +283,11 @@ if one already exists."
 (add-to-list 'auto-mode-alist '("\\.\\(ex\\|exs\\|heex\\)\\'" . elixir-mode))
 (add-hook 'elixir-mode-hook 'lsp)
 
+;; F#
+(require 'fsharp-mode)
+(add-to-list 'auto-mode-alist '("\\.\\(fs\\|fsi\\|fsx\\)\\'" . fsharp-mode))
+(add-hook 'fsharp-mode-hook 'lsp)
+
 ;; Go
 (require 'go-mode)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
@@ -291,6 +296,11 @@ if one already exists."
 ;; Nix
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 (add-hook 'nix-mode-hook 'lsp)
+
+;; OCaml
+(require 'tuareg)
+(add-to-list 'auto-mode-alist '("\\.\\(ml\\|mli\\|mll\\|mly\\)\\'" . tuareg-mode))
+(add-hook 'tuareg-mode-hook 'lsp)
 
 ;; Python
 (require 'lsp-pyright)

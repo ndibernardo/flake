@@ -222,10 +222,15 @@ require("fidget").setup {
     },
 }
 
-vim.lsp.enable({ 'elixirls', 'gopls', 'lua_ls', 'nixd', 'pyright', 'rust_analyzer', 'zls' })
+vim.lsp.enable({ 'elixirls', 'fsautocomplete', 'gopls', 'lua_ls', 'nixd', 'ocamllsp', 'pyright', 'rust_analyzer', 'zls' })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 vim.lsp.config['elixirls'] = {
+    capabilities = lsp_capabilities,
+    settings = {},
+}
+
+vim.lsp.config['fsautocomplete'] = {
     capabilities = lsp_capabilities,
     settings = {},
 }
@@ -243,14 +248,6 @@ vim.lsp.config['gopls'] = {
             staticcheck = true,
         },
     },
-}
-
-vim.lsp.config['rust_analyzer'] = {
-    on_attach = function()
-        vim.lsp.inlay_hint.enable()
-    end,
-    capabilities = lsp_capabilities,
-    settings = {}
 }
 
 vim.lsp.config['lua_ls'] = {
@@ -292,6 +289,10 @@ vim.lsp.config['nixd'] = {
     },
 }
 
+vim.lsp.config['ocamllsp'] = {
+    capabilities = lsp_capabilities,
+    settings = {},
+}
 
 vim.lsp.config['pyright'] = {
     capabilities = lsp_capabilities,
@@ -302,6 +303,14 @@ vim.lsp.config['pyright'] = {
             },
         },
     },
+}
+
+vim.lsp.config['rust_analyzer'] = {
+    on_attach = function()
+        vim.lsp.inlay_hint.enable()
+    end,
+    capabilities = lsp_capabilities,
+    settings = {}
 }
 
 vim.lsp.config['zls'] = {
@@ -397,7 +406,7 @@ require('tairiki').setup({
     palette              = 'dimmed',
     default_dark         = 'tomorrow',
     default_light        = 'light',
-    transparent          = false,
+    transparent          = true,
     terminal             = false,
     end_of_buffer        = false,
     visual_bold          = false,

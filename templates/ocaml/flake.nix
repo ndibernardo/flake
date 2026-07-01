@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "OCaml development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -21,16 +21,16 @@
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              go
-              gopls
+              ocaml
+              ocamlPackages.ocaml-lsp
+              ocamlPackages.ocamlformat
               nixd
               nixfmt
             ];
 
             shellHook = ''
-              go telemetry off
-              echo "Go development environment"
-              echo "Go version: $(go version)"
+              echo "OCaml development environment"
+              echo "OCaml version: $(ocaml --version)"
             '';
           };
         };
