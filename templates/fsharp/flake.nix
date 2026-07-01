@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "F# development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -20,17 +20,18 @@
         { pkgs, ... }:
         {
           devShells.default = pkgs.mkShell {
+            DOTNET_CLI_TELEMETRY_OPTOUT = "1";
+
             packages = with pkgs; [
-              go
-              gopls
+              dotnet-sdk
+              fsautocomplete
               nixd
               nixfmt
             ];
 
             shellHook = ''
-              go telemetry off
-              echo "Go development environment"
-              echo "Go version: $(go version)"
+              echo "F# development environment"
+              echo "dotnet version: $(dotnet --version)"
             '';
           };
         };

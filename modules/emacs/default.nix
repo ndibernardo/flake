@@ -52,9 +52,11 @@
           dockerfile-mode
           docker-compose-mode
           elixir-mode
+          fsharp-mode
           glsl-mode
           go-mode
           lsp-pyright
+          tuareg
           markdown-mode
           nix-mode
           rust-mode
