@@ -111,6 +111,16 @@
     ];
   };
 
+  fileSystems."/run/media/nil/f2b3330c-05ee-4f7e-ac85-bf7c239faeb8" = {
+    device = "/dev/disk/by-uuid/f2b3330c-05ee-4f7e-ac85-bf7c239faeb8";
+    fsType = "ext4";
+    options = [
+      "rw"
+      "users"
+      "exec"
+    ];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/A743-0820";
     fsType = "vfat";
@@ -120,7 +130,9 @@
     ];
   };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/80a785cd-9589-4e8e-972a-0091f230e5f2"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
