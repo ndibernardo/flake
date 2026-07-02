@@ -20,7 +20,6 @@
     ripgrep
     spotify
     solaar
-    tauon
     thunar
     unzip
     vscode
