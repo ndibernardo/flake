@@ -15,7 +15,7 @@
             font-thicken = true;
             scrollback-limit = 10000;
             shell-integration-features = "no-cursor";
-            theme = "Tomorrow Night";
+            theme = "light:Tomorrow,dark:Tomorrow Night";
             window-padding-x = 10;
             window-padding-y = 10;
           };

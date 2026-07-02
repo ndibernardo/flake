@@ -116,6 +116,8 @@
           };
 
           style = ''
+            @import url("${user.homeDirectory}/.local/state/theme/waybar-colors.css");
+
             * {
               border: none;
               border-radius: 0;
@@ -126,9 +128,9 @@
             }
 
             window#waybar {
-              background-color: #1d1f21;
+              background-color: @bg;
               border-bottom: none;
-              color: #c5c8c6;
+              color: @fg;
               transition-property: background-color;
               transition-duration: .5s;
             }
@@ -155,25 +157,25 @@
 
             #workspaces button {
               padding: 4px 6px;
-              color: #969896;
+              color: @muted;
               border-radius: 0px;
-              border: 0px solid #282a2e;
+              border: 0px solid @muted;
               box-shadow: none;
               background-color: rgba(0, 0, 0, 0);
             }
 
             #workspaces button.active {
-              border: 0px solid #282a2e;
+              border: 0px solid @muted;
               box-shadow: none;
             }
 
             #workspaces button.visible {
-              border: 0px solid #282a2e;
+              border: 0px solid @muted;
               box-shadow: none;
             }
 
             #workspaces button.empty {
-              border: 0px solid #282a2e;
+              border: 0px solid @muted;
               box-shadow: none;
             }
 
@@ -181,29 +183,29 @@
               box-shadow: inherit;
               text-shadow: inherit;
               background: transparent;
-              color: #c5c8c6;
-              border: 0px solid #282a2e;
+              color: @fg;
+              border: 0px solid @muted;
               box-shadow: none;
             }
 
             #workspaces button.focused {
-              color: #1d1f21;
-              background-color: #81a2be;
-              border: 0px solid #282a2e;
+              color: @bg;
+              background-color: @accent;
+              border: 0px solid @muted;
               box-shadow: none;
             }
 
             #workspaces button.focused:hover {
-              color: #1d1f21;
-              background-color: #8abeb7;
-              border: 0px solid #282a2e;
+              color: @bg;
+              background-color: @accent_alt;
+              border: 0px solid @muted;
               box-shadow: none;
             }
 
             #workspaces button.urgent {
-              color: #1d1f21;
-              background-color: #cc6666;
-              border: 0px solid #282a2e;
+              color: @bg;
+              background-color: @urgent;
+              border: 0px solid @muted;
               box-shadow: none;
             }
 
@@ -221,12 +223,12 @@
 
             #custom-mullvad.connected,
             #custom-tailscale.connected {
-              color: #b5bd68;
+              color: @good;
             }
 
             #custom-mullvad.disconnected,
             #custom-tailscale.disconnected {
-              color: #969896;
+              color: @muted;
             }
           '';
         };

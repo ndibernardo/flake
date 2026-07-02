@@ -124,38 +124,38 @@
 
           colors = {
             focused = {
-              border      = "#81a2be";
-              background  = "#1d1f21";
-              text        = "#c5c8c6";
-              indicator   = "#81a2be";
+              border = "#81a2be";
+              background = "#1d1f21";
+              text = "#c5c8c6";
+              indicator = "#81a2be";
               childBorder = "#81a2be";
             };
             focusedInactive = {
-              border      = "#373b41";
-              background  = "#1d1f21";
-              text        = "#969896";
-              indicator   = "#373b41";
+              border = "#373b41";
+              background = "#1d1f21";
+              text = "#969896";
+              indicator = "#373b41";
               childBorder = "#373b41";
             };
             unfocused = {
-              border      = "#282a2e";
-              background  = "#1d1f21";
-              text        = "#969896";
-              indicator   = "#282a2e";
+              border = "#282a2e";
+              background = "#1d1f21";
+              text = "#969896";
+              indicator = "#282a2e";
               childBorder = "#282a2e";
             };
             urgent = {
-              border      = "#cc6666";
-              background  = "#1d1f21";
-              text        = "#c5c8c6";
-              indicator   = "#cc6666";
+              border = "#cc6666";
+              background = "#1d1f21";
+              text = "#c5c8c6";
+              indicator = "#cc6666";
               childBorder = "#cc6666";
             };
             placeholder = {
-              border      = "#1d1f21";
-              background  = "#1d1f21";
-              text        = "#969896";
-              indicator   = "#1d1f21";
+              border = "#1d1f21";
+              background = "#1d1f21";
+              text = "#969896";
+              indicator = "#1d1f21";
               childBorder = "#1d1f21";
             };
           };
@@ -165,6 +165,7 @@
           bars = [ ];
 
           startup = [
+            { command = "theme-apply"; }
             { command = "waybar"; }
             { command = "openrgb --mode static --color 000000"; }
             {
@@ -190,44 +191,45 @@
               modifier = "Mod4";
             in
             lib.mkOptionDefault {
-              "${modifier}+Return"     = "exec ghostty";
-              "${modifier}+Tab"        = "exec sway-cycle-focus next";
-              "${modifier}+Shift+Tab"  = "exec sway-cycle-focus prev";
-              "${modifier}+q"          = "kill";
-              "${modifier}+d"          = "exec fuzzel";
-              "${modifier}+Shift+c"    = "reload";
-              "${modifier}+Shift+e"    =
+              "${modifier}+Return" = "exec ghostty";
+              "${modifier}+Tab" = "exec sway-cycle-focus next";
+              "${modifier}+Shift+Tab" = "exec sway-cycle-focus prev";
+              "${modifier}+q" = "kill";
+              "${modifier}+d" = "exec fuzzel";
+              "${modifier}+Shift+c" = "reload";
+              "${modifier}+Shift+e" =
                 "exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'";
+              "${modifier}+F8" = "exec theme-toggle";
               # Focus
-              "${modifier}+h"     = "focus left";
-              "${modifier}+j"     = "focus down";
-              "${modifier}+k"     = "focus up";
-              "${modifier}+l"     = "focus right";
-              "${modifier}+Left"  = "focus left";
-              "${modifier}+Down"  = "focus down";
-              "${modifier}+Up"    = "focus up";
+              "${modifier}+h" = "focus left";
+              "${modifier}+j" = "focus down";
+              "${modifier}+k" = "focus up";
+              "${modifier}+l" = "focus right";
+              "${modifier}+Left" = "focus left";
+              "${modifier}+Down" = "focus down";
+              "${modifier}+Up" = "focus up";
               "${modifier}+Right" = "focus right";
               # Move
-              "${modifier}+Shift+h"     = "move left";
-              "${modifier}+Shift+j"     = "move down";
-              "${modifier}+Shift+k"     = "move up";
-              "${modifier}+Shift+l"     = "move right";
-              "${modifier}+Shift+Left"  = "move left";
-              "${modifier}+Shift+Down"  = "move down";
-              "${modifier}+Shift+Up"    = "move up";
+              "${modifier}+Shift+h" = "move left";
+              "${modifier}+Shift+j" = "move down";
+              "${modifier}+Shift+k" = "move up";
+              "${modifier}+Shift+l" = "move right";
+              "${modifier}+Shift+Left" = "move left";
+              "${modifier}+Shift+Down" = "move down";
+              "${modifier}+Shift+Up" = "move up";
               "${modifier}+Shift+Right" = "move right";
               # Workspaces
-              "${modifier}+1"       = "workspace number 1";
-              "${modifier}+2"       = "workspace number 2";
-              "${modifier}+3"       = "workspace number 3";
-              "${modifier}+4"       = "workspace number 4";
-              "${modifier}+5"       = "workspace number 5";
-              "${modifier}+6"       = "workspace number 6";
-              "${modifier}+7"       = "workspace number 7";
-              "${modifier}+8"       = "workspace number 8";
-              "${modifier}+9"       = "workspace number 9";
-              "${modifier}+0"       = "workspace number 10";
-              "${modifier}+comma"   = "workspace next";
+              "${modifier}+1" = "workspace number 1";
+              "${modifier}+2" = "workspace number 2";
+              "${modifier}+3" = "workspace number 3";
+              "${modifier}+4" = "workspace number 4";
+              "${modifier}+5" = "workspace number 5";
+              "${modifier}+6" = "workspace number 6";
+              "${modifier}+7" = "workspace number 7";
+              "${modifier}+8" = "workspace number 8";
+              "${modifier}+9" = "workspace number 9";
+              "${modifier}+0" = "workspace number 10";
+              "${modifier}+comma" = "workspace next";
               "${modifier}+Shift+1" = "move container to workspace number 1";
               "${modifier}+Shift+2" = "move container to workspace number 2";
               "${modifier}+Shift+3" = "move container to workspace number 3";
@@ -239,31 +241,31 @@
               "${modifier}+Shift+9" = "move container to workspace number 9";
               "${modifier}+Shift+0" = "move container to workspace number 10";
               # Layout
-              "${modifier}+b"           = "splith";
-              "${modifier}+v"           = "splitv";
-              "${modifier}+s"           = "layout stacking";
-              "${modifier}+w"           = "layout tabbed";
-              "${modifier}+n"           = "layout toggle split";
-              "${modifier}+f"           = "fullscreen";
+              "${modifier}+b" = "splith";
+              "${modifier}+v" = "splitv";
+              "${modifier}+s" = "layout stacking";
+              "${modifier}+w" = "layout tabbed";
+              "${modifier}+n" = "layout toggle split";
+              "${modifier}+f" = "fullscreen";
               "${modifier}+Shift+space" = "exec sway-float-toggle";
-              "${modifier}+space"       = "focus mode_toggle";
-              "${modifier}+a"           = "focus parent";
+              "${modifier}+space" = "focus mode_toggle";
+              "${modifier}+a" = "focus parent";
               # Scratchpad
               "${modifier}+Shift+minus" = "move scratchpad";
-              "${modifier}+minus"       = "scratchpad show";
+              "${modifier}+minus" = "scratchpad show";
               # Resize mode
               "${modifier}+r" = "mode resize";
             };
 
           modes.resize = {
-            h      = "resize shrink width 10px";
-            j      = "resize grow height 10px";
-            k      = "resize shrink height 10px";
-            l      = "resize grow width 10px";
-            Left   = "resize shrink width 10px";
-            Down   = "resize grow height 10px";
-            Up     = "resize shrink height 10px";
-            Right  = "resize grow width 10px";
+            h = "resize shrink width 10px";
+            j = "resize grow height 10px";
+            k = "resize shrink height 10px";
+            l = "resize grow width 10px";
+            Left = "resize shrink width 10px";
+            Down = "resize grow height 10px";
+            Up = "resize shrink height 10px";
+            Right = "resize grow width 10px";
             Return = "mode default";
             Escape = "mode default";
           };
@@ -271,14 +273,8 @@
           floating.modifier = "Mod4";
 
           output."DP-4" = {
-            mode     = "3840x2160@240.016Hz";
+            mode = "3840x2160@240.016Hz";
             position = "0,0";
-          };
-
-          assigns = {
-            "5" = [ { class = "^steam$"; } ];
-            "8" = [ { app_id = "^puddletag$"; } ];
-            "9" = [ { app_id = "^org.nicotine_plus.Nicotine$"; } ];
           };
         };
 
@@ -286,7 +282,7 @@
 
         extraConfig = ''
           workspace 1
-          output * bg #1d1f21 solid_color
+          include ${user.homeDirectory}/.local/state/theme/sway-colors
           title_align left
 
           bindgesture swipe:4:left workspace prev
@@ -315,14 +311,24 @@
         enable = true;
         wrapperFeatures = {
           base = true;
-          gtk  = true;
+          gtk = true;
         };
       };
 
       security.pam.services.sway.enableGnomeKeyring = true;
       services.gnome.gnome-keyring.enable = true;
 
-      xdg.portal.wlr.enable = true;
+      xdg.portal = {
+        wlr.enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        config.sway = {
+          default = lib.mkForce [
+            "wlr"
+            "gtk"
+          ];
+          "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+        };
+      };
     }
   );
 }
