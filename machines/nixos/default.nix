@@ -37,6 +37,7 @@
       "sway"
       "systemd"
       "tailscale"
+      "theme"
       "tmux"
       "users"
       "waybar"

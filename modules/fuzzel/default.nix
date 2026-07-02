@@ -12,15 +12,7 @@
             width = 30;
             lines = 10;
             prompt = ''">> "'';
-          };
-          colors = {
-            background      = "1d1f21ff";
-            text            = "c5c8c6ff";
-            match           = "81a2beff";
-            selection       = "373b41ff";
-            selection-text  = "c5c8c6ff";
-            selection-match = "81a2beff";
-            border          = "282a2eff";
+            include = "${user.homeDirectory}/.local/state/theme/fuzzel-colors.ini";
           };
           border = {
             width = 2;

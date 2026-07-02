@@ -169,7 +169,6 @@ cmp.setup {
 -- Conform
 require("conform").setup({
     format_on_save = {
-        -- These options will be passed to conform.format()
         timeout_ms = 500,
         lsp_format = "fallback",
     },
@@ -310,7 +309,13 @@ vim.lsp.config['rust_analyzer'] = {
         vim.lsp.inlay_hint.enable()
     end,
     capabilities = lsp_capabilities,
-    settings = {}
+    settings = {
+        ['rust-analyzer'] = {
+            cargo = {
+                features = 'all',
+            },
+        },
+    },
 }
 
 vim.lsp.config['zls'] = {
@@ -325,6 +330,7 @@ vim.lsp.config['zls'] = {
     },
 }
 
+-- Oil
 require("oil").setup({
     default_file_explorer = false,
     delete_to_trash = true,
@@ -353,6 +359,28 @@ require("nvim-tree").setup({
         local api = require("nvim-tree.api")
         api.config.mappings.default_on_attach(bufnr)
         vim.keymap.set("n", "<LeftRelease>", api.node.open.edit, { buffer = bufnr, noremap = true, silent = true })
+    end,
+})
+
+vim.api.nvim_create_autocmd("QuitPre", {
+    callback = function()
+        local tree_wins = {}
+        local floating_wins = {}
+        local wins = vim.api.nvim_list_wins()
+        for _, w in ipairs(wins) do
+            local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
+            if bufname:match("NvimTree_") ~= nil then
+                table.insert(tree_wins, w)
+            end
+            if vim.api.nvim_win_get_config(w).relative ~= "" then
+                table.insert(floating_wins, w)
+            end
+        end
+        if 1 == #wins - #floating_wins - #tree_wins then
+            for _, w in ipairs(tree_wins) do
+                vim.api.nvim_win_close(w, true)
+            end
+        end
     end,
 })
 
@@ -429,5 +457,18 @@ require('tairiki').setup({
     highlights           = function(groups, colors, opts) end,
 })
 
-vim.o.background = "dark"
-require("tairiki").load()
+local function apply_theme_mode(mode)
+    vim.o.background = mode
+    require("tairiki").load()
+end
+
+function _G.set_theme_mode(mode)
+    apply_theme_mode(mode)
+    return mode
+end
+
+local state = os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state")
+local f = io.open(state .. "/theme/mode")
+local mode = f and f:read("*l") or "dark"
+if f then f:close() end
+apply_theme_mode(mode == "light" and "light" or "dark")

@@ -4,11 +4,7 @@
     { pkgs, user, ... }:
     {
       home-manager.users.${user.name} = {
-        dconf = {
-          enable = true;
-          settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-        };
-
+        dconf.enable = true;
         gtk = {
           enable = true;
           cursorTheme = {
@@ -23,14 +19,8 @@
             name = "Adwaita-dark";
             package = pkgs.gnome-themes-extra;
           };
-          gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-          gtk4 = {
-            extraConfig.gtk-application-prefer-dark-theme = 1;
-            theme = null;
-          };
+          gtk4.theme = null;
         };
-
-        home.sessionVariables.GTK_THEME = "Adwaita-dark";
       };
     }
   );
