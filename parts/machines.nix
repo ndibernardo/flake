@@ -1,6 +1,12 @@
-{ lib, config, inputs, ... }:
 {
-  imports = builtins.readDir ../machines
+  lib,
+  config,
+  inputs,
+  ...
+}:
+{
+  imports =
+    builtins.readDir ../machines
     |> lib.filterAttrs (_: type: type == "directory")
     |> lib.mapAttrsToList (name: _: ../machines/${name}/default.nix);
 
@@ -35,9 +41,11 @@
     _: cfg:
     inputs.nixpkgs.lib.nixosSystem {
       inherit (cfg) system;
-      specialArgs = { inherit inputs; inherit (cfg) user; };
-      modules = cfg.nixosModules
-        ++ map (name: config.flake.nixosModules.${name}) cfg.modules;
+      specialArgs = {
+        inherit inputs;
+        inherit (cfg) user;
+      };
+      modules = cfg.nixosModules ++ map (name: config.flake.nixosModules.${name}) cfg.modules;
     }
   ) config.machines;
 }
