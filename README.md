@@ -32,8 +32,6 @@ Initialize a dev environment in a new project directory:
 nix flake init -t github:ndibernardo/flake#<template>
 ```
 
-Available templates: `c`, `clojure`, `elixir`, `fsharp`, `go`, `java`, `nix`, `ocaml`, `rust`, `scala`, `zig`, `zig-master`.
-
 direnv and nix-direnv load the dev shell automatically, giving each project an isolated environment.
 
 ## Tools
