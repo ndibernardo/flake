@@ -42,6 +42,7 @@ direnv and nix-direnv load the dev shell automatically, giving each project an i
 - [Firefox](https://www.mozilla.org/firefox/)
 - [fish](https://fishshell.com)
 - [Ghostty](https://ghostty.org)
+- [labwc](https://labwc.github.io/)
 - [Neovim](https://neovim.io)
 - [NixOS](https://nixos.org)
 - [Sway](https://swaywm.org)
