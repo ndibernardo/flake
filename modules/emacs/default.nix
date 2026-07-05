@@ -16,11 +16,13 @@
         with epkgs;
         [
           avy
+          auto-dark
           consult
           corfu
-          doom-themes
           direnv
           diminish
+          doom-themes
+          doom-modeline
           exec-path-from-shell
           expand-region
           flycheck
