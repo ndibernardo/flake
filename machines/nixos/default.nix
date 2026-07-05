@@ -21,6 +21,7 @@
       "gnupg"
       "gtk"
       "home-manager"
+      "labwc"
       "ld"
       "locale"
       "ly"
