@@ -70,7 +70,7 @@
 
 (setq-default fill-column 100)
 
-(set-face-attribute 'default nil :family "Berkeley Mono" :height 140)
+(set-face-attribute 'default nil :family "Jetbrains Mono" :height 130)
 
 ;; Theme and faces
 (custom-set-faces
@@ -90,7 +90,12 @@
 
 (setq doom-themes-enable-italic nil)
 
-(load-theme 'doom-tomorrow-night t)
+;; Auto dark/light theme switching
+(setq auto-dark-themes '((doom-tomorrow-night) (doom-tomorrow-day)))
+(auto-dark-mode 1)
+
+;; Doom modeline
+(doom-modeline-mode 1)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
@@ -155,7 +160,6 @@
 (add-hook 'lsp-completion-mode-hook 'corfu-lsp-setup)
 
 (advice-add 'lsp :before (lambda (&rest _) (direnv-update-environment)))
-
 
 ;; Marginalia
 (add-hook 'after-init-hook 'marginalia-mode)
