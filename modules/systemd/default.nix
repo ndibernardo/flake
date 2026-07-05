@@ -3,6 +3,10 @@
   flake.nixosModules.systemd = (
     { lib, ... }:
     {
+      services.journald.extraConfig = ''
+        SyncIntervalSec=30
+      '';
+
       systemd = {
         targets = {
           hibernate.enable = false;

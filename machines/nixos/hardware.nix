@@ -36,6 +36,12 @@
       "nvidia-drm.modeset=1"
       "nvidia-drm.fbdev=1"
       "nouveau.modeset=0"
+      "pstore.backend=efi"
+      "softlockup_panic=1"
+      "hung_task_panic=1"
+      "nmi_watchdog=panic,1"
+      "panic=10"
+      "mt7925e.disable_aspm=1"
     ];
 
     kernelModules = [
