@@ -38,6 +38,7 @@
         packages = with pkgs; [
           berkeley-mono
           fira-code
+          hack-font
           ibm-plex
           inconsolata
           jetbrains-mono
