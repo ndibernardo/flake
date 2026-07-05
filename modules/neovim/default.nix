@@ -39,6 +39,7 @@
           friendly-snippets
           gitsigns-nvim
           tairiki
+          lualine-nvim
           nvim-cmp
           nvim-colorizer-lua
           nvim-lspconfig
@@ -48,6 +49,7 @@
           nvim-web-devicons
           oil-nvim
           plenary-nvim
+          render-markdown-nvim
           telescope-nvim
           telescope-fzf-native-nvim
           undotree
