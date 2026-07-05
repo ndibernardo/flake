@@ -62,17 +62,37 @@
       '';
 
       float-toggle = pkgs.writeShellScriptBin "sway-float-toggle" ''
+        width=$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | objects | select(.focused == true) | .current_border_width')
         swaymsg floating toggle
         state=$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | objects | select(.focused == true) | .floating')
         case "$state" in
           user_on|auto_on)
-            swaymsg border normal 2
+            swaymsg border normal "$width"
             ;;
           *)
-            swaymsg border pixel 2
+            swaymsg border pixel "$width"
             ;;
         esac
       '';
+
+      waybarLib = import ../waybar/_lib.nix { inherit pkgs user; };
+      waybar = waybarLib.mkWaybar {
+        left = [
+          "sway/workspaces"
+          "sway/mode"
+        ];
+        center = [ "sway/window" ];
+        right = [
+          "pulseaudio"
+          "network"
+          # "custom/mullvad"
+          # "custom/tailscale"
+          # "cpu"
+          # "memory"
+          "clock"
+          "tray"
+        ];
+      };
     in
     {
       environment.systemPackages = [
@@ -82,229 +102,197 @@
         pkgs.swaylock
         pkgs.grim
         pkgs.slurp
+        pkgs.networkmanagerapplet
       ];
 
-      home-manager.users.${user.name}.wayland.windowManager.sway = {
-        enable = true;
-        extraSessionCommands = ''
-          export GTK_IM_MODULE=simple
-        '';
-        systemd = {
+      home-manager.users.${user.name} = {
+        xdg.configFile."waybar/config-sway".text = builtins.toJSON waybar.settings;
+        xdg.configFile."waybar/style-sway.css".text = waybar.style;
+
+        wayland.windowManager.sway = {
           enable = true;
-          variables = [ "--all" ];
+          extraSessionCommands = ''
+            export GTK_IM_MODULE=simple
+          '';
+          systemd = {
+            enable = true;
+            variables = [ "--all" ];
+          };
+          config = {
+            modifier = "Mod4";
+            terminal = "ghostty";
+            menu = "fuzzel";
+
+            fonts = {
+              names = [ "Berkeley Mono" ];
+              size = 13.0;
+            };
+
+            gaps.inner = 10;
+
+            window = {
+              titlebar = false;
+            };
+
+            focus = {
+              followMouse = "always";
+              mouseWarping = false;
+            };
+
+            input."*".scroll_factor = "5";
+
+            input."type:keyboard" = {
+              xkb_layout = "us";
+              xkb_variant = "intl";
+            };
+
+            seat."*".xcursor_theme = "Adwaita 16";
+
+            bars = [ ];
+
+            startup = [
+              { command = "theme-apply"; }
+              {
+                command = "waybar --config $HOME/.config/waybar/config-sway --style $HOME/.config/waybar/style-sway.css";
+              }
+              { command = "nm-applet"; }
+              { command = "solaar --window=hide"; }
+              { command = "openrgb --mode static --color 000000"; }
+              {
+                command = "systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
+              }
+              {
+                command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
+              }
+              { command = "gsettings set org.gnome.desktop.interface cursor-theme Adwaita"; }
+              { command = "gsettings set org.gnome.desktop.interface cursor-size 16"; }
+              {
+                command = ''
+                  swayidle -w \
+                    timeout 1800 'swaylock -f -c 545454' \
+                    timeout 2400 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+                    before-sleep 'swaylock -f -c 545454'
+                '';
+              }
+            ];
+
+            keybindings =
+              let
+                modifier = "Mod4";
+              in
+              lib.mkOptionDefault {
+                "${modifier}+Return" = "exec ghostty";
+                "${modifier}+Tab" = "exec sway-cycle-focus next";
+                "${modifier}+Shift+Tab" = "exec sway-cycle-focus prev";
+                "${modifier}+q" = "kill";
+                "${modifier}+d" = "exec fuzzel";
+                "${modifier}+Shift+c" = "reload";
+                "${modifier}+Shift+e" =
+                  "exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'";
+                "${modifier}+F8" = "exec theme-toggle";
+                # Focus
+                "${modifier}+h" = "focus left";
+                "${modifier}+j" = "focus down";
+                "${modifier}+k" = "focus up";
+                "${modifier}+l" = "focus right";
+                "${modifier}+Left" = "focus left";
+                "${modifier}+Down" = "focus down";
+                "${modifier}+Up" = "focus up";
+                "${modifier}+Right" = "focus right";
+                # Move
+                "${modifier}+Shift+h" = "move left";
+                "${modifier}+Shift+j" = "move down";
+                "${modifier}+Shift+k" = "move up";
+                "${modifier}+Shift+l" = "move right";
+                "${modifier}+Shift+Left" = "move left";
+                "${modifier}+Shift+Down" = "move down";
+                "${modifier}+Shift+Up" = "move up";
+                "${modifier}+Shift+Right" = "move right";
+                # Workspaces
+                "${modifier}+1" = "workspace number 1";
+                "${modifier}+2" = "workspace number 2";
+                "${modifier}+3" = "workspace number 3";
+                "${modifier}+4" = "workspace number 4";
+                "${modifier}+5" = "workspace number 5";
+                "${modifier}+6" = "workspace number 6";
+                "${modifier}+7" = "workspace number 7";
+                "${modifier}+8" = "workspace number 8";
+                "${modifier}+9" = "workspace number 9";
+                "${modifier}+0" = "workspace number 10";
+                "${modifier}+comma" = "workspace next";
+                "${modifier}+Shift+1" = "move container to workspace number 1";
+                "${modifier}+Shift+2" = "move container to workspace number 2";
+                "${modifier}+Shift+3" = "move container to workspace number 3";
+                "${modifier}+Shift+4" = "move container to workspace number 4";
+                "${modifier}+Shift+5" = "move container to workspace number 5";
+                "${modifier}+Shift+6" = "move container to workspace number 6";
+                "${modifier}+Shift+7" = "move container to workspace number 7";
+                "${modifier}+Shift+8" = "move container to workspace number 8";
+                "${modifier}+Shift+9" = "move container to workspace number 9";
+                "${modifier}+Shift+0" = "move container to workspace number 10";
+                # Layout
+                "${modifier}+b" = "splith";
+                "${modifier}+v" = "splitv";
+                "${modifier}+s" = "layout stacking";
+                "${modifier}+w" = "layout tabbed";
+                "${modifier}+n" = "layout toggle split";
+                "${modifier}+f" = "fullscreen";
+                "${modifier}+Shift+space" = "exec sway-float-toggle";
+                "${modifier}+space" = "focus mode_toggle";
+                "${modifier}+a" = "focus parent";
+                # Scratchpad
+                "${modifier}+Shift+minus" = "move scratchpad";
+                "${modifier}+minus" = "scratchpad show";
+                # Resize mode
+                "${modifier}+r" = "mode resize";
+              };
+
+            modes.resize = {
+              h = "resize shrink width 10px";
+              j = "resize grow height 10px";
+              k = "resize shrink height 10px";
+              l = "resize grow width 10px";
+              Left = "resize shrink width 10px";
+              Down = "resize grow height 10px";
+              Up = "resize shrink height 10px";
+              Right = "resize grow width 10px";
+              Return = "mode default";
+              Escape = "mode default";
+            };
+
+            floating.modifier = "Mod4";
+
+            output."DP-4" = {
+              mode = "3840x2160@240.016Hz";
+              position = "0,0";
+            };
+          };
+
+          extraOptions = [ "--unsupported-gpu" ];
+
+          extraConfig = ''
+            workspace 1
+            include ${user.homeDirectory}/.local/state/theme/sway-colors
+            title_align left
+
+            bindgesture swipe:4:left workspace prev
+            bindgesture swipe:4:right workspace next
+            bindgesture swipe:3:down focus up
+            bindgesture swipe:3:up focus down
+            bindgesture swipe:3:left focus right
+            bindgesture swipe:3:right focus left
+
+            bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+            bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+            bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+            bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+            bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+            bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+            bindsym Print exec ${pkgs.grim}/bin/grim -t png
+            bindsym Mod4+Print exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" -t png
+          '';
         };
-        config = {
-          modifier = "Mod4";
-          terminal = "ghostty";
-          menu = "fuzzel";
-
-          fonts = {
-            names = [ "Berkeley Mono" ];
-            size = 13.0;
-          };
-
-          gaps.inner = 10;
-
-          window = {
-            border = 2;
-            titlebar = false;
-          };
-
-          focus = {
-            followMouse = "always";
-            mouseWarping = false;
-          };
-
-          input."*".scroll_factor = "5";
-
-          input."type:keyboard" = {
-            xkb_layout = "us";
-            xkb_variant = "intl";
-          };
-
-          colors = {
-            focused = {
-              border = "#81a2be";
-              background = "#1d1f21";
-              text = "#c5c8c6";
-              indicator = "#81a2be";
-              childBorder = "#81a2be";
-            };
-            focusedInactive = {
-              border = "#373b41";
-              background = "#1d1f21";
-              text = "#969896";
-              indicator = "#373b41";
-              childBorder = "#373b41";
-            };
-            unfocused = {
-              border = "#282a2e";
-              background = "#1d1f21";
-              text = "#969896";
-              indicator = "#282a2e";
-              childBorder = "#282a2e";
-            };
-            urgent = {
-              border = "#cc6666";
-              background = "#1d1f21";
-              text = "#c5c8c6";
-              indicator = "#cc6666";
-              childBorder = "#cc6666";
-            };
-            placeholder = {
-              border = "#1d1f21";
-              background = "#1d1f21";
-              text = "#969896";
-              indicator = "#1d1f21";
-              childBorder = "#1d1f21";
-            };
-          };
-
-          seat."*".xcursor_theme = "Adwaita 16";
-
-          bars = [ ];
-
-          startup = [
-            { command = "theme-apply"; }
-            { command = "waybar"; }
-            { command = "openrgb --mode static --color 000000"; }
-            {
-              command = "systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
-            }
-            {
-              command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
-            }
-            { command = "gsettings set org.gnome.desktop.interface cursor-theme Adwaita"; }
-            { command = "gsettings set org.gnome.desktop.interface cursor-size 16"; }
-            {
-              command = ''
-                swayidle -w \
-                  timeout 1800 'swaylock -f -c 1d1f21' \
-                  timeout 2400 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-                  before-sleep 'swaylock -f -c 1d1f21'
-              '';
-            }
-          ];
-
-          keybindings =
-            let
-              modifier = "Mod4";
-            in
-            lib.mkOptionDefault {
-              "${modifier}+Return" = "exec ghostty";
-              "${modifier}+Tab" = "exec sway-cycle-focus next";
-              "${modifier}+Shift+Tab" = "exec sway-cycle-focus prev";
-              "${modifier}+q" = "kill";
-              "${modifier}+d" = "exec fuzzel";
-              "${modifier}+Shift+c" = "reload";
-              "${modifier}+Shift+e" =
-                "exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'";
-              "${modifier}+F8" = "exec theme-toggle";
-              # Focus
-              "${modifier}+h" = "focus left";
-              "${modifier}+j" = "focus down";
-              "${modifier}+k" = "focus up";
-              "${modifier}+l" = "focus right";
-              "${modifier}+Left" = "focus left";
-              "${modifier}+Down" = "focus down";
-              "${modifier}+Up" = "focus up";
-              "${modifier}+Right" = "focus right";
-              # Move
-              "${modifier}+Shift+h" = "move left";
-              "${modifier}+Shift+j" = "move down";
-              "${modifier}+Shift+k" = "move up";
-              "${modifier}+Shift+l" = "move right";
-              "${modifier}+Shift+Left" = "move left";
-              "${modifier}+Shift+Down" = "move down";
-              "${modifier}+Shift+Up" = "move up";
-              "${modifier}+Shift+Right" = "move right";
-              # Workspaces
-              "${modifier}+1" = "workspace number 1";
-              "${modifier}+2" = "workspace number 2";
-              "${modifier}+3" = "workspace number 3";
-              "${modifier}+4" = "workspace number 4";
-              "${modifier}+5" = "workspace number 5";
-              "${modifier}+6" = "workspace number 6";
-              "${modifier}+7" = "workspace number 7";
-              "${modifier}+8" = "workspace number 8";
-              "${modifier}+9" = "workspace number 9";
-              "${modifier}+0" = "workspace number 10";
-              "${modifier}+comma" = "workspace next";
-              "${modifier}+Shift+1" = "move container to workspace number 1";
-              "${modifier}+Shift+2" = "move container to workspace number 2";
-              "${modifier}+Shift+3" = "move container to workspace number 3";
-              "${modifier}+Shift+4" = "move container to workspace number 4";
-              "${modifier}+Shift+5" = "move container to workspace number 5";
-              "${modifier}+Shift+6" = "move container to workspace number 6";
-              "${modifier}+Shift+7" = "move container to workspace number 7";
-              "${modifier}+Shift+8" = "move container to workspace number 8";
-              "${modifier}+Shift+9" = "move container to workspace number 9";
-              "${modifier}+Shift+0" = "move container to workspace number 10";
-              # Layout
-              "${modifier}+b" = "splith";
-              "${modifier}+v" = "splitv";
-              "${modifier}+s" = "layout stacking";
-              "${modifier}+w" = "layout tabbed";
-              "${modifier}+n" = "layout toggle split";
-              "${modifier}+f" = "fullscreen";
-              "${modifier}+Shift+space" = "exec sway-float-toggle";
-              "${modifier}+space" = "focus mode_toggle";
-              "${modifier}+a" = "focus parent";
-              # Scratchpad
-              "${modifier}+Shift+minus" = "move scratchpad";
-              "${modifier}+minus" = "scratchpad show";
-              # Resize mode
-              "${modifier}+r" = "mode resize";
-            };
-
-          modes.resize = {
-            h = "resize shrink width 10px";
-            j = "resize grow height 10px";
-            k = "resize shrink height 10px";
-            l = "resize grow width 10px";
-            Left = "resize shrink width 10px";
-            Down = "resize grow height 10px";
-            Up = "resize shrink height 10px";
-            Right = "resize grow width 10px";
-            Return = "mode default";
-            Escape = "mode default";
-          };
-
-          floating.modifier = "Mod4";
-
-          output."DP-4" = {
-            mode = "3840x2160@240.016Hz";
-            position = "0,0";
-          };
-        };
-
-        extraOptions = [ "--unsupported-gpu" ];
-
-        extraConfig = ''
-          workspace 1
-          include ${user.homeDirectory}/.local/state/theme/sway-colors
-          title_align left
-
-          bindgesture swipe:4:left workspace prev
-          bindgesture swipe:4:right workspace next
-          bindgesture swipe:3:down focus up
-          bindgesture swipe:3:up focus down
-          bindgesture swipe:3:left focus right
-          bindgesture swipe:3:right focus left
-
-          bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-          bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-          bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-          bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-          bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-          bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-
-          for_window [tiling] border pixel 2
-          for_window [floating] border normal 2
-
-          bindsym Print exec ${pkgs.grim}/bin/grim -t png
-          bindsym Mod4+Print exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" -t png
-        '';
       };
 
       programs.sway = {
