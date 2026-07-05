@@ -332,7 +332,7 @@ vim.lsp.config['zls'] = {
 
 -- Oil
 require("oil").setup({
-    default_file_explorer = false,
+    default_file_explorer = true,
     delete_to_trash = true,
     columns = {},
     view_options = {
@@ -344,7 +344,7 @@ require("oil").setup({
 -- Nvim-tree
 require("nvim-tree").setup({
     sort_by = "case_sensitive",
-    hijack_netrw = true,
+    hijack_netrw = false,
     view = {
         width = 40,
         side = "right",
@@ -430,6 +430,19 @@ require("nvim-treesitter").setup({
     indent = { enable = true },
 })
 
+-- Render Markdown
+require("render-markdown").setup({
+    win_options = {
+        wrap = {
+            default = false,
+            rendered = true,
+        },
+    },
+    heading = {
+        backgrounds = {},
+    },
+})
+
 require('tairiki').setup({
     palette              = 'dimmed',
     default_dark         = 'tomorrow',
@@ -472,3 +485,22 @@ local f = io.open(state .. "/theme/mode")
 local mode = f and f:read("*l") or "dark"
 if f then f:close() end
 apply_theme_mode(mode == "light" and "light" or "dark")
+
+-- Lualine
+require("lualine").setup({
+    options = {
+        theme = "tomorrow_night",
+        icons_enabled = false,
+        component_separators = { left = "|", right = "|" },
+        section_separators = { left = "", right = "" },
+        globalstatus = true,
+    },
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = {},
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
+    },
+})
