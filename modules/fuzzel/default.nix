@@ -7,16 +7,15 @@
         enable = true;
         settings = {
           main = {
-            font = "Berkeley Mono:size=14";
             terminal = "ghostty -e";
             width = 30;
             lines = 10;
-            prompt = ''">> "'';
+            prompt = ''""'';
             include = "${user.homeDirectory}/.local/state/theme/fuzzel-colors.ini";
           };
           border = {
             width = 2;
-            radius = 0;
+            radius = 3;
           };
         };
       };

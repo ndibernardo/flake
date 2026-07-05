@@ -15,9 +15,12 @@
             font-thicken = true;
             scrollback-limit = 10000;
             shell-integration-features = "no-cursor";
-            theme = "light:Tomorrow,dark:Tomorrow Night";
+            window-decoration = "client";
+            window-height = 65;
             window-padding-x = 10;
             window-padding-y = 10;
+            window-width = 150;
+            theme = "light:Tomorrow,dark:Tomorrow Night";
           };
         };
       };
