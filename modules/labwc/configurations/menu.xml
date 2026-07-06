@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu>
+  <menu id="root-menu" label="Root menu">
+    <item label="Files" icon="org.xfce.thunar">
+      <action name="Execute"><command>thunar</command></action>
+    </item>
+    <item label="Terminal" icon="com.mitchellh.ghostty">
+      <action name="Execute"><command>ghostty</command></action>
+    </item>
+    <item label="Firefox" icon="firefox">
+      <action name="Execute"><command>firefox</command></action>
+    </item>
+    <item label="Emacs" icon="emacs">
+      <action name="Execute"><command>emacsclient -c -a ""</command></action>
+    </item>
+    <item label="Screenshot Area" icon="applets-screenshooter">
+      <action name="Execute">
+        <command>sh -c 'grim -g "$(slurp)" -t png'</command>
+      </action>
+    </item>
+    <separator/>
+    <item label="Reload Configuration">
+      <action name="Reconfigure"/>
+    </item>
+    <item label="Exit">
+      <action name="Exit"/>
+    </item>
+  </menu>
+</openbox_menu>
