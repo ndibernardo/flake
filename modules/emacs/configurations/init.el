@@ -91,6 +91,7 @@
 (setq doom-themes-enable-italic nil)
 
 ;; Auto dark/light theme switching
+(setq custom-safe-themes t)
 (setq auto-dark-themes '((doom-tomorrow-night) (doom-tomorrow-day)))
 (auto-dark-mode 1)
 
