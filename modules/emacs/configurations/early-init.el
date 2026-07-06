@@ -14,6 +14,9 @@
 (setq frame-inhibit-implied-resize t)
 (setq frame-resize-pixelwise t)
 
+(setq default-frame-alist
+      (append '((width . 170) (height . 90)) default-frame-alist))
+
 ;; Don't use file dialog
 (setq use-file-dialog nil)
 
