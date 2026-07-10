@@ -1,4 +1,8 @@
 #!/bin/sh
+systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+hash dbus-update-activation-environment 2>/dev/null && \
+  dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+systemctl --user restart xdg-desktop-portal-gtk.service xdg-desktop-portal.service &
 theme-apply &
 (
   exec 9>"${XDG_RUNTIME_DIR:-/tmp}/labwc-waybar.lock"
@@ -13,9 +17,6 @@ openrgb --mode static --color 000000 &
 nm-applet &
 solaar --window=hide &
 tailscale systray &
-systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-hash dbus-update-activation-environment 2>/dev/null && \
-  dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 gsettings set org.gnome.desktop.interface cursor-theme Adwaita
 gsettings set org.gnome.desktop.interface cursor-size 16
 swayidle -w \

@@ -4,6 +4,7 @@
   <core>
     <gap>10</gap>
     <adaptiveSync>yes</adaptiveSync>
+    <decoration>client</decoration>
   </core>
 
   <desktops>
