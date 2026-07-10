@@ -184,6 +184,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map_lsp("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
         map_lsp("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+        map_lsp("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
         map_lsp("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
         map_lsp("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
         map_lsp("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
@@ -354,6 +355,9 @@ require("nvim-tree").setup({
     },
     filters = {
         dotfiles = false,
+    },
+    update_focused_file = {
+        enable = true,
     },
     on_attach = function(bufnr)
         local api = require("nvim-tree.api")
