@@ -27,6 +27,8 @@
           expand-region
           flycheck
           gcmh
+          git-gutter
+          git-gutter-fringe
           ligature
           lsp-mode
           magit

@@ -114,6 +114,15 @@
                                        "\\\\" "://"))
 (global-ligature-mode nil)
 
+;; Git  Gutter
+(setq git-gutter:update-interval 0.02)
+(add-hook 'prog-mode-hook 'git-gutter-mode)
+
+(require 'git-gutter-fringe)
+(define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+(define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+(define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom)
+
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
