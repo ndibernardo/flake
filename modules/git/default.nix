@@ -15,15 +15,10 @@
           gpg.format = "ssh";
         };
         ignores = [
-          ".classpath"
-          ".claude"
-          ".direnv"
-          ".dir-locals.el"
+          "/.*/"
+          "/*-out/"
+          "/target/"
           ".DS_STORE"
-          ".idea"
-          ".project"
-          ".settings"
-          "target"
           "TAGS"
         ];
       };
