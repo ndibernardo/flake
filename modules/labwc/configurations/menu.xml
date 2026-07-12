@@ -13,6 +13,9 @@
     <item label="Emacs" icon="emacs">
       <action name="Execute"><command>emacsclient -c -a ""</command></action>
     </item>
+    <item label="Steam" icon="steam">
+      <action name="Execute"><command>steam</command></action>
+    </item>
     <item label="Screenshot Area" icon="applets-screenshooter">
       <action name="Execute">
         <command>sh -c 'grim -g "$(slurp)" -t png'</command>
