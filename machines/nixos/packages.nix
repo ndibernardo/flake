@@ -11,10 +11,15 @@
     fzf
     gamemode
     htop
+    jq
+    k9s
     killall
+    kind
+    kubectl
     lutris
     nixd
     nixfmt
+    nodejs_24
     obsidian
     puddletag
     ripgrep
@@ -22,7 +27,7 @@
     solaar
     thunar
     unzip
-    vscode
+    uv
     wget
     zip
   ];
