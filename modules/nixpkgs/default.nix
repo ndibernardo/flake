@@ -18,6 +18,7 @@
             });
             berkeley-mono = final.callPackage ../../packages/berkeley-mono.nix { };
             pragmata-pro = final.callPackage ../../packages/pragmata-pro.nix { };
+            musicplayer = final.callPackage ../../packages/musicplayer.nix { };
           })
         ];
       };
