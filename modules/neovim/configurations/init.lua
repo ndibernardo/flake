@@ -474,9 +474,30 @@ require('tairiki').setup({
     highlights           = function(groups, colors, opts) end,
 })
 
+local function lualine_theme(mode)
+    return mode == "light" and "Tomorrow" or "tomorrow_night"
+end
+
 local function apply_theme_mode(mode)
     vim.o.background = mode
     require("tairiki").load()
+    require("lualine").setup({
+        options = {
+            theme = lualine_theme(mode),
+            icons_enabled = false,
+            component_separators = { left = "|", right = "|" },
+            section_separators = { left = "", right = "" },
+            globalstatus = true,
+        },
+        sections = {
+            lualine_a = { 'mode' },
+            lualine_b = { 'branch', 'diff', 'diagnostics' },
+            lualine_c = { 'filename' },
+            lualine_x = {},
+            lualine_y = { 'progress' },
+            lualine_z = { 'location' }
+        },
+    })
 end
 
 function _G.set_theme_mode(mode)
@@ -489,22 +510,3 @@ local f = io.open(state .. "/theme/mode")
 local mode = f and f:read("*l") or "dark"
 if f then f:close() end
 apply_theme_mode(mode == "light" and "light" or "dark")
-
--- Lualine
-require("lualine").setup({
-    options = {
-        theme = "tomorrow_night",
-        icons_enabled = false,
-        component_separators = { left = "|", right = "|" },
-        section_separators = { left = "", right = "" },
-        globalstatus = true,
-    },
-    sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
-        lualine_x = {},
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' }
-    },
-})

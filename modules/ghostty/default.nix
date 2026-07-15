@@ -7,11 +7,11 @@
         programs.ghostty = {
           enable = true;
           settings = {
-            adjust-cell-height = "15%";
+            adjust-cell-height = "10%";
             bold-is-bright = true;
             cursor-style = "block";
             cursor-style-blink = false;
-            font-size = 13;
+            font-size = 12;
             font-thicken = true;
             scrollback-limit = 10000;
             shell-integration-features = "no-cursor";

@@ -122,7 +122,6 @@ in
         * {
           border: none;
           border-radius: 0;
-          font-size: 17px;
         }
 
         window#waybar {
