@@ -13,6 +13,9 @@
     <item label="Emacs" icon="emacs">
       <action name="Execute"><command>emacsclient -c -a ""</command></action>
     </item>
+    <item label="Obsidian" icon="obsidian">
+      <action name="Execute"><command>obsidian</command></action>
+    </item>
     <item label="Steam" icon="steam">
       <action name="Execute"><command>steam</command></action>
     </item>

@@ -16,9 +16,13 @@ theme-apply &
 openrgb --mode static --color 000000 &
 nm-applet &
 solaar --window=hide &
+pkill -f "tailscale systray"
 tailscale systray &
+pkill -x mullvad-vpn
+mullvad-vpn &
 gsettings set org.gnome.desktop.interface cursor-theme Adwaita
 gsettings set org.gnome.desktop.interface cursor-size 16
+gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
 swayidle -w \
   timeout 1800 'swaylock -f -c 545454' \
   before-sleep 'swaylock -f -c 545454' &

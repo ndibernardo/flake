@@ -70,7 +70,7 @@
 
 (setq-default fill-column 100)
 
-(set-face-attribute 'default nil :family "Jetbrains Mono" :height 130)
+(set-face-attribute 'default nil :family "Jetbrains Mono" :height 120)
 
 ;; Theme and faces
 (custom-set-faces
