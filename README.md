@@ -33,16 +33,3 @@ nix flake init -t github:ndibernardo/flake#<template>
 ```
 
 direnv and nix-direnv load the dev shell automatically, giving each project an isolated environment.
-
-## Tools
-
-- [1Password](https://1password.com)
-- [atuin](https://atuin.sh)
-- [direnv](https://direnv.net)
-- [Firefox](https://www.mozilla.org/firefox/)
-- [fish](https://fishshell.com)
-- [Ghostty](https://ghostty.org)
-- [labwc](https://labwc.github.io/)
-- [Neovim](https://neovim.io)
-- [NixOS](https://nixos.org)
-- [Sway](https://swaywm.org)
