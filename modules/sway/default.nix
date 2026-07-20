@@ -75,24 +75,6 @@
         esac
       '';
 
-      waybarLib = import ../waybar/_lib.nix { inherit pkgs user; };
-      waybar = waybarLib.mkWaybar {
-        left = [
-          "sway/workspaces"
-          "sway/mode"
-        ];
-        center = [ "sway/window" ];
-        right = [
-          "pulseaudio"
-          "network"
-          # "custom/mullvad"
-          # "custom/tailscale"
-          # "cpu"
-          # "memory"
-          "clock"
-          "tray"
-        ];
-      };
     in
     {
       environment.systemPackages = [
@@ -106,9 +88,6 @@
       ];
 
       home-manager.users.${user.name} = {
-        xdg.configFile."waybar/config-sway".text = builtins.toJSON waybar.settings;
-        xdg.configFile."waybar/style-sway.css".text = waybar.style;
-
         wayland.windowManager.sway = {
           enable = true;
           extraSessionCommands = ''
@@ -120,18 +99,57 @@
           };
           config = {
             modifier = "Mod4";
-            terminal = "ghostty";
+            terminal = "foot";
             menu = "fuzzel";
 
             fonts = {
-              names = [ "Berkeley Mono" ];
-              size = 13.0;
+              names = [ "Berkeley Mono Medium SemiCondensed" ];
+              size = 11.0;
             };
 
             gaps.inner = 10;
 
             window = {
+              border = 1;
               titlebar = false;
+            };
+
+            colors = {
+              focused = {
+                background = "#54beaf";
+                border = "#54beaf";
+                childBorder = "#54beaf";
+                indicator = "#8abeb7";
+                text = "#1d1f21";
+              };
+              unfocused = {
+                background = "#1d1f21";
+                border = "#282a2e";
+                childBorder = "#282a2e";
+                indicator = "#282a2e";
+                text = "#c5c8c6";
+              };
+              focusedInactive = {
+                background = "#1d1f21";
+                border = "#969896";
+                childBorder = "#969896";
+                indicator = "#969896";
+                text = "#c5c8c6";
+              };
+              urgent = {
+                background = "#cc6666";
+                border = "#cc6666";
+                childBorder = "#cc6666";
+                indicator = "#cc6666";
+                text = "#1d1f21";
+              };
+              placeholder = {
+                background = "#1d1f21";
+                border = "#282a2e";
+                childBorder = "#282a2e";
+                indicator = "#c5c8c6";
+                text = "#c5c8c6";
+              };
             };
 
             focus = {
@@ -151,9 +169,8 @@
             bars = [ ];
 
             startup = [
-              { command = "theme-apply"; }
               {
-                command = "waybar --config $HOME/.config/waybar/config-sway --style $HOME/.config/waybar/style-sway.css";
+                command = "waybar";
               }
               { command = "nm-applet"; }
               { command = "solaar --window=hide"; }
@@ -169,9 +186,9 @@
               {
                 command = ''
                   swayidle -w \
-                    timeout 1800 'swaylock -f -c 545454' \
+                    timeout 1800 'swaylock -f -c 000000' \
                     timeout 2400 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-                    before-sleep 'swaylock -f -c 545454'
+                    before-sleep 'swaylock -f -c 000000'
                 '';
               }
             ];
@@ -181,7 +198,7 @@
                 modifier = "Mod4";
               in
               lib.mkOptionDefault {
-                "${modifier}+Return" = "exec ghostty";
+                "${modifier}+Return" = "exec foot";
                 "${modifier}+Tab" = "exec sway-cycle-focus next";
                 "${modifier}+Shift+Tab" = "exec sway-cycle-focus prev";
                 "${modifier}+q" = "kill";
@@ -189,7 +206,6 @@
                 "${modifier}+Shift+c" = "reload";
                 "${modifier}+Shift+e" =
                   "exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'";
-                "${modifier}+F8" = "exec theme-toggle";
                 # Focus
                 "${modifier}+h" = "focus left";
                 "${modifier}+j" = "focus down";
@@ -262,7 +278,7 @@
 
             floating.modifier = "Mod4";
 
-            output."DP-4" = {
+            output."ASUSTek COMPUTER INC XG32UCWMG T7LMQS087987" = {
               mode = "3840x2160@240.016Hz";
               position = "0,0";
             };
@@ -272,8 +288,8 @@
 
           extraConfig = ''
             workspace 1
-            include ${user.homeDirectory}/.local/state/theme/sway-colors
             title_align left
+            output * bg #000000 solid_color
 
             bindgesture swipe:4:left workspace prev
             bindgesture swipe:4:right workspace next

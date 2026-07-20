@@ -16,7 +16,9 @@
     nodejs_24
     obsidian
     ripgrep
+    signal-desktop
     solaar
+    telegram-desktop
     thunar
     unzip
     wget

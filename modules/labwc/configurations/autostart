@@ -5,10 +5,10 @@ hash dbus-update-activation-environment 2>/dev/null && \
 systemctl --user restart xdg-desktop-portal-gtk.service xdg-desktop-portal.service &
 theme-apply &
 (
-  exec 9>"${XDG_RUNTIME_DIR:-/tmp}/labwc-waybar.lock"
+  exec 9>"${XDG_RUNTIME_DIR:-/tmp}/labwc-sfwbar.lock"
   if flock -n 9; then
     while pgrep -x labwc >/dev/null 2>&1; do
-      waybar --config "$HOME/.config/waybar/config-labwc" --style "$HOME/.config/waybar/style-labwc.css"
+      sfwbar
       sleep 1
     done
   fi
@@ -24,5 +24,5 @@ gsettings set org.gnome.desktop.interface cursor-theme Adwaita
 gsettings set org.gnome.desktop.interface cursor-size 16
 gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
 swayidle -w \
-  timeout 1800 'swaylock -f -c 545454' \
-  before-sleep 'swaylock -f -c 545454' &
+  timeout 1800 'swaylock -f -c 4f5459' \
+  before-sleep 'swaylock -f -c 4f5459' &
