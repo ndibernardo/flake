@@ -38,11 +38,8 @@
         packages = with pkgs; [
           berkeley-mono
           fira-code
-          hack-font
-          ibm-plex
           inconsolata
           jetbrains-mono
-          pragmata-pro
           nerd-fonts.symbols-only
           noto-fonts
           noto-fonts-cjk-sans
