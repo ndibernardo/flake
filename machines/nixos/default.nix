@@ -6,10 +6,8 @@
       "atuin"
       "audio"
       "bluetooth"
-      "containers"
       "direnv"
       "docker"
-      "documentation"
       "emacs"
       "fail2ban"
       "firefox"
@@ -19,7 +17,6 @@
       "gdm"
       "ghostty"
       "git"
-      "gnome"
       "gnupg"
       "gtk"
       "home-manager"
@@ -42,6 +39,7 @@
       "theme"
       "tmux"
       "users"
+      "vscode"
       "waybar"
     ];
     nixosModules = [

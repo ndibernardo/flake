@@ -3,34 +3,22 @@
   environment.systemPackages = with pkgs; [
     _1password-cli
     _1password-gui
-    anki
     claude-code
-    calibre
     curl
     docker-compose
-    evince
     fzf
-    gamemode
     htop
     jq
     k9s
     killall
     kind
     kubectl
-    lutris
-    musicplayer
-    nixd
-    nixfmt
     nodejs_24
-    nyxt
     obsidian
-    puddletag
     ripgrep
-    spotify
     solaar
     thunar
     unzip
-    uv
     wget
     zip
   ];
