@@ -447,66 +447,84 @@ require("render-markdown").setup({
     },
 })
 
-require('tairiki').setup({
-    palette              = 'dimmed',
-    default_dark         = 'tomorrow',
-    default_light        = 'light',
-    transparent          = true,
-    terminal             = false,
-    end_of_buffer        = false,
-    visual_bold          = false,
-    cmp_itemkind_reverse = false,
-    diagnostics          = {
-        darker     = false,
-        background = true,
-        undercurl  = false,
-    },
-    code_style           = {
-        comments = { italic = false },
-        conditionals = {},
-        keywords = {},
-        functions = {},
-        strings = {},
-        variables = {},
-        parameters = {},
-        types = {},
-    },
-    highlights           = function(groups, colors, opts) end,
-})
+if os.getenv("SWAYSOCK") then
+    -- sway: default colorscheme with tweaks
+    vim.o.background = "dark"
+    vim.cmd.colorscheme("default")
 
-local function lualine_theme(mode)
-    return mode == "light" and "Tomorrow" or "tomorrow_night"
-end
+    -- transparent background
+    for _, group in ipairs({
+        "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
+        "StatusLine", "StatusLineNC",
+    }) do
+        vim.api.nvim_set_hl(0, group, { bg = "NONE" })
+    end
 
-local function apply_theme_mode(mode)
-    vim.o.background = mode
-    require("tairiki").load()
-    require("lualine").setup({
-        options = {
-            theme = lualine_theme(mode),
-            icons_enabled = false,
-            component_separators = { left = "|", right = "|" },
-            section_separators = { left = "", right = "" },
-            globalstatus = true,
+    vim.api.nvim_set_hl(0, "Type", { fg = "#fce094" })
+    -- vim.api.nvim_set_hl(0, "Constant", { fg = "#ff6622" })
+else
+    -- elsewhere: tairiki + lualine, mode driven by theme-apply
+    require('tairiki').setup({
+        palette              = 'dimmed',
+        default_dark         = 'tomorrow',
+        default_light        = 'light',
+        transparent          = true,
+        terminal             = false,
+        end_of_buffer        = false,
+        visual_bold          = false,
+        cmp_itemkind_reverse = false,
+        diagnostics          = {
+            darker     = false,
+            background = true,
+            undercurl  = false,
         },
-        sections = {
-            lualine_a = { 'mode' },
-            lualine_b = { 'branch', 'diff', 'diagnostics' },
-            lualine_c = { 'filename' },
-            lualine_x = {},
-            lualine_y = { 'progress' },
-            lualine_z = { 'location' }
+        code_style           = {
+            comments = { italic = false },
+            conditionals = {},
+            keywords = {},
+            functions = {},
+            strings = {},
+            variables = {},
+            parameters = {},
+            types = {},
         },
+        highlights           = function(groups, colors, opts) end,
     })
-end
 
-function _G.set_theme_mode(mode)
-    apply_theme_mode(mode)
-    return mode
-end
+    local function lualine_theme(mode)
+        return mode == "light" and "Tomorrow" or "tomorrow_night"
+    end
 
-local state = os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state")
-local f = io.open(state .. "/theme/mode")
-local mode = f and f:read("*l") or "dark"
-if f then f:close() end
-apply_theme_mode(mode == "light" and "light" or "dark")
+    local function apply_theme_mode(mode)
+        vim.o.background = mode
+        require("tairiki").load()
+        require("lualine").setup({
+            options = {
+                theme = lualine_theme(mode),
+                icons_enabled = false,
+                component_separators = { left = "|", right = "|" },
+                section_separators = { left = "", right = "" },
+                globalstatus = true,
+            },
+            sections = {
+                lualine_a = { 'mode' },
+                lualine_b = { 'branch', 'diff', 'diagnostics' },
+                lualine_c = { 'filename' },
+                lualine_x = {},
+                lualine_y = { 'progress' },
+                lualine_z = { 'location' }
+            },
+        })
+    end
+
+    function _G.set_theme_mode(mode)
+        apply_theme_mode(mode)
+        return mode
+    end
+
+    local state = os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state")
+    local f = io.open(state .. "/theme/mode")
+    local mode = f and f:read("*l") or "dark"
+    if f then f:close() end
+    apply_theme_mode(mode == "light" and "light" or "dark")
+end
