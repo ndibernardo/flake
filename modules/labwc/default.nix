@@ -11,8 +11,9 @@
       programs.labwc.enable = true;
 
       environment.systemPackages = [
-        pkgs.swayidle
-        pkgs.swaylock
+        pkgs.hypridle
+        pkgs.swaylock-effects
+        pkgs.wlopm
         pkgs.grim
         pkgs.slurp
         pkgs.swaybg
@@ -27,6 +28,8 @@
         };
 
         xdg.configFile."labwc/environment".source = ./configurations/environment;
+
+        xdg.configFile."hypr/hypridle.conf".source = ./configurations/hypridle.conf;
 
         xdg.configFile."labwc/rc.xml".source = ./configurations/rc.xml;
 
