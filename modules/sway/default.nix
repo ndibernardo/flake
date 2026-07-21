@@ -81,7 +81,7 @@
         cycle-focus
         float-toggle
         pkgs.swayidle
-        pkgs.swaylock
+        pkgs.swaylock-effects
         pkgs.grim
         pkgs.slurp
         pkgs.networkmanagerapplet
