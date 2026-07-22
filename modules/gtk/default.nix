@@ -15,12 +15,10 @@
             name = "Adwaita";
             package = pkgs.adwaita-icon-theme;
           };
-          theme = {
-            name = "Adwaita-dark";
-            package = pkgs.gnome-themes-extra;
-          };
+          theme = null;
           gtk4.theme = null;
         };
+        home.packages = [ pkgs.gnome-themes-extra ];
       };
     }
   );

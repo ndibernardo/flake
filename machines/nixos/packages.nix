@@ -10,10 +10,12 @@
     htop
     jq
     k9s
+    karere
     killall
     kind
     kubectl
     nodejs_24
+    nyxt
     obsidian
     ripgrep
     signal-desktop

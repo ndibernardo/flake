@@ -31,8 +31,10 @@
           profiles.default = {
             userSettings = {
               "editor.fontSize" = 13;
-              "window.zoomLevel" = 0.8;
               "editor.fontFamily" = "Jetbrains Mono, Fira Code, Menlo, Monaco, 'Courier New', monospace";
+              "editor.minimap.enabled" = false;
+              "editor.lineNumbers" = "relative";
+              "editor.cursorBlinking" = "solid";
               "claudeCode.preferredLocation" = "panel";
               "window.autoDetectColorScheme" = true;
               "workbench.preferredDarkColorTheme" = "Dark 2026";
@@ -42,6 +44,16 @@
               "telemetry.telemetryLevel" = "off";
               "gitlens.telemetry.enabled" = false;
               "python.analysis.typeCheckingMode" = "strict";
+              "workbench.editor.editorActionsLocation" = "titleBar";
+              "workbench.activityBar.location" = "hidden";
+              "workbench.tree.enableStickyScroll" = true;
+              "editor.stickyScroll.enabled" = true;
+              "breadcrumbs.enabled" = false;
+              "gitlens.graph.statusBar.enabled" = false;
+              "gitlens.launchpad.indicator.enabled" = false;
+              "gitlens.statusBar.enabled" = false;
+              "chat.viewSessions.enabled" = false;
+              "chat.agentsControl.enabled" = "hidden";
             };
             extensions = with pkgs.vscode-extensions; [
               anthropic.claude-code
@@ -56,6 +68,7 @@
               ms-python.vscode-pylance
               ms-vscode.makefile-tools
               rust-lang.rust-analyzer
+              vscodevim.vim
             ];
           };
         };

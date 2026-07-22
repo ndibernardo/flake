@@ -19,6 +19,17 @@
     <item label="Steam" icon="steam">
       <action name="Execute"><command>steam</command></action>
     </item>
+    <separator/>
+    <item label="WhatsApp" icon="io.github.tobagin.karere">
+      <action name="Execute"><command>karere</command></action>
+    </item>
+    <item label="Signal" icon="signal-desktop">
+      <action name="Execute"><command>signal-desktop</command></action>
+    </item>
+    <item label="Telegram" icon="org.telegram.desktop">
+      <action name="Execute"><command>Telegram</command></action>
+    </item>
+    <separator/>
     <item label="Screenshot Area" icon="applets-screenshooter">
       <action name="Execute">
         <command>sh -c 'grim -g "$(slurp)" -t png'</command>
