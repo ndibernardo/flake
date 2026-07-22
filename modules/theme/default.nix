@@ -135,6 +135,16 @@
 
       files = lib.mapAttrs (mode: t: pkgs.writeText "labwc-themerc-${mode}" t) labwcTheme;
 
+      sfwbarBg = {
+        light = "#ffffff";
+        dark = "#1d1f21";
+      };
+
+      sfwbarFocusedFg = {
+        light = "#1d1d1d";
+        dark = "#ffffff";
+      };
+
       theme-apply = pkgs.writeShellScriptBin "theme-apply" ''
         state="${stateDir}"
         mkdir -p "$state"
@@ -151,12 +161,24 @@
           labwc_themerc=${files.light}
           scheme=prefer-light
           gtk_theme=Adwaita
+          sfwbar_bg=${sfwbarBg.light}
+          sfwbar_focused_fg=${sfwbarFocusedFg.light}
         else
           labwc_themerc=${files.dark}
           scheme=prefer-dark
           gtk_theme=Adwaita-dark
+          sfwbar_bg=${sfwbarBg.dark}
+          sfwbar_focused_fg=${sfwbarFocusedFg.dark}
         fi
         printf '%s\n' "$mode" > "$state/mode"
+
+        sfwbar_config_dir="${user.homeDirectory}/.config/sfwbar"
+        mkdir -p "$sfwbar_config_dir"
+        {
+          printf 'window#sfwbar { background-color: %s; }\n' "$sfwbar_bg"
+          printf '.focused, .focused image { color: %s; }\n' "$sfwbar_focused_fg"
+          printf '.module:hover, .module:hover image, button#startmenu:hover, button#startmenu:hover image, button#module:hover, button#module:hover image, button#taskbar_item:hover { color: %s; }\n' "$sfwbar_focused_fg"
+        } > "$sfwbar_config_dir/sfwbar.css"
 
         ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'$scheme'"
         ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme "'$gtk_theme'"
@@ -166,8 +188,9 @@
         install -m 644 "$labwc_themerc" "$labwc_theme/themerc"
         if ${pkgs.procps}/bin/pgrep -x labwc >/dev/null 2>&1; then
           ${pkgs.labwc}/bin/labwc --reconfigure >/dev/null 2>&1 || true
-          ${pkgs.procps}/bin/pkill -x swaybg 2>/dev/null || true
+          ${pkgs.procps}/bin/pkill -f "${pkgs.swaybg}/bin/swaybg" 2>/dev/null || true
           ${pkgs.swaybg}/bin/swaybg -c "$swaybg_color" &
+          ${pkgs.procps}/bin/pkill -HUP sfwbar 2>/dev/null || true
         fi
 
         if command -v nvim >/dev/null 2>&1; then
