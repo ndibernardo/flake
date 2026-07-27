@@ -1,0 +1,32 @@
+#!/bin/sh
+systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+hash dbus-update-activation-environment 2>/dev/null && \
+  dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# starts graphical-session.target, so session-scoped systemd user units
+# (kanshi, xdg-desktop-portal, ...) come up under labwc the same way sway's
+# own systemd integration starts it via sway-session.target
+systemctl --user reset-failed
+systemctl --user start graphical-session.target
+systemctl --user restart xdg-desktop-portal-gtk.service xdg-desktop-portal.service &
+theme-apply
+(
+  exec 9>"${XDG_RUNTIME_DIR:-/tmp}/labwc-sfwbar.lock"
+  if flock -n 9; then
+    while pgrep -x labwc >/dev/null 2>&1; do
+      sfwbar
+      sleep 1
+    done
+  fi
+) &
+openrgb --mode static --color ffffff &
+nm-applet &
+solaar --window=hide &
+pkill -f "tailscale systray"
+tailscale systray &
+pkill -x mullvad-vpn
+mullvad-vpn &
+gsettings set org.gnome.desktop.interface cursor-theme Adwaita
+gsettings set org.gnome.desktop.interface cursor-size 16
+gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
+pkill -x hypridle
+hypridle &

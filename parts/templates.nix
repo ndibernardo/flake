@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
-  flake.templates = import ../templates;
+  flake.templates = import ../templates { inherit lib; };
 }
