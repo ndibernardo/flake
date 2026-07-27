@@ -1,0 +1,42 @@
+{ inputs, config, ... }:
+let
+  flakeConfig = config;
+in
+{
+  flake.overlays.default = final: prev: {
+    berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
+    musicplayer = final.callPackage ../packages/musicplayer.nix { };
+    pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
+
+    vimPlugins = prev.vimPlugins.extend (
+      _: _: {
+        tairiki = final.callPackage ../packages/tairiki.nix { };
+      }
+    );
+
+    solaar = prev.solaar.overrideAttrs (_: {
+      version = "1.1.20";
+      src = final.fetchFromGitHub {
+        owner = "pwr-Solaar";
+        repo = "Solaar";
+        tag = "1.1.20";
+        hash = "sha256-h/uiy0TtMicKch2cdXHur5DkvQun2sAw2HpFI7Qstqg=";
+      };
+    });
+  };
+
+  perSystem =
+    { pkgs, system, ... }:
+    {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ flakeConfig.flake.overlays.default ];
+      };
+
+      packages = {
+        inherit (pkgs) berkeley-mono musicplayer pragmata-pro;
+        inherit (pkgs.vimPlugins) tairiki;
+      };
+    };
+}

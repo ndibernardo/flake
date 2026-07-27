@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p patched
     for font in $(find . -name "*.ttf"); do
       echo "Patching $font..."
-      nerd-font-patcher --complete --careful --makegroups -1 --outputdir patched "$font" || true
+      nerd-font-patcher --complete --careful --makegroups -1 --outputdir patched "$font"
     done
   '';
 

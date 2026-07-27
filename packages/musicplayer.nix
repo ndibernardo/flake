@@ -54,7 +54,11 @@ rustPlatform.buildRustPackage {
       exec = "musicplayer-rs";
       desktopName = "Music Player";
       comment = "A personal, no-nonsense music player for Linux";
-      categories = [ "AudioVideo" "Audio" "Player" ];
+      categories = [
+        "AudioVideo"
+        "Audio"
+        "Player"
+      ];
     })
   ];
 
