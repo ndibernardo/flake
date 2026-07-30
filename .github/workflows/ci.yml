@@ -15,4 +15,10 @@ jobs:
         with:
           extra_nix_config: |
             extra-experimental-features = pipe-operators flakes nix-command
-      - run: nix flake check
+      - run: nix flake check --no-build
+      - run: |
+          nix build \
+            .#checks.x86_64-linux.formatting \
+            .#packages.x86_64-linux.musicplayer \
+            .#packages.x86_64-linux.tairiki \
+            .#nixosConfigurations.daedalus.pkgs.solaar
