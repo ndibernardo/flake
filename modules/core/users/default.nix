@@ -20,6 +20,9 @@
             "wheel"
           ];
           isNormalUser = true;
+          # pinned so mount options and the like can derive it rather than
+          # assuming whatever useradd allocated first
+          uid = 1000;
           openssh.authorizedKeys.keys = user.sshKeys;
         };
       };

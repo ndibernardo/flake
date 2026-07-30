@@ -9,6 +9,10 @@
 
       config = lib.mkIf cfg.enable {
         core.nixpkgs.enable = true;
+        core.nixpkgs.unfreePackages = [
+          "steam"
+          "steam-unwrapped"
+        ];
 
         programs.steam.enable = true;
         programs.gamescope.enable = true;

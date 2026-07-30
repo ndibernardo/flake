@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -69,6 +70,16 @@ in
     logitech.wireless.enable = true;
   };
 
+  # enableAllFirmware above pulls in redistributable-but-unfree blobs
+  core.nixpkgs.unfreePackages = [
+    "b43-firmware"
+    "broadcom-bt-firmware"
+    "facetimehd-calibration"
+    "facetimehd-firmware"
+    "xone-dongle-firmware"
+    "xow_dongle-firmware"
+  ];
+
   fileSystems."/" = {
     device = "/dev/mapper/luks-${luksUuid}";
     fsType = "xfs";
@@ -79,7 +90,7 @@ in
     fsType = "ntfs-3g";
     options = [
       "rw"
-      "uid=1000"
+      "uid=${toString config.users.users.${config.user.name}.uid}"
     ];
   };
 
