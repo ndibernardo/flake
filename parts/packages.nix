@@ -14,6 +14,8 @@ in
       }
     );
 
+    # nixpkgs is still on 1.1.19; this pulls 1.1.20 forward. Drop the
+    # override once nixpkgs catches up.
     solaar = prev.solaar.overrideAttrs (_: {
       version = "1.1.20";
       src = final.fetchFromGitHub {
@@ -30,7 +32,14 @@ in
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+            "berkeley-mono"
+            "musicplayer"
+            "PragmataPro"
+            "pragmata-pro"
+          ];
         overlays = [ flakeConfig.flake.overlays.default ];
       };
 

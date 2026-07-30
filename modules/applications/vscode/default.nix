@@ -16,8 +16,15 @@
       config = lib.mkIf cfg.enable {
         core.home-manager.enable = true;
         core.nixpkgs.enable = true;
+        core.nixpkgs.unfreePackages = [
+          "vscode"
+          "vscode-extension-anthropic-claude-code"
+          "vscode-extension-MS-python-vscode-pylance"
+        ];
 
         home-manager.users.${user.name} = {
+          # vscode ships only a 1024px icon; point the standard hicolor
+          # sizes at it so launchers stop falling back to a generic icon
           home.file = builtins.listToAttrs (
             map
               (size: {

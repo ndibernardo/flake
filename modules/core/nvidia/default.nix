@@ -8,6 +8,13 @@
       options.core.nvidia.enable = lib.mkEnableOption "NVIDIA";
 
       config = lib.mkIf cfg.enable {
+        core.nixpkgs.enable = true;
+        core.nixpkgs.unfreePackages = [
+          "nvidia-x11"
+          "nvidia-settings"
+          "nvidia-persistenced"
+        ];
+
         hardware = {
           graphics = {
             enable = true;

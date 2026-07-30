@@ -15,6 +15,7 @@
       config = lib.mkIf cfg.enable {
         # berkeley-mono comes from this flake's overlay
         core.nixpkgs.enable = true;
+        core.nixpkgs.unfreePackages = [ "berkeley-mono" ];
 
         fonts = {
           enableDefaultPackages = true;

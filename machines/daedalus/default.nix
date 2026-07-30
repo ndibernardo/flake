@@ -38,7 +38,17 @@
           mtr.enable = true;
           mullvad.enable = true;
           nix.enable = true;
-          nixpkgs.enable = true;
+          nixpkgs = {
+            enable = true;
+            # unfree pulled in by extraPackages below; modules declare their own
+            unfreePackages = [
+              "1password"
+              "1password-cli"
+              "claude-code"
+              "obsidian"
+              "terraform"
+            ];
+          };
           nvidia.enable = true;
           openrgb.enable = true;
           openssh.enable = true;
