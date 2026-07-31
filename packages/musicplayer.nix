@@ -18,13 +18,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "musicplayer";
-  version = "0-unstable-2026-07-14";
+  version = "0-unstable-2026-07-31";
 
   src = fetchFromGitHub {
     owner = "ndibernardo";
     repo = "musicplayer-rs";
-    rev = "d36938007830abac06b790b19557461d4f20f8a2";
-    hash = "sha256-Mc5/1jahN44DVZls85276dKx3IIcQhmShhwsX7iqZ3s=";
+    rev = "d0bb5edc39d78158943e82f9d1c44caf85fe6d1b";
+    hash = "sha256-PWzFhbeuBxEzlRM9X1qssEK0h2u880JZpx2YhiZHZ3s=";
   };
 
   cargoHash = "sha256-4K+91dBLbFqDE8u1JmBd6PXMbjem5RovYPGYSOq/t78=";
