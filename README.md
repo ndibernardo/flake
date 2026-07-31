@@ -41,6 +41,11 @@ machines.daedalus.config = {
 ```
 
 Packages that need no configuration go in `extraPackages` on the machine.
+
+A machine's `config` is where it sets these options; its `nixosModules` list is
+for raw NixOS modules that declare no options of their own, such as
+`hardware.nix` and `networking.nix`.
+
 `make check` builds every machine and verifies formatting.
 
 ## Templates
