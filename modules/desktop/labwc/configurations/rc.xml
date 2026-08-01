@@ -20,7 +20,11 @@
 
   <theme>
     <name>adwaita-labwc</name>
-    <cornerRadius>5</cornerRadius>
+    <cornerRadius>12</cornerRadius>
+    <dropShadows>yes</dropShadows>
+    <titlebar>
+      <layout>:iconify,max,close</layout>
+    </titlebar>
     <font place="ActiveWindow">
       <name>Sans</name>
       <size>11</size>

@@ -18,6 +18,8 @@
         dark = ./configurations/theme-dark.conf;
       };
 
+      buttons = import ./_buttons.nix { inherit pkgs lib; };
+
       sfwbarBg = {
         light = "#ffffff";
         dark = "#1d1f21";
@@ -45,6 +47,7 @@
             stateDir
             wallpaper
             files
+            buttons
             sfwbarCss
             ;
         })
