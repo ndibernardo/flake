@@ -24,7 +24,6 @@
           enable = true;
           interactiveShellInit = ''
             set -g fish_greeting
-            fish_add_path "~/.local/bin"
           '';
           shellAliases = {
             ll = "ls -la";
