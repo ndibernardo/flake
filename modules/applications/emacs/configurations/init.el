@@ -70,7 +70,7 @@
 
 (setq-default fill-column 100)
 
-(set-face-attribute 'default nil :family "Jetbrains Mono" :height 110)
+(set-face-attribute 'default nil :family "Jetbrains Mono" :height 100)
 
 ;; Theme and faces
 (custom-set-faces
@@ -213,6 +213,40 @@
 (which-key-mode)
 
 (direnv-mode)
+
+;; Elfeed
+;; Feed list lives outside the repo, see elfeed-feeds.el.
+(load (expand-file-name "elfeed-feeds.el" user-emacs-directory) 'noerror)
+
+;; Mastodon RSS entries carry no title, only the post link; fall back to a
+;; snippet of the body so the search list shows content instead of URLs.
+;; `elfeed-entry-title' is a `cl-defstruct' accessor and gets inlined into
+;; elfeed's own byte-compiled callers, so advising it has no effect there;
+;; entry metadata (`elfeed-meta') is checked first by elfeed's title lookup
+;; and isn't inlined, so we set the fallback title there instead.
+(defun elfeed-content-title (entry)
+  (let* ((content (elfeed-deref (elfeed-entry-content entry)))
+         (text (and content
+                    (string-trim
+                     (replace-regexp-in-string
+                      "[ \t\n\r]+" " "
+                      (replace-regexp-in-string "<[^>]+>" " " content))))))
+    (when (and text (not (string-empty-p text)))
+      (truncate-string-to-width text 80 nil nil "…"))))
+
+(defun elfeed-fix-entry-title (entry)
+  (when (or (null (elfeed-entry-title entry))
+            (string-empty-p (elfeed-entry-title entry)))
+    (when-let ((title (elfeed-content-title entry)))
+      (elfeed-meta--put entry :title title))))
+
+(add-hook 'elfeed-new-entry-hook #'elfeed-fix-entry-title)
+
+(defun elfeed-fix-all-entry-titles ()
+  "Backfill link-only titles for entries already in the database."
+  (interactive)
+  (maphash (lambda (_id entry) (elfeed-fix-entry-title entry))
+           elfeed-db-entries))
 
 (defun vterm-project-shell ()
   "Start an inferior shell in the current project's root directory.
@@ -435,6 +469,9 @@ If point was already at that position, move point to beginning of line."
 
 ;; Treemacs
 (global-set-key (kbd "<f8>") 'treemacs)
+
+;; Elfeed
+(global-set-key (kbd "C-x w") 'elfeed)
 
 ;; Expand region
 (global-set-key (kbd "C-=") 'er/expand-region)
