@@ -22,6 +22,8 @@
           }
         ];
 
+        scaleFactor = "1.1";
+
         core = {
           audio.enable = true;
           bluetooth.enable = true;
@@ -40,7 +42,6 @@
           nix.enable = true;
           nixpkgs = {
             enable = true;
-            # unfree pulled in by extraPackages below; modules declare their own
             unfreePackages = [
               "1password"
               "1password-cli"
@@ -69,20 +70,22 @@
         };
 
         applications = {
+          chromium.enable = true;
           emacs.enable = true;
           firefox = {
             enable = true;
             profilePath = "58gytsnc.default";
           };
           ghostty.enable = true;
+          helium.enable = true;
           neovim.enable = true;
+          nyxt.enable = true;
           steam.enable = true;
           vscode.enable = true;
 
           extraPackages = with pkgs; [
             _1password-gui
             karere
-            nyxt
             obsidian
             signal-desktop
             solaar
@@ -115,6 +118,7 @@
             ripgrep
             terraform
             unzip
+            uv
             wget
             zip
           ];
