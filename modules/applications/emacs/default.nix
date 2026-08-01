@@ -29,6 +29,7 @@
           diminish
           doom-themes
           doom-modeline
+          elfeed
           exec-path-from-shell
           expand-region
           flycheck
