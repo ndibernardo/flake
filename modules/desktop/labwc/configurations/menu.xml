@@ -7,8 +7,8 @@
     <item label="Terminal" icon="com.mitchellh.ghostty">
       <action name="Execute"><command>ghostty</command></action>
     </item>
-    <item label="Firefox" icon="firefox">
-      <action name="Execute"><command>firefox</command></action>
+    <item label="Helium" icon="helium">
+      <action name="Execute"><command>helium</command></action>
     </item>
     <item label="Emacs" icon="emacs">
       <action name="Execute"><command>emacsclient -c -a ""</command></action>
