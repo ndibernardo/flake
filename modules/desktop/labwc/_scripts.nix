@@ -4,6 +4,7 @@
   stateDir,
   wallpaper,
   files,
+  buttons,
   sfwbarCss,
 }:
 let
@@ -21,11 +22,13 @@ let
 
     if [ "$mode" = light ]; then
       labwc_themerc=${files.light}
+      labwc_buttons=${buttons.light}
       scheme=prefer-light
       gtk_theme=Adwaita
       sfwbar_css=${sfwbarCss.light}
     else
       labwc_themerc=${files.dark}
+      labwc_buttons=${buttons.dark}
       scheme=prefer-dark
       gtk_theme=Adwaita-dark
       sfwbar_css=${sfwbarCss.dark}
@@ -42,6 +45,7 @@ let
     labwc_theme="${user.homeDirectory}/.local/share/themes/adwaita-labwc/openbox-3"
     mkdir -p "$labwc_theme"
     install -m 644 "$labwc_themerc" "$labwc_theme/themerc"
+    install -m 644 -t "$labwc_theme" "$labwc_buttons"/*.svg
     if ${pkgs.procps}/bin/pgrep -x labwc >/dev/null 2>&1; then
       ${pkgs.labwc}/bin/labwc --reconfigure >/dev/null 2>&1 || true
       ${pkgs.procps}/bin/pkill -f "${pkgs.swaybg}/bin/swaybg" 2>/dev/null || true
