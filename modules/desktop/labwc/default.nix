@@ -64,6 +64,8 @@
 
         programs.labwc.enable = true;
 
+        environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
         environment.systemPackages = [
           theme-apply
           theme-toggle
@@ -80,6 +82,16 @@
         home-manager.users.${user.name} =
           { lib, ... }:
           {
+            systemd.user.targets.labwc-session = {
+              Unit = {
+                Description = "labwc compositor session";
+                Documentation = [ "man:systemd.special(7)" ];
+                BindsTo = [ "graphical-session.target" ];
+                Wants = [ "graphical-session-pre.target" ];
+                After = [ "graphical-session-pre.target" ];
+              };
+            };
+
             home.activation.themeSeed = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
               if [ ! -f "${stateDir}/mode" ]; then
                 run ${theme-apply}/bin/theme-apply dark

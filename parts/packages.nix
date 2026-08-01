@@ -5,7 +5,7 @@ in
 {
   flake.overlays.default = final: prev: {
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
-    musicplayer = final.callPackage ../packages/musicplayer.nix { };
+    helium = inputs.helium.packages.${final.stdenv.hostPlatform.system}.default;
     pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
 
     vimPlugins = prev.vimPlugins.extend (
@@ -36,7 +36,6 @@ in
           pkg:
           builtins.elem (inputs.nixpkgs.lib.getName pkg) [
             "berkeley-mono"
-            "musicplayer"
             "PragmataPro"
             "pragmata-pro"
           ];
@@ -44,7 +43,7 @@ in
       };
 
       packages = {
-        inherit (pkgs) berkeley-mono musicplayer pragmata-pro;
+        inherit (pkgs) berkeley-mono pragmata-pro;
         inherit (pkgs.vimPlugins) tairiki;
       };
     };

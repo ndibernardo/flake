@@ -18,7 +18,6 @@
         core.nixpkgs.enable = true;
         core.nixpkgs.unfreePackages = [
           "vscode"
-          "vscode-extension-anthropic-claude-code"
           "vscode-extension-MS-python-vscode-pylance"
         ];
 
@@ -47,31 +46,32 @@
             enable = true;
             profiles.default = {
               userSettings = {
-                "editor.fontSize" = 13;
-                "editor.fontFamily" = "Jetbrains Mono, Fira Code, Menlo, Monaco, 'Courier New', monospace";
-                "editor.minimap.enabled" = false;
-                "editor.lineNumbers" = "relative";
-                "editor.cursorBlinking" = "solid";
-                "claudeCode.preferredLocation" = "panel";
-                "window.autoDetectColorScheme" = true;
-                "workbench.preferredDarkColorTheme" = "Dark 2026";
-                "workbench.preferredLightColorTheme" = "Light 2026";
-                "extensions.autoUpdate" = "off";
-                "extensions.autoCheckUpdates" = false;
-                "telemetry.telemetryLevel" = "off";
-                "gitlens.telemetry.enabled" = false;
-                "python.analysis.typeCheckingMode" = "strict";
-                "workbench.editor.editorActionsLocation" = "titleBar";
-                "workbench.activityBar.location" = "top";
-                "workbench.tree.enableStickyScroll" = true;
-                "editor.stickyScroll.enabled" = true;
                 "breadcrumbs.enabled" = false;
+                "chat.agentsControl.enabled" = "hidden";
+                "chat.viewSessions.enabled" = false;
+                "editor.cursorBlinking" = "solid";
+                "editor.fontFamily" = "Jetbrains Mono, Fira Code, Menlo, Monaco, 'Courier New', monospace";
+                "editor.fontSize" = 13;
+                "editor.lineNumbers" = "relative";
+                "editor.minimap.enabled" = false;
+                "editor.stickyScroll.enabled" = true;
+                "extensions.autoCheckUpdates" = false;
+                "extensions.autoUpdate" = "off";
                 "gitlens.graph.statusBar.enabled" = false;
                 "gitlens.launchpad.indicator.enabled" = false;
                 "gitlens.statusBar.enabled" = false;
-                "chat.viewSessions.enabled" = false;
-                "chat.agentsControl.enabled" = "hidden";
+                "gitlens.telemetry.enabled" = false;
+                "python.analysis.typeCheckingMode" = "strict";
+                "telemetry.telemetryLevel" = "off";
+                "terminal.integrated.fontSize" = 13;
+                "window.autoDetectColorScheme" = true;
                 "window.menuBarVisibility" = "compact";
+                "window.zoomLevel" = 1;
+                "workbench.activityBar.location" = "top";
+                "workbench.editor.editorActionsLocation" = "titleBar";
+                "workbench.preferredDarkColorTheme" = "Dark 2026";
+                "workbench.preferredLightColorTheme" = "Light 2026";
+                "workbench.tree.enableStickyScroll" = true;
 
                 "vim.leader" = "<space>";
                 "vim.hlsearch" = false;
@@ -386,7 +386,6 @@
                 ];
               };
               extensions = with pkgs.vscode-extensions; [
-                anthropic.claude-code
                 bbenoist.nix
                 charliermarsh.ruff
                 eamodio.gitlens

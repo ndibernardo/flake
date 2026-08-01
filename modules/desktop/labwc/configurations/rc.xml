@@ -3,7 +3,7 @@
 
   <core>
     <gap>10</gap>
-    <adaptiveSync>yes</adaptiveSync>
+    <adaptiveSync>no</adaptiveSync>
     <decoration>client</decoration>
   </core>
 
@@ -48,7 +48,7 @@
   </theme>
 
   <focus>
-    <followMouse>yes</followMouse>
+    <followMouse>no</followMouse>
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
 

@@ -11,13 +11,17 @@
       user = config.user;
     in
     {
-      options.desktop.gtk.enable = lib.mkEnableOption "GTK theming";
+      options.desktop.gtk.enable = lib.mkEnableOption "GTK and Qt theming";
 
       config = lib.mkIf cfg.enable {
         core.home-manager.enable = true;
 
         home-manager.users.${user.name} = {
           dconf.enable = true;
+          qt = {
+            enable = true;
+            platformTheme.name = "gtk3";
+          };
           gtk = {
             enable = true;
             cursorTheme = {
