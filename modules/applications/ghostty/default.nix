@@ -19,7 +19,7 @@
               bold-is-bright = true;
               cursor-style = "block";
               cursor-style-blink = false;
-              font-size = 10;
+              font-size = 12;
               font-thicken = true;
               scrollback-limit = 10000;
               shell-integration-features = "no-cursor";

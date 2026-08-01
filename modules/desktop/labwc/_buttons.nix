@@ -1,8 +1,3 @@
-# Adwaita-style titlebar buttons for labwc's server side decorations.
-#
-# labwc renders titlebar SVGs as-is, without recolouring them, so every
-# combination of mode, focus and hover needs its own file. The names are the
-# ones labwc looks for: "<button>[_hover]-<active|inactive>.svg".
 { pkgs, lib }:
 let
   palette = {
@@ -31,9 +26,6 @@ let
       };
     };
   };
-
-  # Drawn on a 24x24 canvas, which is the size window.button.{width,height}
-  # in the themerc files ask labwc to render the buttons at.
   glyphs = {
     close = ''<path d="M8.5 8.5 15.5 15.5M15.5 8.5 8.5 15.5"/>'';
     iconify = ''<path d="M8 14.5h8"/>'';
