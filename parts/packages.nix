@@ -5,7 +5,7 @@ in
 {
   flake.overlays.default = final: prev: {
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
-    helium = inputs.helium.packages.${final.stdenv.hostPlatform.system}.default;
+    helium = final.callPackage ../packages/helium.nix { };
     pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
 
     vimPlugins = prev.vimPlugins.extend (
