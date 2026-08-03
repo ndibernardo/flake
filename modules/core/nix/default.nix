@@ -20,10 +20,13 @@
             experimental-features = [
               "flakes"
               "nix-command"
-              # still gated in Nix 2.34; this flake's own modules use |>
               "pipe-operators"
             ];
             warn-dirty = false;
+            allowed-users = [ "@wheel" ];
+            trusted-users = lib.mkForce [ "root" ];
+            accept-flake-config = false;
+            sandbox = true;
           };
         };
       };
