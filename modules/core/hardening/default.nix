@@ -1,14 +1,26 @@
 {
   flake.nixosModules.core-hardening =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       cfg = config.core.hardening;
+
+      pwqualityServices = [
+        "passwd"
+        "chpasswd"
+      ];
     in
     {
-      options.core.hardening.enable = lib.mkEnableOption "kernel and module hardening policy";
+      options.core.hardening.enable = lib.mkEnableOption "kernel, module and credential hardening policy";
 
       config = lib.mkIf cfg.enable {
         boot = {
+          tmp.cleanOnBoot = true;
+
           kernel.sysctl = {
             "fs.protected_fifos" = 2;
             "fs.protected_regular" = 2;
@@ -50,7 +62,6 @@
             "net.ipv6.conf.all.accept_source_route" = 0;
 
             "net.ipv4.tcp_syncookies" = 1;
-            "net.ipv4.tcp_timestamps" = 0;
             "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
             "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
           };
@@ -104,6 +115,31 @@
         security = {
           protectKernelImage = true;
           sudo.execWheelOnly = true;
+
+          pam.services = lib.genAttrs pwqualityServices (_: {
+            rules.password = {
+              pwquality = {
+                order = 10000;
+                control = "required";
+                modulePath = "${pkgs.libpwquality.lib}/lib/security/pam_pwquality.so";
+                settings = {
+                  dcredit = 0;
+                  dictcheck = 1;
+                  enforce_for_root = true;
+                  gecoscheck = 1;
+                  lcredit = 0;
+                  maxrepeat = 3;
+                  minclass = 2;
+                  minlen = 12;
+                  ocredit = 0;
+                  retry = 3;
+                  ucredit = 0;
+                };
+              };
+
+              unix.settings.use_authtok = true;
+            };
+          });
         };
       };
     };

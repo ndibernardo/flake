@@ -29,40 +29,39 @@
           nixpkgs = {
             enable = lib.mkDefault true;
             unfreePackages = [
-              "1password"
-              "1password-cli"
               "obsidian"
               "terraform"
             ];
           };
           openssh.enable = lib.mkDefault true;
+          passwords.enable = lib.mkDefault true;
           systemd.enable = lib.mkDefault true;
           tailscale.enable = lib.mkDefault true;
           users.enable = lib.mkDefault true;
+          vulnix.enable = lib.mkDefault true;
         };
 
         desktop = {
           fuzzel.enable = lib.mkDefault true;
-          gdm.enable = lib.mkDefault true;
+          greetd.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
           labwc.enable = lib.mkDefault true;
         };
 
         applications = {
           emacs.enable = lib.mkDefault true;
+          evolution.enable = lib.mkDefault true;
           ghostty.enable = lib.mkDefault true;
           neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
           vscode.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
-            _1password-gui
             helium
             obsidian
             signal-desktop
             solaar
             thunar
-            thunderbird
             ungoogled-chromium
           ];
         };
@@ -75,7 +74,6 @@
           tmux.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
-            _1password-cli
             awscli2
             curl
             fzf

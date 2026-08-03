@@ -13,12 +13,12 @@
       options.core.docker.enable = lib.mkEnableOption "Docker";
 
       config = lib.mkIf cfg.enable {
-        virtualisation.docker = {
+        virtualisation.podman = {
           enable = true;
-          storageDriver = "overlay2";
-          autoPrune.enable = true;
+          dockerCompat = true;
+          defaultNetwork.settings.dns_enabled = true;
         };
-        environment.systemPackages = [ pkgs.docker-compose ];
+        environment.systemPackages = [ pkgs.podman-compose ];
       };
     };
 }

@@ -1,6 +1,11 @@
 {
   flake.nixosModules.core-diagnostics =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       cfg = config.core.diagnostics;
     in
@@ -10,6 +15,9 @@
       config = lib.mkIf cfg.enable {
         programs.mtr.enable = true;
         services.sysstat.enable = true;
+        services.fwupd.enable = true;
+
+        environment.systemPackages = [ pkgs.sysstat ];
       };
     };
 }

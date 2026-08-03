@@ -3,11 +3,11 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    helium.url = "github:schembriaiden/helium-browser-nix-flake";
-    helium.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     import-tree.url = "github:vic/import-tree";
+    lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 

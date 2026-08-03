@@ -40,6 +40,7 @@
       inherit (cfg) system;
       modules = [
         inputs.home-manager.nixosModules.home-manager
+        inputs.lanzaboote.nixosModules.lanzaboote
         { networking.hostName = lib.mkDefault name; }
         cfg.config
       ]

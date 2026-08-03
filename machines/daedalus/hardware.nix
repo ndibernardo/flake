@@ -10,11 +10,14 @@ let
 in
 {
   boot = {
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+      configurationLimit = 20;
+    };
+
     loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 20;
-      };
+      systemd-boot.enable = lib.mkForce false;
       efi.canTouchEfiVariables = true;
     };
 
@@ -66,19 +69,9 @@ in
 
   hardware = {
     cpu.amd.updateMicrocode = lib.mkDefault true;
-    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
     logitech.wireless.enable = true;
   };
-
-  # enableAllFirmware above pulls in redistributable-but-unfree blobs
-  core.nixpkgs.unfreePackages = [
-    "b43-firmware"
-    "broadcom-bt-firmware"
-    "facetimehd-calibration"
-    "facetimehd-firmware"
-    "xone-dongle-firmware"
-    "xow_dongle-firmware"
-  ];
 
   fileSystems."/" = {
     device = "/dev/mapper/luks-${luksUuid}";
@@ -114,7 +107,10 @@ in
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/2ec1fa8f-6885-424e-8cb3-c0fa5f01cbd8"; }
+    {
+      device = "/dev/disk/by-partuuid/527b6b83-5242-4417-ba3d-8880ce255e80";
+      randomEncryption.enable = true;
+    }
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
