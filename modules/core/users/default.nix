@@ -50,7 +50,6 @@
           extraGroups = [
             "audio"
             "bluetooth"
-            "docker"
             "networkmanager"
             "video"
             "wheel"

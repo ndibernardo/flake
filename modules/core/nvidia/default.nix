@@ -32,6 +32,7 @@
           enable = true;
           videoDrivers = [ "nvidia" ];
         };
+
         environment.variables = {
           LIBVA_DRIVER_NAME = "nvidia";
           GBM_BACKEND = "nvidia-drm";
