@@ -10,6 +10,11 @@
           bluetooth.enable = true;
           nvidia.enable = true;
           openrgb.enable = true;
+
+          sops = {
+            enable = true;
+            secretsFile = ./secrets.yaml;
+          };
         };
 
         outputs = [

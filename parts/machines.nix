@@ -41,6 +41,7 @@
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.lanzaboote.nixosModules.lanzaboote
+        inputs.sops-nix.nixosModules.sops
         { networking.hostName = lib.mkDefault name; }
         cfg.config
       ]

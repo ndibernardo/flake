@@ -1,0 +1,10 @@
+keys:
+  - &admin_nil age1h9c5fd9vneq7muwqax9lxnznyfaz9u9mlu3zkhmgx93jp7zwxv8qrcr3d8
+  - &host_daedalus age1wdg2zu0ylszu4ghfe7dnrkefqlq8td2fdh6g3p6t3xnwg8yun95qdpkqth
+
+creation_rules:
+  - path_regex: machines/daedalus/secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin_nil
+          - *host_daedalus
