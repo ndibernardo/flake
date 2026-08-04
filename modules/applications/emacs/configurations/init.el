@@ -26,7 +26,17 @@
 
 ;; Remove whitespaces
 (setq-default show-trailing-whitespace t)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(defun delete-trailing-whitespace-except-current-line ()
+  "Delete trailing whitespace everywhere but on the line point is on.
+Skipping that line keeps autosaves (see `auto-save-visited-mode') from
+eating the space just typed."
+  (let ((line-start (line-beginning-position))
+        (line-end (line-end-position)))
+    (delete-trailing-whitespace (point-min) line-start)
+    (delete-trailing-whitespace line-end (point-max))))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace-except-current-line)
 
 (setq compilation-scroll-output t)
 (setq compilation-window-height 15)
@@ -42,6 +52,11 @@
 (setq window-divider-default-right-width 1)
 
 (global-auto-revert-mode t)
+
+(setq auto-save-visited-interval 5)
+(setq auto-save-visited-predicate
+      (lambda () (not (bound-and-true-p vterm-mode))))
+(auto-save-visited-mode 1)
 
 ;; No menubar
 (menu-bar-mode -1)
@@ -70,33 +85,12 @@
 
 (setq-default fill-column 100)
 
-(set-face-attribute 'default nil :family "Jetbrains Mono" :height 120)
+;;(set-face-attribute 'default nil :family "Jetbrains Mono" :height 120)
+(set-face-attribute 'default nil :family "Fira Code" :height 120)
 
-;; Theme and faces
-(custom-set-faces
- '(line-number ((t (:background nil))))
- '(fringe ((t (:background nil))))
- '(lsp-rust-analyzer-mutable-modifier-face ((t (:underline nil))))
- '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
- '(mode-line ((t (:box nil))))
- '(mode-line-inactive ((t (:box nil))))
- '(lsp-face-semhl-property  ((t (:foreground unspecified))))
- '(lsp-face-semhl-member    ((t (:foreground unspecified))))
- '(lsp-face-semhl-variable  ((t (:foreground unspecified))))
- '(lsp-face-semhl-parameter    ((t (:foreground unspecified))))
- '(font-lock-variable-name-face  ((t (:foreground unspecified))))
- '(font-lock-preprocessor-face  ((t (:foreground "#cc6666"))))
- '(lsp-face-semhl-macro         ((t (:foreground "#cc6666")))))
-
-(setq doom-themes-enable-italic nil)
-
-;; Auto dark/light theme switching
 (setq custom-safe-themes t)
-(setq auto-dark-themes '((doom-tomorrow-night) (doom-tomorrow-day)))
+(setq auto-dark-themes '((tomorrow-night) (pragmata)))
 (auto-dark-mode 1)
-
-;; Doom modeline
-(doom-modeline-mode 1)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
@@ -159,6 +153,13 @@
 (setq lsp-modeline-code-actions-enable nil)
 (setq lsp-semantic-tokens-enable t)
 (setq lsp-semantic-tokens-allow-ranged-requests nil)
+(setq lsp-semantic-tokens-honor-refresh-requests t)
+(setq lsp-default-create-error-handler-fn
+      (lambda (method)
+        (lambda (error)
+          (unless (memq (lsp-get error :code) '(-32800 -32801))
+            (lsp--warn "%s" (or (lsp--error-string error)
+                                (format "%s Request has failed" method)))))))
 (setq lsp-inlay-hint-enable t)
 (setq lsp-inlay-hints-mode t)
 
@@ -197,10 +198,12 @@
 (setq treemacs-follow-mode t)
 (setq treemacs-hide-gitignored-files-mode t)
 (setq treemacs-no-png-images t)
-(setq treemacs-text-scale -0.2)
+(setq treemacs-position 'right)
+(setq treemacs-text-scale -0.1)
 (setq treemacs-user-mode-line-format 'none)
 (with-eval-after-load 'treemacs
     (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+(add-hook 'window-setup-hook #'treemacs 'append)
 
 ;; Yasnippets
 (add-hook 'after-init-hook 'yas-global-mode)
@@ -218,13 +221,10 @@
 ;; Feed list lives outside the repo, see elfeed-feeds.el.
 (load (expand-file-name "elfeed-feeds.el" user-emacs-directory) 'noerror)
 
-;; Mastodon RSS entries carry no title, only the post link; fall back to a
-;; snippet of the body so the search list shows content instead of URLs.
-;; `elfeed-entry-title' is a `cl-defstruct' accessor and gets inlined into
-;; elfeed's own byte-compiled callers, so advising it has no effect there;
-;; entry metadata (`elfeed-meta') is checked first by elfeed's title lookup
-;; and isn't inlined, so we set the fallback title there instead.
 (defun elfeed-content-title (entry)
+  "Return a one-line title built from ENTRY's content, or nil.
+The content is stripped of HTML tags, whitespace-collapsed and
+truncated to 80 columns."
   (let* ((content (elfeed-deref (elfeed-entry-content entry)))
          (text (and content
                     (string-trim
@@ -235,6 +235,13 @@
       (truncate-string-to-width text 80 nil nil "…"))))
 
 (defun elfeed-fix-entry-title (entry)
+  "Give ENTRY a title derived from its content when it has none.
+Some RSS entries carry no title, only the post link; fall back to a
+snippet of the body so the search list shows content instead of URLs.
+`elfeed-entry-title' is a `cl-defstruct' accessor and gets inlined into
+elfeed's own byte-compiled callers, so advising it has no effect there;
+entry metadata (`elfeed-meta') is checked first by elfeed's title lookup
+and isn't inlined, so the fallback title is set there instead."
   (when (or (null (elfeed-entry-title entry))
             (string-empty-p (elfeed-entry-title entry)))
     (when-let ((title (elfeed-content-title entry)))
@@ -242,12 +249,26 @@
 
 (add-hook 'elfeed-new-entry-hook #'elfeed-fix-entry-title)
 
-(defun elfeed-fix-all-entry-titles ()
-  "Backfill link-only titles for entries already in the database."
-  (interactive)
-  (maphash (lambda (_id entry) (elfeed-fix-entry-title entry))
-           elfeed-db-entries))
+;; System rebuild
+(defvar nixos-flake-directory (file-name-concat (expand-file-name "~") "flake")
+  "Directory of the flake that builds this system.")
 
+(defun nixos-switch ()
+  "Rebuild the system from the flake in `nixos-flake-directory'.
+Works from any buffer.  The build runs in an interactive compilation
+buffer, so sudo's password prompt is picked up by
+`comint-watch-for-password-prompt' and answered in the minibuffer.
+`switch-detached' puts the build in its own systemd scope so that
+restarting the Emacs daemon cannot kill it."
+  (interactive)
+  (let ((default-directory (expand-file-name nixos-flake-directory)))
+    (unless (file-directory-p default-directory)
+      (user-error "No flake directory at %s" default-directory))
+    (compile "make switch-detached" t)))
+
+(global-set-key (kbd "C-c n") 'nixos-switch)
+
+;; Terminal
 (defun vterm-project-shell ()
   "Start an inferior shell in the current project's root directory.
 If a buffer already exists for running a shell in the project's root,
@@ -503,6 +524,7 @@ If point was already at that position, move point to beginning of line."
 ;;; Diminish modes
 (defun diminish-modes ()
   "Diminish modes."
+  (diminish 'auto-dark-mode)
   (diminish 'eldoc-mode)
   (diminish 'git-gutter-mode)
   (diminish 'rainbow-mode)

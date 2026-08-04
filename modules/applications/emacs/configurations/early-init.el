@@ -36,6 +36,9 @@
 ;; Write customizations in 'custom.el' file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
+;; Local themes, loadable with 'load-theme'
+(add-to-list 'custom-theme-load-path (locate-user-emacs-file "themes"))
+
 ;; Less noise when compiling elisp
 (setq byte-compile-warnings '(not free-vars unresolved noruntime lexical make-local))
 (setq native-comp-async-report-warnings-errors 'silent)

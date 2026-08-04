@@ -27,8 +27,6 @@
           corfu
           direnv
           diminish
-          doom-themes
-          doom-modeline
           elfeed
           exec-path-from-shell
           expand-region
@@ -78,6 +76,13 @@
           zig-mode
         ]
       );
+
+      reloadConfiguration = pkgs.writeShellScript "emacs-reload-configuration" ''
+        exec ${customEmacs}/bin/emacsclient --eval "(progn \
+          (load-file user-init-file) \
+          (mapc (lambda (theme) (load-theme theme t)) custom-enabled-themes) \
+          (message \"Configuration reloaded\"))"
+      '';
     in
     {
       options.applications.emacs.enable = lib.mkEnableOption "Emacs";
@@ -89,6 +94,10 @@
           home.file = {
             ".config/emacs/early-init.el".source = ./configurations/early-init.el;
             ".config/emacs/init.el".source = ./configurations/init.el;
+            ".config/emacs/themes" = {
+              source = ./configurations/themes;
+              recursive = true;
+            };
           };
           programs.emacs = {
             enable = true;
@@ -98,6 +107,17 @@
             enable = true;
             package = customEmacs;
             startWithUserSession = true;
+          };
+
+          systemd.user.services.emacs = {
+            Unit = {
+              X-Reload-Triggers = [
+                "${./configurations/init.el}"
+                "${./configurations/themes}"
+              ];
+              X-Restart-Triggers = [ "${./configurations/early-init.el}" ];
+            };
+            Service.ExecReload = "${reloadConfiguration}";
           };
         };
       };
