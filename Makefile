@@ -9,6 +9,11 @@ default: update switch
 switch:
 	sudo nixos-rebuild switch --flake ".#$(FLAKE_NAME)"
 
+.PHONY: switch-detached
+switch-detached:
+	systemd-run --user --scope --collect --quiet -- \
+	  sudo nixos-rebuild switch --flake ".#$(FLAKE_NAME)"
+
 .PHONY: update
 update:
 	nix flake update
