@@ -48,7 +48,7 @@ eating the space just typed."
 (setq display-line-numbers-width 3)
 (setq split-height-threshold 80)
 (setq temp-buffer-max-height 15)
-(setq temp-buffer-resize-mode t)
+(temp-buffer-resize-mode 1)
 (setq window-divider-default-right-width 1)
 
 (global-auto-revert-mode t)
@@ -106,7 +106,7 @@ eating the space just typed."
                                        "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
                                        "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
                                        "\\\\" "://"))
-(global-ligature-mode nil)
+(add-hook 'prog-mode-hook 'ligature-mode)
 
 ;; Git  Gutter
 (setq git-gutter:update-interval 0.02)
@@ -161,7 +161,6 @@ eating the space just typed."
             (lsp--warn "%s" (or (lsp--error-string error)
                                 (format "%s Request has failed" method)))))))
 (setq lsp-inlay-hint-enable t)
-(setq lsp-inlay-hints-mode t)
 
 (defun corfu-lsp-setup ()
   "Lsp setup for corfu completion."
@@ -194,16 +193,29 @@ eating the space just typed."
 
 ;; Treemacs
 (setq treemacs-expand-after-init t)
-(setq treemacs-filewatch-mode t)
-(setq treemacs-follow-mode t)
-(setq treemacs-hide-gitignored-files-mode t)
 (setq treemacs-no-png-images t)
 (setq treemacs-position 'right)
 (setq treemacs-text-scale -0.1)
 (setq treemacs-user-mode-line-format 'none)
 (with-eval-after-load 'treemacs
-    (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
-(add-hook 'window-setup-hook #'treemacs 'append)
+    (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
+    (treemacs-filewatch-mode 1)
+    (treemacs-follow-mode 1)
+    (treemacs-hide-gitignored-files-mode 1))
+
+(defun treemacs-open-for-frame ()
+  "Show Treemacs in the current frame without stealing focus.
+Runs for each new client frame because `window-setup-hook' only fires
+once, when the daemon starts and no frame exists yet."
+  (when (and (display-graphic-p)
+             (not (seq-find (lambda (window)
+                              (eq (buffer-local-value 'major-mode (window-buffer window))
+                                  'treemacs-mode))
+                            (window-list))))
+    (save-selected-window (treemacs))))
+
+(add-hook 'server-after-make-frame-hook #'treemacs-open-for-frame)
+(add-hook 'window-setup-hook #'treemacs-open-for-frame 'append)
 
 ;; Yasnippets
 (add-hook 'after-init-hook 'yas-global-mode)
@@ -365,11 +377,6 @@ if one already exists."
 ;; Nix
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 (add-hook 'nix-mode-hook 'lsp)
-
-;; OCaml
-(require 'tuareg)
-(add-to-list 'auto-mode-alist '("\\.\\(ml\\|mli\\|mll\\|mly\\)\\'" . tuareg-mode))
-(add-hook 'tuareg-mode-hook 'lsp)
 
 ;; Python
 (require 'lsp-pyright)

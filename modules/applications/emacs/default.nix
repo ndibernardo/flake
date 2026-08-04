@@ -65,7 +65,6 @@
           glsl-mode
           go-mode
           lsp-pyright
-          tuareg
           markdown-mode
           nix-mode
           rust-mode
