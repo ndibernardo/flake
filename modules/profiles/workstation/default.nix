@@ -54,7 +54,6 @@
           ghostty.enable = lib.mkDefault true;
           neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
-          vscode.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
             helium
