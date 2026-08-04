@@ -110,6 +110,8 @@ eating the space just typed."
 
 ;; Git  Gutter
 (setq git-gutter:update-interval 0.02)
+(setq git-gutter:diff-option "HEAD")
+
 (add-hook 'prog-mode-hook 'git-gutter-mode)
 
 (require 'git-gutter-fringe)
@@ -201,7 +203,9 @@ eating the space just typed."
     (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
     (treemacs-filewatch-mode 1)
     (treemacs-follow-mode 1)
-    (treemacs-hide-gitignored-files-mode 1))
+    (treemacs-git-mode 'deferred)
+    (treemacs-hide-gitignored-files-mode 0)
+    (treemacs-git-commit-diff-mode 1))
 
 (defun treemacs-open-for-frame ()
   "Show Treemacs in the current frame without stealing focus.
