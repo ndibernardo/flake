@@ -22,12 +22,12 @@ in
 
     initrd = {
       availableKernelModules = [
-        "nvme"
-        "xhci_pci"
         "ahci"
-        "usbhid"
-        "usb_storage"
+        "nvme"
         "sd_mod"
+        "usb_storage"
+        "usbhid"
+        "xhci_pci"
       ];
       kernelModules = [ ];
       luks.devices = {
@@ -38,26 +38,36 @@ in
     };
 
     kernelParams = [
-      "btmtk.reset_on_close=0"
-      "nvidia-drm.modeset=1"
-      "nvidia-drm.fbdev=1"
+      # Graphics: nvidia KMS and fbdev, nouveau modesetting off.
       "nouveau.modeset=0"
-      "pstore.backend=efi"
-      "softlockup_panic=1"
+      "nvidia-drm.fbdev=1"
+      "nvidia-drm.modeset=1"
+
+      # Wireless: no controller reset when the bluetooth device closes, no ASPM
+      # on the mt7925e wifi card.
+      "btmtk.reset_on_close=0"
+      "mt7925e.disable_aspm=1"
+
+      # Crash handling: panic on hung task, soft lockup and NMI, reboot 10s
+      # later, keep the log across the reboot in EFI pstore.
       "hung_task_panic=1"
       "nmi_watchdog=panic,1"
       "panic=10"
-      "mt7925e.disable_aspm=1"
-      "slab_nomerge"
-      "page_alloc.shuffle=1"
+      "pstore.backend=efi"
+      "softlockup_panic=1"
+
+      # Hardening: block PCI DMA before the IOMMU is up, randomize page
+      # freelists, no slab cache merging.
       "efi=disable_early_pci_dma"
+      "page_alloc.shuffle=1"
+      "slab_nomerge"
     ];
 
     kernelModules = [
       "kvm-amd"
+      "nvidia_drm"
       "nvidia_modeset"
       "nvidia_uvm"
-      "nvidia_drm"
     ];
 
     kernelPackages = pkgs.linuxPackages_latest;

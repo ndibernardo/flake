@@ -66,7 +66,7 @@
             "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
           };
 
-          # rare network protocols and filesystems, none of which are used here
+          # Rare network protocols and filesystems, unused here.
           blacklistedKernelModules = [
             "dccp"
             "nouveau"

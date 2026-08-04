@@ -24,7 +24,6 @@
           home-manager.enable = lib.mkDefault true;
           ld.enable = lib.mkDefault true;
           locale.enable = lib.mkDefault true;
-          mullvad.enable = lib.mkDefault true;
           nix.enable = lib.mkDefault true;
           nixpkgs = {
             enable = lib.mkDefault true;
@@ -36,7 +35,6 @@
           openssh.enable = lib.mkDefault true;
           passwords.enable = lib.mkDefault true;
           systemd.enable = lib.mkDefault true;
-          tailscale.enable = lib.mkDefault true;
           users.enable = lib.mkDefault true;
           vulnix.enable = lib.mkDefault true;
         };
