@@ -44,6 +44,7 @@
           rainbow-delimiters
           rainbow-mode
           vertico
+          visual-fill-column
           which-key
           treemacs
           vterm

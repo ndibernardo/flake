@@ -85,8 +85,7 @@ eating the space just typed."
 
 (setq-default fill-column 100)
 
-;;(set-face-attribute 'default nil :family "Jetbrains Mono" :height 120)
-(set-face-attribute 'default nil :family "Fira Code" :height 120)
+(set-face-attribute 'default nil :family "Berkeley Mono" :height 120)
 
 (setq custom-safe-themes t)
 (setq auto-dark-themes '((tomorrow-night) (pragmata)))
@@ -235,7 +234,22 @@ once, when the daemon starts and no frame exists yet."
 
 ;; Elfeed
 ;; Feed list lives outside the repo, see elfeed-feeds.el.
-(load (expand-file-name "elfeed-feeds.el" user-emacs-directory) 'noerror)
+(defvar elfeed-feeds-file (expand-file-name "elfeed-feeds.el" user-emacs-directory)
+  "File holding the feed list, kept outside the repository.")
+
+(load elfeed-feeds-file 'noerror)
+
+(defun elfeed-edit-feeds ()
+  "Visit `elfeed-feeds-file'."
+  (interactive)
+  (find-file elfeed-feeds-file))
+
+(defun elfeed-reload-feeds ()
+  "Re-read `elfeed-feeds-file', then fetch every feed.
+Picks up feeds added since Emacs started without a restart."
+  (interactive)
+  (load elfeed-feeds-file 'noerror)
+  (elfeed-update))
 
 (defun elfeed-content-title (entry)
   "Return a one-line title built from ENTRY's content, or nil.
@@ -303,6 +317,65 @@ if one already exists."
       (vterm (generate-new-buffer-name default-project-shell-name)))))
 
 (advice-add 'project-shell :override #'vterm-project-shell)
+
+;;; Prose
+(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 130)
+(set-face-attribute 'fixed-pitch nil :family "Berkeley Mono")
+
+(defvar prose-fixed-pitch-faces
+  '(markdown-code-face
+    markdown-inline-code-face
+    markdown-language-keyword-face
+    markdown-pre-face
+    markdown-table-face
+    org-block
+    org-block-begin-line
+    org-block-end-line
+    org-checkbox
+    org-code
+    org-document-info-keyword
+    org-drawer
+    org-meta-line
+    org-property-value
+    org-special-keyword
+    org-table
+    org-verbatim)
+  "Faces kept monospaced while `variable-pitch-mode' is on.
+Code, tables and markup keywords only line up in a fixed-width font.")
+
+(defvar prose-fixed-pitch-height 0.9
+  "Height of `prose-fixed-pitch-faces', as a fraction of `default'.
+Berkeley Mono runs larger than Noto Sans at the same height, so code
+blocks need scaling down to sit level with the surrounding prose.")
+
+(defun prose-keep-faces-fixed-pitch (&rest _)
+  "Make `prose-fixed-pitch-faces' inherit `fixed-pitch'.
+Loading a theme resets the faces to the theme's own specs and drops this
+inherit, so this also runs on `enable-theme-functions' for the light and
+dark themes `auto-dark-mode' swaps between."
+  (dolist (face prose-fixed-pitch-faces)
+    (when (facep face)
+      (set-face-attribute face nil
+                          :inherit 'fixed-pitch
+                          :height prose-fixed-pitch-height))))
+
+(add-hook 'enable-theme-functions 'prose-keep-faces-fixed-pitch)
+
+(defun prose-mode-setup ()
+  "Display the current buffer as prose.
+`visual-line-mode' breaks lines between words rather than at the window
+edge, and leaves the file's own line endings untouched."
+  (variable-pitch-mode 1)
+  (visual-line-mode 1)
+  (setq-local fill-column 90
+              word-wrap-by-category t
+              show-trailing-whitespace nil
+              visual-fill-column-center-text t)
+  (visual-fill-column-mode 1)
+  (prose-keep-faces-fixed-pitch))
+
+(add-hook 'markdown-mode-hook 'prose-mode-setup)
+(add-hook 'org-mode-hook 'prose-mode-setup)
 
 ;;; Programming Modes
 
@@ -387,6 +460,9 @@ if one already exists."
 (add-hook 'python-mode-hook 'lsp)
 
 ;; Rust
+(setq lsp-rust-features "all")
+(setq lsp-rust-analyzer-cargo-target-dir "target/rust-analyzer")
+
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-hook 'rust-mode-hook 'lsp)
 
@@ -503,7 +579,16 @@ If point was already at that position, move point to beginning of line."
 (global-set-key (kbd "<f8>") 'treemacs)
 
 ;; Elfeed
-(global-set-key (kbd "C-x w") 'elfeed)
+(defvar elfeed-prefix-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "e") 'elfeed)
+    (define-key map (kbd "f") 'elfeed-edit-feeds)
+    (define-key map (kbd "u") 'elfeed-reload-feeds)
+    map)
+  "Keymap for elfeed commands, bound to \\`C-c e'.")
+
+(global-set-key (kbd "C-c e") elfeed-prefix-map)
+(which-key-add-key-based-replacements "C-c e" "elfeed")
 
 ;; Expand region
 (global-set-key (kbd "C-=") 'er/expand-region)
