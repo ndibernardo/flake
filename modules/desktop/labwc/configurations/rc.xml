@@ -47,6 +47,10 @@
     </font>
   </theme>
 
+  <menu>
+    <showIcons>yes</showIcons>
+  </menu>
+
   <focus>
     <followMouse>no</followMouse>
     <raiseOnFocus>no</raiseOnFocus>

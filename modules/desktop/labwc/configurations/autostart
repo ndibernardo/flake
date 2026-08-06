@@ -20,8 +20,6 @@ nm-applet &
 solaar --window=hide &
 pkill -f "tailscale systray"
 tailscale systray &
-pkill -x mullvad-vpn
-mullvad-vpn &
 gsettings set org.gnome.desktop.interface cursor-theme Adwaita
 gsettings set org.gnome.desktop.interface cursor-size 16
 pkill -x hypridle
