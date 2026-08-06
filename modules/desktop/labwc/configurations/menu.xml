@@ -24,13 +24,13 @@
       <action name="Execute"><command>signal-desktop</command></action>
     </item>
     <separator/>
-    <item label="Screenshot Area" icon="applets-screenshooter">
+    <item label="Screenshot Area">
       <action name="Execute">
         <command>sh -c 'grim -g "$(slurp)" -t png'</command>
       </action>
     </item>
     <separator/>
-    <item label="Lock Screen" icon="system-lock-screen">
+    <item label="Lock Screen">
       <action name="Execute">
         <command>swaylock -f --screenshots --effect-blur 7x5 --effect-vignette 0.5:0.5 --clock --indicator --indicator-radius 120 --indicator-thickness 10 --ring-color 4f5459 --ring-ver-color 3584e4 --ring-wrong-color bf616a --key-hl-color 3584e4 --text-color ffffff --inside-color 00000088</command>
       </action>
