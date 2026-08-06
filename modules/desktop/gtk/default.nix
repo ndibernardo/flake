@@ -17,7 +17,10 @@
         core.home-manager.enable = true;
 
         home-manager.users.${user.name} = {
-          dconf.enable = true;
+          dconf = {
+            enable = true;
+            settings."org/gnome/desktop/wm/preferences".button-layout = "appmenu:minimize,maximize,close";
+          };
           qt = {
             enable = true;
             platformTheme.name = "gtk3";
@@ -33,6 +36,8 @@
               package = pkgs.adwaita-icon-theme;
             };
             theme = null;
+            gtk3.extraConfig.gtk-decoration-layout = "appmenu:minimize,maximize,close";
+            gtk4.extraConfig.gtk-decoration-layout = "appmenu:minimize,maximize,close";
             gtk4.theme = null;
           };
           home.packages = [ pkgs.gnome-themes-extra ];
