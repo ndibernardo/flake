@@ -36,6 +36,7 @@
           passwords.enable = lib.mkDefault true;
           systemd.enable = lib.mkDefault true;
           users.enable = lib.mkDefault true;
+          virtualisation.enable = lib.mkDefault true;
           vulnix.enable = lib.mkDefault true;
         };
 
@@ -44,6 +45,7 @@
           greetd.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
           labwc.enable = lib.mkDefault true;
+          xdg.enable = lib.mkDefault true;
         };
 
         applications = {
