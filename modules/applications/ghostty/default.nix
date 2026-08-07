@@ -19,6 +19,7 @@
               bold-is-bright = true;
               cursor-style = "block";
               cursor-style-blink = false;
+              font-family = "Berkeley Mono";
               font-size = 12;
               font-thicken = true;
               scrollback-limit = 10000;

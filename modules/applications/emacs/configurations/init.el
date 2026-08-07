@@ -238,6 +238,7 @@ once, when the daemon starts and no frame exists yet."
   "File holding the feed list, kept outside the repository.")
 
 (load elfeed-feeds-file 'noerror)
+(setq elfeed-search-filter "@6-months-ago +unread -mastodon")
 
 (defun elfeed-edit-feeds ()
   "Visit `elfeed-feeds-file'."
