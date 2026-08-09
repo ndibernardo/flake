@@ -29,7 +29,6 @@
             enable = lib.mkDefault true;
             unfreePackages = [
               "obsidian"
-              "terraform"
             ];
           };
           openssh.enable = lib.mkDefault true;
@@ -83,7 +82,8 @@
             kind
             kubectl
             ripgrep
-            terraform
+            rsync
+            opentofu
             unzip
             wget
             zip
