@@ -272,6 +272,20 @@
  '(window-divider-first-pixel ((t (:inherit window-divider))))
  '(window-divider-last-pixel ((t (:inherit window-divider))))
 
+ ;; elfeed
+ '(elfeed-log-debug-level-face ((t (:foreground "#A0A3AC"))))
+ '(elfeed-log-error-level-face ((t (:inherit error))))
+ '(elfeed-log-info-level-face ((t (:inherit success))))
+ '(elfeed-log-warn-level-face ((t (:inherit warning))))
+ '(elfeed-search-date-face ((t (:foreground "#D8A4F7"))))
+ '(elfeed-search-feed-face ((t (:foreground "#B2D8FA"))))
+ '(elfeed-search-filter-face ((t (:foreground "#D8A4F7"))))
+ '(elfeed-search-last-modified-face ((t (:foreground "#A0A3AC"))))
+ '(elfeed-search-tag-face ((t (:foreground "#A0A3AC"))))
+ '(elfeed-search-title-face ((t (:foreground "#A0A3AC"))))
+ '(elfeed-search-unread-count-face ((t (:foreground "#EEDDAF"))))
+ '(elfeed-search-unread-title-face ((t (:foreground "#EBECF0" :weight bold))))
+
  ;; local preferences
  '(font-lock-variable-use-face ((t (:foreground unspecified))))
  '(lsp-face-semhl-property ((t (:foreground unspecified))))

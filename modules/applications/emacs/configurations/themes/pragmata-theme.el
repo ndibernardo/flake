@@ -296,6 +296,20 @@
  '(window-divider-first-pixel         ((t (:inherit window-divider))))
  '(window-divider-last-pixel          ((t (:inherit window-divider))))
 
+ ;; elfeed
+ '(elfeed-log-debug-level-face        ((t (:foreground "#606060"))))
+ '(elfeed-log-error-level-face        ((t (:inherit error))))
+ '(elfeed-log-info-level-face         ((t (:inherit success))))
+ '(elfeed-log-warn-level-face         ((t (:inherit warning))))
+ '(elfeed-search-date-face            ((t (:foreground "#9805AE"))))
+ '(elfeed-search-feed-face            ((t (:foreground "#2981ca"))))
+ '(elfeed-search-filter-face          ((t (:foreground "#9805AE"))))
+ '(elfeed-search-last-modified-face   ((t (:foreground "#606060"))))
+ '(elfeed-search-tag-face             ((t (:foreground "#606060"))))
+ '(elfeed-search-title-face           ((t (:foreground "#606060"))))
+ '(elfeed-search-unread-count-face    ((t (:foreground "#9E7400"))))
+ '(elfeed-search-unread-title-face    ((t (:foreground "#000000" :weight bold))))
+
  ;; local preferences
  '(font-lock-variable-use-face        ((t (:foreground unspecified))))
  '(lsp-face-semhl-property            ((t (:foreground unspecified))))

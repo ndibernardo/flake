@@ -205,6 +205,20 @@
    `(flycheck-warning ((,class (:underline (:style wave :color ,warning-ui)))))
    `(flycheck-info ((,class (:underline (:style wave :color ,type)))))
 
+   ;; Elfeed
+   `(elfeed-log-debug-level-face ((,class (:foreground ,comment))))
+   `(elfeed-log-error-level-face ((,class (:foreground ,error))))
+   `(elfeed-log-info-level-face ((,class (:foreground ,success))))
+   `(elfeed-log-warn-level-face ((,class (:foreground ,warning))))
+   `(elfeed-search-date-face ((,class (:foreground ,constant))))
+   `(elfeed-search-feed-face ((,class (:foreground ,type))))
+   `(elfeed-search-filter-face ((,class (:foreground ,constant))))
+   `(elfeed-search-last-modified-face ((,class (:foreground ,comment))))
+   `(elfeed-search-tag-face ((,class (:foreground ,comment))))
+   `(elfeed-search-title-face ((,class (:foreground ,comment))))
+   `(elfeed-search-unread-count-face ((,class (:foreground ,warning))))
+   `(elfeed-search-unread-title-face ((,class (:foreground ,fg-default :weight bold))))
+
    ;; Dired
    `(dired-directory ((,class (:foreground ,type :weight bold))))
    `(dired-symlink ((,class (:foreground ,builtin))))
