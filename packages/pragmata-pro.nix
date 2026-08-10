@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "0.903";
 
   src = requireFile rec {
-    name = "PragmataPro-${finalAttrs.version}.zip";
+    name = "${finalAttrs.pname}-${finalAttrs.version}.zip";
     sha256 = "09vpzcalcg2dih98jhgw879glvsgg0gsxy9si7l0zm7ksklh013p";
     message = ''
       This file needs to be manually downloaded.
