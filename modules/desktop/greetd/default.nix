@@ -16,7 +16,7 @@
       config = lib.mkIf cfg.enable {
         services.greetd = {
           enable = true;
-
+          useTextGreeter = true;
           settings.default_session = {
             command = lib.escapeShellArgs [
               (lib.getExe pkgs.tuigreet)
