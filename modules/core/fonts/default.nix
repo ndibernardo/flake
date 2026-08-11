@@ -13,9 +13,11 @@
       options.core.fonts.enable = lib.mkEnableOption "system fonts";
 
       config = lib.mkIf cfg.enable {
-        # berkeley-mono comes from this flake's overlay
         core.nixpkgs.enable = true;
-        core.nixpkgs.unfreePackages = [ "berkeley-mono" ];
+        core.nixpkgs.unfreePackages = [
+          "berkeley-mono"
+          "pragmata-pro"
+        ];
 
         fonts = {
           enableDefaultPackages = true;
@@ -40,17 +42,18 @@
               ];
               sansSerif = [
                 "Noto Sans"
-                "IBM Plex Sans"
               ];
               serif = [
                 "Noto Serif"
-                "IBM Plex Serif"
               ];
-              emoji = [ "Noto Color Emoji" ];
+              emoji = [
+                "Noto Color Emoji"
+              ];
             };
           };
           packages = with pkgs; [
             berkeley-mono
+            commit-mono
             fira-code
             inconsolata
             jetbrains-mono
@@ -59,6 +62,7 @@
             noto-fonts-cjk-sans
             noto-fonts-cjk-serif
             noto-fonts-color-emoji
+            pragmata-pro
           ];
         };
       };

@@ -17,7 +17,7 @@
           settings = {
             main = {
               terminal = "ghostty -e";
-              font = "JetBrains Mono:size=12";
+              font = "monospace:size=12";
               width = 30;
               lines = 10;
               prompt = ''""'';
