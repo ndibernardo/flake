@@ -8,8 +8,7 @@
       options.core.passwords.enable = lib.mkEnableOption "1Password";
 
       config = lib.mkIf cfg.enable {
-        environment.sessionVariables.SSH_AUTH_SOCK =
-          "${config.user.homeDirectory}/.1password/agent.sock";
+        environment.sessionVariables.SSH_AUTH_SOCK = "${config.user.homeDirectory}/.1password/agent.sock";
 
         programs._1password.enable = true;
         programs._1password-gui = {

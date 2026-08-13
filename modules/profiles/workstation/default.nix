@@ -55,12 +55,15 @@
           steam.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
+            gimp
             helium
+            krita
+            lutris
             obsidian
             signal-desktop
             solaar
+            telegram-desktop
             thunar
-            ungoogled-chromium
           ];
         };
 

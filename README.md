@@ -3,13 +3,24 @@
 ## Build
 
 ```
-make          # update inputs and switch
-make switch   # switch without updating
-make update   # update flake.lock only
-make diff     # diff booted vs current system closure
+make              # evaluate and build the public configuration
+make check        # evaluate all flake outputs without building
+make build        # build the selected NixOS system
+make full-check   # build all checks, including formatting
+make diff         # diff current vs candidate system closure
+make dry-activate # show activation changes without applying them
+make update       # update flake.lock explicitly
 ```
 
-`FLAKE_NAME` defaults to `hostname`. Override with `FLAKE_NAME=<name> make`.
+The default target never updates inputs, uses `sudo`, or activates the result.
+`HOST` defaults to `daedalus`; override it with `HOST=<name> make`.
+
+The same public build can be run without Make:
+
+```
+nix build --no-update-lock-file \
+  .#nixosConfigurations.daedalus.config.system.build.toplevel
+```
 
 ## Structure
 
@@ -44,9 +55,32 @@ Packages that need no configuration go in `extraPackages` on the machine.
 
 A machine's `config` is where it sets these options; its `nixosModules` list is
 for raw NixOS modules that declare no options of their own, such as
-`hardware.nix` and `networking.nix`.
+`hardware.nix`.
 
-`make check` builds every machine and verifies formatting.
+`make full-check` builds every machine and verifies formatting.
+
+## Private configuration
+
+The public flake is standalone and builds with anonymous defaults. A separate
+private flake can extend `base.nixosConfigurations.daedalus` and provide:
+
+```
+user.name           login and home-manager account (default: "user")
+user.fullName       git author name (default: "User")
+user.email          git author email (default: "user@localhost")
+user.homeDirectory  home directory (default: /home/${user.name})
+user.stateVersion   home-manager state version (default: "25.11")
+user.sshKeys        authorized SSH public keys (default: [ ])
+outputs             kanshi monitor layout (default: [ ])
+```
+
+The consumer's `flake.lock` pins the exact public revision. Private packages,
+networking and encrypted secrets remain in the private flake.
+
+`machines/daedalus/hardware.nix` contains machine-specific disk UUIDs,
+filesystems, Secure Boot and hardware settings. Building it is safe; activating
+it on different hardware is not. A different machine needs its own generated
+`hardware.nix` and machine definition.
 
 ## Templates
 
