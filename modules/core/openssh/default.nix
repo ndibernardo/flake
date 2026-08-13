@@ -9,6 +9,18 @@
       options.core.openssh.enable = lib.mkEnableOption "OpenSSH";
 
       config = lib.mkIf cfg.enable {
+        services.gnome.gcr-ssh-agent.enable = false;
+
+        programs.ssh = {
+          startAgent = false;
+
+          extraConfig = ''
+            Host *
+              IdentityAgent ~/.1password/agent.sock
+              IdentityFile ~/.ssh/id_ed25519.pub
+          '';
+        };
+
         services.openssh = {
           enable = true;
           allowSFTP = false;

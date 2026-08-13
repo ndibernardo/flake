@@ -8,10 +8,7 @@
       options.core.gnupg.enable = lib.mkEnableOption "GnuPG";
 
       config = lib.mkIf cfg.enable {
-        programs.gnupg.agent = {
-          enable = true;
-          enableSSHSupport = true;
-        };
+        programs.gnupg.agent.enable = true;
       };
     };
 }

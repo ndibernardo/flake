@@ -20,7 +20,10 @@
               signingkey = "~/.ssh/id_ed25519.pub";
             };
             commit.gpgsign = true;
-            gpg.format = "ssh";
+            gpg = {
+              format = "ssh";
+              ssh.program = "${config.programs._1password-gui.package}/share/1password/op-ssh-sign";
+            };
           };
           ignores = [
             "/.*/"
