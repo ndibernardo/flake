@@ -16,12 +16,18 @@
     <item label="Obsidian" icon="obsidian">
       <action name="Execute"><command>obsidian</command></action>
     </item>
+    <item label="1Password" icon="1password">
+      <action name="Execute"><command>1password</command></action>
+    </item>
     <item label="Steam" icon="steam">
       <action name="Execute"><command>steam</command></action>
     </item>
     <separator/>
     <item label="Signal" icon="signal-desktop">
       <action name="Execute"><command>signal-desktop</command></action>
+    </item>
+    <item label="Telegram" icon="org.telegram.desktop">
+      <action name="Execute"><command>Telegram</command></action>
     </item>
     <separator/>
     <item label="Screenshot Area">
