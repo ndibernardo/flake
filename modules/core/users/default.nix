@@ -10,16 +10,19 @@
         user = {
           name = lib.mkOption {
             type = lib.types.str;
+            default = "user";
             description = "Primary user's login name.";
           };
 
           fullName = lib.mkOption {
             type = lib.types.str;
+            default = "User";
             description = "Git commit and signing name.";
           };
 
           email = lib.mkOption {
             type = lib.types.str;
+            default = "user@localhost";
             description = "Git commit email.";
           };
 
@@ -32,11 +35,13 @@
 
           stateVersion = lib.mkOption {
             type = lib.types.str;
+            default = "25.11";
             description = "home-manager state version. Do not change on existing systems.";
           };
 
           sshKeys = lib.mkOption {
             type = lib.types.listOf lib.types.str;
+            default = [ ];
             description = "SSH public keys accepted for this user.";
           };
         };
