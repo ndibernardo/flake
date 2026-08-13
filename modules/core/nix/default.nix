@@ -23,7 +23,10 @@
               "pipe-operators"
             ];
             warn-dirty = false;
-            allowed-users = [ "@wheel" ];
+            allowed-users = [
+              "@wheel"
+              "vulnix"
+            ];
             trusted-users = lib.mkForce [ "root" ];
             accept-flake-config = false;
             sandbox = true;
