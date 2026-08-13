@@ -67,6 +67,8 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
+(set-face-attribute 'default nil :font "monospace-13")
+
 ;; No startup screen
 (setq inhibit-splash-screen t)
 ;; No scratch message
@@ -84,8 +86,6 @@ eating the space just typed."
 (delete-selection-mode 1)
 
 (setq-default fill-column 100)
-
-(set-face-attribute 'default nil :family "Berkeley Mono" :height 120)
 
 (setq custom-safe-themes t)
 (setq auto-dark-themes '((tomorrow-night) (pragmata)))
@@ -320,8 +320,8 @@ if one already exists."
 (advice-add 'project-shell :override #'vterm-project-shell)
 
 ;;; Prose
-(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 130)
-(set-face-attribute 'fixed-pitch nil :family "Berkeley Mono")
+(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 135)
+(set-face-attribute 'fixed-pitch nil :family "Monospace" :height 130)
 
 (defvar prose-fixed-pitch-faces
   '(markdown-code-face

@@ -15,7 +15,10 @@
 (setq frame-resize-pixelwise t)
 
 (setq default-frame-alist
-      (append '((width . 170) (height . 90)) default-frame-alist))
+      (append '((font . "monospace-13")
+                (width . 170)
+                (height . 90))
+              default-frame-alist))
 
 ;; Don't use file dialog
 (setq use-file-dialog nil)
