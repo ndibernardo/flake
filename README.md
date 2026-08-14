@@ -3,7 +3,7 @@
 ## Build
 
 ```
-make              # evaluate and build the public configuration
+make              # evaluate and build the configuration
 make check        # evaluate all flake outputs without building
 make build        # build the selected NixOS system
 make full-check   # build all checks, including formatting
@@ -15,7 +15,7 @@ make update       # update flake.lock explicitly
 The default target never updates inputs, uses `sudo`, or activates the result.
 `HOST` defaults to `daedalus`; override it with `HOST=<name> make`.
 
-The same public build can be run without Make:
+The same build can be run without Make:
 
 ```
 nix build --no-update-lock-file \
@@ -61,7 +61,7 @@ for raw NixOS modules that declare no options of their own, such as
 
 ## Private configuration
 
-The public flake is standalone and builds with anonymous defaults. A separate
+The flake is standalone and builds with anonymous defaults. A separate
 private flake can extend `base.nixosConfigurations.daedalus` and provide:
 
 ```
