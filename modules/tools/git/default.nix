@@ -26,8 +26,6 @@
             };
           };
           ignores = [
-            "/.*/"
-            "/*-out/"
             "/target/"
             ".DS_STORE"
             "TAGS"
