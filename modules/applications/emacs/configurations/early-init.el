@@ -15,7 +15,7 @@
 (setq frame-resize-pixelwise t)
 
 (setq default-frame-alist
-      (append '((font . "monospace-13")
+      (append '((font . "PragmataPro Mono Liga-14")
                 (width . 170)
                 (height . 90))
               default-frame-alist))

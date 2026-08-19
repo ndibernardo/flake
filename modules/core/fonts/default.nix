@@ -36,9 +36,10 @@
             };
             defaultFonts = {
               monospace = [
+                "PragmataPro Mono"
+                "Kode Mono"
                 "JetBrains Mono"
                 "Berkeley Mono"
-                "PragmataPro Mono"
               ];
               sansSerif = [
                 "Noto Sans"
@@ -57,12 +58,16 @@
             fira-code
             inconsolata
             jetbrains-mono
+            kode-mono
             nerd-fonts.symbols-only
             noto-fonts
             noto-fonts-cjk-sans
             noto-fonts-cjk-serif
             noto-fonts-color-emoji
             pragmata-pro
+            profont
+            terminus_font
+            terminus_font_ttf
           ];
         };
       };

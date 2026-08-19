@@ -11,7 +11,20 @@
       user = config.user;
       stateDir = "${user.homeDirectory}/.local/state/theme";
 
-      wallpaper = "#4f5459";
+      wallpaperArgs = lib.escapeShellArgs (
+        if lib.hasPrefix "#" (toString cfg.wallpaper) then
+          [
+            "-c"
+            cfg.wallpaper
+          ]
+        else
+          [
+            "-i"
+            "${cfg.wallpaper}"
+            "-m"
+            "fill"
+          ]
+      );
 
       files = {
         light = ./configurations/theme-light.conf;
@@ -45,7 +58,7 @@
             pkgs
             user
             stateDir
-            wallpaper
+            wallpaperArgs
             files
             buttons
             sfwbarCss
@@ -56,7 +69,18 @@
         ;
     in
     {
-      options.desktop.labwc.enable = lib.mkEnableOption "labwc";
+      options.desktop.labwc = {
+        enable = lib.mkEnableOption "labwc";
+
+        wallpaper = lib.mkOption {
+          type = lib.types.either lib.types.str lib.types.path;
+          default = "#4f5459";
+          description = ''
+            Desktop background: either a "#rrggbb" colour or an image path,
+            the latter scaled to fill the output.
+          '';
+        };
+      };
 
       config = lib.mkIf cfg.enable {
         core.home-manager.enable = true;

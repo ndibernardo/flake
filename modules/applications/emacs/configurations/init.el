@@ -67,7 +67,7 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "monospace-13")
+(set-face-attribute 'default nil :font "PragmataPro Mono Liga-14")
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -88,7 +88,7 @@ eating the space just typed."
 (setq-default fill-column 100)
 
 (setq custom-safe-themes t)
-(setq auto-dark-themes '((tomorrow-night) (pragmata)))
+(setq auto-dark-themes '((borealis-nebula) (pragmata)))
 (auto-dark-mode 1)
 
 ;; Ligatures
@@ -125,7 +125,7 @@ eating the space just typed."
 (defun set-line-spacing ()
   "Configure text display properties for better readability."
   (setq-local default-text-properties
-              '(line-spacing 0.10 line-height 1.10)))
+              '(line-spacing 0.20 line-height 1.20)))
 (add-hook 'prog-mode-hook 'set-line-spacing)
 (add-hook 'text-mode-hook 'set-line-spacing)
 
@@ -321,7 +321,6 @@ if one already exists."
 
 ;;; Prose
 (set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 135)
-(set-face-attribute 'fixed-pitch nil :family "Monospace" :height 130)
 
 (defvar prose-fixed-pitch-faces
   '(markdown-code-face

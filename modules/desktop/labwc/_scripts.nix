@@ -2,7 +2,7 @@
   pkgs,
   user,
   stateDir,
-  wallpaper,
+  wallpaperArgs,
   files,
   buttons,
   sfwbarCss,
@@ -17,8 +17,6 @@ let
       mode="$(cat "$state/mode")"
     fi
     [ "$mode" = light ] || mode=dark
-
-    swaybg_color=${wallpaper}
 
     if [ "$mode" = light ]; then
       labwc_themerc=${files.light}
@@ -49,7 +47,7 @@ let
     if ${pkgs.procps}/bin/pgrep -x labwc >/dev/null 2>&1; then
       ${pkgs.labwc}/bin/labwc --reconfigure >/dev/null 2>&1 || true
       ${pkgs.procps}/bin/pkill -f "${pkgs.swaybg}/bin/swaybg" 2>/dev/null || true
-      ${pkgs.swaybg}/bin/swaybg -c "$swaybg_color" &
+      ${pkgs.swaybg}/bin/swaybg ${wallpaperArgs} &
       ${pkgs.procps}/bin/pkill -HUP sfwbar 2>/dev/null || true
     fi
 
