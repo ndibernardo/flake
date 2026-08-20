@@ -74,6 +74,7 @@
               cursor-style = "block";
               cursor-style-blink = false;
               font-family = "PragmataPro Mono";
+              font-feature = "-calt";
               font-size = 14;
               font-thicken = true;
               scrollback-limit = 10000;
