@@ -798,9 +798,11 @@ Each column is a different set, one of which will be chosen based on term
                       (treemacs-tags-face ((t (,@fg-blue))))
                       (treemacs-fringe-indicator-face ((t (,@fg-blue))))
                       (treemacs-git-added-face ((t (,@fg-green))))
-                      (treemacs-git-modified-face ((t (,@fg-violet))))
+                      (treemacs-git-modified-face ((t (,@fg-yellow))))
                       (treemacs-git-conflict-face ((t (,@fg-red))))
-                      (treemacs-git-untracked-face ((t (:inherit font-lock-doc-face))))
+                      (treemacs-git-untracked-face ((t (,@fg-green))))
+                      (treemacs-git-renamed-face ((t (,@fg-yellow))))
+                      (treemacs-git-ignored-face ((t (,@fg-base01))))
                       (treemacs-on-success-pulse-face ((t (:foreground ,base03 ,@bg-green :extend t))))
                       (treemacs-on-failure-pulse-face ((t (:foreground ,base03 ,@bg-red :extend t))))
 

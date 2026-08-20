@@ -244,9 +244,11 @@
  '(treemacs-tags-face ((t (:foreground "#fabd2f"))))
  '(treemacs-fringe-indicator-face ((t (:foreground "#fabd2f"))))
  '(treemacs-git-added-face ((t (:foreground "#9c9e20"))))
- '(treemacs-git-modified-face ((t (:foreground "#d3869b"))))
+ '(treemacs-git-modified-face ((t (:foreground "#fabd2f"))))
  '(treemacs-git-conflict-face ((t (:foreground "#fb4934"))))
- '(treemacs-git-untracked-face ((t (:inherit font-lock-doc-face))))
+ '(treemacs-git-untracked-face ((t (:foreground "#9c9e20"))))
+ '(treemacs-git-renamed-face ((t (:foreground "#fabd2f"))))
+ '(treemacs-git-ignored-face ((t (:foreground "#928374"))))
  '(treemacs-on-success-pulse-face ((t (:foreground "#0d1011" :background "#b8bb26" :extend t))))
  '(treemacs-on-failure-pulse-face ((t (:foreground "#0d1011" :background "#fb4934" :extend t))))
 

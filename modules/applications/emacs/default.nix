@@ -47,6 +47,7 @@
           visual-fill-column
           which-key
           treemacs
+          treemacs-magit
           vterm
           yasnippet
         ]

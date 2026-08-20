@@ -385,9 +385,11 @@
    `(treemacs-tags-face ((,class (:foreground ,type))))
    `(treemacs-fringe-indicator-face ((,class (:foreground ,type))))
    `(treemacs-git-added-face ((,class (:foreground ,added))))
-   `(treemacs-git-modified-face ((,class (:foreground ,constant))))
+   `(treemacs-git-modified-face ((,class (:foreground ,changed))))
    `(treemacs-git-conflict-face ((,class (:foreground ,deleted))))
-   `(treemacs-git-untracked-face ((,class (:inherit font-lock-doc-face))))
+   `(treemacs-git-untracked-face ((,class (:foreground ,added))))
+   `(treemacs-git-renamed-face ((,class (:foreground ,changed))))
+   `(treemacs-git-ignored-face ((,class (:foreground ,comment))))
    `(treemacs-on-success-pulse-face ((,class (:foreground ,bg0 :background ,added :extend t))))
    `(treemacs-on-failure-pulse-face ((,class (:foreground ,bg0 :background ,deleted :extend t))))
 

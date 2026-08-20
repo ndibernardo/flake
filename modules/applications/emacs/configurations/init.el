@@ -206,6 +206,9 @@ eating the space just typed."
     (treemacs-hide-gitignored-files-mode 0)
     (treemacs-git-commit-diff-mode 1))
 
+(with-eval-after-load 'magit
+  (require 'treemacs-magit))
+
 (defun treemacs-open-for-frame ()
   "Show Treemacs in the current frame without stealing focus.
 Runs for each new client frame because `window-setup-hook' only fires
