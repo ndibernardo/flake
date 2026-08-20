@@ -60,6 +60,7 @@
             krita
             lutris
             obsidian
+            pavucontrol
             signal-desktop
             solaar
             telegram-desktop
@@ -76,7 +77,9 @@
 
           extraPackages = with pkgs; [
             awscli2
+            bat
             curl
+            eza
             fzf
             htop
             jq

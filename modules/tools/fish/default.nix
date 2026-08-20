@@ -24,10 +24,22 @@
           enable = true;
           interactiveShellInit = ''
             set -g fish_greeting
+            set -g fish_color_autosuggestion 8a8a8a
+            set -g fish_color_param blue
+            set -g fish_color_valid_path blue
           '';
           shellAliases = {
-            ll = "ls -la";
+            cat = "bat";
+            ll = "eza -la --git";
+            ls = "eza";
+            tree = "eza --tree --git-ignore --level=2";
           };
+          functions.fish_prompt = ''
+            set_color normal
+            set -l dir (basename $PWD)
+            test "$PWD" = "$HOME"; and set dir '~'
+            printf '%s $ ' $dir
+          '';
         };
       };
     };
