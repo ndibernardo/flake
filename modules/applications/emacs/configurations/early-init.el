@@ -15,7 +15,7 @@
 (setq frame-resize-pixelwise t)
 
 (setq default-frame-alist
-      (append '((font . "PragmataPro Mono Liga-14")
+      (append '((font . "Berkeley Mono Book SemiCondensed-14")
                 (width . 170)
                 (height . 90))
               default-frame-alist))

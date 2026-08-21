@@ -73,8 +73,12 @@
               bold-is-bright = true;
               cursor-style = "block";
               cursor-style-blink = false;
-              font-family = "PragmataPro Mono";
+              font-family = "Berkeley Mono";
               font-feature = "-calt";
+              font-style = "Book SemiCondensed";
+              font-style-bold = "Bold SemiCondensed";
+              font-style-italic = "Book SemiCondensed Oblique";
+              font-style-bold-italic = "Bold SemiCondensed Oblique";
               font-size = 14;
               font-thicken = true;
               scrollback-limit = 10000;

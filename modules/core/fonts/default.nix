@@ -34,12 +34,25 @@
               rgba = "rgb";
               lcdfilter = "default";
             };
+            localConf = ''
+              <?xml version="1.0"?>
+              <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+              <fontconfig>
+                <match target="scan">
+                  <test name="family"><string>Berkeley Mono</string></test>
+                  <test name="style"><string>Book SemiCondensed</string></test>
+                  <edit name="family" mode="prepend" binding="strong">
+                    <string>Berkeley Mono Book SemiCondensed</string>
+                  </edit>
+                </match>
+              </fontconfig>
+            '';
             defaultFonts = {
               monospace = [
+                "Berkeley Mono"
                 "PragmataPro Mono"
                 "Kode Mono"
                 "JetBrains Mono"
-                "Berkeley Mono"
               ];
               sansSerif = [
                 "Noto Sans"

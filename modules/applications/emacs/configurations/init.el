@@ -67,7 +67,7 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "PragmataPro Mono Liga-14")
+(set-face-attribute 'default nil :font "Berkeley Mono Book SemiCondensed-14")
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -323,7 +323,7 @@ if one already exists."
 (advice-add 'project-shell :override #'vterm-project-shell)
 
 ;;; Prose
-(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 135)
+(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 145)
 
 (defvar prose-fixed-pitch-faces
   '(markdown-code-face
@@ -346,7 +346,7 @@ if one already exists."
   "Faces kept monospaced while `variable-pitch-mode' is on.
 Code, tables and markup keywords only line up in a fixed-width font.")
 
-(defvar prose-fixed-pitch-height 0.9
+(defvar prose-fixed-pitch-height 0.98
   "Height of `prose-fixed-pitch-faces', as a fraction of `default'.
 Berkeley Mono runs larger than Noto Sans at the same height, so code
 blocks need scaling down to sit level with the surrounding prose.")
