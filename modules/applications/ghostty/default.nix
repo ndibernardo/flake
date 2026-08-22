@@ -14,72 +14,39 @@
         home-manager.users.${user.name} = {
           programs.ghostty = {
             enable = true;
-            themes = {
-              light = {
-                palette = [
-                  "0=#000000"
-                  "1=#e41507"
-                  "2=#329033"
-                  "3=#9E7400"
-                  "4=#2981ca"
-                  "5=#9805AE"
-                  "6=#2E998E"
-                  "7=#DDDDDD"
-                  "8=#000000"
-                  "9=#e41507"
-                  "10=#329033"
-                  "11=#9E7400"
-                  "12=#2981ca"
-                  "13=#9805AE"
-                  "14=#2E998E"
-                  "15=#ffffff"
-                ];
-                background = "#f5f5f5";
-                foreground = "#000000";
-                cursor-color = "#404040";
-                cursor-text = "#f5f5f5";
-                selection-background = "#d0d0d0";
-                selection-foreground = "#000000";
-              };
-              dark = {
-                palette = [
-                  "0=#484f58"
-                  "1=#ff7b72"
-                  "2=#3fb950"
-                  "3=#e3b341"
-                  "4=#58a6ff"
-                  "5=#bc8cff"
-                  "6=#39c5cf"
-                  "7=#b1bac4"
-                  "8=#6e7681"
-                  "9=#ffa198"
-                  "10=#56d364"
-                  "11=#f2cc60"
-                  "12=#79c0ff"
-                  "13=#d2a8ff"
-                  "14=#56d4dd"
-                  "15=#ffffff"
-                ];
-                background = "#0d1117";
-                foreground = "#e6edf3";
-                cursor-color = "#2f81f7";
-                cursor-text = "#6fc1ff";
-                selection-background = "#e6edf3";
-                selection-foreground = "#0d1117";
-              };
+            themes.photopic = {
+              palette = [
+                "0=#000000"
+                "1=#ba3821"
+                "2=#1a8210"
+                "3=#886600"
+                "4=#4e5ecc"
+                "5=#9a40a1"
+                "6=#007d70"
+                "7=#f0f0f0"
+                "8=#999999"
+                "9=#8f1700"
+                "10=#065e00"
+                "11=#624800"
+                "12=#3237b2"
+                "13=#7c0984"
+                "14=#005a50"
+                "15=#ffffff"
+              ];
+              background = "#ffffff";
+              foreground = "#000000";
+              cursor-color = "#000000";
+              cursor-text = "#ffffff";
+              selection-background = "#f0f0f0";
+              selection-foreground = "#000000";
             };
             settings = {
               adjust-cell-height = "20%";
               bold-is-bright = true;
               cursor-style = "block";
               cursor-style-blink = false;
-              font-family = "Berkeley Mono";
-              font-feature = "-calt";
-              font-style = "Book SemiCondensed";
-              font-style-bold = "Bold SemiCondensed";
-              font-style-italic = "Book SemiCondensed Oblique";
-              font-style-bold-italic = "Bold SemiCondensed Oblique";
-              font-size = 14;
+              font-family = "JetBrains Mono";
+              font-size = 13;
               font-thicken = true;
               scrollback-limit = 10000;
               shell-integration-features = "no-cursor";
@@ -88,7 +55,7 @@
               window-padding-x = 10;
               window-padding-y = 10;
               window-width = 150;
-              theme = "light:light,dark:dark";
+              theme = "light:photopic,dark:Tomorrow Night";
             };
           };
         };

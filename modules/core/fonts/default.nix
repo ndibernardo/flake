@@ -49,6 +49,7 @@
             '';
             defaultFonts = {
               monospace = [
+                "Bitstream Vera Sans Mono"
                 "Berkeley Mono"
                 "PragmataPro Mono"
                 "Kode Mono"
@@ -68,7 +69,8 @@
           packages = with pkgs; [
             berkeley-mono
             commit-mono
-            fira-code
+            (fira-code.override { useVariableFont = false; })
+            hack-font
             inconsolata
             jetbrains-mono
             kode-mono
@@ -81,6 +83,7 @@
             profont
             terminus_font
             terminus_font_ttf
+            ttf_bitstream_vera
           ];
         };
       };

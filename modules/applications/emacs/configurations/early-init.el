@@ -15,7 +15,7 @@
 (setq frame-resize-pixelwise t)
 
 (setq default-frame-alist
-      (append '((font . "Berkeley Mono Book SemiCondensed-14")
+      (append '((font . "JetBrains Mono-13")
                 (width . 170)
                 (height . 90))
               default-frame-alist))

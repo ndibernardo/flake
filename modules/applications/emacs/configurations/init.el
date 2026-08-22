@@ -67,7 +67,8 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "Berkeley Mono Book SemiCondensed-14")
+;;(set-face-attribute 'default nil :font "Fira Code Retina-13")
+(set-face-attribute 'default nil :font "JetBrains Mono-13")
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -88,7 +89,7 @@ eating the space just typed."
 (setq-default fill-column 100)
 
 (setq custom-safe-themes t)
-(setq auto-dark-themes '((borealis-nebula) (pragmata)))
+(setq auto-dark-themes '((tomorrow-night) (photopic)))
 (auto-dark-mode 1)
 
 ;; Ligatures
@@ -202,9 +203,29 @@ eating the space just typed."
     (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
     (treemacs-filewatch-mode 1)
     (treemacs-follow-mode 1)
-    (treemacs-git-mode 'deferred)
     (treemacs-hide-gitignored-files-mode 0)
+    (treemacs-git-mode 'deferred)
     (treemacs-git-commit-diff-mode 1))
+
+;; Ask for confirmation before a mouse drag moves a file or directory.
+(with-eval-after-load 'treemacs
+    (define-advice treemacs--drag-move-files
+        (:around (fn source-pos target-pos) confirm)
+      (let* ((source-key (-some-> (treemacs--button-in-line source-pos)
+                                  (treemacs-button-get :key)))
+             (target-key (-some-> (treemacs--button-in-line target-pos)
+                                  (treemacs-button-get :key)))
+             (target-dir (and (stringp target-key)
+                              (if (file-directory-p target-key)
+                                  target-key
+                                (treemacs--parent-dir target-key)))))
+        (when (and (stringp source-key) target-dir
+                   (not (string= source-key target-key))
+                   (not (treemacs-is-path source-key :directly-in target-dir))
+                   (yes-or-no-p (format "Move %s to %s? "
+                                        (treemacs--filename source-key)
+                                        target-dir)))
+          (funcall fn source-pos target-pos)))))
 
 (with-eval-after-load 'magit
   (require 'treemacs-magit))
@@ -348,8 +369,8 @@ Code, tables and markup keywords only line up in a fixed-width font.")
 
 (defvar prose-fixed-pitch-height 0.98
   "Height of `prose-fixed-pitch-faces', as a fraction of `default'.
-Berkeley Mono runs larger than Noto Sans at the same height, so code
-blocks need scaling down to sit level with the surrounding prose.")
+Fira Code runs larger than Noto Sans at the same height, so
+code blocks need scaling down to sit level with the surrounding prose.")
 
 (defun prose-keep-faces-fixed-pitch (&rest _)
   "Make `prose-fixed-pitch-faces' inherit `fixed-pitch'.
