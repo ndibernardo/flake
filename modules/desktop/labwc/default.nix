@@ -35,6 +35,21 @@
 
       menu = import ./_menu.nix { inherit lib; };
 
+      windowRulesXml =
+        if cfg.windowRules == [ ] then
+          "<windowRules/>"
+        else
+          lib.concatStringsSep "\n" (
+            [ "<windowRules>" ]
+            ++ map (
+              rule:
+              "    <windowRule"
+              + lib.concatStrings (lib.mapAttrsToList (name: value: " ${name}=\"${lib.escapeXML value}\"") rule)
+              + " />"
+            ) cfg.windowRules
+            ++ [ "  </windowRules>" ]
+          );
+
       sfwbarBg = {
         light = "#ffffff";
         dark = "#1d1f21";
@@ -116,6 +131,25 @@
             Application entries shared by the labwc root menu and the sfwbar
             menu. Definitions from several modules are concatenated, so other
             flakes can add entries without redefining the defaults.
+          '';
+        };
+
+        windowRules = lib.mkOption {
+          type = lib.types.listOf (lib.types.attrsOf lib.types.str);
+          default = [ ];
+          example = lib.literalExpression ''
+            [
+              {
+                identifier = "spotify";
+                ignoreFocusRequest = "yes";
+              }
+            ]
+          '';
+          description = ''
+            labwc window rules; every attribute becomes an attribute of the
+            generated <windowRule/> element, so both match criteria and
+            properties are set here. Definitions from several modules are
+            concatenated.
           '';
         };
 
@@ -239,7 +273,13 @@
 
             xdg.configFile."hypr/hypridle.conf".source = ./configurations/hypridle.conf;
 
-            xdg.configFile."labwc/rc.xml".source = ./configurations/rc.xml;
+            xdg.configFile."labwc/rc.xml".text =
+              lib.replaceStrings
+                [ "<windowRules/>" ]
+                [
+                  windowRulesXml
+                ]
+                (builtins.readFile ./configurations/rc.xml);
 
             xdg.configFile."labwc/menu.xml".text = menu.labwcMenu cfg.menu.entries;
 

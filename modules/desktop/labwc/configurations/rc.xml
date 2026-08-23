@@ -56,6 +56,8 @@
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
 
+  <windowRules/>
+
   <keyboard>
     <default/>
 
