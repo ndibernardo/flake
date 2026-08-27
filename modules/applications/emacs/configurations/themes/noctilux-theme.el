@@ -104,7 +104,7 @@ the \"Gen RGB\" column in noctilux-definitions.el to improve them further."
     (base3   "#fcf4dc" "#fcf4dc" "#fcf4dc" "brightwhite"   "white")
     (yellow  "#aaeecc" "#aaeecc" "#aaeecc" "yellow"        "yellow")
     (orange  "#ff8888" "#ff8888" "#ff8888" "brightred"     "red")
-    (red     "#cc4444" "#cc4444" "#cc4444" "brightred"     "red")
+    (red     "#ff8888" "#ff8888" "#ff8888" "brightred"     "red")
     (magenta "#FF1F69" "#FF1F69" "#FF1F69" "magenta"       "magenta")
     (violet  "#ccaaff" "#ccaaff" "#ccaaff" "brightmagenta" "magenta")
     (blue    "#aaccff" "#aaccff" "#aaccff" "blue"          "blue")
@@ -217,7 +217,8 @@ Each column is a different set, one of which will be chosen based on term
                        (fmt-revbb `(:weight ,bright-bold :slant normal :underline nil  :inverse-video t))
                        (fmt-revbbu `(:weight ,bright-bold :slant normal  :underline ,underline :inverse-video t))
                        (fmt-redwave `(:underline (:color ,red :style wave) :inherit default))
-                       (fmt-orangewave `(:underline (:color ,orange :style wave) :inherit default)))
+                       (fmt-orangewave `(:underline (:color ,orange :style wave) :inherit default))
+                       (fmt-bluewave `(:underline (:color ,blue :style wave) :inherit default)))
                    `((;; basic
                       (default ((t (,@fg-base0 ,@bg-back)))) ; Normal
                       (cursor ((t (,@fg-base03 ,@bg-white)))) ; Cursor
@@ -435,6 +436,9 @@ Each column is a different set, one of which will be chosen based on term
 	                    (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
 	                    (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
                       ;; Flymake
+                      (flymake-error ((t (,@fmt-redwave))))
+                      (flymake-warning ((t (,@fmt-orangewave))))
+                      (flymake-note ((t (,@fmt-bluewave))))
                       (flymake-errline ((t (,@fmt-redwave)))) ; ErrorMsg
                       (flymake-warnline ((t (,@fmt-orangewave)))) ; WarningMsg
                       ;; column-marker

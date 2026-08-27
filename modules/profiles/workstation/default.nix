@@ -40,17 +40,15 @@
         };
 
         desktop = {
-          fuzzel.enable = lib.mkDefault true;
-          greetd.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
-          labwc.enable = lib.mkDefault true;
+          sway.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
         };
 
         applications = {
+          alacritty.enable = lib.mkDefault true;
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
-          ghostty.enable = lib.mkDefault true;
           neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
 
@@ -59,6 +57,7 @@
             helium
             krita
             lutris
+            nyxt
             obsidian
             pavucontrol
             signal-desktop

@@ -67,8 +67,7 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-;;(set-face-attribute 'default nil :font "Fira Code Retina-13")
-(set-face-attribute 'default nil :font "JetBrains Mono-13")
+(set-face-attribute 'default nil :font "Berkeley Mono Book SemiCondensed-12")
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -89,7 +88,7 @@ eating the space just typed."
 (setq-default fill-column 100)
 
 (setq custom-safe-themes t)
-(setq auto-dark-themes '((tomorrow-night) (photopic)))
+(setq auto-dark-themes '((borealis-nebula) (solarized-light)))
 (auto-dark-mode 1)
 
 ;; Ligatures

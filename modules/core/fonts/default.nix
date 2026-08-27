@@ -69,6 +69,7 @@
           packages = with pkgs; [
             berkeley-mono
             commit-mono
+            departure-mono
             (fira-code.override { useVariableFont = false; })
             hack-font
             inconsolata

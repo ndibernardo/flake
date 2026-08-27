@@ -9,31 +9,31 @@
       options.desktop.fuzzel.enable = lib.mkEnableOption "fuzzel";
 
       config = lib.mkIf cfg.enable {
+        core.fonts.enable = true;
         core.home-manager.enable = true;
-        applications.ghostty.enable = true;
+        applications.alacritty.enable = true;
 
         home-manager.users.${user.name}.programs.fuzzel = {
           enable = true;
           settings = {
             main = {
-              terminal = "ghostty -e";
-              font = "monospace:size=12";
+              terminal = "alacritty -e";
+              font = "Departure Mono:size=12";
               width = 30;
               lines = 10;
               prompt = ''""'';
             };
             border = {
-              width = 2;
-              radius = 3;
+              width = 0;
+              radius = 0;
             };
             colors = {
-              background = "1d1f21ff";
-              text = "c5c8c6ff";
-              match = "81a2beff";
-              selection = "81a2beff";
-              selection-text = "1d1f21ff";
-              selection-match = "1d1f21ff";
-              border = "1d1f21ff";
+              background = "1a1a1aff";
+              text = "efefefff";
+              match = "f97316ff";
+              selection = "303030ff";
+              selection-text = "efefefff";
+              selection-match = "f97316ff";
             };
           };
         };
