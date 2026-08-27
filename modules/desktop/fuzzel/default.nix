@@ -28,11 +28,11 @@
               radius = 0;
             };
             colors = {
-              background = "1a1a1aff";
-              text = "efefefff";
+              background = "16161dff";
+              text = "efeff4ff";
               match = "f97316ff";
-              selection = "303030ff";
-              selection-text = "efefefff";
+              selection = "292936ff";
+              selection-text = "efeff4ff";
               selection-match = "f97316ff";
             };
           };

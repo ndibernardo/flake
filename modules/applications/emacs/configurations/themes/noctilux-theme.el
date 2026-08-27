@@ -94,14 +94,14 @@ the \"Gen RGB\" column in noctilux-definitions.el to improve them further."
 ;;        that Emacs seems to dislike
 (defvar noctilux-colors           ; ANSI(Noctilux terminal)
   ;; name     sRGB      Gen RGB   256       16              8
-  '((base03  "#202020" "#202020" "#202020" "brightblack"   "black")
-    (base02  "#292929" "#292929" "#292929" "black"         "black")
-    (base01  "#5f5f5f" "#5f5f5f" "#5f5f5f" "brightgreen"   "green")
-    (base00  "#999999" "#999999" "#999999" "brightyellow"  "yellow")
-    (base0   "#cccccc" "#cccccc" "#cccccc" "brightblue"    "blue")
-    (base1   "#aaaaaa" "#aaaaaa" "#aaaaaa" "brightcyan"    "cyan")
-    (base2   "#e9e2cb" "#e9e2cb" "#e9e2cb" "white"         "white")
-    (base3   "#fcf4dc" "#fcf4dc" "#fcf4dc" "brightwhite"   "white")
+  '((base03  "#16161d" "#16161d" "#16161d" "brightblack"   "black")
+    (base02  "#1e1e28" "#1e1e28" "#1e1e28" "black"         "black")
+    (base01  "#626276" "#626276" "#626276" "brightgreen"   "green")
+    (base00  "#9999aa" "#9999aa" "#9999aa" "brightyellow"  "yellow")
+    (base0   "#ccccd6" "#ccccd6" "#ccccd6" "brightblue"    "blue")
+    (base1   "#b0b0bd" "#b0b0bd" "#b0b0bd" "brightcyan"    "cyan")
+    (base2   "#e9e9f0" "#e9e9f0" "#e9e9f0" "white"         "white")
+    (base3   "#f8f8fb" "#f8f8fb" "#f8f8fb" "brightwhite"   "white")
     (yellow  "#aaeecc" "#aaeecc" "#aaeecc" "yellow"        "yellow")
     (orange  "#ff8888" "#ff8888" "#ff8888" "brightred"     "red")
     (red     "#ff8888" "#ff8888" "#ff8888" "brightred"     "red")
@@ -720,12 +720,12 @@ Each column is a different set, one of which will be chosen based on term
                       (flycheck-delimited-warning ((t (,@fmt-bold ,@fg-orange :box t))))
                       (flycheck-delimited-info ((t (,@fmt-bold ,@fg-blue :box t))))
 
-                      (lsp-face-highlight-textual      ((t (:background "#303040" :foreground "#ffffff"))))
+                      (lsp-face-highlight-textual      ((t (:background "#292936" :foreground ,base3))))
                       (lsp-face-highlight-read         ((t (:inherit lsp-face-highlight-textual))))
                       (lsp-face-highlight-write        ((t (:inherit lsp-face-highlight-textual :underline t))))
                       (lsp-lens-mouse-face            ((t (:foreground ,violet :underline t))))
                       (lsp-lens-face                  ((t (:foreground ,base01))))
-                      (lsp-ui-peek-highlight          ((t (:background "#303040" :foreground "#ffffff" :distant-foreground ,base03))))
+                      (lsp-ui-peek-highlight          ((t (:background "#292936" :foreground ,base3 :distant-foreground ,base03))))
                       (lsp-ui-doc-background          ((t (:background ,base02))))
 
                       ;; LSP UI

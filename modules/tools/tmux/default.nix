@@ -46,13 +46,15 @@
             set -g window-status-format " #I: #W "
             set -g window-status-current-format " #I: #W "
 
-            set -g status-style "bg=#1d1f21,fg=#c5c8c6"
-            set -g window-status-style "bg=default,fg=#969896"
-            set -g window-status-current-style "bg=#81a2be,fg=#1d1f21,bold"
-            set -g pane-border-style "fg=#969896"
-            set -g pane-active-border-style "fg=#81a2be"
-            set -g message-style "bg=#81a2be,fg=#1d1f21"
-            set -g status-right '#[bg=#81a2be,fg=#1d1f21] %Y-%m-%d  %H:%M '
+            set -g status-style "bg=#16161d,fg=#ccccd6"
+            set -g window-status-style "bg=#16161d,fg=#626276"
+            set -g window-status-current-style "bg=#1e1e28,fg=#aaccff,bold"
+            set -g pane-border-style "fg=#373746"
+            set -g pane-active-border-style "fg=#aaccff"
+            set -g message-style "bg=#1e1e28,fg=#ff8888,bold"
+            set -g message-command-style "bg=#1e1e28,fg=#aaccff"
+            set -g mode-style "bg=#292936,fg=#e9e9f0"
+            set -g status-right '#[bg=#16161d,fg=#ff8888] %Y-%m-%d  %H:%M '
             set-option -g status-position bottom
 
             # Status bar configuration

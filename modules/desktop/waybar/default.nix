@@ -107,11 +107,11 @@
             };
 
             style = ''
-              @define-color bg #121212;
-              @define-color surface #1a1a1a;
-              @define-color raised #303030;
-              @define-color fg #efefef;
-              @define-color muted #999999;
+              @define-color bg #16161d;
+              @define-color surface #1e1e28;
+              @define-color raised #292936;
+              @define-color fg #efeff4;
+              @define-color muted #9999aa;
               @define-color accent #f97316;
               @define-color urgent #e31b23;
 
@@ -125,7 +125,7 @@
               }
 
               window#waybar {
-                background-color: @surface;
+                background-color: @bg;
                 color: @fg;
               }
 
@@ -134,7 +134,7 @@
               }
 
               tooltip {
-                background-color: @bg;
+                background-color: @surface;
                 color: @fg;
               }
 

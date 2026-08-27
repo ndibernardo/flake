@@ -18,35 +18,40 @@
             settings = {
               colors = {
                 primary = {
-                  background = "0x1a1a1a";
-                  foreground = "0xdddddd";
+                  background = "0x16161d";
+                  foreground = "0xccccd6";
                 };
 
                 cursor = {
-                  text = "0x000000";
-                  cursor = "0xdddddd";
+                  text = "0x16161d";
+                  cursor = "0xffffff";
+                };
+
+                selection = {
+                  text = "0xccccd6";
+                  background = "0x626276";
                 };
 
                 normal = {
-                  black = "0x000000";
-                  red = "0xcf9292";
-                  green = "0x73cc98";
-                  yellow = "0xc7ae95";
-                  blue = "0x95aec7";
-                  magenta = "0xae95c7";
-                  cyan = "0x7bd3c5";
-                  white = "0xdddddd";
+                  black = "0x1e1e28";
+                  red = "0xff8888";
+                  green = "0xaaffaa";
+                  yellow = "0xaaeecc";
+                  blue = "0xaaccff";
+                  magenta = "0xff1f69";
+                  cyan = "0xaadddd";
+                  white = "0x9999aa";
                 };
 
                 bright = {
-                  black = "0x747c84";
-                  red = "0xcf9292";
-                  green = "0x73cc98";
-                  yellow = "0xc7ae95";
-                  blue = "0x95aec7";
-                  magenta = "0xae95c7";
-                  cyan = "0x7bd3c5";
-                  white = "0xffffff";
+                  black = "0x16161d";
+                  red = "0xff8888";
+                  green = "0x626276";
+                  yellow = "0x9999aa";
+                  blue = "0xccccd6";
+                  magenta = "0xccaaff";
+                  cyan = "0xb0b0bd";
+                  white = "0xf8f8fb";
                 };
               };
 
@@ -93,7 +98,7 @@
               bell = {
                 animation = "EaseOutExpo";
                 duration = 0;
-                color = "0xffffff";
+                color = "0xf8f8fb";
               };
 
               mouse = {

@@ -82,39 +82,39 @@
 
             colors = {
               focused = {
-                background = "#212121";
-                border = "#EFEFEF";
-                childBorder = "#EFEFEF";
-                indicator = "#EFEFEF";
-                text = "#EFEFEF";
+                background = "#16161D";
+                border = "#EFEFF4";
+                childBorder = "#EFEFF4";
+                indicator = "#EFEFF4";
+                text = "#EFEFF4";
               };
               unfocused = {
-                background = "#1A1A1A";
-                border = "#353535";
-                childBorder = "#353535";
-                indicator = "#353535";
-                text = "#999999";
+                background = "#16161D";
+                border = "#373746";
+                childBorder = "#373746";
+                indicator = "#373746";
+                text = "#9999AA";
               };
               focusedInactive = {
-                background = "#1C1C1C";
-                border = "#555555";
-                childBorder = "#555555";
-                indicator = "#555555";
-                text = "#999999";
+                background = "#1E1E28";
+                border = "#555568";
+                childBorder = "#555568";
+                indicator = "#555568";
+                text = "#9999AA";
               };
               urgent = {
                 background = "#E31B23";
                 border = "#E31B23";
                 childBorder = "#E31B23";
                 indicator = "#E31B23";
-                text = "#EFEFEF";
+                text = "#EFEFF4";
               };
               placeholder = {
-                background = "#1A1A1A";
-                border = "#353535";
-                childBorder = "#353535";
-                indicator = "#999999";
-                text = "#999999";
+                background = "#16161D";
+                border = "#373746";
+                childBorder = "#373746";
+                indicator = "#9999AA";
+                text = "#9999AA";
               };
             };
 
@@ -130,9 +130,9 @@
               {
                 command = ''
                   ${swayidle} -w \
-                    timeout 1800 '${swaylock} -f -c 1a1a1a' \
+                    timeout 1800 '${swaylock} -f -c 16161d' \
                     timeout 2400 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-                    before-sleep '${swaylock} -f -c 1a1a1a'
+                    before-sleep '${swaylock} -f -c 16161d'
                 '';
               }
             ];
@@ -222,7 +222,7 @@
 
           extraConfig = ''
             workspace 1
-            output * bg #1A1A1A solid_color
+            output * bg #16161D solid_color
           '';
         };
       };
