@@ -6,6 +6,7 @@
 ;; Maintainer: Simon Manning <simon@ecksdee.org>
 ;; Package-Requires: ((emacs "24"))
 ;; Homepage: https://github.com/sjrmanning/noctilux-theme
+;; Eigengrau palette: Jack Rusher <https://github.com/jackrusher/dotemacs>
 
 ;; This file is not part of GNU Emacs.
 
@@ -95,22 +96,26 @@ the \"Gen RGB\" column in noctilux-definitions.el to improve them further."
 (defvar noctilux-colors           ; ANSI(Noctilux terminal)
   ;; name     sRGB      Gen RGB   256       16              8
   '((base03  "#16161d" "#16161d" "#16161d" "brightblack"   "black")
-    (base02  "#1e1e28" "#1e1e28" "#1e1e28" "black"         "black")
-    (base01  "#626276" "#626276" "#626276" "brightgreen"   "green")
-    (base00  "#9999aa" "#9999aa" "#9999aa" "brightyellow"  "yellow")
-    (base0   "#ccccd6" "#ccccd6" "#ccccd6" "brightblue"    "blue")
-    (base1   "#b0b0bd" "#b0b0bd" "#b0b0bd" "brightcyan"    "cyan")
+    (base02  "#212128" "#212128" "#212128" "black"         "black")
+    (base01  "#5b6268" "#5b6268" "#5b6268" "brightblack"   "black")
+    (base00  "#9ca0a4" "#9ca0a4" "#9ca0a4" "white"         "white")
+    (base0   "#ccccd6" "#ccccd6" "#ccccd6" "brightwhite"   "white")
+    (base1   "#dfdfdf" "#dfdfdf" "#dfdfdf" "brightwhite"   "white")
     (base2   "#e9e9f0" "#e9e9f0" "#e9e9f0" "white"         "white")
     (base3   "#f8f8fb" "#f8f8fb" "#f8f8fb" "brightwhite"   "white")
-    (yellow  "#aaeecc" "#aaeecc" "#aaeecc" "yellow"        "yellow")
-    (orange  "#ff8888" "#ff8888" "#ff8888" "brightred"     "red")
+    (yellow  "#86dab1" "#86dab1" "#86dab1" "yellow"        "yellow")
+    (orange  "#dada86" "#dada86" "#dada86" "brightyellow"  "yellow")
     (red     "#ff8888" "#ff8888" "#ff8888" "brightred"     "red")
-    (magenta "#FF1F69" "#FF1F69" "#FF1F69" "magenta"       "magenta")
-    (violet  "#ccaaff" "#ccaaff" "#ccaaff" "brightmagenta" "magenta")
-    (blue    "#aaccff" "#aaccff" "#aaccff" "blue"          "blue")
-    (cyan    "#aadddd" "#aadddd" "#aadddd" "cyan"          "cyan")
-    (white   "#ffffff" "#ffffff" "#ffffff" "white"          "white")
-    (green   "#aaffaa" "#aaffaa" "#aaffaa" "green"         "green"))
+    (green   "#86da87" "#86da87" "#86da87" "green"         "green")
+    (bright-green "#a1f6a1" "#a1f6a1" "#a1f6a1" "brightgreen" "green")
+    (teal    "#4db5bd" "#4db5bd" "#4db5bd" "brightgreen"   "green")
+    (magenta "#db85d9" "#db85d9" "#db85d9" "brightmagenta" "magenta")
+    (violet  "#b286db" "#b286db" "#b286db" "magenta"       "magenta")
+    (dark-blue "#86aeda" "#86aeda" "#86aeda" "blue"         "blue")
+    (blue    "#aaccff" "#aaccff" "#aaccff" "brightblue"   "blue")
+    (dark-cyan "#64a2a4" "#64a2a4" "#64a2a4" "cyan"         "cyan")
+    (cyan    "#86d9db" "#86d9db" "#86d9db" "brightcyan"   "cyan")
+    (white   "#ffffff" "#ffffff" "#ffffff" "white"          "white"))
   "This is a table of all the colors used by the Noctilux color theme.
 Each column is a different set, one of which will be chosen based on term
    capabilities, etc.")
@@ -137,9 +142,13 @@ Each column is a different set, one of which will be chosen based on term
                    (yellow      (find-color 'yellow))
                    (orange      (find-color 'orange))
                    (red         (find-color 'red))
+                   (bright-green (find-color 'bright-green))
+                   (teal        (find-color 'teal))
                    (magenta     (find-color 'magenta))
                    (violet      (find-color 'violet))
+                   (dark-blue   (find-color 'dark-blue))
                    (blue        (find-color 'blue))
+                   (dark-cyan   (find-color 'dark-cyan))
                    (cyan        (find-color 'cyan))
                    (white       (find-color 'white))
                    (green       (find-color 'green))
@@ -176,6 +185,7 @@ Each column is a different set, one of which will be chosen based on term
                        (bg-red `(:background ,red))
                        (bg-magenta `(:background ,magenta))
                        (bg-violet `(:background ,violet))
+                       (bg-dark-blue `(:background ,dark-blue))
                        (bg-blue `(:background ,blue))
                        (bg-cyan `(:background ,cyan))
                        (bg-white `(:background ,white))
@@ -194,9 +204,13 @@ Each column is a different set, one of which will be chosen based on term
                        (fg-yellow `(:foreground ,yellow))
                        (fg-orange `(:foreground ,orange))
                        (fg-red `(:foreground ,red))
+                       (fg-bright-green `(:foreground ,bright-green))
+                       (fg-teal `(:foreground ,teal))
                        (fg-magenta `(:foreground ,magenta))
                        (fg-violet `(:foreground ,violet))
+                       (fg-dark-blue `(:foreground ,dark-blue))
                        (fg-blue `(:foreground ,blue))
+                       (fg-dark-cyan `(:foreground ,dark-cyan))
                        (fg-cyan `(:foreground ,cyan))
 
                        (fmt-none `(:weight normal :slant normal  :underline nil        :inverse-video nil))
@@ -244,8 +258,7 @@ Each column is a different set, one of which will be chosen based on term
                        ((t (,@fg-base0 ,@bg-base02 ,@fmt-bb :box nil))))
                       (mode-line-inactive ; StatusLineNC
                        ((t (,@fg-base01 ,@bg-base03 ,@fmt-bb :box nil))))
-                      ;;(region ((t (,@bg-base03 ,@fmt-revbb)))) ; Visual
-                      (region ((t (,@fg-base01 ,@bg-base0 ,@fmt-revbb)))) ; Visual
+                      (region ((t (,@fg-base03 ,@bg-dark-blue)))) ; Visual
                       (secondary-selection ((t (,@bg-base02))))
                       (shadow ((t (,@fg-base01))))
                       (trailing-whitespace ((t (,@fmt-revr ,@fg-red))))
@@ -336,16 +349,16 @@ Each column is a different set, one of which will be chosen based on term
                       (eshell-ls-unreadable ((t (,@fg-base00))))
                       (eshell-prompt ((t (,@fmt-bold ,@fg-green))))
                       ;; font-lock
-                      (font-lock-builtin-face ((t (,@fmt-none ,@fg-green)))) ; Statement
+                      (font-lock-builtin-face ((t (,@fmt-none ,@fg-magenta)))) ; Statement
                       (font-lock-comment-face ((t (,@fmt-ital ,@fg-base01)))) ; Comment
                       (font-lock-constant-face ((t (,@fmt-none ,@fg-violet)))) ; Constant
                       (font-lock-function-name-face ; Identifier
-                       ((t (,@fmt-none ,@fg-blue))))
+                       ((t (,@fmt-none ,@fg-teal))))
                       (font-lock-keyword-face ((t (,@fmt-none ,@fg-green)))) ; Statement
-                      (font-lock-string-face ((t (,@fmt-none ,@fg-cyan)))) ; Constant
+                      (font-lock-string-face ((t (,@fmt-none ,@fg-blue)))) ; Constant
                       (font-lock-type-face ((t (,@fmt-none ,@fg-yellow)))) ; Type
                       (font-lock-variable-name-face ; Identifier
-                       ((t (,@fmt-none :foreground unspecified))))
+                       ((t (,@fmt-none ,@fg-teal))))
                       (font-lock-warning-face ((t (,@fmt-bold ,@fg-red)))) ; Error
                       (font-lock-doc-face ((t (:inherit font-lock-comment-face ,@fmt-ital ,@fg-base01)))) ; Comment
                       (font-lock-doc-string-face  ; Comment (XEmacs-only)
@@ -366,7 +379,7 @@ Each column is a different set, one of which will be chosen based on term
                       (font-lock-other-emphasized-face ((t (,@fmt-bldi ,@fg-violet))))
                       (font-lock-regexp-grouping-backslash
                        ((t (,@fmt-none ,@fg-yellow))))
-                      (font-lock-function-call-face ((t (,@fmt-none ,@fg-blue))))
+                      (font-lock-function-call-face ((t (,@fmt-none ,@fg-teal))))
                       ;; helm
                       (helm-M-x-key ((t (,@fg-violet))))
                       (helm-buffer-directory ((t (,@fmt-bold ,@fg-yellow))))
@@ -672,15 +685,38 @@ Each column is a different set, one of which will be chosen based on term
                       (company-preview-search ((t (,@fg-violet ,@bg-base01))))
                       (company-echo ((t nil)))
                       (company-echo-common ((t (,@fg-violet))))
-	                    ;;ansi-term
-	                    (term-color-black ((t ( ,@fg-base02))))
-	                    (term-color-red ((t ( ,@fg-red))))
-	                    (term-color-green ((t ( ,@fg-green))))
-	                    (term-color-yellow ((t ( ,@fg-yellow))))
-	                    (term-color-blue ((t ( ,@fg-blue))))
-	                    (term-color-magenta ((t ( ,@fg-magenta))))
-	                    (term-color-cyan ((t ( ,@fg-cyan))))
-	                    (term-color-white ((t ( ,@fg-base00))))
+                      (ansi-color-black ((t (,@fg-base02 ,@bg-base02))))
+                      (ansi-color-red ((t (,@fg-red :background ,red))))
+                      (ansi-color-green ((t (,@fg-green :background ,green))))
+                      (ansi-color-yellow ((t (,@fg-orange :background ,orange))))
+                      (ansi-color-blue ((t (,@fg-dark-blue :background ,dark-blue))))
+                      (ansi-color-magenta ((t (,@fg-violet :background ,violet))))
+                      (ansi-color-cyan ((t (,@fg-dark-cyan :background ,dark-cyan))))
+                      (ansi-color-white ((t (,@fg-base0 ,@bg-base0))))
+                      (ansi-color-bright-black ((t (,@fg-base01 ,@bg-base01))))
+                      (ansi-color-bright-red ((t (,@fg-red :background ,red))))
+                      (ansi-color-bright-green ((t (,@fg-bright-green :background ,bright-green))))
+                      (ansi-color-bright-yellow ((t (,@fg-orange :background ,orange))))
+                      (ansi-color-bright-blue ((t (,@fg-blue :background ,blue))))
+                      (ansi-color-bright-magenta ((t (,@fg-magenta :background ,magenta))))
+                      (ansi-color-bright-cyan ((t (,@fg-cyan :background ,cyan))))
+                      (ansi-color-bright-white ((t (,@fg-base2 ,@bg-base2))))
+                      (term-color-black ((t (,@fg-base02 ,@bg-base02))))
+                      (term-color-red ((t (,@fg-red :background ,red))))
+                      (term-color-green ((t (,@fg-green :background ,green))))
+                      (term-color-yellow ((t (,@fg-orange :background ,orange))))
+                      (term-color-blue ((t (,@fg-dark-blue :background ,dark-blue))))
+                      (term-color-magenta ((t (,@fg-violet :background ,violet))))
+                      (term-color-cyan ((t (,@fg-dark-cyan :background ,dark-cyan))))
+                      (term-color-white ((t (,@fg-base0 ,@bg-base0))))
+                      (term-color-bright-black ((t (,@fg-base01 ,@bg-base01))))
+                      (term-color-bright-red ((t (,@fg-red :background ,red))))
+                      (term-color-bright-green ((t (,@fg-bright-green :background ,bright-green))))
+                      (term-color-bright-yellow ((t (,@fg-orange :background ,orange))))
+                      (term-color-bright-blue ((t (,@fg-blue :background ,blue))))
+                      (term-color-bright-magenta ((t (,@fg-magenta :background ,magenta))))
+                      (term-color-bright-cyan ((t (,@fg-cyan :background ,cyan))))
+                      (term-color-bright-white ((t (,@fg-base2 ,@bg-base2))))
                       ;;flycheck
                       (flycheck-error
                        ((((supports :underline (:style wave)))
@@ -720,12 +756,12 @@ Each column is a different set, one of which will be chosen based on term
                       (flycheck-delimited-warning ((t (,@fmt-bold ,@fg-orange :box t))))
                       (flycheck-delimited-info ((t (,@fmt-bold ,@fg-blue :box t))))
 
-                      (lsp-face-highlight-textual      ((t (:background "#292936" :foreground ,base3))))
+                      (lsp-face-highlight-textual      ((t (:background ,dark-blue :foreground ,base3))))
                       (lsp-face-highlight-read         ((t (:inherit lsp-face-highlight-textual))))
                       (lsp-face-highlight-write        ((t (:inherit lsp-face-highlight-textual :underline t))))
                       (lsp-lens-mouse-face            ((t (:foreground ,violet :underline t))))
                       (lsp-lens-face                  ((t (:foreground ,base01))))
-                      (lsp-ui-peek-highlight          ((t (:background "#292936" :foreground ,base3 :distant-foreground ,base03))))
+                      (lsp-ui-peek-highlight          ((t (:background ,dark-blue :foreground ,base3 :distant-foreground ,base03))))
                       (lsp-ui-doc-background          ((t (:background ,base02))))
 
                       ;; LSP UI
@@ -741,11 +777,11 @@ Each column is a different set, one of which will be chosen based on term
                       (lsp-ui-peek-line-number ((t (,@fg-base01))))
 
                       ;; LSP Semantic tokens
-                      (lsp-face-semhl-function ((t (,@fg-blue))))
-                      (lsp-face-semhl-method ((t (,@fg-blue))))
+                      (lsp-face-semhl-function ((t (,@fg-teal))))
+                      (lsp-face-semhl-method ((t (,@fg-cyan))))
 
                       ;; Local preferences
-                      (font-lock-variable-use-face ((t (:foreground unspecified))))
+                      (font-lock-variable-use-face ((t (,@fg-teal))))
                       (lsp-face-semhl-property ((t (:foreground unspecified))))
                       (lsp-face-semhl-member ((t (:foreground unspecified))))
                       (lsp-face-semhl-variable ((t (:foreground unspecified))))
@@ -829,7 +865,7 @@ Each column is a different set, one of which will be chosen based on term
                       (background-mode . ,mode)
                       (cursor-color . ,(when (<= 16 (display-color-cells))
                                          base0))
-	                    (ansi-color-names-vector . [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))))))))
+	                    (ansi-color-names-vector . [,base02 ,red ,green ,orange ,dark-blue ,violet ,dark-cyan ,base0]))))))))
 
 (defmacro create-noctilux-theme ()
   (let* ((theme-name 'noctilux)

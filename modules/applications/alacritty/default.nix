@@ -4,6 +4,25 @@
     let
       cfg = config.applications.alacritty;
       user = config.user;
+      palette = {
+        background = "0x16161d";
+        backgroundAlt = "0x212128";
+        foregroundDim = "0x9ca0a4";
+        foreground = "0xccccd6";
+        foregroundBright = "0xf8f8fb";
+        blackBright = "0x5b6268";
+        red = "0xff8888";
+        green = "0x86da87";
+        greenBright = "0xa1f6a1";
+        yellow = "0xdada86";
+        blueDark = "0x86aeda";
+        blue = "0xaaccff";
+        violet = "0xb286db";
+        magenta = "0xdb85d9";
+        cyanDark = "0x64a2a4";
+        cyan = "0x86d9db";
+        white = "0xf8f8fb";
+      };
     in
     {
       options.applications.alacritty.enable = lib.mkEnableOption "Alacritty";
@@ -18,40 +37,79 @@
             settings = {
               colors = {
                 primary = {
-                  background = "0x16161d";
-                  foreground = "0xccccd6";
+                  background = palette.background;
+                  foreground = palette.foreground;
+                  dim_foreground = palette.foregroundDim;
+                  bright_foreground = palette.foregroundBright;
                 };
 
                 cursor = {
-                  text = "0x16161d";
-                  cursor = "0xffffff";
+                  text = palette.background;
+                  cursor = palette.white;
+                };
+
+                vi_mode_cursor = {
+                  text = palette.background;
+                  cursor = palette.cyan;
                 };
 
                 selection = {
-                  text = "0xccccd6";
-                  background = "0x626276";
+                  text = palette.background;
+                  background = palette.blueDark;
+                };
+
+                search = {
+                  matches = {
+                    foreground = palette.background;
+                    background = palette.yellow;
+                  };
+                  focused_match = {
+                    foreground = palette.background;
+                    background = palette.blue;
+                  };
+                };
+
+                hints = {
+                  start = {
+                    foreground = palette.background;
+                    background = palette.yellow;
+                  };
+                  end = {
+                    foreground = palette.background;
+                    background = palette.cyan;
+                  };
+                };
+
+                line_indicator = {
+                  foreground = palette.foregroundDim;
+                  background = palette.backgroundAlt;
+                };
+
+                footer_bar = {
+                  foreground = palette.foreground;
+                  background = palette.backgroundAlt;
                 };
 
                 normal = {
-                  black = "0x1e1e28";
-                  red = "0xff8888";
-                  green = "0xaaffaa";
-                  yellow = "0xaaeecc";
-                  blue = "0xaaccff";
-                  magenta = "0xff1f69";
-                  cyan = "0xaadddd";
-                  white = "0x9999aa";
+                  black = palette.backgroundAlt;
+                  red = palette.red;
+                  green = palette.green;
+                  yellow = palette.yellow;
+                  blue = palette.blueDark;
+                  magenta = palette.violet;
+                  cyan = palette.cyanDark;
+                  white = palette.foreground;
                 };
 
                 bright = {
-                  black = "0x16161d";
-                  red = "0xff8888";
-                  green = "0x626276";
-                  yellow = "0x9999aa";
-                  blue = "0xccccd6";
-                  magenta = "0xccaaff";
-                  cyan = "0xb0b0bd";
-                  white = "0xf8f8fb";
+                  black = palette.blackBright;
+                  red = palette.red;
+                  green = palette.greenBright;
+                  yellow = palette.yellow;
+                  blue = palette.blue;
+                  magenta = palette.magenta;
+                  cyan = palette.cyan;
+                  white = palette.foregroundBright;
                 };
               };
 
@@ -98,7 +156,7 @@
               bell = {
                 animation = "EaseOutExpo";
                 duration = 0;
-                color = "0xf8f8fb";
+                color = palette.red;
               };
 
               mouse = {
