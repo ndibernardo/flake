@@ -4,18 +4,68 @@
 
 (load (merge-pathnames ".stumpwm.d/settings.lisp" (user-homedir-pathname)))
 
-(handler-case
-    (progn
-      (add-to-load-path (concat *rc-contrib-dir* "/util/swm-gaps/"))
-      (load-module "swm-gaps"))
-  (error (e) (format *error-output* "swm-gaps: ~a~%" e)))
-
 (let ((pkg (find-package "SWM-GAPS")))
   (when pkg
     (setf (symbol-value (find-symbol "*INNER-GAPS-SIZE*" pkg)) 4
           (symbol-value (find-symbol "*OUTER-GAPS-SIZE*" pkg)) 0
           (symbol-value (find-symbol "*HEAD-GAPS-SIZE*" pkg)) 0)
     (funcall (find-symbol "TOGGLE-GAPS-ON" pkg))))
+
+(defparameter *rc-swank-interface* "127.0.0.1")
+(defparameter *rc-swank-port* 4005)
+(defvar *rc-swank-server* nil
+  "Port of the Swank server started by this configuration, or NIL.")
+
+(defun rc-swank-function (name)
+  "Return the Swank function named NAME, or NIL when Swank is unavailable."
+  (let ((package (find-package "SWANK")))
+    (when package
+      (let ((symbol (find-symbol name package)))
+        (and symbol (fboundp symbol) (symbol-function symbol))))))
+
+(defcommand rc-swank-start () ()
+  "Start a loopback-only Swank server once."
+  (cond
+    (*rc-swank-server*
+     (message "SWANK // already running on ~a:~d"
+              *rc-swank-interface* *rc-swank-server*))
+    ((null (rc-swank-function "CREATE-SERVER"))
+     (message "SWANK // unavailable in this StumpWM image"))
+    (t
+     (handler-case
+         (setf *rc-swank-server*
+               (funcall (rc-swank-function "CREATE-SERVER")
+                        :port *rc-swank-port*
+                        :interface *rc-swank-interface*
+                        :dont-close t))
+       (error (e)
+         (message "SWANK // start failed: ~a" e)))
+     (when *rc-swank-server*
+       (message "SWANK // listening on ~a:~d"
+                *rc-swank-interface* *rc-swank-server*)))))
+
+(defcommand rc-swank-stop () ()
+  "Stop the Swank server started by this configuration."
+  (cond
+    ((null *rc-swank-server*)
+     (message "SWANK // not running"))
+    ((null (rc-swank-function "STOP-SERVER"))
+     (message "SWANK // stop function unavailable"))
+    (t
+     (handler-case
+         (let ((port *rc-swank-server*))
+           (funcall (rc-swank-function "STOP-SERVER") port)
+           (setf *rc-swank-server* nil)
+           (message "SWANK // stopped on ~a:~d" *rc-swank-interface* port))
+       (error (e)
+         (message "SWANK // stop failed: ~a" e))))))
+
+(defcommand rc-swank-status () ()
+  "Report whether this configuration has started a Swank server."
+  (if *rc-swank-server*
+      (message "SWANK // listening on ~a:~d"
+               *rc-swank-interface* *rc-swank-server*)
+      (message "SWANK // not running")))
 
 (let ((font (find-if #'font-exists-p *rc-fonts*)))
   (when font
@@ -299,6 +349,8 @@
            (list "Print"
                  (concat "exec " *rc-maim* " \"$HOME/$(date +%Y%m%d_%H%M%S).png\"")))))
   (define-key *top-map* (kbd (first binding)) (second binding)))
+
+(define-key *root-map* (kbd "C-s") "rc-swank-start")
 
 (when *initializing*
   (mode-line)
