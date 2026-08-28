@@ -67,7 +67,7 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "Berkeley Mono Book SemiCondensed-12")
+(set-face-attribute 'default nil :font "Berkeley Mono-12")
 
 ;; No startup screen
 (setq inhibit-splash-screen t)

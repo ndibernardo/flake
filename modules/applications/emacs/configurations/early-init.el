@@ -15,7 +15,7 @@
 (setq frame-resize-pixelwise t)
 
 (setq default-frame-alist
-      (append '((font . "Berkeley Mono Book SemiCondensed-12")
+      (append '((font . "Berkeley Mono-12")
                 (width . 170)
                 (height . 90))
               default-frame-alist))

@@ -10,7 +10,7 @@
       cfg = config.applications.emacs;
       user = config.user;
       emacsPackage = pkgs.emacsPackagesFor (
-        pkgs.emacs-pgtk.overrideAttrs (_: {
+        pkgs.emacs.overrideAttrs (_: {
           withImageMagick = true;
           withNativeCompilation = true;
           withTreeSitter = true;
