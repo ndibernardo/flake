@@ -29,6 +29,7 @@
 
       brightnessctl = lib.getExe pkgs.brightnessctl;
       i3lock = lib.getExe' pkgs.i3lock "i3lock";
+      iw = lib.getExe pkgs.iw;
       maim = lib.getExe' pkgs.maim "maim";
       pactl = lib.getExe' pkgs.pulseaudio "pactl";
       xrdb = lib.getExe' pkgs.xrdb "xrdb";
@@ -61,6 +62,7 @@
         (defparameter *rc-volume-command* ${lispString volumeCommand})
         (defparameter *rc-pactl* ${lispString pactl})
         (defparameter *rc-brightnessctl* ${lispString brightnessctl})
+        (defparameter *rc-iw* ${lispString iw})
         (defparameter *rc-maim* ${lispString maim})
       '';
     in

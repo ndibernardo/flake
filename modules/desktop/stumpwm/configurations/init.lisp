@@ -104,11 +104,8 @@
     (error () nil)))
 
 (defun rc-leading-integer (string)
-  "Parse the digits at the front of STRING, or NIL."
-  (when string
-    (let ((end (or (position-if-not #'digit-char-p string) (length string))))
-      (when (plusp end)
-        (parse-integer string :end end :junk-allowed t)))))
+  "Parse the signed integer at the front of STRING, or NIL."
+  (ignore-errors (parse-integer string :junk-allowed t)))
 
 (defun rc-escape (s)
   "Neutralise format and colour codes in text we do not control."
@@ -129,6 +126,18 @@
 (defun rc-accent (s)
   (rc-color *rc-accent-color* s))
 
+(defun rc-clickable (string id &rest arguments)
+  "Wrap STRING in a mode-line click action identified by ID."
+  (apply #'format-with-on-click-id string id arguments))
+
+(defun rc-set-package-variable (package-name variable-name value)
+  "Set VARIABLE-NAME in PACKAGE-NAME when that package is available."
+  (let ((package (find-package package-name)))
+    (when package
+      (let ((variable (find-symbol variable-name package)))
+        (when variable
+          (setf (symbol-value variable) value))))))
+
 (defun rc-join (separator strings)
   (with-output-to-string (out)
     (loop for rest on strings
@@ -142,9 +151,12 @@
   (format nil "~{~a~^ ~}"
           (loop for g in (non-hidden-groups (sort-groups (current-screen)))
                 when (or (eq g (current-group)) (group-windows g))
-                  collect (if (eq g (current-group))
-                              (rc-accent (rc-escape (group-name g)))
-                              (rc-muted (rc-escape (group-name g)))))))
+                  collect (rc-clickable
+                           (if (eq g (current-group))
+                               (rc-accent (rc-escape (group-name g)))
+                               (rc-muted (rc-escape (group-name g))))
+                           :ml-on-click-switch-to-group
+                           (group-name g)))))
 
 (defun rc-windows ()
   (let ((current (current-window))
@@ -156,19 +168,37 @@
                                      (format nil "~d ~a"
                                              (window-number w)
                                              (rc-shorten (or (window-title w) "") 20)))))
-                         (if (eq w current)
-                             (rc-accent label)
-                             (rc-muted label))))
+                         (rc-clickable
+                          (if (eq w current)
+                              (rc-accent label)
+                              (rc-muted label))
+                          :ml-on-click-focus-window
+                          (window-id w))))
                      windows))))
 
+(defvar *rc-volume-text* "")
+(defvar *rc-volume-timer* nil)
+
+(defun rc-update-volume ()
+  "Refresh the cached volume text outside the mode-line redraw path."
+  (setf *rc-volume-text*
+        (handler-case
+            (let ((out (string-trim '(#\Space #\Newline)
+                                    (run-shell-command *rc-volume-command* t))))
+              (cond ((string= out "") "")
+                    ((string= out "MUTE") (rc-muted "VOL // MUTE"))
+                    (t (format nil "VOL // ~a%%" out))))
+          (error () ""))))
+
+(defun rc-reset-volume-timer ()
+  "Refresh volume now and leave exactly one repeating refresh timer."
+  (when (timer-p *rc-volume-timer*)
+    (cancel-timer *rc-volume-timer*))
+  (rc-update-volume)
+  (setf *rc-volume-timer* (run-with-timer 5 5 #'rc-update-volume)))
+
 (defun rc-volume ()
-  (handler-case
-      (let ((out (string-trim '(#\Space #\Newline)
-                              (run-shell-command *rc-volume-command* t))))
-        (cond ((string= out "") "")
-              ((string= out "MUTE") (rc-muted "VOL // MUTE"))
-              (t (format nil "VOL // ~a%%" out))))
-    (error () "")))
+  *rc-volume-text*)
 
 (defun rc-bluetooth ()
   (handler-case
@@ -187,8 +217,8 @@
               (t (rc-muted "BT // ON"))))
     (error () "")))
 
-(defun rc-wifi-percent ()
-  "Link quality for *rc-interface*, from /proc/net/wireless, as a percentage."
+(defun rc-proc-wifi-percent ()
+  "Legacy Wireless Extensions quality for *rc-interface*, or zero."
   (handler-case
       (with-open-file (s "/proc/net/wireless" :if-does-not-exist nil)
         (if (null s)
@@ -206,12 +236,66 @@
                     finally (return 0)))))
     (error () 0)))
 
-(defun rc-network ()
+(defun rc-dbm-percent (dbm)
+  "Map a Wi-Fi signal in DBM linearly from -100..-50 to 0..100 percent."
+  (max 0 (min 100 (* 2 (+ dbm 100)))))
+
+(defun rc-iw-output-percent (output)
+  "Extract and convert the first signal value from iw link OUTPUT."
+  (let* ((marker "signal:")
+         (start (search marker output :test #'char-equal)))
+    (if start
+        (let ((dbm (rc-leading-integer
+                    (string-left-trim '(#\Space #\Tab)
+                                      (subseq output (+ start (length marker)))))))
+          (if dbm (rc-dbm-percent dbm) 0))
+        0)))
+
+(defun rc-iw-wifi-percent ()
+  "Read link signal through iw/nl80211, or return zero when unavailable."
   (handler-case
-      (if (equal "up" (rc-read-line (concat "/sys/class/net/" *rc-interface* "/operstate")))
-          (format nil "WIFI // ~d%%" (rc-wifi-percent))
-          (rc-accent "OFFLINE"))
-    (error () (rc-accent "OFFLINE"))))
+      (rc-iw-output-percent
+       (run-shell-command
+        (format nil "~a dev ~a link" *rc-iw* *rc-interface*) t))
+    (error () 0)))
+
+(defun rc-wifi-percent ()
+  "Wi-Fi quality, preferring procfs and falling back to iw/nl80211."
+  (let ((legacy (rc-proc-wifi-percent)))
+    (if (plusp legacy) legacy (rc-iw-wifi-percent))))
+
+(defvar *rc-network-text* "")
+(defvar *rc-network-timer* nil)
+
+(defun rc-update-network ()
+  "Refresh cached network text outside the mode-line redraw path."
+  (setf *rc-network-text*
+        (handler-case
+            (if (equal "up" (rc-read-line
+                             (concat "/sys/class/net/" *rc-interface* "/operstate")))
+                (format nil "WIFI // ~d%%" (rc-wifi-percent))
+                (rc-accent "OFFLINE"))
+          (error () (rc-accent "OFFLINE")))))
+
+(defun rc-reset-network-timer ()
+  "Refresh network state now and leave exactly one repeating timer."
+  (when (timer-p *rc-network-timer*)
+    (cancel-timer *rc-network-timer*))
+  (rc-update-network)
+  (setf *rc-network-timer* (run-with-timer 5 5 #'rc-update-network)))
+
+(defun rc-network ()
+  *rc-network-text*)
+
+(setf *bar-med-color* (format nil "^(:fg ~s)" *rc-muted-color*)
+      *bar-hi-color* (format nil "^(:fg ~s)" *rc-accent-color*)
+      *bar-crit-color* (format nil "^(:fg ~s)" *rc-accent-color*))
+(rc-set-package-variable "CPU" "*CPU-MODELINE-FMT*" "%c")
+(rc-set-package-variable "CPU" "*CPU-USAGE-MODELINE-FMT*"
+                         "CPU // ^[~A~D%^]")
+(rc-set-package-variable "MEM" "*MEM-MODELINE-FMT*" "MEM // %p")
+(rc-reset-volume-timer)
+(rc-reset-network-timer)
 
 (setf *mode-line-position* :top
       *mode-line-border-width* 0
@@ -233,6 +317,10 @@
             '(:eval (rc-bluetooth))
             "  "
             '(:eval (rc-network))
+            "  "
+            "%C"
+            "  "
+            "%M"
             "  "
             (rc-color *rc-accent-color* "%d")))
 
