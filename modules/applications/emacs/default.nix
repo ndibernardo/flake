@@ -22,7 +22,6 @@
         with epkgs;
         [
           avy
-          auto-dark
           consult
           corfu
           direnv
