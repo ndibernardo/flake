@@ -41,6 +41,7 @@
 
         desktop = {
           gtk.enable = lib.mkDefault true;
+          stumpwm.enable = lib.mkDefault true;
           sway.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
         };
@@ -87,6 +88,7 @@
             kind
             kubectl
             ripgrep
+            rmpc
             rsync
             opentofu
             unzip

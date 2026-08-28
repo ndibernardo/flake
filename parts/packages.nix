@@ -7,6 +7,7 @@ in
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
     helium = final.callPackage ../packages/helium.nix { };
     pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
+    stumpwm-contrib = final.callPackage ../packages/stumpwm-contrib.nix { };
 
     vimPlugins = prev.vimPlugins.extend (
       _: _: {
@@ -42,7 +43,7 @@ in
       };
 
       packages = {
-        inherit (pkgs) berkeley-mono pragmata-pro;
+        inherit (pkgs) berkeley-mono pragmata-pro stumpwm-contrib;
         inherit (pkgs.vimPlugins) tairiki;
       };
     };
