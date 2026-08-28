@@ -30,9 +30,9 @@
           '';
           shellAliases = {
             cat = "bat";
-            ll = "eza -la --git";
-            ls = "eza";
-            tree = "eza --tree --git-ignore --level=2";
+            ll = "eza -la --git --group-directories-first";
+            ls = "eza --group-directories-first";
+            tree = "eza --tree --git-ignore --level=2 --group-directories-first";
           };
           functions.fish_prompt = ''
             set_color normal
