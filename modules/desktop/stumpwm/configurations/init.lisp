@@ -1,5 +1,3 @@
-;;;; StumpWM configuration.
-
 (in-package :stumpwm)
 
 (load (merge-pathnames ".stumpwm.d/settings.lisp" (user-homedir-pathname)))
@@ -11,17 +9,37 @@
           (symbol-value (find-symbol "*HEAD-GAPS-SIZE*" pkg)) 0)
     (funcall (find-symbol "TOGGLE-GAPS-ON" pkg))))
 
+(defun rc-symbol (package-name symbol-name)
+  "Return SYMBOL-NAME interned in PACKAGE-NAME, or NIL when the package is absent."
+  (let ((package (find-package package-name)))
+    (when package
+      (find-symbol symbol-name package))))
+
+(defun rc-function (package-name symbol-name)
+  "Return the function named by SYMBOL-NAME in PACKAGE-NAME, or NIL."
+  (let ((symbol (rc-symbol package-name symbol-name)))
+    (and symbol (fboundp symbol) (symbol-function symbol))))
+
+(defun rc-value (package-name symbol-name)
+  "Return the value of SYMBOL-NAME in PACKAGE-NAME, or NIL when unbound."
+  (let ((symbol (rc-symbol package-name symbol-name)))
+    (and symbol (boundp symbol) (symbol-value symbol))))
+
+(defun rc-set-value (package-name symbol-name value)
+  "Set SYMBOL-NAME in PACKAGE-NAME to VALUE when that variable exists."
+  (let ((symbol (rc-symbol package-name symbol-name)))
+    (when (and symbol (boundp symbol))
+      (setf (symbol-value symbol) value))))
+
+(defun rc-screen-formatter-segment (character)
+  "Return a separated mode-line token only when CHARACTER is registered."
+  (when (assoc character *screen-mode-line-formatters*)
+    (list "  " (format nil "%~c" character))))
+
 (defparameter *rc-swank-interface* "127.0.0.1")
 (defparameter *rc-swank-port* 4005)
 (defvar *rc-swank-server* nil
   "Port of the Swank server started by this configuration, or NIL.")
-
-(defun rc-swank-function (name)
-  "Return the Swank function named NAME, or NIL when Swank is unavailable."
-  (let ((package (find-package "SWANK")))
-    (when package
-      (let ((symbol (find-symbol name package)))
-        (and symbol (fboundp symbol) (symbol-function symbol))))))
 
 (defcommand rc-swank-start () ()
   "Start a loopback-only Swank server once."
@@ -29,12 +47,12 @@
     (*rc-swank-server*
      (message "SWANK // already running on ~a:~d"
               *rc-swank-interface* *rc-swank-server*))
-    ((null (rc-swank-function "CREATE-SERVER"))
+    ((null (rc-function "SWANK" "CREATE-SERVER"))
      (message "SWANK // unavailable in this StumpWM image"))
     (t
      (handler-case
          (setf *rc-swank-server*
-               (funcall (rc-swank-function "CREATE-SERVER")
+               (funcall (rc-function "SWANK" "CREATE-SERVER")
                         :port *rc-swank-port*
                         :interface *rc-swank-interface*
                         :dont-close t))
@@ -49,12 +67,12 @@
   (cond
     ((null *rc-swank-server*)
      (message "SWANK // not running"))
-    ((null (rc-swank-function "STOP-SERVER"))
+    ((null (rc-function "SWANK" "STOP-SERVER"))
      (message "SWANK // stop function unavailable"))
     (t
      (handler-case
          (let ((port *rc-swank-server*))
-           (funcall (rc-swank-function "STOP-SERVER") port)
+           (funcall (rc-function "SWANK" "STOP-SERVER") port)
            (setf *rc-swank-server* nil)
            (message "SWANK // stopped on ~a:~d" *rc-swank-interface* port))
        (error (e)
@@ -87,6 +105,13 @@
 (set-bg-color *rc-bg*)
 (set-border-color *rc-bg*)
 (set-msg-border-width 0)
+
+(let ((pixel (parse-integer *rc-bg* :start 1 :radix 16)))
+  (setf *default-bg-color* pixel)
+  (let ((root (screen-root (current-screen))))
+    (setf (xlib:window-background root) pixel)
+    (xlib:clear-area root)))
+
 (setf *message-window-padding* 10
       *message-window-y-padding* 6
       *message-window-gravity* :center
@@ -94,7 +119,6 @@
       *timeout-wait* 3
       *suppress-frame-indicator* t
       *mouse-focus-policy* :sloppy)
-
 
 (defun rc-read-line (path)
   "First line of PATH, or NIL when it cannot be read."
@@ -129,14 +153,6 @@
 (defun rc-clickable (string id &rest arguments)
   "Wrap STRING in a mode-line click action identified by ID."
   (apply #'format-with-on-click-id string id arguments))
-
-(defun rc-set-package-variable (package-name variable-name value)
-  "Set VARIABLE-NAME in PACKAGE-NAME when that package is available."
-  (let ((package (find-package package-name)))
-    (when package
-      (let ((variable (find-symbol variable-name package)))
-        (when variable
-          (setf (symbol-value variable) value))))))
 
 (defun rc-join (separator strings)
   (with-output-to-string (out)
@@ -287,13 +303,6 @@
 (defun rc-network ()
   *rc-network-text*)
 
-(setf *bar-med-color* (format nil "^(:fg ~s)" *rc-muted-color*)
-      *bar-hi-color* (format nil "^(:fg ~s)" *rc-accent-color*)
-      *bar-crit-color* (format nil "^(:fg ~s)" *rc-accent-color*))
-(rc-set-package-variable "CPU" "*CPU-MODELINE-FMT*" "%c")
-(rc-set-package-variable "CPU" "*CPU-USAGE-MODELINE-FMT*"
-                         "CPU // ^[~A~D%^]")
-(rc-set-package-variable "MEM" "*MEM-MODELINE-FMT*" "MEM // %p")
 (rc-reset-volume-timer)
 (rc-reset-network-timer)
 
@@ -307,23 +316,24 @@
       *mode-line-timeout* 5
       *time-modeline-string* "TIME // %H:%M")
 
-(setf *screen-mode-line-format*
-      (list '(:eval (rc-groups))
-            "  "
-            '(:eval (rc-windows))
-            "^>"
-            '(:eval (rc-volume))
-            "  "
-            '(:eval (rc-bluetooth))
-            "  "
-            '(:eval (rc-network))
-            "  "
-            "%C"
-            "  "
-            "%M"
-            "  "
-            (rc-color *rc-accent-color* "%d")))
+(defparameter *rc-mode-line-tail*
+  (list '(:eval (rc-volume))
+        "  "
+        '(:eval (rc-bluetooth))
+        "  "
+        '(:eval (rc-network))
+        "  "
+        (rc-color *rc-accent-color* "%d"))
+  "Status text drawn to the right of the tray. rc-tray-position measures it.")
 
+(setf *screen-mode-line-format*
+      (append (list '(:eval (rc-groups))
+                    "  "
+                    '(:eval (rc-windows))
+                    "^>")
+              (rc-screen-formatter-segment #\T)
+              (list "  ")
+              *rc-mode-line-tail*))
 
 (unless (find-group (current-screen) "1")
   (grename "1"))
@@ -334,6 +344,9 @@
 
 (unless (find-group (current-screen) ".scratchpad")
   (gnewbg ".scratchpad"))
+
+(unless (find-group (current-screen) "dyn")
+  (gnewbg-dynamic "dyn"))
 
 (defun rc-scratchpad ()
   (find-group (current-screen) ".scratchpad"))
@@ -366,6 +379,149 @@
       (if (float-window-p w)
           (unfloat-this)
           (float-this)))))
+
+(dolist (variable '("*TRAY-WIN-BACKGROUND*"
+                    "*TRAY-VIWIN-BACKGROUND*"
+                    "*TRAY-HIWIN-BACKGROUND*"))
+  (rc-set-value "STUMPTRAY" variable *rc-bg*))
+
+(defparameter *rc-tray-icon-height* 18
+  "Tray icon side in pixels.")
+
+(defparameter *rc-tray-gap* 20
+  "Pixels between the last tray icon and the status text.")
+
+(defun rc-tray-fit-icons (mode-line)
+  "Set stumptray's cursor gap so MODE-LINE icons are *rc-tray-icon-height* tall."
+  (let ((height (xlib:drawable-height (mode-line-window mode-line)))
+        (thickness (or (rc-value "STUMPTRAY" "*TRAY-CURSOR-THICKNESS*") 2)))
+    (rc-set-value "STUMPTRAY" "*TRAY-CURSOR-ICON-DISTANCE*"
+                  (max 1 (- height thickness *rc-tray-icon-height*)))))
+
+(defun rc-tray-position (tray)
+  "Return TRAY's x, *rc-tray-gap* pixels left of *rc-mode-line-tail*."
+  (let* ((ml (funcall (rc-function "STUMPTRAY" "TRAY-MODE-LINE") tray))
+         (width (funcall (rc-function "STUMPTRAY" "TRAY-WIDTH") tray))
+         (spacing (or (rc-value "STUMPTRAY" "*TRAY-ICON-SPACING*") 0))
+         (*current-mode-line-formatters* *screen-mode-line-formatters*)
+         (*current-mode-line-formatter-args* (list ml))
+         (tail (mode-line-format-elt *rc-mode-line-tail*)))
+    (max 0 (- (xlib:drawable-width (mode-line-window ml))
+              *mode-line-pad-x*
+              (rendered-string-size tail (mode-line-cc ml))
+              width
+              (- *rc-tray-gap* spacing)))))
+
+(rc-set-value "STUMPTRAY" "*TRAY-ICON-SPACING*" 8)
+(when (rc-symbol "STUMPTRAY" "*TRAY-POSITION-FUNCTION*")
+  (rc-set-value "STUMPTRAY" "*TRAY-POSITION-FUNCTION*" #'rc-tray-position))
+
+(defun rc-tray-placeholder (mode-line)
+  "Reposition the tray for MODE-LINE, then return stumptray's placeholder."
+  (let* ((current (rc-function "STUMPTRAY" "CURRENT-TRAY"))
+         (tray (and current (funcall current)))
+         (reposition (rc-function "STUMPTRAY" "UPDATE-MAIN-WINDOW-GEOMETRY"))
+         (placeholder (rc-function "STUMPTRAY" "MODE-LINE-TRAY-PLACEHOLDER")))
+    (when (and tray reposition)
+      (ignore-errors (funcall reposition tray)))
+    (if placeholder (funcall placeholder mode-line) "")))
+
+(when (rc-function "STUMPTRAY" "MODE-LINE-TRAY-PLACEHOLDER")
+  (add-screen-mode-line-formatter #\T 'rc-tray-placeholder))
+
+(defun rc-tray-start ()
+  "Create the XEmbed tray. The underlying command toggles; call once."
+  (let* ((tray (rc-function "STUMPTRAY" "STUMPTRAY"))
+         (screen-mode-line (rc-function "STUMPTRAY" "SCREEN-MODE-LINE"))
+         (ml (and screen-mode-line (funcall screen-mode-line (current-screen)))))
+    (cond
+      ((null tray)
+       (message "TRAY // stumptray unavailable in this StumpWM image"))
+      ((null ml)
+       (message "TRAY // no mode line to embed into"))
+      (t
+       (rc-tray-fit-icons ml)
+       (handler-case (funcall tray)
+         (error (e) (message "TRAY // start failed: ~a" e)))))))
+
+(rc-set-value "NOTIFY" "*NOTIFY-SERVER-TITLE-COLOR*"
+              (format nil "^(:fg ~s)" *rc-accent-color*))
+(rc-set-value "NOTIFY" "*NOTIFY-SERVER-BODY-COLOR*"
+              (format nil "^(:fg ~s)" *rc-fg*))
+
+(defun rc-notify-listening-p ()
+  "True when notify's flag is set and its DBus thread is still alive."
+  (let ((thread (rc-value "NOTIFY" "*NOTIFY-SERVER-THREAD*"))
+        (alive (rc-function "BORDEAUX-THREADS" "THREAD-ALIVE-P")))
+    (and (rc-value "NOTIFY" "*NOTIFY-SERVER-IS-ON*")
+         thread
+         (or (null alive) (funcall alive thread))
+         t)))
+
+(defcommand rc-notify-start () ()
+  "Claim org.freedesktop.Notifications, replacing a dead listener."
+  (let ((start (rc-function "NOTIFY" "NOTIFY-SERVER-ON")))
+    (cond
+      ((null start)
+       (message "NOTIFY // unavailable in this StumpWM image"))
+      ((rc-notify-listening-p)
+       (message "NOTIFY // already listening"))
+      (t
+       (rc-set-value "NOTIFY" "*NOTIFY-SERVER-IS-ON*" nil)
+       (handler-case (funcall start)
+         (error (e) (message "NOTIFY // start failed: ~a" e)))))))
+
+(defcommand rc-notify-stop () ()
+  "Release org.freedesktop.Notifications."
+  (let ((stop (rc-function "NOTIFY" "NOTIFY-SERVER-OFF")))
+    (cond
+      ((null stop)
+       (message "NOTIFY // unavailable in this StumpWM image"))
+      ((not (rc-notify-listening-p))
+       (rc-set-value "NOTIFY" "*NOTIFY-SERVER-IS-ON*" nil)
+       (message "NOTIFY // not listening"))
+      (t
+       (handler-case (funcall stop)
+         (error (e) (message "NOTIFY // stop failed: ~a" e)))))))
+
+(defcommand rc-notify-status () ()
+  "Report whether a live listener owns the notification bus name."
+  (if (rc-notify-listening-p)
+      (message "NOTIFY // listening")
+      (message "NOTIFY // not listening")))
+
+(define-interactive-keymap (window-mode tile-group)
+    (:on-enter (lambda () (message "WINDOW // hjkl move, HJKL swap")))
+  ((kbd "h") "move-focus left")
+  ((kbd "j") "move-focus down")
+  ((kbd "k") "move-focus up")
+  ((kbd "l") "move-focus right")
+  ((kbd "H") "move-window left")
+  ((kbd "J") "move-window down")
+  ((kbd "K") "move-window up")
+  ((kbd "L") "move-window right"))
+
+(defun rc-urgent-window (window)
+  "Announce WINDOW when it sets the urgency hint."
+  (message "URGENT // ~a" (rc-escape (or (window-title window) ""))))
+
+(add-hook *urgent-window-hook* 'rc-urgent-window)
+
+(defun rc-winner-snapshot (command)
+  "Dump the frame layout when COMMAND is one of winner-mode's."
+  (let ((commands (rc-value "WINNER-MODE" "*DEFAULT-COMMANDS*"))
+        (dump (rc-function "WINNER-MODE" "DUMP-GROUP-TO-FILE")))
+    (when (and dump (member command commands))
+      (funcall dump))))
+
+(add-hook *post-command-hook* 'rc-winner-snapshot)
+
+(handler-case
+    (progn
+      (add-to-load-path (concat *rc-contrib-dir* "/util/command-history/"))
+      (load-module "command-history"))
+  (error (e)
+    (format *error-output* "command-history: ~a~%" e)))
 
 (dolist (binding
          (append
@@ -417,6 +573,10 @@
             ("s-ISO_Left_Tab" "prev")
             ("s-a"            "fother")
             ("s-r"            "iresize")
+            ("s-m"            "window-mode")
+            ("s-u"            "winner-undo")
+            ("s-U"            "winner-redo")
+            ("s-W"            "global-windowlist")
             ("s-minus"        "scratchpad-show")
             ("s-underscore"   "scratchpad-send"))
 
@@ -442,4 +602,6 @@
 
 (when *initializing*
   (mode-line)
+  (rc-tray-start)
+  (rc-notify-start)
   (switch-to-group (find-group (current-screen) "1")))
