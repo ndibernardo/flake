@@ -23,9 +23,16 @@
 
       fontDir = "/run/current-system/sw/share/X11/fonts";
       fonts = [
-        "-*-departure mono-*-r-*--16-*-*-*-*-*-iso10646-1"
         "-*-terminus-medium-r-normal--16-*-*-*-*-*-iso10646-1"
       ];
+
+      truetype = {
+        file = "${pkgs.departure-mono-ttf}/share/fonts/truetype/DepartureMono-Regular.ttf";
+        family = "Departure Mono";
+        subfamily = "Regular";
+        size = 12;
+        dpi = 96;
+      };
 
       brightnessctl = lib.getExe pkgs.brightnessctl;
       i3lock = lib.getExe' pkgs.i3lock "i3lock";
@@ -55,6 +62,12 @@
 
         (defparameter *rc-fonts*
           (list ${lib.concatMapStringsSep "\n        " lispString fonts}))
+
+        (defparameter *rc-ttf-file* ${lispString truetype.file})
+        (defparameter *rc-ttf-family* ${lispString truetype.family})
+        (defparameter *rc-ttf-subfamily* ${lispString truetype.subfamily})
+        (defparameter *rc-ttf-size* ${toString truetype.size})
+        (defparameter *rc-ttf-dpi* ${toString truetype.dpi})
 
         (defparameter *rc-contrib-dir* ${lispString "${pkgs.stumpwm-contrib}"})
         (defparameter *rc-interface* ${lispString interface})

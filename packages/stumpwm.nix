@@ -18,6 +18,7 @@ stumpwm.overrideAttrs (old: {
         alexandria
         cl-ppcre
         clx
+        clx-truetype
         fiasco
         swank
         xembed
@@ -35,6 +36,9 @@ stumpwm.overrideAttrs (old: {
 
     cat >> load-stumpwm.lisp <<'LISP'
     (asdf:load-system "swank")
+
+    (asdf:load-asd #p"${stumpwm-contrib}/util/ttf-fonts/ttf-fonts.asd")
+    (asdf:load-system "ttf-fonts")
 
     (asdf:load-asd #p"${stumpwm-contrib}/util/swm-gaps/swm-gaps.asd")
     (asdf:load-system "swm-gaps")

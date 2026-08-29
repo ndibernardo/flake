@@ -85,10 +85,42 @@
                *rc-swank-interface* *rc-swank-server*)
       (message "SWANK // not running")))
 
-(let ((font (find-if #'font-exists-p *rc-fonts*)))
-  (when font
-    (handler-case (set-font font)
-      (error (e) (format *error-output* "font: ~a~%" e)))))
+(defun rc-set-screen-dpi (dpi)
+  "Pin the DPI clx-truetype resolves point sizes against."
+  (let ((symbol (rc-symbol "XFT" "SCREEN-DPI")))
+    (when (and symbol (fboundp (list 'setf symbol)))
+      (funcall (fdefinition (list 'setf symbol))
+               dpi (screen-number (current-screen))))))
+
+(defun rc-truetype-font ()
+  "A font object for *rc-ttf-file*, or NIL without TrueType support."
+  (let ((cache (rc-function "XFT" "CACHE-FONT-FILE"))
+        (class (rc-symbol "XFT" "FONT"))
+        (file (probe-file *rc-ttf-file*)))
+    (when (and cache class file)
+      (funcall cache file)
+      (rc-set-screen-dpi *rc-ttf-dpi*)
+      (handler-case
+          (make-instance class
+                         :family *rc-ttf-family*
+                         :subfamily *rc-ttf-subfamily*
+                         :size *rc-ttf-size*)
+        (error (e)
+          (format *error-output* "font: ~a: ~a~%" *rc-ttf-file* e)
+          nil)))))
+
+(defun rc-set-first-font (fonts)
+  "Install the first font in FONTS that the X server can actually open."
+  (dolist (font fonts)
+    (when (and (font-exists-p font)
+               (handler-case (progn (set-font font) t)
+                 (error (e)
+                   (format *error-output* "font: ~a: ~a~%" font e)
+                   nil)))
+      (return font))))
+
+(let ((truetype (rc-truetype-font)))
+  (rc-set-first-font (if truetype (cons truetype *rc-fonts*) *rc-fonts*)))
 
 (setf *normal-border-width* 1
       *maxsize-border-width* 1
@@ -430,13 +462,16 @@
   (add-screen-mode-line-formatter #\T 'rc-tray-placeholder))
 
 (defun rc-tray-start ()
-  "Create the XEmbed tray. The underlying command toggles; call once."
+  "Create the XEmbed tray, unless one is already embedded."
   (let* ((tray (rc-function "STUMPTRAY" "STUMPTRAY"))
+         (current (rc-function "STUMPTRAY" "CURRENT-TRAY"))
          (screen-mode-line (rc-function "STUMPTRAY" "SCREEN-MODE-LINE"))
          (ml (and screen-mode-line (funcall screen-mode-line (current-screen)))))
     (cond
       ((null tray)
        (message "TRAY // stumptray unavailable in this StumpWM image"))
+      ((and current (funcall current))
+       nil)
       ((null ml)
        (message "TRAY // no mode line to embed into"))
       (t
@@ -601,7 +636,10 @@
 (define-key *root-map* (kbd "C-s") "rc-swank-start")
 
 (when *initializing*
-  (mode-line)
-  (rc-tray-start)
-  (rc-notify-start)
+  (mode-line))
+
+(rc-tray-start)
+(rc-notify-start)
+
+(when *initializing*
   (switch-to-group (find-group (current-screen) "1")))
