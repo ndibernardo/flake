@@ -64,7 +64,7 @@
             menu = "fuzzel";
 
             fonts = {
-              names = [ "Departure Mono" ];
+              names = [ "Berkeley Mono" ];
               size = 12.0;
             };
 

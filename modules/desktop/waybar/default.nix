@@ -133,7 +133,7 @@
                 border: none;
                 border-radius: 0;
                 min-height: 0;
-                font-family: 'Departure Mono', 'Symbols Nerd Font';
+                font-family: 'Berkeley Mono', 'Symbols Nerd Font';
                 font-size: 15px;
                 font-weight: 400;
               }

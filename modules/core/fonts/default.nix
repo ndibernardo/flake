@@ -53,6 +53,7 @@
             };
           };
           packages = with pkgs; [
+            b612
             berkeley-mono
             commit-mono
             departure-mono

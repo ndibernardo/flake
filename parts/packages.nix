@@ -5,7 +5,6 @@ in
 {
   flake.overlays.default = final: prev: {
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
-    departure-mono-ttf = final.callPackage ../packages/departure-mono-ttf.nix { };
     helium = final.callPackage ../packages/helium.nix { };
     pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
     stumpwm-contrib = final.callPackage ../packages/stumpwm-contrib.nix { };
@@ -49,7 +48,6 @@ in
       packages = {
         inherit (pkgs)
           berkeley-mono
-          departure-mono-ttf
           pragmata-pro
           stumpwm
           stumpwm-contrib

@@ -92,22 +92,26 @@
       (funcall (fdefinition (list 'setf symbol))
                dpi (screen-number (current-screen))))))
 
-(defun rc-truetype-font ()
-  "A font object for *rc-ttf-file*, or NIL without TrueType support."
+(defun rc-truetype-fonts ()
+  "Font objects for the *rc-ttf-fonts* entries this image can render."
   (let ((cache (rc-function "XFT" "CACHE-FONT-FILE"))
-        (class (rc-symbol "XFT" "FONT"))
-        (file (probe-file *rc-ttf-file*)))
-    (when (and cache class file)
-      (funcall cache file)
+        (class (rc-symbol "XFT" "FONT")))
+    (when (and cache class)
       (rc-set-screen-dpi *rc-ttf-dpi*)
-      (handler-case
-          (make-instance class
-                         :family *rc-ttf-family*
-                         :subfamily *rc-ttf-subfamily*
-                         :size *rc-ttf-size*)
-        (error (e)
-          (format *error-output* "font: ~a: ~a~%" *rc-ttf-file* e)
-          nil)))))
+      (loop for (file family subfamily antialias) in *rc-ttf-fonts*
+            for path = (probe-file file)
+            when path
+              append (handler-case
+                         (progn
+                           (funcall cache path)
+                           (list (make-instance class
+                                                :family family
+                                                :subfamily subfamily
+                                                :size *rc-ttf-size*
+                                                :antialias antialias)))
+                       (error (e)
+                         (format *error-output* "font: ~a: ~a~%" file e)
+                         nil))))))
 
 (defun rc-set-first-font (fonts)
   "Install the first font in FONTS that the X server can actually open."
@@ -119,8 +123,7 @@
                    nil)))
       (return font))))
 
-(let ((truetype (rc-truetype-font)))
-  (rc-set-first-font (if truetype (cons truetype *rc-fonts*) *rc-fonts*)))
+(rc-set-first-font (append (rc-truetype-fonts) *rc-fonts*))
 
 (setf *normal-border-width* 1
       *maxsize-border-width* 1

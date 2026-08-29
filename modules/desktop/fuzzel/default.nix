@@ -18,7 +18,7 @@
           settings = {
             main = {
               terminal = "alacritty -e";
-              font = "Departure Mono:size=12";
+              font = "Berkeley Mono:size=12";
               width = 30;
               lines = 10;
               prompt = ''""'';

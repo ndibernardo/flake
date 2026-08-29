@@ -16,6 +16,18 @@
           polkitPolicyOwners = [ config.user.name ];
         };
 
+        security.polkit = {
+          enable = true;
+          extraConfig = ''
+            polkit.addRule(function(action, subject) {
+              if (action.id.indexOf("com.1password.1Password.") === 0 &&
+                  subject.user === "${config.user.name}") {
+                return polkit.Result.YES;
+              }
+            });
+          '';
+        };
+
         core.nixpkgs.unfreePackages = [
           "1password"
           "1password-cli"
