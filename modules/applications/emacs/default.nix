@@ -62,10 +62,12 @@
           dockerfile-mode
           docker-compose-mode
           elixir-mode
+          fennel-mode
           fsharp-mode
           glsl-mode
           go-mode
           lsp-pyright
+          lua-mode
           markdown-mode
           nix-mode
           rust-mode

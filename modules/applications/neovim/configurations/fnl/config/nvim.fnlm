@@ -1,0 +1,15 @@
+;; [nfnl-macro]
+
+(fn setup! [module config]
+  `((. (require ,module) :setup) ,config))
+
+(fn map! [mode lhs rhs ?options]
+  `(vim.keymap.set ,mode ,lhs ,rhs ,(or ?options {})))
+
+(fn autocmd! [events options]
+  `(vim.api.nvim_create_autocmd ,events ,options))
+
+(fn command! [name callback ?options]
+  `(vim.api.nvim_create_user_command ,name ,callback ,(or ?options {})))
+
+{: setup! : map! : autocmd! : command!}

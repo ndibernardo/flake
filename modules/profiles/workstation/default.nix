@@ -73,6 +73,7 @@
           direnv.enable = lib.mkDefault true;
           fish.enable = lib.mkDefault true;
           git.enable = lib.mkDefault true;
+          languages.enable = lib.mkDefault true;
           tmux.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [

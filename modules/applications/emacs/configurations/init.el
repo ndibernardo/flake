@@ -462,6 +462,11 @@ edge, and leaves the file's own line endings untouched."
 (add-to-list 'auto-mode-alist '("\\.\\(ex\\|exs\\|heex\\)\\'" . elixir-mode))
 (add-hook 'elixir-mode-hook 'lsp)
 
+;; Fennel
+(require 'fennel-mode)
+(add-to-list 'auto-mode-alist '("\\.fnl\\'" . fennel-mode))
+(add-hook 'fennel-mode-hook 'lsp)
+
 ;; F#
 (require 'fsharp-mode)
 (add-to-list 'auto-mode-alist '("\\.\\(fs\\|fsi\\|fsx\\)\\'" . fsharp-mode))
@@ -471,6 +476,11 @@ edge, and leaves the file's own line endings untouched."
 (require 'go-mode)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 (add-hook 'go-mode-hook 'lsp)
+
+;; Lua
+(require 'lua-mode)
+(add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode))
+(add-hook 'lua-mode-hook 'lsp)
 
 ;; Nix
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
