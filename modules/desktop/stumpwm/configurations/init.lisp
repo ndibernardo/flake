@@ -420,18 +420,57 @@
                     "*TRAY-HIWIN-BACKGROUND*"))
   (rc-set-value "STUMPTRAY" variable *rc-bg*))
 
-(defparameter *rc-tray-icon-height* 18
-  "Tray icon side in pixels.")
+(defparameter *rc-tray-icon-sample* "0123456789ABCXYZ"
+  "Glyphs whose cap band the tray icons are aligned to.")
+
+(defparameter *rc-tray-icon-size* 16
+  "Tray icon side in pixels.
+XEmbed hands the client a size, it does not scale what the client draws,
+so anything under the client's WM_NORMAL_HINTS minimum crops the icon
+instead of shrinking it. 16 is what tray clients here ask for.")
 
 (defparameter *rc-tray-gap* 20
   "Pixels between the last tray icon and the status text.")
 
+(defun rc-tray-cap-height (font)
+  "Height of *rc-tray-icon-sample* above the baseline, or NIL.
+Only fonts drawn in this image have an ink box; xft:text-bounding-box
+rounds its ymax up, hence the 1- below."
+  (let ((class (rc-symbol "XFT" "FONT"))
+        (bbox (rc-function "XFT" "TEXT-BOUNDING-BOX")))
+    (when (and class bbox (typep font class))
+      (max 1 (1- (aref (funcall bbox (screen-number (current-screen))
+                                font *rc-tray-icon-sample*)
+                       3))))))
+
+(defun rc-tray-icon-box (mode-line)
+  "Return the tray icon side and its top edge within MODE-LINE.
+Icons keep their own size and get moved, centred on the band the text ink
+occupies rather than on the mode line, so they read as aligned with it.
+An icon taller than that band cannot straddle it evenly, and the leftover
+pixel reads better below the text than above it, hence the ceiling."
+  (let* ((height (xlib:drawable-height (mode-line-window mode-line)))
+         (side (max 1 (min *rc-tray-icon-size* (- height 2))))
+         (font (screen-font (current-screen)))
+         (cap (rc-tray-cap-height font))
+         (middle (if cap
+                     (- (+ *mode-line-pad-y* (font-ascent font)) (/ cap 2))
+                     (/ height 2))))
+    (values side (max 0 (min (- height side) (ceiling (- middle (/ side 2))))))))
+
 (defun rc-tray-fit-icons (mode-line)
-  "Set stumptray's cursor gap so MODE-LINE icons are *rc-tray-icon-height* tall."
+  "Set stumptray's cursor gap so new MODE-LINE icons match the cap band."
   (let ((height (xlib:drawable-height (mode-line-window mode-line)))
         (thickness (or (rc-value "STUMPTRAY" "*TRAY-CURSOR-THICKNESS*") 2)))
     (rc-set-value "STUMPTRAY" "*TRAY-CURSOR-ICON-DISTANCE*"
-                  (max 1 (- height thickness *rc-tray-icon-height*)))))
+                  (max 1 (- height thickness (rc-tray-icon-box mode-line))))))
+
+(defun rc-tray-align (tray mode-line)
+  "Sit TRAY on the MODE-LINE text baseline.
+stumptray places its window once, when it creates it, so the icons drift
+away from the text whenever a font change resizes the mode line."
+  (let ((win (funcall (rc-function "STUMPTRAY" "TRAY-WIN") tray)))
+    (setf (xlib:drawable-y win) (nth-value 1 (rc-tray-icon-box mode-line)))))
 
 (defun rc-tray-position (tray)
   "Return TRAY's x, *rc-tray-gap* pixels left of *rc-mode-line-tail*."
@@ -458,7 +497,10 @@
          (reposition (rc-function "STUMPTRAY" "UPDATE-MAIN-WINDOW-GEOMETRY"))
          (placeholder (rc-function "STUMPTRAY" "MODE-LINE-TRAY-PLACEHOLDER")))
     (when (and tray reposition)
-      (ignore-errors (funcall reposition tray)))
+      (ignore-errors
+       (rc-tray-fit-icons mode-line)
+       (funcall reposition tray)
+       (rc-tray-align tray mode-line)))
     (if placeholder (funcall placeholder mode-line) "")))
 
 (when (rc-function "STUMPTRAY" "MODE-LINE-TRAY-PLACEHOLDER")
