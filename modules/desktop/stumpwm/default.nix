@@ -10,7 +10,6 @@
       cfg = config.desktop.stumpwm;
       user = config.user;
 
-      # Same palette as the sway and waybar modules.
       c = {
         bg = "#16161D";
         fg = "#EFEFF4";
@@ -20,6 +19,12 @@
       };
 
       interface = "wlp9s0";
+
+      display = {
+        output = "DP-4";
+        mode = "3840x2160";
+        rate = "240.02";
+      };
 
       fontDir = "/run/current-system/sw/share/X11/fonts";
       fonts = [
@@ -44,6 +49,7 @@
       iw = lib.getExe pkgs.iw;
       maim = lib.getExe' pkgs.maim "maim";
       pactl = lib.getExe' pkgs.pulseaudio "pactl";
+      xrandr = lib.getExe' pkgs.xrandr "xrandr";
       xrdb = lib.getExe' pkgs.xrdb "xrdb";
       xset = lib.getExe' pkgs.xset "xset";
       xsetroot = lib.getExe' pkgs.xsetroot "xsetroot";
@@ -105,8 +111,9 @@
 
           displayManager.sessionCommands = ''
             if [ -n "$DISPLAY" ]; then
-              # This head reports 139 DPI, so winit and Xft scale X clients by
-              # ~1.42 while sway renders them at 1. Pin 96 to keep one look.
+              ${xrandr} --output ${display.output} \
+                --mode ${display.mode} --rate ${display.rate} || true
+
               printf 'Xft.dpi: 96\n' | ${xrdb} -merge -
               ${xsetroot} -solid '${c.bg}' -cursor_name left_ptr
               ${xset} s 1800 1800
@@ -128,6 +135,7 @@
           pkgs.brightnessctl
           pkgs.maim
           pkgs.xclip
+          pkgs.xrandr
           pkgs.xrdb
           pkgs.xset
           pkgs.xsetroot
