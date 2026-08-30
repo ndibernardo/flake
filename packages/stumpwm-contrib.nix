@@ -18,10 +18,12 @@ stdenvNoCC.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
+  # Installed under share/ so `environment.pathsToLink` can expose it at
+  # /run/current-system/sw/share/stumpwm-contrib, which init.lisp names directly.
   installPhase = ''
     runHook preInstall
-    mkdir -p $out
-    cp -r modeline minor-mode util $out/
+    mkdir -p $out/share/stumpwm-contrib
+    cp -r modeline minor-mode util $out/share/stumpwm-contrib/
     runHook postInstall
   '';
 

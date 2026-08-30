@@ -8,7 +8,6 @@
     }:
     let
       cfg = config.applications.emacs;
-      user = config.user;
       emacsPackage = pkgs.emacsPackagesFor (
         pkgs.emacs.overrideAttrs (_: {
           withImageMagick = true;
@@ -79,48 +78,41 @@
         ]
       );
 
-      reloadConfiguration = pkgs.writeShellScript "emacs-reload-configuration" ''
-        exec ${customEmacs}/bin/emacsclient --eval "(progn \
-          (load-file user-init-file) \
-          (mapc (lambda (theme) (load-theme theme t)) custom-enabled-themes) \
-          (message \"Configuration reloaded\"))"
-      '';
+      # The init files are no longer store paths, so the daemon cannot be
+      # restarted by a rebuild when they change. This reloads a running daemon
+      # against whatever is on disk right now.
+      reloadConfiguration = pkgs.writeShellApplication {
+        name = "emacs-reload-configuration";
+        text = ''
+          exec ${customEmacs}/bin/emacsclient --eval "(progn \
+            (load-file user-init-file) \
+            (mapc (lambda (theme) (load-theme theme t)) custom-enabled-themes) \
+            (message \"Configuration reloaded\"))"
+        '';
+      };
     in
     {
       options.applications.emacs.enable = lib.mkEnableOption "Emacs";
 
       config = lib.mkIf cfg.enable {
-        core.home-manager.enable = true;
+        core.dotfiles.enable = true;
 
-        home-manager.users.${user.name} = {
-          home.file = {
-            ".config/emacs/early-init.el".source = ./configurations/early-init.el;
-            ".config/emacs/init.el".source = ./configurations/init.el;
-            ".config/emacs/themes" = {
-              source = ./configurations/themes;
-              recursive = true;
-            };
-          };
-          programs.emacs = {
-            enable = true;
-            package = customEmacs;
-          };
-          services.emacs = {
-            enable = true;
-            package = customEmacs;
-            startWithUserSession = true;
-          };
+        services.emacs = {
+          enable = true;
+          package = customEmacs;
+          startWithGraphical = true;
+        };
 
-          systemd.user.services.emacs = {
-            Unit = {
-              X-Reload-Triggers = [
-                "${./configurations/init.el}"
-                "${./configurations/themes}"
-              ];
-              X-Restart-Triggers = [ "${./configurations/early-init.el}" ];
-            };
-            Service.ExecReload = "${reloadConfiguration}";
-          };
+        environment.systemPackages = [ reloadConfiguration ];
+
+        # Emacs writes eln-cache/, custom.el and backups/ into its own
+        # directory, so the directory stays real and only what the flake owns
+        # is linked in.
+        core.dotfiles.directories = [ ".config/emacs" ];
+        core.dotfiles.links = {
+          ".config/emacs/early-init.el" = lib.mkDefault "emacs/early-init.el";
+          ".config/emacs/init.el" = lib.mkDefault "emacs/init.el";
+          ".config/emacs/themes" = lib.mkDefault "emacs/themes";
         };
       };
     };

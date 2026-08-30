@@ -1,1 +1,2 @@
-modules/applications/emacs/configurations/themes/** linguist-detectable=false
+configuration/emacs/themes/** linguist-detectable=false
+configuration/nvim/lua/** linguist-generated=true

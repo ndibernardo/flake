@@ -10,6 +10,10 @@
       config = lib.mkIf cfg.enable {
         environment.sessionVariables.SSH_AUTH_SOCK = "${config.user.homeDirectory}/.1password/agent.sock";
 
+        # The git configuration is a plain file now, so it names the signing
+        # helper at /run/current-system/sw/share/1password/op-ssh-sign.
+        environment.pathsToLink = [ "/share/1password" ];
+
         programs._1password.enable = true;
         programs._1password-gui = {
           enable = true;

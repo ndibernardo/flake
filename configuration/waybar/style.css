@@ -1,0 +1,128 @@
+@define-color bg #16161d;
+@define-color surface #1e1e28;
+@define-color raised #292936;
+@define-color fg #efeff4;
+@define-color muted #9999aa;
+@define-color accent #f97316;
+@define-color urgent #e31b23;
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: 'Berkeley Mono', 'Symbols Nerd Font';
+  font-size: 15px;
+  font-weight: 400;
+}
+
+window#waybar {
+  background-color: @bg;
+  color: @fg;
+}
+
+window#waybar.hidden {
+  opacity: 0.35;
+}
+
+tooltip {
+  background-color: @surface;
+  color: @fg;
+}
+
+tooltip label {
+  padding: 6px 8px;
+}
+
+.module {
+  margin: 0;
+  padding: 0 10px;
+}
+
+#workspaces {
+  margin: 0;
+  padding: 0;
+}
+
+#workspaces button {
+  min-width: 28px;
+  padding: 0 8px;
+  color: @muted;
+  border-bottom: 2px solid transparent;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+}
+
+#workspaces button:hover {
+  background-color: @raised;
+  background-image: none;
+  color: @fg;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#workspaces button.visible {
+  color: @fg;
+}
+
+#workspaces button.active,
+#workspaces button.focused,
+#workspaces button.active:hover,
+#workspaces button.focused:hover {
+  color: @fg;
+  background-color: transparent;
+  background-image: none;
+  border-bottom-color: @accent;
+}
+
+#workspaces button.urgent {
+  color: @fg;
+  background-color: @urgent;
+  border-bottom-color: @urgent;
+}
+
+#mode {
+  color: @bg;
+  background-color: @accent;
+}
+
+#window {
+  color: @fg;
+}
+
+#window.empty {
+  background-color: transparent;
+}
+
+#tray {
+  background-color: transparent;
+}
+
+#tray > .passive {
+  opacity: 0.65;
+}
+
+#tray > .needs-attention {
+  background-color: @urgent;
+}
+
+#pulseaudio.muted {
+  color: @muted;
+}
+
+#network.disconnected {
+  color: @accent;
+}
+
+#bluetooth.off,
+#bluetooth.disabled {
+  color: @muted;
+}
+
+#bluetooth.connected {
+  color: @accent;
+}
+
+#clock {
+  color: @accent;
+}

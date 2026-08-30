@@ -3,8 +3,6 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     import-tree.url = "github:vic/import-tree";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";

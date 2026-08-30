@@ -1,20 +1,25 @@
 {
   flake.nixosModules.tools-atuin =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       cfg = config.tools.atuin;
-      user = config.user;
     in
     {
       options.tools.atuin.enable = lib.mkEnableOption "atuin shell history";
 
       config = lib.mkIf cfg.enable {
-        core.home-manager.enable = true;
+        core.dotfiles.enable = true;
 
-        home-manager.users.${user.name}.programs.atuin = {
-          enable = true;
-          enableFishIntegration = true;
-        };
+        environment.systemPackages = [ pkgs.atuin ];
+
+        # `atuin init fish | source` lives in configuration/fish/config.fish.
+        core.dotfiles.directories = [ ".config/atuin" ];
+        core.dotfiles.links.".config/atuin/config.toml" = lib.mkDefault "atuin/config.toml";
       };
     };
 }

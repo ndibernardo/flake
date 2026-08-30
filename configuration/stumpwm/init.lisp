@@ -1,6 +1,32 @@
 (in-package :stumpwm)
 
-(load (merge-pathnames ".stumpwm.d/settings.lisp" (user-homedir-pathname)))
+(defparameter *rc-bg* "#16161D")
+(defparameter *rc-fg* "#EFEFF4")
+(defparameter *rc-muted-color* "#9999AA")
+(defparameter *rc-accent-color* "#F97316")
+(defparameter *rc-unfocused-color* "#373746")
+
+(defparameter *rc-fonts*
+  (list "-*-terminus-medium-r-normal--16-*-*-*-*-*-iso10646-1"))
+
+;;; (file family subfamily antialias)
+(defparameter *rc-ttf-fonts*
+  (list (list "/run/current-system/sw/share/X11/fonts/BerkeleyMono-SemiCondensed.ttf"
+              "TX-02 SemiCondensed"
+              "Regular"
+              t)))
+(defparameter *rc-ttf-size* 12)
+(defparameter *rc-ttf-dpi* 96)
+
+(defparameter *rc-contrib-dir* "/run/current-system/sw/share/stumpwm-contrib")
+(defparameter *rc-interface* "wlp9s0")
+(defparameter *rc-terminal* "alacritty")
+(defparameter *rc-volume-command*
+  "pactl get-sink-mute @DEFAULT_SINK@ | grep -q yes && echo MUTE || pactl get-sink-volume @DEFAULT_SINK@ | head -1 | grep -oE '[0-9]+%' | head -1 | tr -d '%'")
+(defparameter *rc-pactl* "pactl")
+(defparameter *rc-brightnessctl* "brightnessctl")
+(defparameter *rc-iw* "iw")
+(defparameter *rc-maim* "maim")
 
 (let ((pkg (find-package "SWM-GAPS")))
   (when pkg

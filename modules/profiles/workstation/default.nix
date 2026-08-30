@@ -17,11 +17,11 @@
           audio.enable = lib.mkDefault true;
           diagnostics.enable = lib.mkDefault true;
           docker.enable = lib.mkDefault true;
+          dotfiles.enable = lib.mkDefault true;
           fail2ban.enable = lib.mkDefault true;
           fonts.enable = lib.mkDefault true;
           gnupg.enable = lib.mkDefault true;
           hardening.enable = lib.mkDefault true;
-          home-manager.enable = lib.mkDefault true;
           ld.enable = lib.mkDefault true;
           locale.enable = lib.mkDefault true;
           nix.enable = lib.mkDefault true;

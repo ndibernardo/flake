@@ -1,0 +1,85 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "spacing": 0,
+
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["sway/window"],
+  "modules-right": ["pulseaudio", "bluetooth", "network", "tray", "clock"],
+
+  "sway/mode": {
+    "format": "MODE // {}",
+    "tooltip": false
+  },
+
+  "sway/window": {
+    "max-length": 80,
+    "separate-outputs": true
+  },
+
+  "tray": {
+    "spacing": 8
+  },
+
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "TIME // {:%H:%M}",
+    "format-alt": "DATE // {:%Y.%m.%d}"
+  },
+
+  "cpu": {
+    "format": "{usage}% load",
+    "tooltip": false
+  },
+
+  "memory": {
+    "format": "{}% mem"
+  },
+
+  "bluetooth": {
+    "format": "<span font_family='Symbols Nerd Font'></span> ON",
+    "format-disabled": "<span font_family='Symbols Nerd Font'></span> OFF",
+    "format-off": "<span font_family='Symbols Nerd Font'></span> OFF",
+    "format-connected": "<span font_family='Symbols Nerd Font'></span> {device_alias}",
+    "format-connected-battery": "<span font_family='Symbols Nerd Font'></span> {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager"
+  },
+
+  "network": {
+    "interface": "wlp9s0",
+    "format-wifi": "<span font_family='Symbols Nerd Font'></span> {signalStrength}%",
+    "format-ethernet": "<span font_family='Symbols Nerd Font'></span> {ipaddr}/{cidr}",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "<span font_family='Symbols Nerd Font'></span> {ifname} (No IP)",
+    "format-disconnected": "<span font_family='Symbols Nerd Font'></span> OFFLINE",
+    "on-click": "nm-connection-editor"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": "<span font_family='Symbols Nerd Font'></span> {icon} {format_source}",
+    "format-muted": "<span font_family='Symbols Nerd Font'></span> {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "<span font_family='Symbols Nerd Font'></span>",
+      "hands-free": "<span font_family='Symbols Nerd Font'></span>",
+      "headset": "<span font_family='Symbols Nerd Font'></span>",
+      "phone": "<span font_family='Symbols Nerd Font'></span>",
+      "portable": "<span font_family='Symbols Nerd Font'></span>",
+      "car": "<span font_family='Symbols Nerd Font'></span>",
+      "default": [
+        "<span font_family='Symbols Nerd Font'></span>",
+        "<span font_family='Symbols Nerd Font'></span>",
+        "<span font_family='Symbols Nerd Font'></span>"
+      ]
+    },
+    "on-click": "pavucontrol"
+  }
+}

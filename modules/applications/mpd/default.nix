@@ -1,9 +1,15 @@
 {
   flake.nixosModules.applications-mpd =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       cfg = config.applications.mpd;
       user = config.user;
+      dataDir = "${user.homeDirectory}/.local/share/mpd";
     in
     {
       options.applications.mpd = {
@@ -13,55 +19,43 @@
           type = lib.types.str;
           default = "${user.homeDirectory}/Music";
           defaultText = lib.literalExpression ''"''${config.user.homeDirectory}/Music"'';
-          description = "Directory MPD scans for music.";
-        };
-
-        port = lib.mkOption {
-          type = lib.types.port;
-          default = 6600;
-          description = "TCP port the daemon listens on, loopback only.";
+          description = ''
+            Directory MPD scans for music. Only the mount dependency of the user
+            unit is derived from this; the daemon reads the path from
+            configuration/mpd/mpd.conf, which has to agree with it.
+          '';
         };
       };
 
       config = lib.mkIf cfg.enable {
         core.audio.enable = true;
-        core.home-manager.enable = true;
+        core.dotfiles.enable = true;
 
-        home-manager.users.${user.name} = {
-          services.mpd = {
-            enable = true;
-            inherit (cfg) musicDirectory;
-            network = {
-              listenAddress = "127.0.0.1";
-              inherit (cfg) port;
-            };
-            extraConfig = ''
-              # inotify-driven rescans. Silently does nothing on filesystems
-              # that do not emit the events, fuseblk among them, so a manual
-              # `rmpc update` stays the fallback.
-              auto_update "yes"
+        environment.systemPackages = with pkgs; [
+          mpd
+          rmpc
+        ];
 
-              # mpd builds an ALSA output when none is declared, which grabs
-              # the device outright; the pipewire plugin goes through the
-              # session manager instead and shares it with everything else.
-              audio_output {
-                type "pipewire"
-                name "PipeWire"
-              }
-            '';
+        systemd.user.services.mpd = {
+          description = "Music Player Daemon";
+          after = [
+            "network.target"
+            "sound.target"
+          ];
+          wantedBy = [ "default.target" ];
+          unitConfig.RequiresMountsFor = [ cfg.musicDirectory ];
+          serviceConfig = {
+            Type = "notify";
+            ExecStartPre = "${lib.getExe' pkgs.coreutils "mkdir"} -p ${dataDir}/playlists";
+            ExecStart = "${lib.getExe pkgs.mpd} --no-daemon ${user.homeDirectory}/.config/mpd/mpd.conf";
+            Restart = "on-failure";
           };
+        };
 
-          systemd.user.services.mpd.Unit.RequiresMountsFor = [ cfg.musicDirectory ];
-
-          programs.rmpc = {
-            enable = true;
-            config = ''
-              (
-                  address: "127.0.0.1:${toString cfg.port}",
-                  theme: None,
-              )
-            '';
-          };
+        core.dotfiles.directories = [ ".config/mpd" ];
+        core.dotfiles.links = {
+          ".config/mpd/mpd.conf" = lib.mkDefault "mpd/mpd.conf";
+          ".config/rmpc" = lib.mkDefault "rmpc";
         };
       };
     };

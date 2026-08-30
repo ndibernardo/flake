@@ -25,9 +25,10 @@ nix build --no-update-lock-file \
 ## Structure
 
 ```
+configuration/          dotfiles
 machines/               per-machine configuration
 machines/daedalus/      desktop workstation (AMD Ryzen 9 9950X3D, NVIDIA GeForce RTX 5080)
-modules/                NixOS and home-manager modules, grouped by category then per-tool
+modules/                NixOS modules, grouped by category then per-tool
 modules/core/           system-level: hardware, security, networking, package manager
 modules/desktop/        window manager, session
 modules/applications/   primary end-user programs
@@ -65,13 +66,12 @@ The flake is standalone and builds with anonymous defaults. A separate
 private flake can extend `base.nixosConfigurations.daedalus` and provide:
 
 ```
-user.name           login and home-manager account (default: "user")
+user.name           login account (default: "user")
 user.fullName       git author name (default: "User")
 user.email          git author email (default: "user@localhost")
 user.homeDirectory  home directory (default: /home/${user.name})
-user.stateVersion   home-manager state version (default: "25.11")
 user.sshKeys        authorized SSH public keys (default: [ ])
-outputs             kanshi monitor layout (default: [ ])
+core.dotfiles.root  checked-out configuration/ (default: ${user.homeDirectory}/flake/configuration)
 ```
 
 The consumer's `flake.lock` pins the exact public revision. Private packages,

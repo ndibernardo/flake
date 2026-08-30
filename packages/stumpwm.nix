@@ -37,25 +37,25 @@ stumpwm.overrideAttrs (old: {
     cat >> load-stumpwm.lisp <<'LISP'
     (asdf:load-system "swank")
 
-    (asdf:load-asd #p"${stumpwm-contrib}/util/ttf-fonts/ttf-fonts.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/util/ttf-fonts/ttf-fonts.asd")
     (asdf:load-system "ttf-fonts")
 
-    (asdf:load-asd #p"${stumpwm-contrib}/util/swm-gaps/swm-gaps.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/util/swm-gaps/swm-gaps.asd")
     (asdf:load-system "swm-gaps")
 
-    (asdf:load-asd #p"${stumpwm-contrib}/modeline/cpu/cpu.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/modeline/cpu/cpu.asd")
     (asdf:load-system "cpu")
-    (asdf:load-asd #p"${stumpwm-contrib}/modeline/mem/mem.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/modeline/mem/mem.asd")
     (asdf:load-system "mem")
 
-    (asdf:load-asd #p"${stumpwm-contrib}/modeline/stumptray/stumptray.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/modeline/stumptray/stumptray.asd")
     (asdf:load-system "stumptray")
-    (asdf:load-asd #p"${stumpwm-contrib}/util/notify/notify.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/util/notify/notify.asd")
     (asdf:load-system "notify")
 
-    (asdf:load-asd #p"${stumpwm-contrib}/util/winner-mode/winner-mode.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/util/winner-mode/winner-mode.asd")
     (asdf:load-system "winner-mode")
-    (asdf:load-asd #p"${stumpwm-contrib}/util/globalwindows/globalwindows.asd")
+    (asdf:load-asd #p"${stumpwm-contrib}/share/stumpwm-contrib/util/globalwindows/globalwindows.asd")
     (asdf:load-system "globalwindows")
     LISP
   '';

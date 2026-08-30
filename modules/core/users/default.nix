@@ -33,12 +33,6 @@
             description = "Primary user's home directory.";
           };
 
-          stateVersion = lib.mkOption {
-            type = lib.types.str;
-            default = "25.11";
-            description = "home-manager state version. Do not change on existing systems.";
-          };
-
           sshKeys = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             default = [ ];
@@ -50,6 +44,10 @@
       };
 
       config = lib.mkIf cfg.enable {
+        # Replaces home-manager's home.sessionPath; NixOS puts this in the
+        # profile script and in environment.d, so `systemd --user` sees it too.
+        environment.localBinInPath = true;
+
         users.users.${user.name} = {
           description = user.name;
           extraGroups = [

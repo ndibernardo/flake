@@ -1,0 +1,7 @@
+# Anonymous defaults. The private flake links its own file over this one.
+[user]
+	name = User
+	email = user@localhost
+
+[core]
+	excludesFile = ~/.config/git/ignore
