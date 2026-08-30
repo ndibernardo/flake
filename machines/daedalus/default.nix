@@ -5,7 +5,7 @@
       { ... }:
       {
         profiles.workstation.enable = true;
-
+        applications.mpd.musicDirectory = "/run/media/nil/64603C01603BD88E/Music";
         core = {
           bluetooth.enable = true;
           nvidia.enable = true;

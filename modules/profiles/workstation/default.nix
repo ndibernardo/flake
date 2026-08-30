@@ -50,6 +50,7 @@
           alacritty.enable = lib.mkDefault true;
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
+          mpd.enable = lib.mkDefault true;
           neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
 
@@ -89,7 +90,6 @@
             kind
             kubectl
             ripgrep
-            rmpc
             rsync
             opentofu
             unzip
