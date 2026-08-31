@@ -28,6 +28,7 @@
         services.xserver.xkb = {
           layout = "us";
           variant = "intl";
+          options = "ctrl:nocaps";
         };
 
         time.timeZone = "Europe/Rome";
