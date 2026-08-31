@@ -181,6 +181,40 @@
       *suppress-frame-indicator* t
       *mouse-focus-policy* :sloppy)
 
+(defun rc-help-layout (data header)
+  "Columnize DATA so the message window holding HEADER stays on the head."
+  (let ((head (current-head))
+        (cc (screen-message-cc (current-screen))))
+    (loop for columns from 1 to (max 1 (length data))
+          for layout = (columnize data columns)
+          do (multiple-value-bind (width height) (rendered-size (cons header layout) cc)
+               (when (or (<= (+ height (* 2 *message-window-y-padding*))
+                             (head-height head))
+                         (> (+ width (* 2 *message-window-padding*))
+                            (head-width head)))
+                 (return layout)))
+          finally (return (columnize data 1)))))
+
+(defun display-bindings-for-keymaps (key-seq &rest keymaps)
+  (let ((header (format nil "Prefix: ~a" (print-key-seq key-seq)))
+        (data (mapcan (lambda (map)
+                        (mapcar (lambda (b)
+                                  (let ((bound-to (binding-command b)))
+                                    (format nil *which-key-format*
+                                            (print-key (binding-key b))
+                                            (cond ((or (symbolp bound-to)
+                                                       (stringp bound-to))
+                                                   bound-to)
+                                                  ((kmap-p bound-to) "Anonymous Keymap")
+                                                  (t "Unknown")))))
+                                (kmap-bindings map)))
+                      keymaps)))
+    (message-no-timeout "~a~%~{~a~^~%~}"
+                        header
+                        (if data
+                            (rc-help-layout data header)
+                            '("(EMPTY MAP)")))))
+
 (defun rc-read-line (path)
   "First line of PATH, or NIL when it cannot be read."
   (handler-case
