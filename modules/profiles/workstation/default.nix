@@ -40,6 +40,7 @@
         };
 
         desktop = {
+          gnome.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
           stumpwm.enable = lib.mkDefault true;
           sway.enable = lib.mkDefault true;
