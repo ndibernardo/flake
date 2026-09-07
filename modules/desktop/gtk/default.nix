@@ -16,6 +16,7 @@
         core.dotfiles.enable = true;
         programs.xfconf.enable = true;
         services.gvfs.enable = true;
+        services.tumbler.enable = true;
         services.udisks2.enable = true;
 
         qt = {
@@ -35,10 +36,6 @@
           xarchiver
         ];
 
-        # GTK writes bookmarks and recently-used state into these directories,
-        # so only settings.ini is linked. The window-button layout and the
-        # Thunar view defaults now live in the dconf and xfconf databases:
-        # set once by hand, they persist across rebuilds.
         core.dotfiles.directories = [
           ".config/gtk-3.0"
           ".config/gtk-4.0"

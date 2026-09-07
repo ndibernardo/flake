@@ -29,9 +29,9 @@
           gnomeExtensions.appindicator
           gnomeExtensions.dash-to-dock
           gnomeExtensions.just-perfection
+          gnomeExtensions.pop-shell
           gnomeExtensions.space-bar
           gnomeExtensions.switcher
-          gnomeExtensions.tactile
           gnomeExtensions.tophat
         ];
       };

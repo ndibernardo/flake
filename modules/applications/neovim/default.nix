@@ -33,7 +33,6 @@
           friendly-snippets
           gitsigns-nvim
           lualine-nvim
-          nfnl
           nvim-cmp
           nvim-colorizer-lua
           nvim-lspconfig
@@ -58,10 +57,10 @@
           parinfer-rust
           plenary-nvim
           render-markdown-nvim
-          tairiki
           telescope-nvim
           telescope-fzf-native-nvim
           telescope-ui-select-nvim
+          tokyonight-nvim
           undotree
           vim-fugitive
           vim-rhubarb
@@ -82,8 +81,6 @@
         environment.systemPackages = [ customNeovim ];
         environment.sessionVariables.EDITOR = lib.mkOverride 900 "nvim";
 
-        # nfnl compiles fnl/ to lua/ on save, inside the checkout, so the whole
-        # directory is linked rather than the individual files.
         core.dotfiles.links.".config/nvim" = lib.mkDefault "nvim";
       };
     };

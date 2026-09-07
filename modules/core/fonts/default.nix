@@ -37,8 +37,6 @@
             defaultFonts = {
               monospace = [
                 "Berkeley Mono"
-                "PragmataPro Mono"
-                "Kode Mono"
                 "JetBrains Mono"
               ];
               sansSerif = [
@@ -53,25 +51,18 @@
             };
           };
           packages = with pkgs; [
-            b612
             berkeley-mono
             commit-mono
-            departure-mono
-            (fira-code.override { useVariableFont = false; })
             hack-font
             inconsolata
             jetbrains-mono
             kode-mono
+            liberation_ttf
             nerd-fonts.symbols-only
             noto-fonts
             noto-fonts-cjk-sans
             noto-fonts-cjk-serif
             noto-fonts-color-emoji
-            pragmata-pro
-            profont
-            terminus_font
-            terminus_font_ttf
-            ttf_bitstream_vera
           ];
         };
       };

@@ -42,23 +42,24 @@
         desktop = {
           gnome.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
-          stumpwm.enable = lib.mkDefault true;
-          sway.enable = lib.mkDefault true;
+          niri.enable = lib.mkDefault true;
+          noctalia.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
         };
 
         applications = {
-          alacritty.enable = lib.mkDefault true;
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
+          firefox.enable = lib.mkDefault true;
+          alacritty.enable = lib.mkDefault true;
           mpd.enable = lib.mkDefault true;
           neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
             gimp
-            helium
             krita
+            loupe
             lutris
             nyxt
             obsidian
@@ -67,6 +68,7 @@
             solaar
             telegram-desktop
             thunar
+            ungoogled-chromium
           ];
         };
 

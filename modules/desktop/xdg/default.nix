@@ -15,8 +15,14 @@
 
         browser = lib.mkOption {
           type = lib.types.str;
-          default = "helium.desktop";
+          default = "firefox.desktop";
           description = "Desktop entry handling web links and HTML files.";
+        };
+
+        imageViewer = lib.mkOption {
+          type = lib.types.str;
+          default = "org.gnome.Loupe.desktop";
+          description = "Desktop entry used to open images.";
         };
 
         terminal = lib.mkOption {
@@ -37,6 +43,17 @@
             "x-scheme-handler/about" = cfg.browser;
             "x-scheme-handler/unknown" = cfg.browser;
             "x-scheme-handler/terminal" = cfg.terminal;
+            "image/avif" = cfg.imageViewer;
+            "image/bmp" = cfg.imageViewer;
+            "image/gif" = cfg.imageViewer;
+            "image/heic" = cfg.imageViewer;
+            "image/heif" = cfg.imageViewer;
+            "image/jpeg" = cfg.imageViewer;
+            "image/jxl" = cfg.imageViewer;
+            "image/png" = cfg.imageViewer;
+            "image/svg+xml" = cfg.imageViewer;
+            "image/tiff" = cfg.imageViewer;
+            "image/webp" = cfg.imageViewer;
           };
         };
       };

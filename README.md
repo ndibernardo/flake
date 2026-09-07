@@ -47,8 +47,8 @@ subtracting from a default:
 ```nix
 machines.daedalus.config = {
   core.docker.enable = true;
-  desktop.sway.enable = true;
-  applications.emacs.enable = true;
+  desktop.gnome.enable = true;
+  applications.firefox.enable = true;
 };
 ```
 

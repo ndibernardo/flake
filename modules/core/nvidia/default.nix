@@ -28,10 +28,7 @@
           };
         };
 
-        services.xserver = {
-          enable = true;
-          videoDrivers = [ "nvidia" ];
-        };
+        services.xserver.videoDrivers = [ "nvidia" ];
 
         environment.variables = {
           GBM_BACKEND = "nvidia-drm";

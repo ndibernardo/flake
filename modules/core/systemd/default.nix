@@ -55,12 +55,12 @@
         services.timesyncd.settings.Time.PollIntervalMaxSec = 1024;
 
         services.journald = {
-          extraConfig = ''
-            SyncIntervalSec=30
-            SystemMaxUse=500M
-            SystemMaxFileSize=50M
-          '';
-          storage = "volatile";
+          settings.Journal = {
+            Storage = "volatile";
+            SyncIntervalSec = 30;
+            SystemMaxUse = "500M";
+            SystemMaxFileSize = "50M";
+          };
           upload.enable = false;
         };
 

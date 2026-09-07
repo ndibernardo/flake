@@ -25,6 +25,7 @@
           corfu
           direnv
           diminish
+          doom-themes
           elfeed
           exec-path-from-shell
           expand-region

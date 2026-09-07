@@ -14,6 +14,7 @@
 
       config = lib.mkIf cfg.enable {
         core.dotfiles.enable = true;
+        core.fonts.enable = true;
 
         environment.systemPackages = [ pkgs.alacritty ];
         environment.sessionVariables.TERMINAL = lib.mkDefault "alacritty";

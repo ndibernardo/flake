@@ -1,6 +1,11 @@
 {
   flake.nixosModules.core-passwords =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       cfg = config.core.passwords;
     in
@@ -20,12 +25,26 @@
           polkitPolicyOwners = [ config.user.name ];
         };
 
+        systemd.user.services.onepassword = {
+          description = "1Password desktop app";
+          after = [ "graphical-session.target" ];
+          wantedBy = [ "graphical-session.target" ];
+          partOf = [ "graphical-session.target" ];
+          unitConfig.ConditionUser = config.user.name;
+          serviceConfig = {
+            ExecStart = "${lib.getExe pkgs._1password-gui} --silent";
+            Restart = "on-failure";
+            RestartSec = 2;
+          };
+        };
+
         security.polkit = {
           enable = true;
           extraConfig = ''
             polkit.addRule(function(action, subject) {
-              if (action.id.indexOf("com.1password.1Password.") === 0 &&
-                  subject.user === "${config.user.name}") {
+              if (action.id === "com.1password.1Password.authorizeSshAgent" &&
+                  subject.user === "${config.user.name}" &&
+                  subject.local && subject.active) {
                 return polkit.Result.YES;
               }
             });

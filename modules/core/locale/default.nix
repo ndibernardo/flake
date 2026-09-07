@@ -1,6 +1,11 @@
 {
   flake.nixosModules.core-locale =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       cfg = config.core.locale;
     in
@@ -8,7 +13,10 @@
       options.core.locale.enable = lib.mkEnableOption "locale, keyboard and time zone";
 
       config = lib.mkIf cfg.enable {
-        console.useXkbConfig = true;
+        console.keyMap = pkgs.runCommand "console-keymap" { preferLocalBuild = true; } ''
+          '${pkgs.buildPackages.ckbcomp}/bin/ckbcomp' \
+            -layout us -variant intl -option ctrl:nocaps > "$out"
+        '';
 
         i18n = {
           defaultLocale = "en_US.UTF-8";
@@ -23,12 +31,6 @@
             LC_TELEPHONE = "it_IT.UTF-8";
             LC_TIME = "it_IT.UTF-8";
           };
-        };
-
-        services.xserver.xkb = {
-          layout = "us";
-          variant = "intl";
-          options = "ctrl:nocaps";
         };
 
         time.timeZone = "Europe/Rome";

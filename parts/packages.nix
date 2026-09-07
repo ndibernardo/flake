@@ -5,18 +5,13 @@ in
 {
   flake.overlays.default = final: prev: {
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
-    helium = final.callPackage ../packages/helium.nix { };
     pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
-    stumpwm-contrib = final.callPackage ../packages/stumpwm-contrib.nix { };
-    stumpwm = final.callPackage ../packages/stumpwm.nix {
-      stumpwm = prev.stumpwm;
-    };
 
-    vimPlugins = prev.vimPlugins.extend (
-      _: _: {
-        tairiki = final.callPackage ../packages/tairiki.nix { };
-      }
-    );
+    vscode = prev.vscode.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        ln -s node_modules $out/lib/vscode/resources/app/node_modules.asar.unpacked
+      '';
+    });
 
     # nixpkgs is still on 1.1.19; this pulls 1.1.20 forward. Drop the
     # override once nixpkgs catches up.
@@ -49,10 +44,7 @@ in
         inherit (pkgs)
           berkeley-mono
           pragmata-pro
-          stumpwm
-          stumpwm-contrib
           ;
-        inherit (pkgs.vimPlugins) tairiki;
       };
     };
 }

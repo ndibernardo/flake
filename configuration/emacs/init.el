@@ -67,7 +67,7 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "Berkeley Mono-12")
+(set-face-attribute 'default nil :font "TX-02 Book SemiCondensed-11")
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -87,7 +87,10 @@ eating the space just typed."
 
 (setq-default fill-column 100)
 
-(load-theme 'noctilux t)
+(setq doom-themes-enable-bold t)
+(setq doom-themes-enable-italic nil)
+(load-theme 'doom-tokyo-night t)
+(doom-themes-org-config)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
