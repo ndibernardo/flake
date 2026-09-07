@@ -19,5 +19,4 @@ jobs:
       - run: |
           nix build \
             .#checks.x86_64-linux.formatting \
-            .#packages.x86_64-linux.tairiki \
             .#nixosConfigurations.daedalus.pkgs.solaar
