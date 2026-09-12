@@ -59,8 +59,8 @@
             krita
             loupe
             lutris
-            nyxt
             obsidian
+            papers
             pavucontrol
             signal-desktop
             solaar

@@ -19,6 +19,12 @@
           description = "Desktop entry handling web links and HTML files.";
         };
 
+        documentViewer = lib.mkOption {
+          type = lib.types.str;
+          default = "org.gnome.Papers.desktop";
+          description = "Desktop entry used to open PDFs and other documents.";
+        };
+
         imageViewer = lib.mkOption {
           type = lib.types.str;
           default = "org.gnome.Loupe.desktop";
@@ -54,6 +60,11 @@
             "image/svg+xml" = cfg.imageViewer;
             "image/tiff" = cfg.imageViewer;
             "image/webp" = cfg.imageViewer;
+            "application/pdf" = cfg.documentViewer;
+            "application/x-bzpdf" = cfg.documentViewer;
+            "application/x-gzpdf" = cfg.documentViewer;
+            "application/x-xzpdf" = cfg.documentViewer;
+            "image/vnd.djvu" = cfg.documentViewer;
           };
         };
       };
