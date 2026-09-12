@@ -57,6 +57,7 @@
           extraPackages = with pkgs; [
             foliate
             gimp
+            helium
             krita
             loupe
             lutris

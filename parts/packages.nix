@@ -5,6 +5,7 @@ in
 {
   flake.overlays.default = final: prev: {
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
+    helium = final.callPackage ../packages/helium.nix { };
     pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
 
     # nixpkgs is still on 1.1.19; this pulls 1.1.20 forward. Drop the
