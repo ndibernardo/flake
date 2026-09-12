@@ -25,6 +25,12 @@
           description = "Desktop entry used to open PDFs and other documents.";
         };
 
+        ebookViewer = lib.mkOption {
+          type = lib.types.str;
+          default = "com.github.johnfactotum.Foliate.desktop";
+          description = "Desktop entry used to open EPUB and other ebook formats.";
+        };
+
         imageViewer = lib.mkOption {
           type = lib.types.str;
           default = "org.gnome.Loupe.desktop";
@@ -65,6 +71,11 @@
             "application/x-gzpdf" = cfg.documentViewer;
             "application/x-xzpdf" = cfg.documentViewer;
             "image/vnd.djvu" = cfg.documentViewer;
+            "application/epub+zip" = cfg.ebookViewer;
+            "application/x-mobipocket-ebook" = cfg.ebookViewer;
+            "application/vnd.amazon.mobi8-ebook" = cfg.ebookViewer;
+            "application/x-fictionbook+xml" = cfg.ebookViewer;
+            "application/x-zip-compressed-fb2" = cfg.ebookViewer;
           };
         };
       };

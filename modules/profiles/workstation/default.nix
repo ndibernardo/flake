@@ -55,6 +55,7 @@
           steam.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
+            foliate
             gimp
             krita
             loupe
