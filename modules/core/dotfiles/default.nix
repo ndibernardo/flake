@@ -49,7 +49,9 @@
 
       config = lib.mkIf cfg.enable {
         systemd.tmpfiles.rules =
-          map (directory: "d ${home}/${directory} 0755 ${user.name} users - -") cfg.directories
+          # `=` replaces stale symlinks left by configurations that linked an
+          # entire directory, ensuring child links can be created safely.
+          map (directory: "d= ${home}/${directory} 0755 ${user.name} users - -") cfg.directories
           ++ lib.mapAttrsToList (
             target: source: "L+ ${home}/${target} - ${user.name} users - ${resolve source}"
           ) cfg.links;
