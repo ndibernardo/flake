@@ -1,0 +1,19 @@
+#!/bin/sh
+
+systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+  dbus-update-activation-environment --systemd PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+fi
+systemctl --user reset-failed
+systemctl --user start labwc-session.target
+systemctl --user restart xdg-desktop-portal-gtk.service xdg-desktop-portal.service &
+
+theme-apply
+openrgb --mode static --color ffffff &
+solaar --window=hide &
+
+gsettings set org.gnome.desktop.interface cursor-theme Adwaita
+gsettings set org.gnome.desktop.interface cursor-size 16
+
+pkill -x hypridle 2>/dev/null || true
+hypridle &

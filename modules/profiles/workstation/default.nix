@@ -41,8 +41,13 @@
 
         desktop = {
           gtk.enable = lib.mkDefault true;
-          niri.enable = lib.mkDefault true;
+          labwc.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
+        };
+
+        services.xserver = {
+          enable = lib.mkDefault true;
+          displayManager.lightdm.enable = lib.mkDefault true;
         };
 
         applications = {
