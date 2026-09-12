@@ -52,10 +52,23 @@ white = "#ccccd6"
 
 [colors.bright]
 black = "#5b6268"
-red = "#ff8888"
+red = "#ffa6a6"
 green = "#a1f6a1"
-yellow = "#dada86"
+yellow = "#eeeea3"
 blue = "#aaccff"
 magenta = "#db85d9"
 cyan = "#86d9db"
 white = "#f8f8fb"
+
+[colors.dim]
+black = "#1e1e25"
+red = "#be686a"
+green = "#679d69"
+yellow = "#a3a369"
+blue = "#6784a5"
+magenta = "#8667a6"
+cyan = "#4e7b7e"
+white = "#9ca0a4"
+
+[bell]
+color = "#ff8888"

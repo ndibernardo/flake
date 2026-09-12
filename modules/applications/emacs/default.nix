@@ -9,7 +9,7 @@
     let
       cfg = config.applications.emacs;
       emacsPackage = pkgs.emacsPackagesFor (
-        pkgs.emacs.overrideAttrs (_: {
+        pkgs.emacs-pgtk.overrideAttrs (_: {
           withImageMagick = true;
           withNativeCompilation = true;
           withTreeSitter = true;
@@ -25,7 +25,6 @@
           corfu
           direnv
           diminish
-          doom-themes
           elfeed
           exec-path-from-shell
           expand-region

@@ -47,7 +47,7 @@ subtracting from a default:
 ```nix
 machines.daedalus.config = {
   core.docker.enable = true;
-  desktop.gnome.enable = true;
+  desktop.niri.enable = true;
   applications.firefox.enable = true;
 };
 ```
@@ -60,22 +60,12 @@ for raw NixOS modules that declare no options of their own, such as
 
 `make full-check` builds every machine and verifies formatting.
 
-## Private configuration
+## Private extensions
 
-The flake is standalone and builds with anonymous defaults. A separate
-private flake can extend `base.nixosConfigurations.daedalus` and provide:
-
-```
-user.name           login account (default: "user")
-user.fullName       git author name (default: "User")
-user.email          git author email (default: "user@localhost")
-user.homeDirectory  home directory (default: /home/${user.name})
-user.sshKeys        authorized SSH public keys (default: [ ])
-core.dotfiles.root  checked-out configuration/ (default: ${user.homeDirectory}/flake/configuration)
-```
-
-The consumer's `flake.lock` pins the exact public revision. Private packages,
-networking and encrypted secrets remain in the private flake.
+The public flake contains the complete `daedalus` host configuration. A
+separate private flake extends it with private packages, application
+configuration, networking and encrypted secrets. Its `flake.lock` pins the
+exact public revision.
 
 `machines/daedalus/hardware.nix` contains machine-specific disk UUIDs,
 filesystems, Secure Boot and hardware settings. Building it is safe; activating

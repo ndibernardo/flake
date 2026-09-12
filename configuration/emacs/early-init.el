@@ -15,7 +15,7 @@
 (setq frame-resize-pixelwise t)
 
 (setq default-frame-alist
-      (append '((font . "TX-02 Book SemiCondensed-11")
+      (append '((font . "TX-02 Book SemiCondensed-10")
                 (width . 170)
                 (height . 90))
               default-frame-alist))

@@ -36,8 +36,11 @@
             };
             defaultFonts = {
               monospace = [
-                "Berkeley Mono"
-                "JetBrains Mono"
+                "TX-02 Book SemiCondensed"
+                "Fira Code"
+                "Inconsolata"
+                "Source Code Pro"
+                "CommitMono"
               ];
               sansSerif = [
                 "Noto Sans"
@@ -53,6 +56,7 @@
           packages = with pkgs; [
             berkeley-mono
             commit-mono
+            (fira-code.override { useVariableFont = false; })
             hack-font
             inconsolata
             jetbrains-mono
@@ -63,6 +67,7 @@
             noto-fonts-cjk-sans
             noto-fonts-cjk-serif
             noto-fonts-color-emoji
+            source-code-pro
           ];
         };
       };

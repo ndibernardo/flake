@@ -40,10 +40,8 @@
         };
 
         desktop = {
-          gnome.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
           niri.enable = lib.mkDefault true;
-          noctalia.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
         };
 

@@ -7,12 +7,6 @@ in
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
     pragmata-pro = final.callPackage ../packages/pragmata-pro.nix { };
 
-    vscode = prev.vscode.overrideAttrs (old: {
-      postInstall = (old.postInstall or "") + ''
-        ln -s node_modules $out/lib/vscode/resources/app/node_modules.asar.unpacked
-      '';
-    });
-
     # nixpkgs is still on 1.1.19; this pulls 1.1.20 forward. Drop the
     # override once nixpkgs catches up.
     solaar = prev.solaar.overrideAttrs (_: {

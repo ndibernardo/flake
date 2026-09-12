@@ -33,6 +33,7 @@ in
       kernelModules = [ ];
       luks.devices = {
         "luks-${luksUuid}" = {
+          crypttabExtraOpts = [ "fido2-device=auto" ];
           device = "/dev/disk/by-uuid/${luksUuid}";
         };
       };

@@ -1,5 +1,5 @@
 [general]
-import = [ "themes/tokyonight.toml" ]
+import = [ "themes/noctilux.toml" ]
 
 [font]
 size = 11
@@ -12,6 +12,14 @@ style = "Book SemiCondensed"
 [font.bold]
 family = "Berkeley Mono"
 style = "Bold SemiCondensed"
+
+[font.italic]
+family = "Berkeley Mono"
+style = "Book SemiCondensed Oblique"
+
+[font.bold_italic]
+family = "Berkeley Mono"
+style = "Bold SemiCondensed Oblique"
 
 [font.offset]
 x = 0
@@ -41,7 +49,6 @@ multiplier = 3
 [bell]
 animation = "EaseOutExpo"
 duration = 0
-color = "#ff8888"
 
 [selection]
 semantic_escape_chars = ",?`|:\"' ()[]{}<>"
