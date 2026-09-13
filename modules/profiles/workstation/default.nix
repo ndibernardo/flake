@@ -45,6 +45,8 @@
           xdg.enable = lib.mkDefault true;
         };
 
+        networking.networkmanager.enable = lib.mkDefault true;
+
         services.xserver = {
           enable = lib.mkDefault true;
           displayManager.lightdm.enable = lib.mkDefault true;
@@ -66,6 +68,7 @@
             krita
             loupe
             lutris
+            networkmanagerapplet
             obsidian
             papers
             pavucontrol
