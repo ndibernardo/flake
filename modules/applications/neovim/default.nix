@@ -32,9 +32,7 @@
           fidget-nvim
           friendly-snippets
           gitsigns-nvim
-          lualine-nvim
           nvim-cmp
-          nvim-colorizer-lua
           nvim-lspconfig
           nvim-surround
           nvim-tree-lua
@@ -60,7 +58,6 @@
           telescope-nvim
           telescope-fzf-native-nvim
           telescope-ui-select-nvim
-          tokyonight-nvim
           undotree
           vim-fugitive
           vim-rhubarb

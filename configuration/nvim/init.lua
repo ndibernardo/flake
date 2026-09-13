@@ -21,7 +21,7 @@ local options = {
   undofile = true,
   incsearch = true,
   guicursor = "",
-  termguicolors = true,
+  termguicolors = false,
   scrolloff = 8,
   updatetime = 50,
   backup = false,
@@ -403,7 +403,6 @@ end
 
 vim.lsp.enable(enabled_servers)
 
-require("colorizer").setup({})
 require("Comment").setup({})
 require("gitsigns").setup({})
 require("nvim-surround").setup({})
@@ -485,101 +484,51 @@ require("render-markdown").setup({
 })
 
 vim.o.background = "dark"
+vim.cmd.colorscheme("vim")
 
-require("tokyonight").setup({
-  style = "night",
-  transparent = true,
-  styles = {
-    comments = { italic = false },
-    keywords = { italic = false },
-    functions = {},
-    variables = {},
-    sidebars = "transparent",
-    floats = "transparent",
-  },
-  on_highlights = function(highlights, colors)
-    for _, group in ipairs({
-      "@variable",
-      "@variable.member",
-      "@variable.parameter",
-      "@property",
-      "@parameter",
-      "@field",
-      "Identifier",
-    }) do
-      highlights[group] = { fg = colors.fg }
-    end
-  end,
-})
+local function apply_popup_colors()
+  for _, group in ipairs({
+    "NormalFloat",
+    "FloatBorder",
+    "FloatTitle",
+    "Pmenu",
+    "PmenuSbar",
+    "TelescopeNormal",
+    "TelescopeBorder",
+  }) do
+    vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", vim.api.nvim_get_hl(0, {
+      name = group,
+      link = false,
+    }), {
+      bg = "NONE",
+      ctermbg = "NONE",
+      fg = "#D8DEE9",
+      ctermfg = 7,
+    }))
+  end
 
-vim.cmd.colorscheme("tokyonight")
-
-local transparent_groups = {
-  "Normal",
-  "NormalNC",
-  "NormalFloat",
-  "FloatBorder",
-  "FloatTitle",
-  "SignColumn",
-  "LineNr",
-  "CursorLineNr",
-  "EndOfBuffer",
-  "FoldColumn",
-  "MsgArea",
-  "StatusLine",
-  "StatusLineNC",
-  "TabLine",
-  "TabLineFill",
-  "WinBar",
-  "WinBarNC",
-  "WinSeparator",
-  "Pmenu",
-  "PmenuSbar",
-  "TelescopeNormal",
-  "TelescopeBorder",
-  "NvimTreeNormal",
-  "NvimTreeNormalNC",
-  "NvimTreeWinSeparator",
-  "NvimTreeEndOfBuffer",
-}
-
-local function make_transparent()
-  for _, group in ipairs(transparent_groups) do
+  for _, group in ipairs({ "SignColumn", "FoldColumn" }) do
     vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", vim.api.nvim_get_hl(0, {
       name = group,
       link = false,
     }), { bg = "NONE", ctermbg = "NONE" }))
   end
-end
 
-make_transparent()
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  group = vim.api.nvim_create_augroup("transparent-background", { clear = true }),
-  callback = make_transparent,
-})
-
-for name, definition in pairs(vim.api.nvim_get_hl(0, {})) do
-  if definition.italic then
-    definition.italic = false
-    vim.api.nvim_set_hl(0, name, definition)
+  for group, colors in pairs({
+    CmpItemAbbrDefault = { fg = "#D8DEE9", ctermfg = 7 },
+    CmpItemAbbrDeprecatedDefault = { fg = "#505050", ctermfg = 8, strikethrough = true },
+    CmpItemAbbrMatchDefault = { fg = "#85C1FC", ctermfg = 12, bold = true },
+    CmpItemAbbrMatchFuzzyDefault = { fg = "#85C1FC", ctermfg = 12, bold = true },
+    CmpItemKindDefault = { fg = "#88C0D0", ctermfg = 6 },
+    CmpItemMenuDefault = { fg = "#505050", ctermfg = 8 },
+  }) do
+    vim.api.nvim_set_hl(0, group, colors)
   end
 end
 
-require("lualine").setup({
-  options = {
-    theme = "auto",
-    component_separators = { left = "|", right = "|" },
-    section_separators = { left = "", right = "" },
-    globalstatus = true,
-    icons_enabled = false,
-  },
-  sections = {
-    lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { "filename" },
-    lualine_x = {},
-    lualine_y = { "progress" },
-    lualine_z = { "location" },
-  },
+apply_popup_colors()
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("popup-colors", { clear = true }),
+  callback = apply_popup_colors,
 })

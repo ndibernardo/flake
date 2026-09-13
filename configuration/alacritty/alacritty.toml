@@ -1,6 +1,3 @@
-[general]
-import = [ "themes/noctilux.toml" ]
-
 [font]
 size = 12
 builtin_box_drawing = true
@@ -60,6 +57,30 @@ unfocused_hollow = true
 [cursor.style]
 shape = "Block"
 blinking = "Never"
+
+[colors.primary]
+background = "#000000"
+foreground = "#D8DEE9"
+
+[colors.normal]
+black = "#2A2A2A"
+red = "#BF616A"
+green = "#A3BE8C"
+yellow = "#EFB080"
+blue = "#85C1FC"
+magenta = "#AA9BF5"
+cyan = "#88C0D0"
+white = "#D8DEE9"
+
+[colors.bright]
+black = "#505050"
+red = "#BF616A"
+green = "#A3BE8C"
+yellow = "#EBC88D"
+blue = "#85C1FC"
+magenta = "#C582BF"
+cyan = "#83D6C5"
+white = "#D8DEE9"
 
 [[mouse.bindings]]
 mouse = "Middle"
