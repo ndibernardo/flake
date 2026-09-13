@@ -14,10 +14,9 @@
 
       config = lib.mkIf cfg.enable {
         core.nixpkgs.enable = true;
-        core.nixpkgs.unfreePackages = [
-          "berkeley-mono"
-          "pragmata-pro"
-        ];
+        core.nixpkgs.unfreePackages = [ "input-fonts" ];
+
+        nixpkgs.config.input-fonts.acceptLicense = true;
 
         fonts = {
           enableDefaultPackages = true;
@@ -37,6 +36,7 @@
             defaultFonts = {
               monospace = [
                 "TX-02 Book SemiCondensed"
+                "Input Mono"
                 "Fira Code"
                 "Inconsolata"
                 "Source Code Pro"
@@ -54,11 +54,12 @@
             };
           };
           packages = with pkgs; [
-            berkeley-mono
             commit-mono
             (fira-code.override { useVariableFont = false; })
+            fragment-mono
             hack-font
             inconsolata
+            input-fonts
             jetbrains-mono
             kode-mono
             liberation_ttf
