@@ -47,10 +47,7 @@
 
         networking.networkmanager.enable = lib.mkDefault true;
 
-        services.xserver = {
-          enable = lib.mkDefault true;
-          displayManager.lightdm.enable = lib.mkDefault true;
-        };
+        services.xserver.enable = lib.mkDefault true;
 
         applications = {
           emacs.enable = lib.mkDefault true;

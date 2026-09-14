@@ -215,11 +215,6 @@
         desktop.fuzzel.enable = lib.mkDefault true;
 
         programs.labwc.enable = true;
-        programs.fish.loginShellInit = lib.mkAfter ''
-          if test "$XDG_VTNR" = 1; and not set -q WAYLAND_DISPLAY
-            exec ${lib.getExe config.programs.labwc.package}
-          end
-        '';
 
         services.kanshi = {
           enable = true;
