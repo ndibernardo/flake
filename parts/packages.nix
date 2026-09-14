@@ -3,20 +3,8 @@ let
   flakeConfig = config;
 in
 {
-  flake.overlays.default = final: prev: {
+  flake.overlays.default = final: _: {
     helium = final.callPackage ../packages/helium.nix { };
-
-    # nixpkgs is still on 1.1.19; this pulls 1.1.20 forward. Drop the
-    # override once nixpkgs catches up.
-    solaar = prev.solaar.overrideAttrs (_: {
-      version = "1.1.20";
-      src = final.fetchFromGitHub {
-        owner = "pwr-Solaar";
-        repo = "Solaar";
-        tag = "1.1.20";
-        hash = "sha256-h/uiy0TtMicKch2cdXHur5DkvQun2sAw2HpFI7Qstqg=";
-      };
-    });
   };
 
   perSystem =
