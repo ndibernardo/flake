@@ -22,12 +22,10 @@
         plugins = with pkgs.vimPlugins; [
           cmp_luasnip
           cmp-cmdline
-          cmp-conjure
           cmp-nvim-lsp
           cmp-path
           comment-nvim
           conform-nvim
-          conjure
           direnv-vim
           fidget-nvim
           friendly-snippets
@@ -38,22 +36,24 @@
           nvim-tree-lua
           (nvim-treesitter.withPlugins (
             parsers: with parsers; [
-              clojure
-              commonlisp
-              fennel
+              elixir
               lua
               markdown
               markdown_inline
               nix
               query
+              rust
+              scala
+              tsx
+              typescript
               vim
               vimdoc
             ]
           ))
           nvim-web-devicons
           oil-nvim
-          parinfer-rust
           plenary-nvim
+          poimandres-nvim
           render-markdown-nvim
           telescope-nvim
           telescope-fzf-native-nvim
@@ -61,8 +61,6 @@
           undotree
           vim-fugitive
           vim-rhubarb
-          vim-sexp
-          vim-sexp-mappings-for-regular-people
           vim-sleuth
           which-key-nvim
         ];
@@ -73,6 +71,7 @@
 
       config = lib.mkIf cfg.enable {
         core.nixpkgs.enable = true;
+        core.nixpkgs.unfreePackages = [ "poimandres.nvim" ];
         core.dotfiles.enable = true;
 
         environment.systemPackages = [ customNeovim ];

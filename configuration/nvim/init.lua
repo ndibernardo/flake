@@ -2,227 +2,43 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.scriptencoding = "utf-8"
 
-local options = {
-  encoding = "utf-8",
-  fileencoding = "utf-8",
-  number = true,
-  relativenumber = true,
-  cursorline = true,
-  cursorlineopt = "number",
-  tabstop = 2,
-  softtabstop = 2,
-  shiftwidth = 2,
-  expandtab = true,
-  linespace = 2,
-  title = true,
-  autoindent = true,
-  smartindent = true,
-  undodir = os.getenv("HOME") .. "/.vim/undodir",
-  undofile = true,
-  incsearch = true,
-  guicursor = "",
-  termguicolors = false,
-  scrolloff = 8,
-  updatetime = 50,
-  backup = false,
-  hlsearch = false,
-  swapfile = false,
-  wrap = false,
-}
-
-for name, value in pairs(options) do
-  vim.opt[name] = value
-end
-
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.linespace = 2
+vim.opt.title = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+vim.opt.incsearch = true
+vim.opt.guicursor = ""
+vim.opt.termguicolors = true
+vim.opt.scrolloff = 8
+vim.opt.updatetime = 50
+vim.opt.backup = false
+vim.opt.hlsearch = false
+vim.opt.swapfile = false
+vim.opt.wrap = false
 vim.opt.isfname:append("@-@")
 
-for lhs, rhs in pairs({
-  ["<ScrollWheelUp>"] = "k",
-  ["<ScrollWheelDown>"] = "j",
-  ["<ScrollWheelLeft>"] = "h",
-  ["<ScrollWheelRight>"] = "l",
-}) do
-  vim.keymap.set("n", lhs, rhs, { noremap = true, silent = true })
-end
+vim.keymap.set("n", "<ScrollWheelUp>", "k", { noremap = true, silent = true })
+vim.keymap.set("n", "<ScrollWheelDown>", "j", { noremap = true, silent = true })
+vim.keymap.set("n", "<ScrollWheelLeft>", "h", { noremap = true, silent = true })
+vim.keymap.set("n", "<ScrollWheelRight>", "l", { noremap = true, silent = true })
 
 vim.diagnostic.config({ virtual_text = true })
 
 local function inlay_hints()
   vim.lsp.inlay_hint.enable()
 end
-
-local languages = {
-  {
-    filetype = "clojure",
-    conjure = true,
-    formatter = "cljfmt",
-    lsp = { "clojure_lsp", {} },
-  },
-  {
-    filetype = "elixir",
-    lsp = { "elixirls", {} },
-  },
-  {
-    filetype = "fennel",
-    conjure = true,
-    formatter = "fnlfmt",
-    lsp = { "fennel_ls", {} },
-  },
-  {
-    filetype = "fsharp",
-    lsp = { "fsautocomplete", {} },
-  },
-  {
-    filetype = "go",
-    lsp = {
-      "gopls",
-      {
-        on_attach = inlay_hints,
-        settings = {
-          gopls = {
-            analyses = { unusedparams = true },
-            staticcheck = true,
-          },
-        },
-      },
-    },
-  },
-  {
-    filetype = "lua",
-    lsp = {
-      "lua_ls",
-      {
-        settings = {
-          Lua = {
-            runtime = { version = "LuaJIT" },
-            diagnostics = { globals = { "vim", "require" } },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-              ignoreDir = { "result", ".direnv" },
-              checkThirdParty = false,
-            },
-            telemetry = { enable = false },
-          },
-        },
-      },
-    },
-  },
-  {
-    filetype = "nix",
-    lsp = {
-      "nixd",
-      { settings = { nixd = { formatting = { command = { "nixfmt" } } } } },
-    },
-  },
-  {
-    filetype = "ocaml",
-    lsp = { "ocamllsp", {} },
-  },
-  {
-    filetype = "python",
-    lsp = {
-      "pyright",
-      { settings = { python = { analysis = { typeCheckingMode = "basic" } } } },
-    },
-  },
-  {
-    filetype = "rust",
-    lsp = {
-      "rust_analyzer",
-      {
-        on_attach = inlay_hints,
-        settings = { ["rust-analyzer"] = { cargo = { features = "all" } } },
-      },
-    },
-  },
-  {
-    filetype = "zig",
-    lsp = {
-      "zls",
-      {
-        root_markers = { ".git", { "build.zig", "zls.json" } },
-        settings = {
-          zls = {
-            enable_inlay_hints = true,
-            enable_snippets = true,
-            warn_style = true,
-          },
-        },
-      },
-    },
-  },
-  {
-    filetype = "lisp",
-    conjure = true,
-  },
-}
-
-local lsp_servers = {}
-local formatters_by_filetype = {}
-local conjure_filetypes = {}
-
-for _, language in ipairs(languages) do
-  if language.lsp then
-    table.insert(lsp_servers, language.lsp)
-  end
-  if language.formatter then
-    formatters_by_filetype[language.filetype] = { language.formatter }
-  end
-  if language.conjure then
-    table.insert(conjure_filetypes, language.filetype)
-  end
-end
-
-for name, value in pairs({
-  ["conjure#filetypes"] = conjure_filetypes,
-  ["conjure#log#hud#enabled"] = true,
-  ["conjure#log#hud#anchor"] = "SE",
-  ["conjure#client#clojure#nrepl#connection#auto_repl#enabled"] = true,
-  ["conjure#client#clojure#nrepl#connection#auto_repl#hidden"] = true,
-  ["conjure#client#clojure#nrepl#connection#auto_repl#cmd"] = "bb nrepl-server localhost:$port",
-  ["conjure#client#common_lisp#swank#connection#default_host"] = "127.0.0.1",
-  ["conjure#client#common_lisp#swank#connection#default_port"] = "4005",
-}) do
-  vim.g[name] = value
-end
-
-vim.g.parinfer_mode = "smart"
-vim.g.parinfer_filetypes = conjure_filetypes
-
-local swank_job = nil
-
-local function start_swank()
-  if swank_job then
-    vim.notify("The Conjure SBCL/Swank job is already running", vim.log.levels.INFO)
-    return
-  end
-
-  local job = vim.fn.jobstart({ "conjure-sbcl" }, {
-    detach = false,
-    on_exit = function(_, code)
-      swank_job = nil
-      if code ~= 0 then
-        vim.schedule(function()
-          vim.notify("SBCL/Swank exited with code " .. code, vim.log.levels.ERROR)
-        end)
-      end
-    end,
-  })
-
-  if job > 0 then
-    swank_job = job
-    vim.notify("Starting SBCL/Swank on 127.0.0.1:4005", vim.log.levels.INFO)
-    vim.defer_fn(function()
-      pcall(vim.cmd, "ConjureConnect 127.0.0.1 4005")
-    end, 750)
-  else
-    vim.notify("Unable to start conjure-sbcl", vim.log.levels.ERROR)
-  end
-end
-
-vim.api.nvim_create_user_command("ConjureSwank", start_swank, {
-  desc = "Start SBCL/Swank and connect Conjure",
-})
 
 local builtin = require("telescope.builtin")
 local themes = require("telescope.themes")
@@ -232,10 +48,7 @@ wk.setup({})
 wk.add({
   { "<leader>s", { group = "[S]earch" } },
   { "<leader>p", { group = "[P]roject" } },
-  { "<localleader>c", { group = "[C]onjure" } },
 })
-
-vim.keymap.set("n", "<localleader>cS", start_swank, { desc = "[C]onjure start [S]wank" })
 
 vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "[P]roject [V]iew" })
 vim.keymap.set("n", "<leader>pt", "<CMD>NvimTreeToggle<CR>", { desc = "[P]roject [T]ree" })
@@ -331,7 +144,6 @@ cmp.setup({
   }),
   sources = {
     { name = "nvim_lsp" },
-    { name = "conjure" },
     { name = "luasnip" },
     { name = "path" },
   },
@@ -339,7 +151,11 @@ cmp.setup({
 
 require("conform").setup({
   format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
-  formatters_by_ft = formatters_by_filetype,
+  formatters_by_ft = {
+    scala = { "scalafmt" },
+    typescript = { "prettier" },
+    typescriptreact = { "prettier" },
+  },
 })
 
 local lsp_group = vim.api.nvim_create_augroup("lsp-attach", { clear = true })
@@ -393,15 +209,25 @@ vim.api.nvim_create_autocmd("LspDetach", {
 require("fidget").setup({ notification = { window = { winblend = 0 } } })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local enabled_servers = {}
 
-for _, entry in ipairs(lsp_servers) do
-  local server, server_options = entry[1], entry[2]
-  table.insert(enabled_servers, server)
-  vim.lsp.config[server] = vim.tbl_deep_extend("force", { capabilities = capabilities }, server_options)
-end
+vim.lsp.config.elixirls = { capabilities = capabilities }
+vim.lsp.config.metals = { capabilities = capabilities }
+vim.lsp.config.nixd = {
+  capabilities = capabilities,
+  settings = { nixd = { formatting = { command = { "nixfmt" } } } },
+}
+vim.lsp.config.rust_analyzer = {
+  capabilities = capabilities,
+  on_attach = inlay_hints,
+  settings = { ["rust-analyzer"] = { cargo = { features = "all" } } },
+}
+vim.lsp.config.ts_ls = { capabilities = capabilities }
 
-vim.lsp.enable(enabled_servers)
+vim.lsp.enable("elixirls")
+vim.lsp.enable("metals")
+vim.lsp.enable("nixd")
+vim.lsp.enable("rust_analyzer")
+vim.lsp.enable("ts_ls")
 
 require("Comment").setup({})
 require("gitsigns").setup({})
@@ -469,9 +295,8 @@ telescope.setup({
   extensions = { ["ui-select"] = themes.get_dropdown() },
 })
 
-for _, extension in ipairs({ "fzf", "ui-select" }) do
-  pcall(telescope.load_extension, extension)
-end
+pcall(telescope.load_extension, "fzf")
+pcall(telescope.load_extension, "ui-select")
 
 require("nvim-treesitter").setup({
   highlight = { enable = true, additional_vim_regex_highlighting = true },
@@ -484,51 +309,15 @@ require("render-markdown").setup({
 })
 
 vim.o.background = "dark"
-vim.cmd.colorscheme("vim")
-
-local function apply_popup_colors()
-  for _, group in ipairs({
-    "NormalFloat",
-    "FloatBorder",
-    "FloatTitle",
-    "Pmenu",
-    "PmenuSbar",
-    "TelescopeNormal",
-    "TelescopeBorder",
-  }) do
-    vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", vim.api.nvim_get_hl(0, {
-      name = group,
-      link = false,
-    }), {
-      bg = "NONE",
-      ctermbg = "NONE",
-      fg = "#D8DEE9",
-      ctermfg = 7,
-    }))
-  end
-
-  for _, group in ipairs({ "SignColumn", "FoldColumn" }) do
-    vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", vim.api.nvim_get_hl(0, {
-      name = group,
-      link = false,
-    }), { bg = "NONE", ctermbg = "NONE" }))
-  end
-
-  for group, colors in pairs({
-    CmpItemAbbrDefault = { fg = "#D8DEE9", ctermfg = 7 },
-    CmpItemAbbrDeprecatedDefault = { fg = "#505050", ctermfg = 8, strikethrough = true },
-    CmpItemAbbrMatchDefault = { fg = "#85C1FC", ctermfg = 12, bold = true },
-    CmpItemAbbrMatchFuzzyDefault = { fg = "#85C1FC", ctermfg = 12, bold = true },
-    CmpItemKindDefault = { fg = "#88C0D0", ctermfg = 6 },
-    CmpItemMenuDefault = { fg = "#505050", ctermfg = 8 },
-  }) do
-    vim.api.nvim_set_hl(0, group, colors)
-  end
-end
-
-apply_popup_colors()
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("popup-colors", { clear = true }),
-  callback = apply_popup_colors,
+require("poimandres").setup({
+  disable_background = true,
+  disable_float_background = true,
 })
+vim.cmd.colorscheme("poimandres")
+
+vim.api.nvim_set_hl(0, "Comment", { fg = "#506477" })
+vim.api.nvim_set_hl(0, "SpecialComment", { fg = "#506477" })
+
+for _, group in ipairs({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }) do
+  vim.api.nvim_set_hl(0, group, { fg = "#171922", bg = "#ADD7FF" })
+end
