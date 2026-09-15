@@ -38,7 +38,6 @@
           marginalia
           multiple-cursors
           orderless
-          paredit
           rainbow-delimiters
           rainbow-mode
           vertico
@@ -50,23 +49,9 @@
           yasnippet
         ]
         ++ [
-          cider
-          cider-eval-sexp-fu
-          clj-refactor
-          clojure-mode
-          flycheck-clj-kondo
-        ]
-        ++ [ slime ]
-        ++ [
           dockerfile-mode
           docker-compose-mode
           elixir-mode
-          fennel-mode
-          fsharp-mode
-          glsl-mode
-          go-mode
-          lsp-pyright
-          lua-mode
           markdown-mode
           nix-mode
           rust-mode
@@ -74,7 +59,6 @@
           sbt-mode
           typescript-mode
           web-mode
-          zig-mode
         ]
       );
 

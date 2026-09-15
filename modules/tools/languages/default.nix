@@ -14,22 +14,20 @@
 
       config = lib.mkIf cfg.enable {
         environment.systemPackages = with pkgs; [
-          babashka
-          clj-kondo
-          cljfmt
-          clojure
-          clojure-lsp
           beamPackages.elixir
           elixir-ls
-          fsautocomplete
-          gopls
           jdk21
-          leiningen
-          lua-language-server
+          metals
           nixd
-          pyright
+          nixfmt
+          nodejs
+          prettier
           rustup
-          zls
+          sbt
+          scala_3
+          scalafmt
+          typescript
+          typescript-language-server
         ];
       };
     };

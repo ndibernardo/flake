@@ -41,7 +41,7 @@ eating the space just typed."
 (setq compilation-scroll-output t)
 (setq compilation-window-height 15)
 (setq display-buffer-alist
-      '(("\\*\\(compilation\\|eshell\\|xref\\|vterm\\|system-shell\\|cider-repl\\)\\*"
+      '(("\\*\\(compilation\\|eshell\\|xref\\|vterm\\|system-shell\\)\\*"
          (display-buffer-reuse-mode-window
           display-buffer-below-selected)
          (window-height . 20))))
@@ -401,57 +401,6 @@ edge, and leaves the file's own line endings untouched."
 
 ;;; Programming Modes
 
-;; C
-(add-to-list 'auto-mode-alist '("\\.\\(c\\|h\\)\\'" . c-mode))
-(add-hook 'c-mode-hook 'lsp)
-
-;; Clojure
-(require 'clojure-mode)
-(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
-
-(add-hook 'clojure-mode-hook 'lsp)
-(add-hook 'clojurescript-mode-hook 'lsp)
-(add-hook 'clojurec-mode-hook 'lsp)
-
-(with-eval-after-load 'clojure-mode
-  (define-key clojure-mode-map (kbd "<s-return>") 'cider-eval-last-sexp)
-  (define-key clojure-mode-map (kbd "<S-s-return>") 'cider-eval-defun-at-point)
-  (define-key clojure-mode-map (kbd "<C-s-return>") 'cider-eval-buffer)
-  (define-key clojure-mode-map (kbd "<M-.>") 'cider-find-var))
-
-(require 'cider)
-(setq cider-repl-use-clojure-font-lock t)
-(setq cider-overlays-use-font-lock t)
-(setq cider-prompt-save-file-on-load 'always-save)
-(setq cider-font-lock-dynamically '(macro core function var deprecated))
-(setq cider-use-overlays t)
-(setq cider-repl-pop-to-buffer-on-connect 'display-only)
-(setq cider-repl-use-pretty-printing t)
-(setq nrepl-hide-special-buffers t)
-(setq nrepl-log-messages t)
-(setq nrepl-use-ssh-fallback-for-remote-hosts t)
-
-(add-hook 'cider-repl-mode-hook 'cider-mode)
-(add-hook 'cider-mode-hook 'eldoc-mode)
-(add-hook 'cider-interaction-mode-hook 'eldoc-mode)
-
-(require 'cider-eval-sexp-fu)
-(setq cider-eval-sexp-fu-flash-duration 0.2)
-
-(require 'clj-refactor)
-(add-hook 'cider-mode-hook 'clj-refactor-mode)
-(with-eval-after-load 'clj-refactor
-  (cljr-add-keybindings-with-prefix "C-c C-m"))
-
-;; Common Lisp
-(require 'slime)
-(setq inferior-lisp-program "sbcl")
-(setq slime-contribs '(slime-fancy))
-(add-hook 'lisp-mode-hook 'paredit-mode)
-
 ;; Docker
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
@@ -463,33 +412,9 @@ edge, and leaves the file's own line endings untouched."
 (add-to-list 'auto-mode-alist '("\\.\\(ex\\|exs\\|heex\\)\\'" . elixir-mode))
 (add-hook 'elixir-mode-hook 'lsp)
 
-;; Fennel
-(require 'fennel-mode)
-(add-to-list 'auto-mode-alist '("\\.fnl\\'" . fennel-mode))
-(add-hook 'fennel-mode-hook 'lsp)
-
-;; F#
-(require 'fsharp-mode)
-(add-to-list 'auto-mode-alist '("\\.\\(fs\\|fsi\\|fsx\\)\\'" . fsharp-mode))
-(add-hook 'fsharp-mode-hook 'lsp)
-
-;; Go
-(require 'go-mode)
-(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-(add-hook 'go-mode-hook 'lsp)
-
-;; Lua
-(require 'lua-mode)
-(add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode))
-(add-hook 'lua-mode-hook 'lsp)
-
 ;; Nix
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 (add-hook 'nix-mode-hook 'lsp)
-
-;; Python
-(require 'lsp-pyright)
-(add-hook 'python-mode-hook 'lsp)
 
 ;; Rust
 (setq lsp-rust-features "all")
@@ -498,9 +423,14 @@ edge, and leaves the file's own line endings untouched."
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-hook 'rust-mode-hook 'lsp)
 
-;; Zig
-(add-to-list 'auto-mode-alist '("\\.\\(zig\\|zon\\)\\'" . zig-mode))
-(add-hook 'zig-mode-hook 'lsp)
+;; Scala
+(add-to-list 'auto-mode-alist '("\\.scala\\'" . scala-mode))
+(add-hook 'scala-mode-hook 'lsp)
+
+;; TypeScript
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+(add-hook 'typescript-mode-hook 'lsp)
 
 ;;;; Keys
 ;;; Move lines
