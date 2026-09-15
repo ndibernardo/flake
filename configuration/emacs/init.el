@@ -67,8 +67,8 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "TX-02 Book SemiCondensed-11")
-(set-face-attribute 'fixed-pitch nil :family "TX-02 Book SemiCondensed")
+(set-face-attribute 'default nil :font "Berkeley Mono-11")
+(set-face-attribute 'fixed-pitch nil :family "Berkeley Mono")
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -367,7 +367,7 @@ Code, tables and markup keywords only line up in a fixed-width font.")
 
 (defvar prose-fixed-pitch-height 0.98
   "Height of `prose-fixed-pitch-faces', as a fraction of `default'.
-Fira Code runs larger than Noto Sans at the same height, so
+Berkeley Mono runs larger than Noto Sans at the same height, so
 code blocks need scaling down to sit level with the surrounding prose.")
 
 (defun prose-keep-faces-fixed-pitch (&rest _)

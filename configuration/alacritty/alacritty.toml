@@ -1,22 +1,22 @@
 [font]
-size = 12
+size = 13
 builtin_box_drawing = true
 
 [font.normal]
-family = "Input Mono"
-style = "Regular"
+family = "Berkeley Mono"
+style = "Book SemiCondensed"
 
 [font.bold]
-family = "Input Mono"
-style = "Bold"
+family = "Berkeley Mono"
+style = "Bold SemiCondensed"
 
 [font.italic]
-family = "Input Mono"
-style = "Italic"
+family = "Berkeley Mono"
+style = "Book SemiCondensed Oblique"
 
 [font.bold_italic]
-family = "Input Mono"
-style = "Bold Italic"
+family = "Berkeley Mono"
+style = "Bold SemiCondensed Oblique"
 
 [font.offset]
 x = 0

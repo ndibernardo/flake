@@ -14,12 +14,13 @@
 
       config = lib.mkIf cfg.enable {
         core.nixpkgs.enable = true;
-        core.nixpkgs.unfreePackages = [ "input-fonts" ];
-
-        nixpkgs.config.input-fonts.acceptLicense = true;
+        core.nixpkgs.unfreePackages = [
+          "26091623PWV3QQ0R.zip"
+          "berkeley-mono"
+        ];
 
         fonts = {
-          enableDefaultPackages = true;
+          enableDefaultPackages = false;
           fontDir.enable = true;
           fontconfig = {
             enable = true;
@@ -35,12 +36,7 @@
             };
             defaultFonts = {
               monospace = [
-                "TX-02 Book SemiCondensed"
-                "Input Mono"
-                "Fira Code"
-                "Inconsolata"
-                "Source Code Pro"
-                "CommitMono"
+                "Berkeley Mono"
               ];
               sansSerif = [
                 "Noto Sans"
@@ -54,16 +50,7 @@
             };
           };
           packages = with pkgs; [
-            commit-mono
-            (fira-code.override { useVariableFont = false; })
-            fragment-mono
-            hack-font
-            inconsolata
-            input-fonts
-            jetbrains-mono
-            kode-mono
-            liberation_ttf
-            nerd-fonts.symbols-only
+            berkeley-mono
             noto-fonts
             noto-fonts-cjk-sans
             noto-fonts-cjk-serif
