@@ -50,7 +50,6 @@
         ]
         ++ [
           dockerfile-mode
-          docker-compose-mode
           elixir-mode
           markdown-mode
           nix-mode
@@ -59,6 +58,7 @@
           sbt-mode
           typescript-mode
           web-mode
+          yaml-mode
         ]
       );
 

@@ -10,7 +10,7 @@
       cfg = config.desktop.gtk;
     in
     {
-      options.desktop.gtk.enable = lib.mkEnableOption "GTK and Qt theming";
+      options.desktop.gtk.enable = lib.mkEnableOption "GTK theming";
 
       config = lib.mkIf cfg.enable {
         core.dotfiles.enable = true;
@@ -18,12 +18,6 @@
         services.gvfs.enable = true;
         services.tumbler.enable = true;
         services.udisks2.enable = true;
-
-        qt = {
-          enable = true;
-          platformTheme = "gtk2";
-          style = "gtk2";
-        };
 
         environment.systemPackages = with pkgs; [
           adwaita-icon-theme

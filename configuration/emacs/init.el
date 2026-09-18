@@ -404,8 +404,8 @@ edge, and leaves the file's own line endings untouched."
 ;; Docker
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
-;; Docker Compose
-(add-to-list 'auto-mode-alist '("docker-compose\\'" . docker-compose-mode))
+;; Compose .yml/.yaml files use yaml-mode's filename associations.
+(add-to-list 'auto-mode-alist '("docker-compose\\'" . yaml-mode))
 
 ;; Elixir
 (require 'elixir-mode)
