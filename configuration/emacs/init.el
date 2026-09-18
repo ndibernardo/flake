@@ -67,7 +67,7 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "Berkeley Mono-11")
+(set-face-attribute 'default nil :font "Berkeley Mono-12")
 (set-face-attribute 'fixed-pitch nil :family "Berkeley Mono")
 
 ;; No startup screen
@@ -88,7 +88,7 @@ eating the space just typed."
 
 (setq-default fill-column 100)
 
-(load-theme 'noctilux t)
+(load-theme 'tomorrow-night t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
