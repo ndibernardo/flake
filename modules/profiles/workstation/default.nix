@@ -76,6 +76,7 @@
 
         tools = {
           atuin.enable = lib.mkDefault true;
+          btop.enable = lib.mkDefault true;
           direnv.enable = lib.mkDefault true;
           fish.enable = lib.mkDefault true;
           git.enable = lib.mkDefault true;
@@ -88,7 +89,6 @@
             curl
             eza
             fzf
-            htop
             jq
             k9s
             killall

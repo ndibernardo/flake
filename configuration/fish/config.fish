@@ -7,6 +7,7 @@ if status is-interactive
     alias cat bat
     alias ll 'eza -la --git --group-directories-first'
     alias ls 'eza --group-directories-first'
+    alias top btop
     alias tree 'eza --tree --git-ignore --level=2 --group-directories-first'
 
     atuin init fish | source
