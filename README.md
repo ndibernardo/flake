@@ -47,7 +47,7 @@ subtracting from a default:
 ```nix
 machines.daedalus.config = {
   core.docker.enable = true;
-  desktop.labwc.enable = true;
+  desktop.niri.enable = true;
   applications.firefox.enable = true;
 };
 ```

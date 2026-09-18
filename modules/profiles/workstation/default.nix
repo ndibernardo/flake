@@ -41,19 +41,17 @@
 
         desktop = {
           gtk.enable = lib.mkDefault true;
-          labwc.enable = lib.mkDefault true;
+          niri.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
         };
 
         networking.networkmanager.enable = lib.mkDefault true;
 
-        services.xserver.enable = lib.mkDefault true;
-
         applications = {
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
           firefox.enable = lib.mkDefault true;
-          alacritty.enable = lib.mkDefault true;
+          ghostty.enable = lib.mkDefault true;
           mpd.enable = lib.mkDefault true;
           neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;

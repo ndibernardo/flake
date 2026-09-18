@@ -39,7 +39,7 @@
 
         terminal = lib.mkOption {
           type = lib.types.str;
-          default = "Alacritty.desktop";
+          default = "com.mitchellh.ghostty.desktop";
           description = "Desktop entry launched when an app asks for a terminal.";
         };
       };
