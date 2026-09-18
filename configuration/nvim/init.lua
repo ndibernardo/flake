@@ -308,16 +308,29 @@ require("render-markdown").setup({
   heading = { backgrounds = {} },
 })
 
-vim.o.background = "dark"
-require("poimandres").setup({
-  disable_background = true,
-  disable_float_background = true,
+local tairiki = require("tairiki")
+
+tairiki.setup({
+  palette = "dimmed",
+  default_dark = "tomorrow",
+  transparent = true,
+  terminal = false,
+  end_of_buffer = false,
+  visual_bold = false,
+  cmp_itemkind_reverse = false,
+  diagnostics = { darker = false, background = true, undercurl = false },
+  code_style = {
+    comments = { italic = false },
+    conditionals = {},
+    keywords = {},
+    functions = {},
+    strings = {},
+    variables = {},
+    parameters = {},
+    types = {},
+  },
+  highlights = function() end,
 })
-vim.cmd.colorscheme("poimandres")
 
-vim.api.nvim_set_hl(0, "Comment", { fg = "#506477" })
-vim.api.nvim_set_hl(0, "SpecialComment", { fg = "#506477" })
-
-for _, group in ipairs({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }) do
-  vim.api.nvim_set_hl(0, group, { fg = "#171922", bg = "#ADD7FF" })
-end
+vim.o.background = "dark"
+tairiki.load()

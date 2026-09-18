@@ -53,8 +53,8 @@
           nvim-web-devicons
           oil-nvim
           plenary-nvim
-          poimandres-nvim
           render-markdown-nvim
+          tairiki
           telescope-nvim
           telescope-fzf-native-nvim
           telescope-ui-select-nvim
@@ -71,7 +71,6 @@
 
       config = lib.mkIf cfg.enable {
         core.nixpkgs.enable = true;
-        core.nixpkgs.unfreePackages = [ "poimandres.nvim" ];
         core.dotfiles.enable = true;
 
         environment.systemPackages = [ customNeovim ];

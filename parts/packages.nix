@@ -3,8 +3,14 @@ let
   flakeConfig = config;
 in
 {
-  flake.overlays.default = final: _: {
+  flake.overlays.default = final: prev: {
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
+
+    vimPlugins = prev.vimPlugins.extend (
+      _: _: {
+        tairiki = final.callPackage ../packages/tairiki.nix { };
+      }
+    );
   };
 
   perSystem =
@@ -21,6 +27,9 @@ in
         overlays = [ flakeConfig.flake.overlays.default ];
       };
 
-      packages.berkeley-mono = pkgs.berkeley-mono;
+      packages = {
+        berkeley-mono = pkgs.berkeley-mono;
+        inherit (pkgs.vimPlugins) tairiki;
+      };
     };
 }
