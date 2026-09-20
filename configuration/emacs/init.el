@@ -52,6 +52,7 @@ eating the space just typed."
 (setq window-divider-default-right-width 1)
 
 (global-auto-revert-mode t)
+(setq vc-follow-symlinks t)
 
 (setq auto-save-visited-interval 5)
 (setq auto-save-visited-predicate
