@@ -15,9 +15,8 @@
 (setq frame-resize-pixelwise t)
 
 (setq default-frame-alist
-      (append '((font . "Berkeley Mono-10")
-                (width . 170)
-                (height . 90))
+      (append '((width . 180)
+                (height . 100))
               default-frame-alist))
 
 ;; Don't use file dialog

@@ -51,6 +51,7 @@
           };
           packages = with pkgs; [
             berkeley-mono
+            inconsolata
             noto-fonts
             noto-fonts-cjk-sans
             noto-fonts-cjk-serif
