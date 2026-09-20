@@ -6,6 +6,8 @@ in
   flake.overlays.default = final: prev: {
     berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
 
+    todoist = final.callPackage ../packages/todoist.nix { };
+
     vimPlugins = prev.vimPlugins.extend (
       _: _: {
         tairiki = final.callPackage ../packages/tairiki.nix { };
@@ -23,12 +25,14 @@ in
           builtins.elem (inputs.nixpkgs.lib.getName pkg) [
             "26091623PWV3QQ0R.zip"
             "berkeley-mono"
+            "todoist-electron"
           ];
         overlays = [ flakeConfig.flake.overlays.default ];
       };
 
       packages = {
         berkeley-mono = pkgs.berkeley-mono;
+        todoist = pkgs.todoist;
         inherit (pkgs.vimPlugins) tairiki;
       };
     };

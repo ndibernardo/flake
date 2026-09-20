@@ -29,6 +29,7 @@
             enable = lib.mkDefault true;
             unfreePackages = [
               "obsidian"
+              "todoist-electron"
             ];
           };
           openssh.enable = lib.mkDefault true;
@@ -71,6 +72,7 @@
             solaar
             telegram-desktop
             thunar
+            todoist
             ungoogled-chromium
           ];
         };
