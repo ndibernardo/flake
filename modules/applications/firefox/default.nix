@@ -166,7 +166,8 @@
             "security.OCSP.require" = true;
             "services.sync.engine.prefs" = true;
             "services.sync.prefs.dangerously_allow_arbitrary" = false;
-            "sidebar.verticalTabs" = false;
+            "sidebar.revamp" = true;
+            "sidebar.verticalTabs" = true;
             "signon.autofillForms" = false;
             "signon.formlessCapture.enabled" = false;
             "widget.use-xdg-desktop-portal.settings" = 1;
