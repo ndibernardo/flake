@@ -1,0 +1,72 @@
+{
+  "theme": "Noctilux",
+
+  //"buffer_font_family": "Source Code Pro",
+  "buffer_font_family": "Berkeley Mono",
+  "buffer_font_size": 16,
+  "buffer_font_weight": 450,
+  "buffer_font_features": { "calt": true },
+  "buffer_line_height": { "custom": 1.7 },
+
+  "cursor_blink": false,
+  "current_line_highlight": "gutter",
+  "sticky_scroll": { "enabled": true },
+  "minimap": { "show": "auto" },
+  "project_panel": { "sticky_scroll": true },
+
+  "terminal": {
+    "font_family": "Berkeley Mono",
+    "font_size": 16,
+    "font_weight": 450
+  },
+
+  "auto_update": false,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+
+  "load_direnv": "direct",
+
+  "theme_overrides": {
+    "Alabaster Dark": {
+      "syntax": {
+        "function": { "color": "#5dafecff" },
+        "function.call": { "color": "#5dafecff" },
+        "function.method": { "color": "#5dafecff" },
+        "function.method.call": { "color": "#5dafecff" }
+      }
+    },
+    "Alabaster Light": {
+      "syntax": {
+        "function": { "color": "#005d7fff" },
+        "function.call": { "color": "#005d7fff" },
+        "function.method": { "color": "#005d7fff" },
+        "function.method.call": { "color": "#005d7fff" }
+      }
+    }
+  },
+
+  "auto_install_extensions": {
+    "alabaster-official": true,
+    "docker-compose": true,
+    "dockerfile": true,
+    "elixir": true,
+    "env": true,
+    "fish": true,
+    "git-firefly": true,
+    "github-actions": true,
+    "log": true,
+    "make": true,
+    "markdown-oxide": true,
+    "nix": true,
+    "proto": true,
+    "ruff": true,
+    "scala": true,
+    "sql": true,
+    "svelte": true,
+    "terraform": true,
+    "toml": true,
+    "xml": true
+  },
+}

@@ -55,6 +55,7 @@
           mpd.enable = lib.mkDefault true;
           neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
+          zed.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
             foliate
