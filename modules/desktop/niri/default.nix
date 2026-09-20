@@ -16,14 +16,11 @@
         core.audio.enable = true;
         core.dotfiles.enable = true;
         core.fonts.enable = true;
+        desktop.gdm.enable = true;
         desktop.noctalia.enable = lib.mkDefault true;
 
         programs.niri.enable = true;
-        services.displayManager.gdm = {
-          enable = true;
-          autoSuspend = false;
-        };
-        environment.sessionVariables.NIXOS_OZONE_WL = "1";
+        environment.sessionVariables.NIXOS_OZONE_WL = lib.mkDefault "1";
 
         environment.systemPackages = with pkgs; [
           wl-clipboard
