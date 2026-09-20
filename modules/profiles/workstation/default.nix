@@ -50,6 +50,8 @@
 
         networking.networkmanager.enable = lib.mkDefault true;
 
+        services.flatpak.enable = lib.mkDefault true;
+
         applications = {
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
