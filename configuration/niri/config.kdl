@@ -21,6 +21,11 @@ output "DP-4" {
     transform "normal"
 }
 
+// Declared in order, so these hold workspace 1 and 2; `open-on-workspace`
+// only accepts a named workspace.
+workspace "main"
+workspace "media"
+
 layout {
     gaps 10
     center-focused-column "on-overflow"
@@ -95,6 +100,21 @@ window-rule {
 window-rule {
     match app-id="dev.noctalia.Noctalia"
     open-floating true
+}
+
+window-rule {
+    match app-id=r#"^Todoist$"#
+    default-column-width { proportion 0.33333; }
+}
+
+window-rule {
+    match app-id=r#"^spotify$"#
+    open-on-workspace "media"
+}
+
+window-rule {
+    match app-id=r#"^steam$"#
+    open-on-workspace "media"
 }
 
 layer-rule {
