@@ -52,6 +52,14 @@
 
         services.flatpak.enable = lib.mkDefault true;
 
+        services.guix = {
+          enable = lib.mkDefault true;
+          substituters.urls = [
+            "https://bordeaux.guix.gnu.org"
+            "https://ci.guix.gnu.org"
+          ];
+        };
+
         applications = {
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
