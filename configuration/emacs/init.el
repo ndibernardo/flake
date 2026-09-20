@@ -144,6 +144,14 @@ eating the space just typed."
 (setq flycheck-emacs-lisp-load-path 'inherit)
 (add-hook 'prog-mode-hook 'flycheck-mode)
 
+(defun enable-scratch-buffer-flycheck ()
+  "Trust user-authored code in `*scratch*' so Flycheck can compile it."
+  (when (string= (buffer-name) "*scratch*")
+    (setq-local trusted-content :all)
+    (flycheck-reset-enabled-checker 'emacs-lisp)))
+
+(add-hook 'lisp-interaction-mode-hook 'enable-scratch-buffer-flycheck)
+
 (setq flycheck-mode-line '(:eval (replace-regexp-in-string
                                   "FlyC" "φ"
                                   (flycheck-mode-line-status-text))))
