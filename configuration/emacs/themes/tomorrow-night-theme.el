@@ -386,19 +386,6 @@
  '(ediff-odd-diff-B ((t (:inherit ediff-odd-diff-A))))
  '(ediff-odd-diff-C ((t (:inherit ediff-odd-diff-A))))
 
- ;; elfeed
- '(elfeed-log-debug-level-face ((t (:foreground "#5a5b5a"))))
- '(elfeed-log-error-level-face ((t (:inherit error))))
- '(elfeed-log-info-level-face ((t (:inherit success))))
- '(elfeed-log-warn-level-face ((t (:inherit warning))))
- '(elfeed-search-date-face ((t (:foreground "#b294bb"))))
- '(elfeed-search-feed-face ((t (:foreground "#81a2be"))))
- '(elfeed-search-filter-face ((t (:foreground "#b294bb"))))
- '(elfeed-search-tag-face ((t (:foreground "#5a5b5a"))))
- '(elfeed-search-title-face ((t (:foreground "#5a5b5a"))))
- '(elfeed-search-unread-count-face ((t (:foreground "#f0c674"))))
- '(elfeed-search-unread-title-face ((t (:foreground "#c5c8c6" :weight bold))))
-
  ;; elixir
  '(elixir-atom-face ((t (:foreground "#41728e"))))
  '(elixir-attribute-face ((t (:foreground "#b294bb"))))

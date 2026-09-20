@@ -254,54 +254,6 @@ once, when the daemon starts and no frame exists yet."
 
 (direnv-mode)
 
-;; Elfeed
-;; Feed list lives outside the repo, see elfeed-feeds.el.
-(defvar elfeed-feeds-file (expand-file-name "elfeed-feeds.el" user-emacs-directory)
-  "File holding the feed list, kept outside the repository.")
-
-(load elfeed-feeds-file 'noerror)
-(setq elfeed-search-filter "@6-months-ago +unread -mastodon")
-
-(defun elfeed-edit-feeds ()
-  "Visit `elfeed-feeds-file'."
-  (interactive)
-  (find-file elfeed-feeds-file))
-
-(defun elfeed-reload-feeds ()
-  "Re-read `elfeed-feeds-file', then fetch every feed.
-Picks up feeds added since Emacs started without a restart."
-  (interactive)
-  (load elfeed-feeds-file 'noerror)
-  (elfeed-update))
-
-(defun elfeed-content-title (entry)
-  "Return a one-line title built from ENTRY's content, or nil.
-The content is stripped of HTML tags, whitespace-collapsed and
-truncated to 80 columns."
-  (let* ((content (elfeed-deref (elfeed-entry-content entry)))
-         (text (and content
-                    (string-trim
-                     (replace-regexp-in-string
-                      "[ \t\n\r]+" " "
-                      (replace-regexp-in-string "<[^>]+>" " " content))))))
-    (when (and text (not (string-empty-p text)))
-      (truncate-string-to-width text 80 nil nil "…"))))
-
-(defun elfeed-fix-entry-title (entry)
-  "Give ENTRY a title derived from its content when it has none.
-Some RSS entries carry no title, only the post link; fall back to a
-snippet of the body so the search list shows content instead of URLs.
-`elfeed-entry-title' is a `cl-defstruct' accessor and gets inlined into
-elfeed's own byte-compiled callers, so advising it has no effect there;
-entry metadata (`elfeed-meta') is checked first by elfeed's title lookup
-and isn't inlined, so the fallback title is set there instead."
-  (when (or (null (elfeed-entry-title entry))
-            (string-empty-p (elfeed-entry-title entry)))
-    (when-let ((title (elfeed-content-title entry)))
-      (elfeed-meta--put entry :title title))))
-
-(add-hook 'elfeed-new-entry-hook #'elfeed-fix-entry-title)
-
 ;; System rebuild
 (defvar nixos-flake-directory (file-name-concat (expand-file-name "~") "flake")
   "Directory of the flake that builds this system.")
@@ -539,18 +491,6 @@ If point was already at that position, move point to beginning of line."
 
 ;; Treemacs
 (global-set-key (kbd "<f8>") 'treemacs)
-
-;; Elfeed
-(defvar elfeed-prefix-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "e") 'elfeed)
-    (define-key map (kbd "f") 'elfeed-edit-feeds)
-    (define-key map (kbd "u") 'elfeed-reload-feeds)
-    map)
-  "Keymap for elfeed commands, bound to \\`C-c e'.")
-
-(global-set-key (kbd "C-c e") elfeed-prefix-map)
-(which-key-add-key-based-replacements "C-c e" "elfeed")
 
 ;; Expand region
 (global-set-key (kbd "C-=") 'er/expand-region)

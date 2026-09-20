@@ -25,7 +25,6 @@
           corfu
           direnv
           diminish
-          elfeed
           exec-path-from-shell
           expand-region
           flycheck
