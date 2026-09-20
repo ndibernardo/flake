@@ -21,7 +21,10 @@
         desktop.xdg.terminal = lib.mkDefault "com.mitchellh.ghostty.desktop";
 
         core.dotfiles.directories = [ ".config/ghostty" ];
-        core.dotfiles.links.".config/ghostty/config" = lib.mkDefault "ghostty/config";
+        core.dotfiles.links = {
+          ".config/ghostty/config" = lib.mkDefault "ghostty/config";
+          ".config/ghostty/themes" = lib.mkDefault "ghostty/themes";
+        };
       };
     };
 }
