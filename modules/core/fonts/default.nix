@@ -13,12 +13,6 @@
       options.core.fonts.enable = lib.mkEnableOption "system fonts";
 
       config = lib.mkIf cfg.enable {
-        core.nixpkgs.enable = true;
-        core.nixpkgs.unfreePackages = [
-          "26091623PWV3QQ0R.zip"
-          "berkeley-mono"
-        ];
-
         fonts = {
           enableDefaultPackages = false;
           fontDir.enable = true;
@@ -36,7 +30,7 @@
             };
             defaultFonts = {
               monospace = [
-                "Berkeley Mono"
+                "DejaVu Sans Mono"
               ];
               sansSerif = [
                 "Noto Sans"
@@ -50,7 +44,7 @@
             };
           };
           packages = with pkgs; [
-            berkeley-mono
+            dejavu_fonts
             inconsolata
             noto-fonts
             noto-fonts-cjk-sans

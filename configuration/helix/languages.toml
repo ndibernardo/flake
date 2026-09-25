@@ -1,0 +1,25 @@
+[language-server.rust-analyzer.config.cargo]
+features = "all"
+
+[[language]]
+name = "elixir"
+auto-format = true
+
+[[language]]
+name = "nix"
+language-servers = ["nixd"]
+auto-format = true
+
+[[language]]
+name = "scala"
+auto-format = true
+
+[[language]]
+name = "typescript"
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true

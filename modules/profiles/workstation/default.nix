@@ -29,7 +29,6 @@
             enable = lib.mkDefault true;
             unfreePackages = [
               "obsidian"
-              "todoist-electron"
             ];
           };
           openssh.enable = lib.mkDefault true;
@@ -42,9 +41,8 @@
 
         desktop = {
           gdm.enable = lib.mkDefault true;
-          gnome.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
-          niri.enable = lib.mkDefault true;
+          sway.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
         };
 
@@ -63,12 +61,11 @@
         applications = {
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
-          firefox.enable = lib.mkDefault true;
           ghostty.enable = lib.mkDefault true;
+          helix.enable = lib.mkDefault true;
+          librewolf.enable = lib.mkDefault true;
           mpd.enable = lib.mkDefault true;
-          neovim.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
-          zed.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
             foliate
@@ -84,7 +81,6 @@
             solaar
             telegram-desktop
             thunar
-            todoist
             ungoogled-chromium
           ];
         };

@@ -1,7 +1,3 @@
-{ config, ... }:
-let
-  flakeConfig = config;
-in
 {
   flake.nixosModules.core-nixpkgs =
     { config, lib, ... }:
@@ -10,7 +6,7 @@ in
     in
     {
       options.core.nixpkgs = {
-        enable = lib.mkEnableOption "nixpkgs overlay and unfree packages";
+        enable = lib.mkEnableOption "explicit unfree packages";
 
         unfreePackages = lib.mkOption {
           type = lib.types.listOf lib.types.str;
@@ -25,10 +21,7 @@ in
       };
 
       config = lib.mkIf cfg.enable {
-        nixpkgs = {
-          config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfreePackages;
-          overlays = [ flakeConfig.flake.overlays.default ];
-        };
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfreePackages;
       };
     };
 }

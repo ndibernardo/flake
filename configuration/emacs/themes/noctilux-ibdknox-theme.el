@@ -94,7 +94,7 @@ the \"Gen RGB\" column in noctilux-ibdknox-definitions.el to improve them furthe
   '((base03  "#202020" "#202020" "#202020" "brightblack"   "black")
     (base02  "#303030" "#303030" "#303030" "black"         "black")
     (base01  "#5f5f5f" "#5f5f5f" "#5f5f5f" "brightblack"   "black")
-    (comment "#7799aa" "#7799aa" "#7799aa" "brightgreen"   "green")
+    (comment "#5f5f5f" "#5f5f5f" "#5f5f5f" "brightgreen"   "green")
     (base00  "#999999" "#999999" "#999999" "brightyellow"  "yellow")
     (base0   "#cccccc" "#cccccc" "#cccccc" "brightblue"    "blue")
     (base1   "#eeeeee" "#eeeeee" "#eeeeee" "brightcyan"    "cyan")

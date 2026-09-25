@@ -60,13 +60,13 @@
 
         browser = lib.mkOption {
           type = lib.types.str;
-          default = "firefox.desktop";
+          default = "librewolf.desktop";
           description = "Desktop entry handling web links and HTML files.";
         };
 
         desktopEnvironment = lib.mkOption {
           type = lib.types.str;
-          default = "niri";
+          default = "sway";
           description = ''
             Value of `$XDG_CURRENT_DESKTOP`. Names the user-level
             `mimeapps.list` these defaults are written to, which the lookup
@@ -94,7 +94,7 @@
 
         terminal = lib.mkOption {
           type = lib.types.str;
-          default = "com.mitchellh.ghostty.desktop";
+          default = "org.codeberg.dnkl.foot.desktop";
           description = "Desktop entry launched when an app asks for a terminal.";
         };
       };

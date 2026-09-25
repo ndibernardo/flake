@@ -27,14 +27,13 @@ nix build --no-update-lock-file \
 ```
 configuration/          dotfiles
 machines/               per-machine configuration
-machines/daedalus/      desktop workstation (AMD Ryzen 9 9950X3D, NVIDIA GeForce RTX 5080)
+machines/daedalus/      desktop workstation
 modules/                NixOS modules, grouped by category then per-tool
 modules/core/           system-level: hardware, security, networking, package manager
 modules/desktop/        window manager, session
 modules/applications/   primary end-user programs
 modules/tools/          cli dev tooling
-packages/               custom package definitions not in nixpkgs
-parts/                  flake-parts lib: checks, devshell, machines, packages, templates
+parts/                  flake-parts lib: checks, devshell, machines, templates
 templates/              per-language dev environment flakes
 ```
 
@@ -47,8 +46,8 @@ subtracting from a default:
 ```nix
 machines.daedalus.config = {
   core.docker.enable = true;
-  desktop.niri.enable = true;
-  applications.firefox.enable = true;
+  desktop.sway.enable = true;
+  applications.librewolf.enable = true;
 };
 ```
 

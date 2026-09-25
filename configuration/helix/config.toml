@@ -1,0 +1,11 @@
+theme = "base16_default_dark_plain"
+
+[editor]
+line-number = "relative"
+
+[editor.lsp]
+display-inlay-hints = true
+
+[keys.normal]
+C-d = "@8jzz"
+C-u = "@8kzz"

@@ -5,6 +5,7 @@
       { ... }:
       {
         profiles.workstation.enable = true;
+        applications.audio.enable = true;
         applications.mpd.musicDirectory = "/run/media/nil/64603C01603BD88E/Music";
         user = {
           name = "nil";

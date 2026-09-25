@@ -25,6 +25,7 @@
           corfu
           direnv
           diminish
+          doom-themes
           exec-path-from-shell
           expand-region
           flycheck
