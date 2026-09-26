@@ -38,6 +38,7 @@
           nixfmt
           nodejs
           prettier
+          racket
           rustup
           sbt
           scala_3
