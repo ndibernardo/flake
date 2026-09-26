@@ -43,6 +43,7 @@
           pkgs.glib
           pkgs.grim
           pkgs.i3status
+          pkgs.slurp
           pkgs.swaybg
           pkgs.swayidle
           pkgs.swaylock

@@ -10,7 +10,7 @@
       cfg = config.applications.vim;
 
       batCache =
-        pkgs.runCommand "vim-classic-bat-cache"
+        pkgs.runCommand "vim-bat-cache"
           {
             nativeBuildInputs = [ pkgs.bat ];
           }
@@ -21,7 +21,7 @@
           '';
 
       plugins = pkgs.vimUtils.packDir {
-        vim-classic.start = with pkgs.vimPlugins; [
+        vim.start = with pkgs.vimPlugins; [
           asyncomplete-file-vim
           asyncomplete-lsp-vim
           asyncomplete-vim
@@ -39,7 +39,10 @@
           vim-nix
           vim-repeat
           vim-rhubarb
+          vim-sexp
+          vim-sexp-mappings-for-regular-people
           vim-sleuth
+          vim-slime
           vim-surround
           vim-toml
           vim-vinegar
@@ -51,7 +54,7 @@
 
       vim = pkgs.writeShellScriptBin "vim" ''
         export BAT_CACHE_PATH=${batCache} BAT_THEME=base16_default_dark_plain
-        exec ${pkgs.vim-classic}/bin/vim --cmd 'set packpath^=${plugins}' "$@"
+        exec ${pkgs.vim}/bin/vim --cmd 'set packpath^=${plugins}' "$@"
       '';
     in
     {
@@ -66,7 +69,6 @@
         core.dotfiles.links = {
           ".vim/after" = lib.mkDefault "vim/after";
           ".vim/colors" = lib.mkDefault "vim/colors";
-          ".vim/ftdetect" = lib.mkDefault "vim/ftdetect";
           ".vim/vimrc" = lib.mkDefault "vim/vimrc";
         };
       };

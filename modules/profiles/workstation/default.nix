@@ -82,6 +82,7 @@
             telegram-desktop
             thunar
             ungoogled-chromium
+            vlc
           ];
         };
 

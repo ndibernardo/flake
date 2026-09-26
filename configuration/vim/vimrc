@@ -2,7 +2,8 @@ unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
 let mapleader = ' '
-let maplocalleader = ' '
+" vim-sexp binds <LocalLeader>c and <LocalLeader>w, which would shadow <leader> groups.
+let maplocalleader = ','
 scriptencoding utf-8
 
 set encoding=utf-8
@@ -23,7 +24,6 @@ set autoread
 set laststatus=2
 set belloff=all
 set ttimeoutlen=10
-set ttymouse=sgr
 set undofile
 set undodir=~/.vim/undodir
 if !isdirectory(expand(&undodir))
@@ -31,8 +31,6 @@ if !isdirectory(expand(&undodir))
 endif
 set incsearch
 set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set scrolloff=8
 set updatetime=50
 set timeoutlen=500
@@ -62,16 +60,64 @@ nnoremap <expr> <C-u> <SID>sixth_scroll("\<C-u>")
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Hold Alt+. / Alt+, to widen or narrow a window.
+nnoremap <silent> <M-.> :<C-u>execute 'vertical resize +' . v:count1 * 5<CR>
+nnoremap <silent> <M-,> :<C-u>execute 'vertical resize -' . v:count1 * 5<CR>
+
+" This Vim has no Wayland clipboard of its own, so wl-clipboard backs the + and
+" * registers.
+function! s:wl_copy(register, type, lines) abort
+  call system('wl-copy' . (a:register ==# '*' ? ' --primary' : ''), a:type ==# 'V' ? a:lines + [''] : a:lines)
+endfunction
+
+function! s:wl_paste(register) abort
+  let l:text = system('wl-paste --no-newline' . (a:register ==# '*' ? ' --primary' : ''))
+  if v:shell_error
+    return []
+  endif
+  let l:lines = split(l:text, "\n", 1)
+  return l:text =~# "\n$" ? ['V', l:lines[:-2]] : ['v', l:lines]
+endfunction
+
+let v:clipproviders['wl'] = {
+      \ 'available': {-> !empty($WAYLAND_DISPLAY) && executable('wl-copy')},
+      \ 'copy': { '+': function('s:wl_copy'), '*': function('s:wl_copy') },
+      \ 'paste': { '+': function('s:wl_paste'), '*': function('s:wl_paste') },
+      \ }
+set clipmethod^=wl
+
+" foot's Control+Shift+c copies only its own selection and never reaches Vim,
+" so a mouse selection is copied when the drag ends and a keyboard selection
+" when visual mode ends without changing or yanking anything.
+let s:yanks = 0
+let s:visual = {}
+
+function! s:copy_finished_visual() abort
+  if mode() =~# "^[vV\<C-v>]"
+    let s:visual = { 'buffer': bufnr(), 'tick': b:changedtick, 'yanks': s:yanks }
+    return
+  endif
+  let l:visual = s:visual
+  let s:visual = {}
+  if mode() ==# 'n' && l:visual ==# { 'buffer': bufnr(), 'tick': b:changedtick, 'yanks': s:yanks }
+    let l:view = winsaveview()
+    normal! gv"+y
+    call winrestview(l:view)
+  endif
+endfunction
+
 augroup clipboard
   autocmd!
-  autocmd TextYankPost * if v:event.regname ==# 'w'
-        \ | call system('wl-copy', getreg('w')) | endif
+  autocmd TextYankPost * let s:yanks += 1
+  autocmd SafeState * ++nested call s:copy_finished_visual()
 augroup END
 
+xnoremap <silent> <LeftRelease> <LeftRelease>"+ygv
+
 xnoremap <leader>p "_dP
-nnoremap <leader>y "wy
-vnoremap <leader>y "wy
-nnoremap <leader>Y "wY
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
@@ -168,11 +214,25 @@ augroup completion
         \ }))
 augroup END
 
+" raco packages (racket-langserver, fmt) install per user outside the Nix store.
+function! s:raco_pkg(name) abort
+  return !empty(glob('~/.local/share/racket/*/pkgs/' . a:name))
+endfunction
+
+let g:sexp_filetypes = 'clojure,scheme,lisp,racket,fennel'
+
+let g:slime_target = 'vimterminal'
+let g:slime_vimterminal_config = { 'vertical': 1, 'term_cols': 70, 'term_finish': 'close' }
+
 let g:neoformat_only_msg_on_error = 1
 let g:neoformat_try_node_exe = 1
 let g:neoformat_enabled_elixir = ['mixformat']
 let g:neoformat_enabled_go = ['gofmt']
 let g:neoformat_enabled_nix = ['nixfmt']
+let g:neoformat_racket_racofmt = { 'exe': 'raco', 'args': ['fmt'], 'stdin': 1 }
+if s:raco_pkg('fmt')
+  let g:neoformat_enabled_racket = ['racofmt']
+endif
 let g:neoformat_enabled_rust = ['rustfmt']
 let g:neoformat_enabled_scala = ['scalafmt']
 let g:neoformat_enabled_typescript = ['prettier']
@@ -197,6 +257,8 @@ augroup END
 
 let g:lsp_diagnostics_virtual_text_enabled = 1
 let g:lsp_diagnostics_virtual_text_prefix = ' '
+let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 let g:lsp_diagnostics_signs_error = { 'text': 'E' }
 let g:lsp_diagnostics_signs_warning = { 'text': 'W' }
 let g:lsp_diagnostics_signs_information = { 'text': 'I' }
@@ -248,6 +310,12 @@ function! s:register_servers() abort
         \ 'root_uri': s:root(['flake.nix']),
         \ 'workspace_config': { 'nixd': { 'formatting': { 'command': ['nixfmt'] } } },
         \ 'allowlist': ['nix'],
+        \ })
+  call lsp#register_server({
+        \ 'name': 'racket-langserver',
+        \ 'cmd': {_ -> s:raco_pkg('racket-langserver') ? ['racket', '-l', 'racket-langserver'] : []},
+        \ 'root_uri': s:root(['info.rkt']),
+        \ 'allowlist': ['racket'],
         \ })
   call lsp#register_server({
         \ 'name': 'rust-analyzer',
@@ -320,14 +388,56 @@ let g:which_key_map = {
       \ },
       \ }
 
+let s:which_key_sexp_map = {
+      \ '[': 'wrap form in [] (head)',
+      \ ']': 'wrap form in [] (tail)',
+      \ '{': 'wrap form in {} (head)',
+      \ '}': 'wrap form in {} (tail)',
+      \ '?': 'convolute',
+      \ '@': 'splice',
+      \ 'I': 'wrap form in () (tail)',
+      \ 'O': 'raise element',
+      \ 'W': 'wrap element in () (tail)',
+      \ 'h': 'insert at form head',
+      \ 'i': 'wrap form in () (head)',
+      \ 'l': 'insert at form tail',
+      \ 'o': 'raise form',
+      \ 'w': 'wrap element in () (head)',
+      \ 'e': {
+      \   'name': '+element',
+      \   '[': 'wrap in [] (head)',
+      \   ']': 'wrap in [] (tail)',
+      \   '{': 'wrap in {} (head)',
+      \   '}': 'wrap in {} (tail)',
+      \ },
+      \ }
+
+let s:which_key_racket_map = {
+      \ 'e': { 'name': '+eval / element', 'e': 'send form', 'f': 'send top-level form' },
+      \ 'r': { 'name': '+racket', 'r': 'REPL start / reload', 'm': 'raco make', 't': 'raco test', 'd': 'raco docs' },
+      \ }
+
+" <LocalLeader> only has mappings in these buffers, so only they get the popup.
+function! s:local_which_key() abort
+  let b:which_key_local_map = deepcopy(s:which_key_sexp_map)
+  if &filetype ==# 'racket'
+    call extend(b:which_key_local_map.e, s:which_key_racket_map.e)
+    let b:which_key_local_map.r = deepcopy(s:which_key_racket_map.r)
+  endif
+  nnoremap <buffer> <silent> <LocalLeader> :<C-u>WhichKey maplocalleader<CR>
+endfunction
+
 augroup which-key
   autocmd!
   autocmd VimEnter * call which_key#register('<Space>', 'g:which_key_map')
+  " A string is evaluated on each popup, so every buffer shows its own map.
+  autocmd VimEnter * call which_key#register(maplocalleader, 'b:which_key_local_map')
+  execute 'autocmd FileType' g:sexp_filetypes 'call s:local_which_key()'
 augroup END
 nnoremap <silent> <leader> :<C-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<C-u>WhichKeyVisual '<Space>'<CR>
 
-let g:markdown_fenced_languages = ['elixir', 'go', 'nix', 'rust', 'scala', 'sh', 'typescript', 'vim']
+let g:markdown_fenced_languages = ['elixir', 'go', 'nix', 'racket', 'rust', 'scala', 'sh', 'typescript', 'vim']
 
 packloadall
 filetype off
