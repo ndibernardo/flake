@@ -6,6 +6,11 @@ name = "elixir"
 auto-format = true
 
 [[language]]
+name = "go"
+language-servers = ["gopls"]
+auto-format = true
+
+[[language]]
 name = "nix"
 language-servers = ["nixd"]
 auto-format = true
