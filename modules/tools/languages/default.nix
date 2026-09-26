@@ -16,6 +16,8 @@
         environment.systemPackages = with pkgs; [
           beamPackages.elixir
           elixir-ls
+          go
+          gopls
           jdk21
           metals
           nixd
