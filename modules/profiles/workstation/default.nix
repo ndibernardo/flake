@@ -65,6 +65,7 @@
           librewolf.enable = lib.mkDefault true;
           mpd.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
+          vim.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
             foliate

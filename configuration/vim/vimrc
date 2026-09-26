@@ -1,0 +1,336 @@
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
+let mapleader = ' '
+let maplocalleader = ' '
+scriptencoding utf-8
+
+set encoding=utf-8
+set fileencoding=utf-8
+set number
+set relativenumber
+set cursorline
+set cursorlineopt=number
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set title
+set autoindent
+set smartindent
+set hidden
+set autoread
+set laststatus=2
+set belloff=all
+set ttimeoutlen=10
+set ttymouse=sgr
+set undofile
+set undodir=~/.vim/undodir
+if !isdirectory(expand(&undodir))
+  call mkdir(expand(&undodir), 'p', 0700)
+endif
+set incsearch
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set scrolloff=8
+set updatetime=50
+set timeoutlen=500
+set nobackup
+set nohlsearch
+set noswapfile
+set nowrap
+set signcolumn=yes
+set completeopt=menu,menuone,noinsert
+set shortmess+=c
+set isfname+=@-@
+
+nnoremap <silent> <ScrollWheelUp> k
+nnoremap <silent> <ScrollWheelDown> j
+nnoremap <silent> <ScrollWheelLeft> h
+nnoremap <silent> <ScrollWheelRight> l
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+nnoremap J mzJ`z
+function! s:sixth_scroll(key) abort
+  return max([1, winheight(0) / 6]) . a:key . 'zz'
+endfunction
+nnoremap <expr> <C-d> <SID>sixth_scroll("\<C-d>")
+nnoremap <expr> <C-u> <SID>sixth_scroll("\<C-u>")
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+augroup clipboard
+  autocmd!
+  autocmd TextYankPost * if v:event.regname ==# 'w'
+        \ | call system('wl-copy', getreg('w')) | endif
+augroup END
+
+xnoremap <leader>p "_dP
+nnoremap <leader>y "wy
+vnoremap <leader>y "wy
+nnoremap <leader>Y "wY
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+inoremap <C-c> <Esc>
+nnoremap Q <Nop>
+nnoremap <silent> <C-f> :<C-u>call system('tmux neww tmux-sessionizer')<CR>
+
+nnoremap <silent> <C-k> :<C-u>cnext<CR>zz
+nnoremap <silent> <C-j> :<C-u>cprev<CR>zz
+nnoremap <silent> <leader>k :<C-u>lnext<CR>zz
+nnoremap <silent> <leader>j :<C-u>lprev<CR>zz
+
+nnoremap <C-s> :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+nnoremap <silent> <leader>x :<C-u>call system('chmod +x ' . shellescape(expand('%')))<CR>
+
+nnoremap <silent> <leader>u :<C-u>UndotreeToggle<CR>
+
+nnoremap <silent> <leader>pv :<C-u>Explore<CR>
+nnoremap <silent> <leader>pt :<C-u>NERDTreeToggle<CR>
+
+let g:netrw_banner = 0
+
+let g:NERDTreeWinPos = 'right'
+let g:NERDTreeWinSize = 40
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMouseMode = 3
+let g:NERDTreeHijackNetrw = 0
+
+augroup nerdtree-quit
+  autocmd!
+  autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()
+        \ | call feedkeys(":quit\<CR>:\<BS>") | endif
+augroup END
+
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob "!**/.git/*" --glob "!node_modules/*"'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'border': 'sharp' } }
+let g:fzf_colors = {
+      \ 'fg': ['fg', 'Normal'],
+      \ 'bg': ['bg', 'Normal'],
+      \ 'hl': ['fg', 'Function'],
+      \ 'fg+': ['fg', 'Normal'],
+      \ 'bg+': ['bg', 'Visual'],
+      \ 'hl+': ['fg', 'Function'],
+      \ 'info': ['fg', 'Comment'],
+      \ 'border': ['fg', 'Comment'],
+      \ 'prompt': ['fg', 'Keyword'],
+      \ 'pointer': ['fg', 'Type'],
+      \ 'marker': ['fg', 'String'],
+      \ 'spinner': ['fg', 'Comment'],
+      \ 'header': ['fg', 'Comment'],
+      \ }
+
+let s:rg = 'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!**/.git/*" '
+
+function! s:live_grep() abort
+  call fzf#vim#grep2(s:rg . '-- ', '', fzf#vim#with_preview())
+endfunction
+
+function! s:grep_word() abort
+  call fzf#vim#grep(s:rg . '--fixed-strings -- ' . fzf#shellescape(expand('<cword>')), fzf#vim#with_preview())
+endfunction
+
+nnoremap <silent> <leader>sh :<C-u>Helptags<CR>
+nnoremap <silent> <leader>sk :<C-u>Maps<CR>
+nnoremap <silent> <leader>sf :<C-u>Files<CR>
+nnoremap <silent> <leader>ss :<C-u>Commands<CR>
+nnoremap <silent> <leader>sw :<C-u>call <SID>grep_word()<CR>
+nnoremap <silent> <leader>sg :<C-u>call <SID>live_grep()<CR>
+nnoremap <silent> <leader>sd :<C-u>LspDocumentDiagnostics --buffers=*<CR>
+nnoremap <silent> <leader>s. :<C-u>History<CR>
+nnoremap <silent> <leader><leader> :<C-u>Buffers<CR>
+nnoremap <silent> <leader>/ :<C-u>BLines<CR>
+nnoremap <silent> <leader>s/ :<C-u>Lines<CR>
+nnoremap <silent> <leader>sn :<C-u>execute 'Files' fnameescape(fnamemodify(resolve(expand('~/.vim/vimrc')), ':h'))<CR>
+
+let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 50
+
+inoremap <expr> <Tab> pumvisible() ? asyncomplete#close_popup() : "\<Tab>"
+imap <C-@> <Plug>(asyncomplete_force_refresh)
+imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <C-h> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-h>'
+smap <expr> <C-h> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-h>'
+
+augroup completion
+  autocmd!
+  autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        \ 'name': 'file',
+        \ 'allowlist': ['*'],
+        \ 'priority': 10,
+        \ 'completor': function('asyncomplete#sources#file#completor'),
+        \ }))
+augroup END
+
+let g:neoformat_only_msg_on_error = 1
+let g:neoformat_try_node_exe = 1
+let g:neoformat_enabled_elixir = ['mixformat']
+let g:neoformat_enabled_go = ['gofmt']
+let g:neoformat_enabled_nix = ['nixfmt']
+let g:neoformat_enabled_rust = ['rustfmt']
+let g:neoformat_enabled_scala = ['scalafmt']
+let g:neoformat_enabled_typescript = ['prettier']
+let g:neoformat_enabled_typescriptreact = ['prettier']
+
+function! s:format() abort
+  if !exists('g:neoformat_enabled_' . &filetype)
+    return
+  endif
+  try
+    undojoin
+    Neoformat
+  catch /E790/
+    Neoformat
+  endtry
+endfunction
+
+augroup format-on-save
+  autocmd!
+  autocmd BufWritePre * call s:format()
+augroup END
+
+let g:lsp_diagnostics_virtual_text_enabled = 1
+let g:lsp_diagnostics_virtual_text_prefix = ' '
+let g:lsp_diagnostics_signs_error = { 'text': 'E' }
+let g:lsp_diagnostics_signs_warning = { 'text': 'W' }
+let g:lsp_diagnostics_signs_information = { 'text': 'I' }
+let g:lsp_diagnostics_signs_hint = { 'text': 'H' }
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_format_sync_timeout = 1000
+
+function! s:command(command) abort
+  return {_ -> executable(a:command[0]) ? a:command : []}
+endfunction
+
+function! s:root(markers) abort
+  return {_ -> lsp#utils#path_to_uri(s:nearest(a:markers + ['.git/']))}
+endfunction
+
+function! s:nearest(markers) abort
+  let l:directory = lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), a:markers)
+  return empty(l:directory) ? getcwd() : l:directory
+endfunction
+
+function! s:register_servers() abort
+  call lsp#register_server({
+        \ 'name': 'elixir-ls',
+        \ 'cmd': s:command(['elixir-ls']),
+        \ 'root_uri': s:root(['mix.exs']),
+        \ 'allowlist': ['elixir', 'eelixir'],
+        \ })
+  call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': s:command(['gopls']),
+        \ 'root_uri': s:root(['go.work', 'go.mod']),
+        \ 'allowlist': ['go', 'gomod'],
+        \ })
+  call lsp#register_server({
+        \ 'name': 'metals',
+        \ 'cmd': s:command(['metals']),
+        \ 'root_uri': s:root(['build.sbt', 'build.sc', 'build.mill']),
+        \ 'initialization_options': {
+        \   'statusBarProvider': 'show-message',
+        \   'isHttpEnabled': v:true,
+        \   'compilerOptions': { 'snippetAutoIndent': v:false },
+        \ },
+        \ 'allowlist': ['scala', 'sbt'],
+        \ })
+  call lsp#register_server({
+        \ 'name': 'nixd',
+        \ 'cmd': s:command(['nixd']),
+        \ 'root_uri': s:root(['flake.nix']),
+        \ 'workspace_config': { 'nixd': { 'formatting': { 'command': ['nixfmt'] } } },
+        \ 'allowlist': ['nix'],
+        \ })
+  call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': s:command(['rust-analyzer']),
+        \ 'root_uri': s:root(['Cargo.toml']),
+        \ 'initialization_options': { 'cargo': { 'features': 'all' } },
+        \ 'allowlist': ['rust'],
+        \ })
+  call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': s:command(['typescript-language-server', '--stdio']),
+        \ 'root_uri': s:root(['tsconfig.json', 'jsconfig.json', 'package.json']),
+        \ 'allowlist': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
+        \ })
+endfunction
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  nmap <buffer> gd <Plug>(lsp-definition)
+  nmap <buffer> gr <Plug>(lsp-references)
+  nmap <buffer> grr <Plug>(lsp-references)
+  nmap <buffer> gI <Plug>(lsp-implementation)
+  nmap <buffer> gD <Plug>(lsp-declaration)
+  nmap <buffer> K <Plug>(lsp-hover)
+  nmap <buffer> <leader>D <Plug>(lsp-type-definition)
+  nmap <buffer> <leader>ds <Plug>(lsp-document-symbol-search)
+  nmap <buffer> <leader>ws <Plug>(lsp-workspace-symbol-search)
+  nmap <buffer> <leader>rr <Plug>(lsp-rename)
+  nmap <buffer> <leader>ca <Plug>(lsp-code-action)
+  nmap <buffer> <leader>f <Plug>(lsp-document-format)
+  nmap <buffer> ]d <Plug>(lsp-next-diagnostic)
+  nmap <buffer> [d <Plug>(lsp-previous-diagnostic)
+endfunction
+
+augroup lsp-setup
+  autocmd!
+  autocmd User lsp_setup call s:register_servers()
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+let g:which_key_use_floating_win = 1
+let g:which_key_map = {
+      \ ' ': 'find buffers',
+      \ '/': 'search buffer',
+      \ 'D': 'type definition',
+      \ 'Y': 'yank line to clipboard',
+      \ 'd': 'delete to void',
+      \ 'f': 'format',
+      \ 'j': 'previous location',
+      \ 'k': 'next location',
+      \ 'u': 'undo tree',
+      \ 'x': 'make executable',
+      \ 'y': 'yank to clipboard',
+      \ 'c': { 'name': '+code', 'a': 'action' },
+      \ 'r': { 'name': '+refactor', 'r': 'rename' },
+      \ 'w': { 'name': '+workspace', 's': 'symbols' },
+      \ 'p': { 'name': '+project', 'v': 'view', 't': 'tree' },
+      \ 's': {
+      \   'name': '+search',
+      \   '.': 'recent files',
+      \   '/': 'open buffers',
+      \   'd': 'diagnostics',
+      \   'f': 'files',
+      \   'g': 'grep',
+      \   'h': 'help',
+      \   'k': 'keymaps',
+      \   'n': 'config files',
+      \   's': 'commands',
+      \   'w': 'current word',
+      \ },
+      \ }
+
+augroup which-key
+  autocmd!
+  autocmd VimEnter * call which_key#register('<Space>', 'g:which_key_map')
+augroup END
+nnoremap <silent> <leader> :<C-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<C-u>WhichKeyVisual '<Space>'<CR>
+
+let g:markdown_fenced_languages = ['elixir', 'go', 'nix', 'rust', 'scala', 'sh', 'typescript', 'vim']
+
+packloadall
+filetype off
+filetype plugin indent on
+syntax enable
+colorscheme base16_default_dark_plain

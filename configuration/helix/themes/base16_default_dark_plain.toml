@@ -1,4 +1,7 @@
 inherits = "base16_default_dark"
 
+"comment" = "base03"
+"markup.italic" = "base0E"
 "variable" = "base05"
+"variable.other.member" = "base05"
 "ui.virtual.inlay-hint" = "base03"
