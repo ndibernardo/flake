@@ -40,7 +40,7 @@
         };
 
         desktop = {
-          gdm.enable = lib.mkDefault true;
+          greetd.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
           sway.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
