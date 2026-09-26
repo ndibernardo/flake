@@ -5,7 +5,7 @@ endif
 set background=dark
 let g:colors_name = 'base16_default_dark_plain'
 
-let s:base00 = '#181818'
+let s:base00 = '#111111'
 let s:base01 = '#282828'
 let s:base02 = '#383838'
 let s:base03 = '#585858'

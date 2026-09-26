@@ -5,3 +5,6 @@ inherits = "base16_default_dark"
 "variable" = "base05"
 "variable.other.member" = "base05"
 "ui.virtual.inlay-hint" = "base03"
+
+[palette]
+base00 = "#111111"
