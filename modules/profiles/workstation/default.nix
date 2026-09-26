@@ -61,7 +61,6 @@
         applications = {
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
-          ghostty.enable = lib.mkDefault true;
           helix.enable = lib.mkDefault true;
           librewolf.enable = lib.mkDefault true;
           mpd.enable = lib.mkDefault true;

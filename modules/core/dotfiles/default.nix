@@ -27,7 +27,7 @@
         directories = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
-          example = [ ".config/ghostty" ];
+          example = [ ".config/foot" ];
           description = ''
             Paths relative to the home directory created as real writable
             directories. Needed wherever a program writes its own state next to
@@ -38,7 +38,7 @@
         links = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
           default = { };
-          example = lib.literalExpression ''{ ".config/ghostty/config" = "ghostty/config"; }'';
+          example = lib.literalExpression ''{ ".config/foot/foot.ini" = "foot/foot.ini"; }'';
           description = ''
             Map of a path relative to the home directory to its source. A
             relative source resolves against `root`; an absolute source, a store

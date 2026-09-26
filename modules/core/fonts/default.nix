@@ -30,6 +30,7 @@
             };
             defaultFonts = {
               monospace = [
+                "Atkinson Hyperlegible Mono"
                 "DejaVu Sans Mono"
               ];
               sansSerif = [
@@ -44,6 +45,7 @@
             };
           };
           packages = with pkgs; [
+            atkinson-hyperlegible-mono
             dejavu_fonts
             inconsolata
             noto-fonts
