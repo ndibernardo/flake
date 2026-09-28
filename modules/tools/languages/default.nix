@@ -32,6 +32,7 @@
           elixir-ls
           go
           gopls
+          guile
           jdk21
           metals
           nixd
@@ -41,6 +42,7 @@
           racket
           rustup
           sbt
+          sbcl
           scala_3
           scalafmt
           typescript

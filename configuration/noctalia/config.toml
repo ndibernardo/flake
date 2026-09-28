@@ -1,0 +1,14 @@
+[shell]
+polkit_agent = true
+launch_apps_as_systemd_services = true
+telemetry_enabled = false
+
+[idle.behavior.lock]
+timeout = 1790
+action = "lock"
+enabled = true
+
+[idle.behavior.screen-off]
+timeout = 1800
+action = "screen_off"
+enabled = true

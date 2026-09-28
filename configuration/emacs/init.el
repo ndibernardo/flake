@@ -68,8 +68,8 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :font "DejaVu Sans Mono-13")
-(set-face-attribute 'fixed-pitch nil :family "DejaVu Sans Mono")
+(set-face-attribute 'default nil :family "Atkinson Hyperlegible Mono" :weight 'medium :height 120)
+(set-face-attribute 'fixed-pitch nil :family "Atkinson Hyperlegible Mono" :weight 'medium)
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -89,7 +89,7 @@ eating the space just typed."
 
 (setq-default fill-column 100)
 
-(load-theme 'noctilux-lighttable t)
+(load-theme 'base16-default-dark-plain t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
@@ -125,7 +125,7 @@ eating the space just typed."
 (defun set-line-spacing ()
   "Configure text display properties for better readability."
   (setq-local default-text-properties
-              '(line-spacing 0.20 line-height 1.20)))
+              '(line-spacing 0.10 line-height 1.10)))
 (add-hook 'prog-mode-hook 'set-line-spacing)
 (add-hook 'text-mode-hook 'set-line-spacing)
 
@@ -328,7 +328,7 @@ Code, tables and markup keywords only line up in a fixed-width font.")
 
 (defvar prose-fixed-pitch-height 0.98
   "Height of `prose-fixed-pitch-faces', as a fraction of `default'.
-DejaVu Sans Mono runs larger than Noto Sans at the same height, so
+Atkinson Hyperlegible Mono runs larger than Noto Sans at the same height, so
 code blocks need scaling down to sit level with the surrounding prose.")
 
 (defun prose-keep-faces-fixed-pitch (&rest _)

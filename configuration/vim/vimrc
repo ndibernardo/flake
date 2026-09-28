@@ -86,7 +86,7 @@ let v:clipproviders['wl'] = {
       \ }
 set clipmethod^=wl
 
-" foot's Control+Shift+c copies only its own selection and never reaches Vim,
+" WezTerm's Control+Shift+c copies only its own selection and never reaches Vim,
 " so a mouse selection is copied when the drag ends and a keyboard selection
 " when visual mode ends without changing or yanking anything.
 let s:yanks = 0
@@ -420,9 +420,11 @@ let s:which_key_racket_map = {
 " <LocalLeader> only has mappings in these buffers, so only they get the popup.
 function! s:local_which_key() abort
   let b:which_key_local_map = deepcopy(s:which_key_sexp_map)
-  if &filetype ==# 'racket'
+  if index(['lisp', 'racket', 'scheme'], &filetype) >= 0
     call extend(b:which_key_local_map.e, s:which_key_racket_map.e)
-    let b:which_key_local_map.r = deepcopy(s:which_key_racket_map.r)
+    let b:which_key_local_map.r = &filetype ==# 'racket'
+          \ ? deepcopy(s:which_key_racket_map.r)
+          \ : { 'name': '+repl', 'r': 'REPL start / reload' }
   endif
   nnoremap <buffer> <silent> <LocalLeader> :<C-u>WhichKey maplocalleader<CR>
 endfunction
