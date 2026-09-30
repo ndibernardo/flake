@@ -8,6 +8,23 @@
     }:
     let
       cfg = config.applications.emacs;
+      helPackage =
+        epkgs:
+        {
+          pname,
+          rev,
+          hash,
+          packageRequires,
+        }:
+        epkgs.melpaBuild {
+          inherit pname packageRequires;
+          version = "0.10.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "helheim-emacs";
+            repo = pname;
+            inherit rev hash;
+          };
+        };
       emacsPackage = pkgs.emacsPackagesFor (
         pkgs.emacs-pgtk.overrideAttrs (_: {
           withImageMagick = true;
@@ -25,20 +42,38 @@
           corfu
           direnv
           diminish
-          doom-themes
           exec-path-from-shell
           expand-region
           flycheck
           gcmh
           git-gutter
           git-gutter-fringe
+          hel
+          (helPackage epkgs {
+            pname = "hel-paredit";
+            rev = "0a00838256aef0b459a8f76a684b8e1dee755efc";
+            hash = "sha256-CO+Yf+wT/Cym5I5WW24lIjhcva2r+6RAr2K+TeErqNk=";
+            packageRequires = [
+              dash
+              hel
+              paredit
+            ];
+          })
+          (helPackage epkgs {
+            pname = "hel-vterm";
+            rev = "733a5fa38d79cdddb0e9fc45cf784e541a35f14b";
+            hash = "sha256-KaJRjzQtocv7j12rlWq4fUFSO5bdvWdnnlPApe7+zv4=";
+            packageRequires = [
+              hel
+              vterm
+            ];
+          })
           ligature
           lsp-mode
           magit
           marginalia
-          multiple-cursors
           orderless
-          rainbow-delimiters
+          paredit
           rainbow-mode
           vertico
           visual-fill-column
@@ -46,6 +81,7 @@
           treemacs
           treemacs-magit
           vterm
+          vundo
           yasnippet
         ]
         ++ [
@@ -53,6 +89,7 @@
           elixir-mode
           markdown-mode
           nix-mode
+          racket-mode
           rust-mode
           scala-mode
           sbt-mode
@@ -61,19 +98,6 @@
           yaml-mode
         ]
       );
-
-      # The init files are no longer store paths, so the daemon cannot be
-      # restarted by a rebuild when they change. This reloads a running daemon
-      # against whatever is on disk right now.
-      reloadConfiguration = pkgs.writeShellApplication {
-        name = "emacs-reload-configuration";
-        text = ''
-          exec ${customEmacs}/bin/emacsclient --eval "(progn \
-            (load-file user-init-file) \
-            (mapc (lambda (theme) (load-theme theme t)) custom-enabled-themes) \
-            (message \"Configuration reloaded\"))"
-        '';
-      };
     in
     {
       options.applications.emacs.enable = lib.mkEnableOption "Emacs";
@@ -86,12 +110,6 @@
           package = customEmacs;
           startWithGraphical = true;
         };
-
-        environment.systemPackages = [ reloadConfiguration ];
-
-        # Emacs writes eln-cache/, custom.el and backups/ into its own
-        # directory, so the directory stays real and only what the flake owns
-        # is linked in.
         core.dotfiles.directories = [ ".config/emacs" ];
         core.dotfiles.links = {
           ".config/emacs/early-init.el" = lib.mkDefault "emacs/early-init.el";

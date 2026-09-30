@@ -25,7 +25,9 @@
           ".config/gtk-4.0"
         ];
         core.dotfiles.links = {
+          ".config/gtk-3.0/gtk.css" = lib.mkDefault "gtk-3.0/gtk.css";
           ".config/gtk-3.0/settings.ini" = lib.mkDefault "gtk-3.0/settings.ini";
+          ".config/gtk-4.0/gtk.css" = lib.mkDefault "gtk-4.0/gtk.css";
           ".config/gtk-4.0/settings.ini" = lib.mkDefault "gtk-4.0/settings.ini";
         };
       };

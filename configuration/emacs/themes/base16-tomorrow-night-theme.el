@@ -93,7 +93,7 @@
    `(show-paren-match ((t (:foreground ,base0A :underline t))))
    `(show-paren-mismatch ((t (:foreground ,base00 :background ,base08))))
 
-   `(match ((t (:background ,base0A :foreground ,base01))))
+   `(match ((t (:background ,base02))))
    `(query-replace ((t (:inherit isearch))))
    `(isearch-fail ((t (:background ,base08 :foreground ,base00))))
 
@@ -186,7 +186,7 @@
 
    ;; company
    `(company-tooltip ((t (:inherit tooltip))))
-   `(company-tooltip-selection ((t (:background ,base04 :foreground ,base01))))
+   `(company-tooltip-selection ((t (:background ,base02 :foreground ,base06))))
    `(company-tooltip-common ((t (:foreground ,base0D :weight bold))))
    `(company-scrollbar-fg ((t (:background ,base03))))
    `(company-scrollbar-bg ((t (:background ,base01))))
@@ -211,7 +211,7 @@
 
    ;; corfu
    `(corfu-default ((t (:inherit tooltip))))
-   `(corfu-current ((t (:background ,base04 :foreground ,base01))))
+   `(corfu-current ((t (:background ,base02 :foreground ,base06))))
    `(corfu-bar ((t (:background ,base03))))
    `(corfu-border ((t (:background ,base02))))
    `(corfu-annotations ((t (:foreground ,base03))))
@@ -371,6 +371,11 @@
    `(git-gutter-fr:added ((t (:inherit fringe :foreground ,base0B))))
    `(git-gutter-fr:modified ((t (:inherit fringe :foreground ,base09))))
    `(git-gutter-fr:deleted ((t (:inherit fringe :foreground ,base08))))
+
+   ;; hel
+   `(hel-extend-selection-cursor ((t (:background ,base09))))
+   `(hel-normal-state-fake-cursor ((t (:foreground ,base00 :background ,base08))))
+   `(hel-insert-state-fake-cursor ((t (:foreground ,base00 :background ,base0D))))
 
    ;; hi-lock
    `(hi-blue ((t (:foreground ,base00 :background ,base0D))))
@@ -659,8 +664,6 @@
    `(smerge-upper ((t (:background ,base01))))
    `(smerge-lower ((t (:background ,base01))))
    `(smerge-base ((t (:background ,base01))))
-   `(smerge-mine ((t (:inherit smerge-upper))))
-   `(smerge-other ((t (:inherit smerge-lower))))
    `(smerge-markers ((t (:foreground ,base03 :background ,base01))))
    `(smerge-refined-added ((t (:inherit diff-refine-added))))
    `(smerge-refined-removed ((t (:inherit diff-refine-removed))))
@@ -722,6 +725,10 @@
    `(vertico-posframe-border-3 ((t (:background ,base0B))))
    `(vertico-posframe-border-4 ((t (:background ,base0D))))
    `(vertico-posframe-border-fallback ((t (:background ,base0A))))
+
+   ;; vundo
+   `(vundo-highlight ((t (:inherit vundo-node :foreground ,base08 :weight bold))))
+   `(vundo-saved ((t (:inherit vundo-node :foreground ,base0B))))
 
    ;; web
    `(web-mode-html-tag-face ((t (:foreground ,base08))))

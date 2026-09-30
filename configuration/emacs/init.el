@@ -25,7 +25,11 @@
 (setq-default tab-width 2)
 
 ;; Remove whitespaces
-(setq-default show-trailing-whitespace t)
+(defun show-trailing-whitespace-setup ()
+  "Highlight trailing whitespace in the current buffer."
+  (setq-local show-trailing-whitespace t))
+
+(add-hook 'prog-mode-hook 'show-trailing-whitespace-setup)
 
 (defun delete-trailing-whitespace-except-current-line ()
   "Delete trailing whitespace everywhere but on the line point is on.
@@ -46,6 +50,7 @@ eating the space just typed."
           display-buffer-below-selected)
          (window-height . 20))))
 (setq display-line-numbers-width 3)
+(setq display-line-numbers-type 'relative)
 (setq split-height-threshold 80)
 (setq temp-buffer-max-height 15)
 (temp-buffer-resize-mode 1)
@@ -68,8 +73,8 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :family "Atkinson Hyperlegible Mono" :weight 'medium :height 120)
-(set-face-attribute 'fixed-pitch nil :family "Atkinson Hyperlegible Mono" :weight 'medium)
+(set-face-attribute 'default nil :family "JetBrains Mono" :weight 'medium :height 120)
+(set-face-attribute 'fixed-pitch nil :family "JetBrains Mono" :weight 'medium)
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -133,6 +138,17 @@ eating the space just typed."
 (setq-default cursor-type 'bar)
 (blink-cursor-mode 0)
 
+;; Hel
+(setopt hel-normal-state-cursor-type 'box
+        hel-insert-state-cursor-type 'bar)
+(hel-mode)
+
+(defun word-includes-underscore ()
+  "Treat `_' as part of a word, so Hel word motions cover snake_case."
+  (modify-syntax-entry ?_ "w"))
+
+(add-hook 'prog-mode-hook 'word-includes-underscore)
+
 ;; Corfu
 (setq corfu-auto t)
 (setq corfu-cycle t)
@@ -191,11 +207,6 @@ eating the space just typed."
 ;; Rainbows
 (add-hook 'prog-mode-hook 'rainbow-mode)
 (add-hook 'text-mode-hook 'rainbow-mode)
-
-;; Rainbow delimiters
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
 
 ;; Savehist
 (add-hook 'after-init-hook 'savehist-mode)
@@ -302,6 +313,9 @@ if one already exists."
 
 (advice-add 'project-shell :override #'vterm-project-shell)
 
+(with-eval-after-load 'vterm
+  (require 'hel-vterm))
+
 ;;; Prose
 (set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 145)
 
@@ -352,7 +366,6 @@ edge, and leaves the file's own line endings untouched."
   (visual-line-mode 1)
   (setq-local fill-column 90
               word-wrap-by-category t
-              show-trailing-whitespace nil
               visual-fill-column-center-text t)
   (visual-fill-column-mode 1)
   (prose-keep-faces-fixed-pitch))
@@ -361,6 +374,20 @@ edge, and leaves the file's own line endings untouched."
 (add-hook 'org-mode-hook 'prose-mode-setup)
 
 ;;; Programming Modes
+
+(add-to-list 'auto-mode-alist '("\\.scrbl\\'" . racket-hash-lang-mode))
+(add-to-list 'auto-mode-alist '("\\.rhm\\'" . racket-hash-lang-mode))
+(add-hook 'racket-mode-hook 'racket-xp-mode)
+(add-hook 'racket-hash-lang-mode-hook 'racket-xp-mode)
+
+(add-hook 'racket-mode-hook (lambda () (flycheck-mode -1)))
+(add-hook 'racket-hash-lang-mode-hook (lambda () (flycheck-mode -1)))
+
+(dolist (hook '(lisp-data-mode-hook
+                scheme-mode-hook
+                racket-mode-hook
+                racket-repl-mode-hook))
+  (add-hook hook 'hel-paredit-mode))
 
 ;; Docker
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
@@ -509,11 +536,8 @@ If point was already at that position, move point to beginning of line."
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x C-g") 'magit-status)
 
-;; Multiple cursors
-(global-set-key (kbd "C-,") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; Vundo
+(global-set-key (kbd "C-x u") 'vundo)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "<M-up>") 'backward-paragraph)
