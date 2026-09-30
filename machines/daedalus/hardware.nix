@@ -92,15 +92,6 @@ in
     fsType = "xfs";
   };
 
-  fileSystems."/run/media/nil/64603C01603BD88E" = {
-    device = "/dev/disk/by-uuid/64603C01603BD88E";
-    fsType = "ntfs-3g";
-    options = [
-      "rw"
-      "uid=${toString config.users.users.${config.user.name}.uid}"
-    ];
-  };
-
   fileSystems."/run/media/nil/f2b3330c-05ee-4f7e-ac85-bf7c239faeb8" = {
     device = "/dev/disk/by-uuid/f2b3330c-05ee-4f7e-ac85-bf7c239faeb8";
     fsType = "ext4";

@@ -94,7 +94,7 @@
 
         terminal = lib.mkOption {
           type = lib.types.str;
-          default = "org.wezfurlong.wezterm.desktop";
+          default = "Alacritty.desktop";
           description = "Desktop entry launched when an app asks for a terminal.";
         };
       };

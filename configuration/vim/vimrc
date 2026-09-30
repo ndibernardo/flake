@@ -86,7 +86,7 @@ let v:clipproviders['wl'] = {
       \ }
 set clipmethod^=wl
 
-" WezTerm's Control+Shift+c copies only its own selection and never reaches Vim,
+" The terminal's Control+Shift+c copies only its own selection and never reaches Vim,
 " so a mouse selection is copied when the drag ends and a keyboard selection
 " when visual mode ends without changing or yanking anything.
 let s:yanks = 0
@@ -445,4 +445,4 @@ packloadall
 filetype off
 filetype plugin indent on
 syntax enable
-colorscheme base16_default_dark_plain
+colorscheme base16_tomorrow_night

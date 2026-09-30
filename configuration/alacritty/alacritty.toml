@@ -1,0 +1,56 @@
+[terminal.shell]
+program = "tmux"
+args = ["new-session"]
+
+[window]
+padding = { x = 12, y = 12 }
+
+[font]
+normal = { family = "JetBrains Mono", style = "Regular" }
+bold = { family = "JetBrains Mono", style = "Bold" }
+italic = { family = "JetBrains Mono", style = "Italic" }
+bold_italic = { family = "JetBrains Mono", style = "Bold Italic" }
+size = 12.0
+
+[colors.primary]
+background = "#161719"
+foreground = "#c5c8c6"
+dim_foreground = "#969896"
+
+[colors.cursor]
+text = "#161719"
+cursor = "#c5c8c6"
+
+[colors.selection]
+text = "#c5c8c6"
+background = "#373b41"
+
+[colors.normal]
+black = "#161719"
+red = "#cc6666"
+green = "#b5bd68"
+yellow = "#f0c674"
+blue = "#81a2be"
+magenta = "#b294bb"
+cyan = "#8abeb7"
+white = "#c5c8c6"
+
+[colors.dim]
+black = "#161719"
+red = "#cc6666"
+green = "#b5bd68"
+yellow = "#f0c674"
+blue = "#81a2be"
+magenta = "#b294bb"
+cyan = "#8abeb7"
+white = "#c5c8c6"
+
+[colors.bright]
+black = "#969896"
+red = "#cc6666"
+green = "#b5bd68"
+yellow = "#f0c674"
+blue = "#81a2be"
+magenta = "#b294bb"
+cyan = "#8abeb7"
+white = "#ffffff"

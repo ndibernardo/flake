@@ -89,7 +89,7 @@ eating the space just typed."
 
 (setq-default fill-column 100)
 
-(load-theme 'base16-default-dark-plain t)
+(load-theme 'base16-tomorrow-night t)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"

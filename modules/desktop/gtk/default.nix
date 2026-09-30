@@ -14,20 +14,10 @@
 
       config = lib.mkIf cfg.enable {
         core.dotfiles.enable = true;
-        programs.xfconf.enable = true;
-        services.gvfs.enable = true;
-        services.tumbler.enable = true;
-        services.udisks2.enable = true;
 
         environment.systemPackages = with pkgs; [
           adwaita-icon-theme
           gnome-themes-extra
-          thunar-volman
-          thunar-archive-plugin
-          thunar-media-tags-plugin
-          thunar-vcs-plugin
-          thunar-shares-plugin
-          xarchiver
         ];
 
         core.dotfiles.directories = [

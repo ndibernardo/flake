@@ -17,6 +17,7 @@
           ''
             mkdir -p source/themes
             cp ${./base16_default_dark_plain.tmTheme} source/themes/base16_default_dark_plain.tmTheme
+            cp ${./base16_tomorrow_night.tmTheme} source/themes/base16_tomorrow_night.tmTheme
             HOME=$TMPDIR bat cache --build --source source --target $out
           '';
 
@@ -53,7 +54,7 @@
       };
 
       vim = pkgs.writeShellScriptBin "vim" ''
-        export BAT_CACHE_PATH=${batCache} BAT_THEME=base16_default_dark_plain
+        export BAT_CACHE_PATH=${batCache} BAT_THEME=base16_tomorrow_night
         exec ${pkgs.vim}/bin/vim --cmd 'set packpath^=${plugins}' "$@"
       '';
     in

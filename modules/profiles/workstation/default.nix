@@ -40,10 +40,8 @@
         };
 
         desktop = {
-          gdm.enable = lib.mkDefault true;
           gnome.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
-          niri.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
         };
 
@@ -60,6 +58,7 @@
         };
 
         applications = {
+          alacritty.enable = lib.mkDefault true;
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
           firefox.enable = lib.mkDefault true;
@@ -67,23 +66,19 @@
           mpd.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
           vim.enable = lib.mkDefault true;
-          wezterm.enable = lib.mkDefault true;
 
           extraPackages = with pkgs; [
             foliate
             gimp
             krita
-            loupe
             lutris
-            networkmanagerapplet
+            obs-studio
             obsidian
             orca-c
-            papers
             pavucontrol
             plan9port-wayland
             signal-desktop
             solaar
-            thunar
             ungoogled-chromium
             uxn
             uxn11

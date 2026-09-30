@@ -1,4 +1,4 @@
-theme = "base16_default_dark_plain"
+theme = "base16_tomorrow_night"
 
 [editor]
 line-number = "relative"
