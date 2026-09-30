@@ -8,23 +8,6 @@
     }:
     let
       cfg = config.applications.emacs;
-      helPackage =
-        epkgs:
-        {
-          pname,
-          rev,
-          hash,
-          packageRequires,
-        }:
-        epkgs.melpaBuild {
-          inherit pname packageRequires;
-          version = "0.10.0";
-          src = pkgs.fetchFromGitHub {
-            owner = "helheim-emacs";
-            repo = pname;
-            inherit rev hash;
-          };
-        };
       emacsPackage = pkgs.emacsPackagesFor (
         pkgs.emacs-pgtk.overrideAttrs (_: {
           withImageMagick = true;
@@ -49,25 +32,8 @@
           git-gutter
           git-gutter-fringe
           hel
-          (helPackage epkgs {
-            pname = "hel-paredit";
-            rev = "0a00838256aef0b459a8f76a684b8e1dee755efc";
-            hash = "sha256-CO+Yf+wT/Cym5I5WW24lIjhcva2r+6RAr2K+TeErqNk=";
-            packageRequires = [
-              dash
-              hel
-              paredit
-            ];
-          })
-          (helPackage epkgs {
-            pname = "hel-vterm";
-            rev = "733a5fa38d79cdddb0e9fc45cf784e541a35f14b";
-            hash = "sha256-KaJRjzQtocv7j12rlWq4fUFSO5bdvWdnnlPApe7+zv4=";
-            packageRequires = [
-              hel
-              vterm
-            ];
-          })
+          hel-paredit
+          hel-vterm
           ligature
           lsp-mode
           magit

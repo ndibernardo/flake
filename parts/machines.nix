@@ -41,6 +41,7 @@
       modules = [
         inputs.lanzaboote.nixosModules.lanzaboote
         { networking.hostName = lib.mkDefault name; }
+        { nixpkgs.overlays = [ config.flake.overlays.default ]; }
         cfg.config
       ]
       ++ cfg.nixosModules

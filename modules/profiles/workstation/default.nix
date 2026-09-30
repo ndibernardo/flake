@@ -61,7 +61,6 @@
           alacritty.enable = lib.mkDefault true;
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
-          firefox.enable = lib.mkDefault true;
           helix.enable = lib.mkDefault true;
           mpd.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
@@ -70,6 +69,7 @@
           extraPackages = with pkgs; [
             foliate
             gimp
+            helium
             krita
             lutris
             obs-studio
