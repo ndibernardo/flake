@@ -58,7 +58,7 @@ tooltip label {
 #workspaces button.focused,
 #workspaces button.focused:hover {
   background: @accent;
-  color: @bright;
+  color: @bg;
   font-weight: bold;
 }
 

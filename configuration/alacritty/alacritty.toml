@@ -13,44 +13,52 @@ bold_italic = { family = "Berkeley Mono", style = "Bold SemiCondensed Oblique" }
 size = 12.0
 
 [colors.primary]
-background = "#161719"
-foreground = "#c5c8c6"
-dim_foreground = "#969896"
+background = "#111313"
+foreground = "#c2c9c9"
+dim_foreground = "#858f8f"
 
 [colors.cursor]
-text = "#161719"
-cursor = "#c5c8c6"
+text = "#111313"
+cursor = "#dfe5e5"
 
 [colors.selection]
-text = "#c5c8c6"
-background = "#373b41"
+text = "CellForeground"
+background = "#0f2f2d"
+
+[colors.search.matches]
+foreground = "#f2f6f6"
+background = "#0f2f2d"
+
+[colors.search.focused_match]
+foreground = "#111313"
+background = "#01a59e"
 
 [colors.normal]
-black = "#161719"
-red = "#cc6666"
-green = "#b5bd68"
-yellow = "#f0c674"
-blue = "#81a2be"
-magenta = "#b294bb"
-cyan = "#8abeb7"
-white = "#c5c8c6"
+black = "#181b1b"
+red = "#d47a72"
+green = "#8dbab7"
+yellow = "#cfb57c"
+blue = "#01a59e"
+magenta = "#dfe5e5"
+cyan = "#8dbab7"
+white = "#c2c9c9"
 
 [colors.dim]
-black = "#161719"
-red = "#cc6666"
-green = "#b5bd68"
-yellow = "#f0c674"
-blue = "#81a2be"
-magenta = "#b294bb"
-cyan = "#8abeb7"
-white = "#c5c8c6"
+black = "#111313"
+red = "#d47a72"
+green = "#8dbab7"
+yellow = "#cfb57c"
+blue = "#01a59e"
+magenta = "#858f8f"
+cyan = "#8dbab7"
+white = "#858f8f"
 
 [colors.bright]
-black = "#969896"
-red = "#cc6666"
-green = "#b5bd68"
-yellow = "#f0c674"
-blue = "#81a2be"
-magenta = "#b294bb"
-cyan = "#8abeb7"
-white = "#ffffff"
+black = "#5a6464"
+red = "#d47a72"
+green = "#8dbab7"
+yellow = "#cfb57c"
+blue = "#01a59e"
+magenta = "#dfe5e5"
+cyan = "#8dbab7"
+white = "#f2f6f6"
