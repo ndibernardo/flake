@@ -1,1 +1,2 @@
 configuration/emacs/themes/** linguist-detectable=false
+configuration/vim/colors/**   linguist-detectable=false
