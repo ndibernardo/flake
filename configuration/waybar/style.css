@@ -1,0 +1,101 @@
+@define-color bg #0b0b0b;
+@define-color surface #161616;
+@define-color raised #1e1e1e;
+@define-color fg #c5c8c6;
+@define-color muted #969896;
+@define-color accent #01a59e;
+@define-color bright #ffffff;
+@define-color urgent #cc6666;
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: "Berkeley Mono";
+  font-size: 15px;
+}
+
+window#waybar {
+  background-color: @bg;
+  color: @fg;
+}
+
+tooltip {
+  background-color: @surface;
+  color: @fg;
+}
+
+tooltip label {
+  padding: 6px 8px;
+}
+
+.module {
+  padding: 0 10px;
+}
+
+#workspaces {
+  padding: 0;
+}
+
+#workspaces button {
+  min-width: 28px;
+  padding: 0 8px;
+  color: @muted;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#workspaces button:hover {
+  background: @raised;
+  color: @fg;
+}
+
+#workspaces button.visible {
+  color: @fg;
+}
+
+#workspaces button.focused,
+#workspaces button.focused:hover {
+  background: @accent;
+  color: @bright;
+  font-weight: bold;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @bright;
+}
+
+#mode {
+  background-color: @accent;
+  color: @bright;
+  font-weight: bold;
+}
+
+#window {
+  color: @fg;
+}
+
+#tray > .passive {
+  opacity: 0.65;
+}
+
+#tray > .needs-attention {
+  background-color: @urgent;
+}
+
+#pulseaudio.muted,
+#bluetooth.off,
+#bluetooth.disabled,
+#network.disconnected {
+  color: @muted;
+}
+
+#bluetooth.connected {
+  color: @accent;
+}
+
+#clock {
+  color: @fg;
+}

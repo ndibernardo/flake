@@ -1,0 +1,57 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 0,
+
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["sway/window"],
+  "modules-right": ["pulseaudio", "bluetooth", "network", "tray", "clock"],
+
+  "sway/mode": {
+    "format": "{}",
+    "tooltip": false
+  },
+
+  "sway/window": {
+    "max-length": 80,
+    "separate-outputs": true
+  },
+
+  "tray": {
+    "spacing": 8
+  },
+
+  "clock": {
+    "format": "{:%Y-%m-%d  %H:%M}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+
+  "bluetooth": {
+    "format": "BT on",
+    "format-disabled": "BT off",
+    "format-off": "BT off",
+    "format-connected": "BT {device_alias}",
+    "format-connected-battery": "BT {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager"
+  },
+
+  "network": {
+    "format-wifi": "NET {essid} {signalStrength}%",
+    "format-ethernet": "NET {ipaddr}/{cidr}",
+    "format-linked": "NET {ifname} no ip",
+    "format-disconnected": "NET offline",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "on-click": "nm-connection-editor"
+  },
+
+  "pulseaudio": {
+    "format": "VOL {volume}%",
+    "format-muted": "VOL muted",
+    "on-click": "pavucontrol"
+  }
+}
