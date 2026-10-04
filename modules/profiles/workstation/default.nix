@@ -40,7 +40,7 @@
         };
 
         desktop = {
-          gnome.enable = lib.mkDefault true;
+          greetd.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
           sway.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
@@ -71,10 +71,12 @@
             gimp
             helium
             krita
+            loupe
             lutris
             obs-studio
             obsidian
             orca-c
+            papers
             pavucontrol
             plan9port-wayland
             signal-desktop

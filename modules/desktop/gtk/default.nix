@@ -15,6 +15,19 @@
       config = lib.mkIf cfg.enable {
         core.dotfiles.enable = true;
 
+        programs.dconf = {
+          enable = true;
+          profiles.user.databases = [
+            {
+              settings."org/gnome/desktop/interface" = {
+                accent-color = "teal";
+                color-scheme = "prefer-dark";
+                monospace-font-name = "Berkeley Mono 11";
+              };
+            }
+          ];
+        };
+
         environment.systemPackages = with pkgs; [
           adwaita-icon-theme
           gnome-themes-extra

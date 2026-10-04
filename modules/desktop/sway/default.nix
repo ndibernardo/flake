@@ -27,6 +27,8 @@
           extraOptions = [ "--unsupported-gpu" ];
         };
 
+        environment.sessionVariables.NIXOS_OZONE_WL = lib.mkDefault "1";
+
         security.pam.services.sway.enableGnomeKeyring = true;
         services.gnome.gnome-keyring.enable = true;
 

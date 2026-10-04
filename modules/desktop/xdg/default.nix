@@ -66,7 +66,7 @@
 
         desktopEnvironment = lib.mkOption {
           type = lib.types.str;
-          default = "GNOME";
+          default = "sway";
           description = ''
             Value of `$XDG_CURRENT_DESKTOP`. Names the user-level
             `mimeapps.list` these defaults are written to, which the lookup
