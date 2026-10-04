@@ -65,6 +65,7 @@
         core.dotfiles.enable = true;
 
         environment.systemPackages = [ vim ];
+        environment.sessionVariables.EDITOR = lib.mkOverride 900 "vim";
 
         core.dotfiles.directories = [ ".vim" ];
         core.dotfiles.links = {
