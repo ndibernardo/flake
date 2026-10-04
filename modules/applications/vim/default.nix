@@ -18,6 +18,7 @@
             mkdir -p source/themes
             cp ${./base16_default_dark_plain.tmTheme} source/themes/base16_default_dark_plain.tmTheme
             cp ${./base16_tomorrow_night.tmTheme} source/themes/base16_tomorrow_night.tmTheme
+            cp ${./mono.tmTheme} source/themes/mono.tmTheme
             HOME=$TMPDIR bat cache --build --source source --target $out
           '';
 
@@ -54,7 +55,7 @@
       };
 
       vim = pkgs.writeShellScriptBin "vim" ''
-        export BAT_CACHE_PATH=${batCache} BAT_THEME=base16_tomorrow_night
+        export BAT_CACHE_PATH=${batCache} BAT_THEME=mono
         exec ${pkgs.vim}/bin/vim --cmd 'set packpath^=${plugins}' "$@"
       '';
     in

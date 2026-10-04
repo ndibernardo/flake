@@ -445,4 +445,4 @@ packloadall
 filetype off
 filetype plugin indent on
 syntax enable
-colorscheme base16_tomorrow_night
+colorscheme mono
