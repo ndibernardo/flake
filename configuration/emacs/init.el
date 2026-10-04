@@ -459,6 +459,32 @@ links into it."
  "C-a" #'smart-beginning-of-line
  "C-e" #'move-end-of-line)
 
+(evil-define-motion smart-beginning-of-line-motion ()
+  "Motion form of `smart-beginning-of-line', so operators like d0 use it.
+Exclusive, like evil's own `evil-beginning-of-line'."
+  :type exclusive
+  (smart-beginning-of-line))
+
+(evil-define-command smart-digit-argument-or-beginning-of-line ()
+  "Bound to 0: a count digit after other digits, else a smart line start.
+Mirrors `evil-digit-argument-or-evil-beginning-of-line', redirecting to
+`smart-beginning-of-line-motion' instead.  The first 0 goes to the first
+non-blank character, a second one to column 0, and so on back and forth."
+  :digit-argument-redirection smart-beginning-of-line-motion
+  :keep-visual t
+  :repeat nil
+  (interactive)
+  (if current-prefix-arg
+      (progn
+        (setq this-command #'digit-argument)
+        (call-interactively #'digit-argument))
+    (setq this-command #'smart-beginning-of-line-motion)
+    (call-interactively #'smart-beginning-of-line-motion)))
+
+(general-define-key
+ :states 'motion
+ "0" #'smart-digit-argument-or-beginning-of-line)
+
 (leader-def
   ":" '(execute-extended-command :which-key "M-x")
   ";" '(pp-eval-expression :which-key "eval expression")
