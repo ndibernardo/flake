@@ -1092,6 +1092,7 @@ If point was already at that position, move point to beginning of line."
   (diminish 'evil-snipe-local-mode)
   (diminish 'git-gutter-mode)
   (diminish 'lispyville-mode)
+  (diminish 'paredit-mode " π")
   (diminish 'rainbow-mode)
   (diminish 'which-key-mode)
   (diminish 'yas-minor-mode))
