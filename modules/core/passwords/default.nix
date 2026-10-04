@@ -3,7 +3,6 @@
     {
       config,
       lib,
-      pkgs,
       ...
     }:
     let
@@ -23,19 +22,6 @@
         programs._1password-gui = {
           enable = true;
           polkitPolicyOwners = [ config.user.name ];
-        };
-
-        systemd.user.services.onepassword = {
-          description = "1Password desktop app";
-          after = [ "graphical-session.target" ];
-          wantedBy = [ "graphical-session.target" ];
-          partOf = [ "graphical-session.target" ];
-          unitConfig.ConditionUser = config.user.name;
-          serviceConfig = {
-            ExecStart = "${lib.getExe pkgs._1password-gui} --silent";
-            Restart = "on-failure";
-            RestartSec = 2;
-          };
         };
 
         security.polkit = {
