@@ -451,12 +451,8 @@ links into it."
 (general-define-key
  :states 'normal
  "gR" #'eval-buffer-dwim
- "]b" #'next-buffer
- "[b" #'previous-buffer
  "]d" #'git-gutter:next-hunk
- "[d" #'git-gutter:previous-hunk
- "]e" #'next-error
- "[e" #'previous-error)
+ "[d" #'git-gutter:previous-hunk)
 
 (general-define-key
  :states 'insert
