@@ -138,16 +138,413 @@ eating the space just typed."
 (setq-default cursor-type 'bar)
 (blink-cursor-mode 0)
 
-;; Hel
-(setopt hel-normal-state-cursor-type 'box
-        hel-insert-state-cursor-type 'bar)
-(hel-mode)
+;; Evil
+(setq evil-want-integration t
+      evil-want-keybinding nil
+      evil-want-C-g-bindings t
+      evil-want-C-u-scroll t
+      evil-want-C-u-delete t
+      evil-want-C-w-delete t
+      evil-want-Y-yank-to-eol t
+      evil-want-abbrev-expand-on-insert-exit nil
+      evil-undo-system 'undo-fu
+      evil-search-module 'evil-search
+      evil-ex-search-vim-style-regexp t
+      evil-ex-visual-char-range t
+      evil-ex-interactive-search-highlight 'selected-window
+      evil-symbol-word-search t
+      evil-mode-line-format nil
+      evil-kbd-macro-suppress-motion-error t
+      evil-visual-update-x-selection-p nil
+      evil-split-window-below t
+      evil-vsplit-window-right t
+      evil-normal-state-cursor 'box
+      evil-insert-state-cursor 'bar
+      evil-visual-state-cursor 'hollow
+      evil-emacs-state-cursor 'box)
 
-(defun word-includes-underscore ()
-  "Treat `_' as part of a word, so Hel word motions cover snake_case."
-  (modify-syntax-entry ?_ "w"))
+(setq undo-limit 400000
+      undo-strong-limit 3000000
+      undo-outer-limit 48000000
+      undo-fu-allow-undo-in-region t
+      undo-fu-session-incompatible-files '("\\.gpg\\'" "/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+(undo-fu-session-global-mode)
 
-(add-hook 'prog-mode-hook 'word-includes-underscore)
+(setq evil-collection-want-find-usages-bindings nil)
+
+(evil-mode 1)
+(evil-collection-init)
+
+(setq evil-escape-key-sequence "jk"
+      evil-escape-delay 0.15
+      evil-escape-excluded-states '(normal visual multiedit emacs motion)
+      evil-escape-excluded-major-modes '(treemacs-mode vterm-mode))
+(evil-escape-mode 1)
+
+(setq evil-snipe-smart-case t
+      evil-snipe-scope 'line
+      evil-snipe-repeat-scope 'visible
+      evil-snipe-char-fold t)
+(evil-snipe-mode 1)
+(evil-snipe-override-mode 1)
+
+(setq evil-goggles-duration 0.1
+      evil-goggles-pulse nil
+      evil-goggles-enable-delete nil
+      evil-goggles-enable-change nil)
+(evil-goggles-mode 1)
+
+(global-evil-surround-mode 1)
+(global-evil-visualstar-mode 1)
+(evil-lion-mode 1)
+(evil-exchange-install)
+(evil-indent-plus-default-bindings)
+(evilem-default-keybindings "gs")
+(define-key evilem-map (kbd "SPC") #'evil-avy-goto-char-timer)
+
+(define-key evil-inner-text-objects-map "a" #'evil-inner-arg)
+(define-key evil-outer-text-objects-map "a" #'evil-outer-arg)
+(define-key evil-inner-text-objects-map "B" #'evil-textobj-anyblock-inner-block)
+(define-key evil-outer-text-objects-map "B" #'evil-textobj-anyblock-a-block)
+(define-key evil-inner-text-objects-map "c" #'evilnc-inner-comment)
+(define-key evil-outer-text-objects-map "c" #'evilnc-outer-commenter)
+
+(winner-mode 1)
+(define-key evil-window-map "u" #'winner-undo)
+(define-key evil-window-map (kbd "C-r") #'winner-redo)
+
+(defvar escape-hook nil
+  "Hook run by `escape-dwim' before it falls back to `keyboard-quit'.
+Each function is called with no arguments; the first one to return
+non-nil counts as having handled the escape, and the rest are skipped.")
+
+(defun escape-dwim ()
+  "Get out of whatever is going on, one layer at a time.
+Doom's `doom/escape': abort an active minibuffer, else let `escape-hook'
+handle it (clearing search highlights, for example), else quit.  Does
+nothing while a keyboard macro is being recorded or run, so escaping
+inside a macro doesn't abort it."
+  (interactive)
+  (cond ((minibuffer-window-active-p (minibuffer-window))
+         (abort-recursive-edit))
+        ((run-hook-with-args-until-success 'escape-hook))
+        ((or defining-kbd-macro executing-kbd-macro) nil)
+        (t (keyboard-quit))))
+
+(defun escape-clear-search-highlight ()
+  "Remove the highlight left by the last search, if any.
+Returns non-nil when there was one, so `escape-dwim' stops there and the
+next escape quits as usual."
+  (when (evil-ex-hl-active-p 'evil-ex-search)
+    (evil-ex-nohighlight)
+    t))
+
+(add-hook 'escape-hook 'escape-clear-search-highlight)
+(global-set-key [remap keyboard-quit] #'escape-dwim)
+(defun escape-after-normal-state (&rest _)
+  "Run `escape-dwim' after an interactive `evil-force-normal-state'.
+ESC in normal state is bound to `evil-force-normal-state', which on its
+own leaves search highlights and other transient state behind.  Calls
+from Lisp are left alone, since they are not the user pressing ESC."
+  (when (called-interactively-p 'any)
+    (call-interactively #'escape-dwim)))
+
+(advice-add 'evil-force-normal-state :after #'escape-after-normal-state)
+
+(defun lookup-documentation ()
+  "Show documentation for the thing at point, used by evil's K.
+Asks the language server when one is attached, racket-xp when it is
+running, `describe-symbol' in Emacs Lisp, and falls back to man pages,
+which is evil's own default."
+  (interactive)
+  (cond ((bound-and-true-p lsp-mode) (lsp-describe-thing-at-point))
+        ((bound-and-true-p racket-xp-mode) (racket-xp-describe))
+        ((derived-mode-p 'emacs-lisp-mode)
+         (describe-symbol (or (symbol-at-point) (user-error "No symbol at point"))))
+        (t (call-interactively #'man))))
+
+(setq evil-lookup-func #'lookup-documentation)
+
+(evil-define-operator eval-operator (beg end)
+  "Evaluate the text between BEG and END, bound to gr like Doom's.
+Racket buffers send the text to the REPL; Emacs Lisp buffers evaluate it
+in this Emacs.  Other modes have no evaluator and signal an error."
+  :move-point nil
+  (cond ((derived-mode-p 'racket-mode 'racket-hash-lang-mode)
+         (racket-send-region beg end))
+        ((derived-mode-p 'emacs-lisp-mode)
+         (eval-region beg end))
+        (t (user-error "No evaluator for %s" major-mode))))
+
+(defun eval-buffer-dwim ()
+  "Evaluate the whole buffer with `eval-operator', bound to gR."
+  (interactive)
+  (eval-operator (point-min) (point-max)))
+
+(defun search-project-for-symbol ()
+  "Search the current project for the symbol at point.
+Starts `consult-ripgrep' with the symbol as input, so it can still be
+edited before the results narrow."
+  (interactive)
+  (consult-ripgrep nil (thing-at-point 'symbol t)))
+
+(defun search-buffer-for-symbol ()
+  "Search the current buffer for the symbol at point.
+Starts `consult-line' with the symbol as input, so it can still be
+edited before the results narrow."
+  (interactive)
+  (consult-line (thing-at-point 'symbol t)))
+
+(defun delete-visited-file ()
+  "Delete the file visited by the current buffer, then kill the buffer.
+Asks first.  The file goes to the trash, since `delete-by-moving-to-trash'
+is on."
+  (interactive)
+  (let ((file (or (buffer-file-name) (user-error "Buffer is not visiting a file"))))
+    (when (y-or-n-p (format "Delete %s? " file))
+      (delete-file file t)
+      (kill-buffer))))
+
+(defun yank-buffer-path ()
+  "Copy the absolute path of the file visited by the current buffer.
+The path goes on the kill ring, and from there to the system clipboard."
+  (interactive)
+  (let ((file (or (buffer-file-name) (user-error "Buffer is not visiting a file"))))
+    (kill-new file)
+    (message "Copied %s" file)))
+
+(defun find-config-file ()
+  "Find a file in the Emacs configuration of `nixos-flake-directory'.
+The flake checkout rather than ~/.config/emacs, whose files are only
+links into it."
+  (interactive)
+  (let ((default-directory (file-name-concat nixos-flake-directory "configuration" "emacs/")))
+    (call-interactively #'find-file)))
+
+(add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+
+(with-eval-after-load 'vertico
+  (define-key vertico-map (kbd "C-j") #'vertico-next)
+  (define-key vertico-map (kbd "C-k") #'vertico-previous)
+  (define-key vertico-map (kbd "C-M-j") #'vertico-next-group)
+  (define-key vertico-map (kbd "C-M-k") #'vertico-previous-group))
+
+(with-eval-after-load 'treemacs
+  (require 'treemacs-evil))
+
+(require 'general)
+
+(general-create-definer leader-def
+  :states '(normal visual motion insert emacs)
+  :keymaps 'override
+  :prefix "SPC"
+  :non-normal-prefix "M-SPC")
+
+(general-create-definer local-leader-def
+  :states '(normal visual motion insert emacs)
+  :prefix "SPC m"
+  :non-normal-prefix "M-SPC m")
+
+(general-define-key
+ :states '(normal visual)
+ "gc" #'evilnc-comment-operator
+ "gr" #'eval-operator
+ "gD" #'xref-find-references
+ "g=" #'evil-numbers/inc-at-pt
+ "g-" #'evil-numbers/dec-at-pt)
+
+(general-define-key
+ :states 'normal
+ "gR" #'eval-buffer-dwim
+ "]b" #'next-buffer
+ "[b" #'previous-buffer
+ "]d" #'git-gutter:next-hunk
+ "[d" #'git-gutter:previous-hunk
+ "]e" #'next-error
+ "[e" #'previous-error)
+
+(general-define-key
+ :states 'insert
+ "C-a" #'smart-beginning-of-line
+ "C-e" #'move-end-of-line)
+
+(leader-def
+  ":" '(execute-extended-command :which-key "M-x")
+  ";" '(pp-eval-expression :which-key "eval expression")
+  "u" '(universal-argument :which-key "universal argument")
+  "w" `(,evil-window-map :which-key "window")
+  "h" '(help-command :which-key "help")
+  "x" '(scratch-buffer :which-key "scratch buffer")
+  "." '(find-file :which-key "find file")
+  "," '(consult-buffer :which-key "switch buffer")
+  "<" '(switch-to-buffer :which-key "switch to buffer")
+  "`" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+  "'" '(vertico-repeat :which-key "resume last search")
+  "/" '(consult-ripgrep :which-key "search project")
+  "*" '(search-project-for-symbol :which-key "search project for symbol")
+  "SPC" '(project-find-file :which-key "find file in project")
+  "RET" '(bookmark-jump :which-key "jump to bookmark")
+
+  "b" '(:ignore t :which-key "buffer")
+  "bb" '(consult-buffer :which-key "switch buffer")
+  "bB" '(switch-to-buffer :which-key "switch to buffer")
+  "bd" '(kill-current-buffer :which-key "kill buffer")
+  "bk" '(kill-current-buffer :which-key "kill buffer")
+  "bi" '(ibuffer :which-key "ibuffer")
+  "bl" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+  "bm" '(bookmark-set :which-key "set bookmark")
+  "bM" '(bookmark-delete :which-key "delete bookmark")
+  "bn" '(next-buffer :which-key "next buffer")
+  "bp" '(previous-buffer :which-key "previous buffer")
+  "b]" '(next-buffer :which-key "next buffer")
+  "b[" '(previous-buffer :which-key "previous buffer")
+  "bN" '(evil-buffer-new :which-key "new empty buffer")
+  "br" '(revert-buffer :which-key "revert buffer")
+  "bs" '(basic-save-buffer :which-key "save buffer")
+  "bS" '(save-some-buffers :which-key "save all buffers")
+  "bx" '(scratch-buffer :which-key "scratch buffer")
+  "bz" '(bury-buffer :which-key "bury buffer")
+
+  "c" '(:ignore t :which-key "code")
+  "ca" '(lsp-execute-code-action :which-key "code action")
+  "cc" '(compile :which-key "compile")
+  "cC" '(recompile :which-key "recompile")
+  "cd" '(xref-find-definitions :which-key "jump to definition")
+  "cD" '(xref-find-references :which-key "jump to references")
+  "cf" '(lsp-format-buffer :which-key "format buffer")
+  "ci" '(lsp-find-implementation :which-key "find implementations")
+  "ck" '(lookup-documentation :which-key "documentation")
+  "cr" '(lsp-rename :which-key "rename")
+  "ct" '(lsp-find-type-definition :which-key "type definition")
+  "cw" '(delete-trailing-whitespace :which-key "delete trailing whitespace")
+  "cx" '(flycheck-list-errors :which-key "list errors")
+
+  "f" '(:ignore t :which-key "file")
+  "fd" '(dired :which-key "dired")
+  "fD" '(delete-visited-file :which-key "delete this file")
+  "ff" '(find-file :which-key "find file")
+  "fp" '(find-config-file :which-key "find in configuration")
+  "fr" '(consult-recent-file :which-key "recent files")
+  "fR" '(rename-visited-file :which-key "rename this file")
+  "fs" '(save-buffer :which-key "save file")
+  "fS" '(write-file :which-key "save file as")
+  "fy" '(yank-buffer-path :which-key "yank file path")
+
+  "g" '(:ignore t :which-key "git")
+  "g[" '(git-gutter:previous-hunk :which-key "previous hunk")
+  "g]" '(git-gutter:next-hunk :which-key "next hunk")
+  "gb" '(magit-branch-checkout :which-key "checkout branch")
+  "gB" '(magit-blame-addition :which-key "blame")
+  "gC" '(magit-clone :which-key "clone")
+  "gD" '(magit-file-delete :which-key "delete file")
+  "gg" '(magit-status :which-key "status")
+  "gG" '(magit-status-here :which-key "status here")
+  "gL" '(magit-log-buffer-file :which-key "log of file")
+  "gr" '(git-gutter:revert-hunk :which-key "revert hunk")
+  "gR" '(vc-revert :which-key "revert file")
+  "gs" '(git-gutter:stage-hunk :which-key "stage hunk")
+  "gS" '(magit-stage-file :which-key "stage file")
+  "gU" '(magit-unstage-file :which-key "unstage file")
+  "gc" '(:ignore t :which-key "create")
+  "gcb" '(magit-branch-and-checkout :which-key "branch")
+  "gcc" '(magit-commit-create :which-key "commit")
+  "gf" '(:ignore t :which-key "find")
+  "gff" '(magit-find-file :which-key "find file")
+
+  "i" '(:ignore t :which-key "insert")
+  "ie" '(emoji-search :which-key "emoji")
+  "is" '(yas-insert-snippet :which-key "snippet")
+  "iu" '(insert-char :which-key "unicode")
+  "iy" '(consult-yank-pop :which-key "from kill ring")
+
+  "o" '(:ignore t :which-key "open")
+  "o-" '(dired-jump :which-key "dired")
+  "oe" '(eshell :which-key "eshell")
+  "op" '(treemacs :which-key "project sidebar")
+  "oP" '(treemacs-find-file :which-key "find file in sidebar")
+  "ot" '(project-shell :which-key "terminal")
+  "oT" '(vterm :which-key "terminal here")
+
+  "p" '(:ignore t :which-key "project")
+  "p!" '(project-shell-command :which-key "run command")
+  "p&" '(project-async-shell-command :which-key "run async command")
+  "pb" '(project-switch-to-buffer :which-key "switch buffer")
+  "pc" '(project-compile :which-key "compile")
+  "pd" '(project-forget-project :which-key "forget project")
+  "pD" '(project-dired :which-key "dired")
+  "pf" '(project-find-file :which-key "find file")
+  "pk" '(project-kill-buffers :which-key "kill buffers")
+  "pp" '(project-switch-project :which-key "switch project")
+
+  "q" '(:ignore t :which-key "quit")
+  "qf" '(delete-frame :which-key "delete frame")
+  "qK" '(save-buffers-kill-emacs :which-key "kill emacs")
+  "qq" '(save-buffers-kill-terminal :which-key "quit")
+  "qQ" '(evil-quit-all-with-error-code :which-key "quit without saving")
+
+  "s" '(:ignore t :which-key "search")
+  "sb" '(consult-line :which-key "search buffer")
+  "sB" '(consult-line-multi :which-key "search all buffers")
+  "sf" '(consult-find :which-key "locate file")
+  "si" '(consult-imenu :which-key "imenu")
+  "sI" '(consult-imenu-multi :which-key "imenu across buffers")
+  "sj" '(evil-collection-consult-jump-list :which-key "jump list")
+  "sm" '(bookmark-jump :which-key "bookmark")
+  "sp" '(consult-ripgrep :which-key "search project")
+  "sr" '(evil-collection-consult-mark :which-key "marks")
+  "ss" '(consult-line :which-key "search buffer")
+  "sS" '(search-buffer-for-symbol :which-key "search buffer for symbol")
+  "su" '(vundo :which-key "undo history")
+
+  "t" '(:ignore t :which-key "toggle")
+  "tf" '(flycheck-mode :which-key "syntax checker")
+  "tF" '(toggle-frame-fullscreen :which-key "frame fullscreen")
+  "tg" '(evil-goggles-mode :which-key "evil goggles")
+  "tl" '(display-line-numbers-mode :which-key "line numbers")
+  "tr" '(read-only-mode :which-key "read-only mode")
+  "ts" '(flyspell-mode :which-key "spell checker")
+  "tv" '(visible-mode :which-key "visible mode")
+  "tw" '(visual-line-mode :which-key "soft line wrapping"))
+
+(local-leader-def
+  :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
+  "d" '(:ignore t :which-key "debug")
+  "df" '(edebug-defun :which-key "instrument defun")
+  "e" '(:ignore t :which-key "eval")
+  "eb" '(eval-buffer :which-key "buffer")
+  "ed" '(eval-defun :which-key "defun")
+  "ee" '(eval-last-sexp :which-key "last sexp")
+  "el" '(load-library :which-key "load library")
+  "er" '(eval-region :which-key "region")
+  "g" '(:ignore t :which-key "goto")
+  "gf" '(find-function :which-key "function")
+  "gl" '(find-library :which-key "library")
+  "gv" '(find-variable :which-key "variable")
+  "h" '(:ignore t :which-key "help")
+  "ha" '(apropos :which-key "apropos")
+  "hf" '(describe-function :which-key "function")
+  "hv" '(describe-variable :which-key "variable"))
+
+(with-eval-after-load 'racket-mode
+  (local-leader-def
+    :keymaps '(racket-mode-map racket-hash-lang-mode-map)
+    "h" '(racket-xp-documentation :which-key "documentation")
+    "l" '(racket-logger :which-key "logger")
+    "o" '(racket-profile :which-key "profile")
+    "p" '(racket-cycle-paren-shapes :which-key "cycle paren shapes")
+    "r" '(racket-run :which-key "run")
+    "R" '(racket-run-and-switch-to-repl :which-key "run and switch to repl")
+    "t" '(racket-test :which-key "test")
+    "y" '(racket-insert-lambda :which-key "insert lambda")
+    "e" '(:ignore t :which-key "eval")
+    "ed" '(racket-send-definition :which-key "definition")
+    "el" '(racket-send-last-sexp :which-key "last sexp")
+    "er" '(racket-send-region :which-key "region")
+    "g" '(:ignore t :which-key "goto")
+    "gb" '(racket-unvisit :which-key "back")
+    "gd" '(racket-xp-visit-definition :which-key "definition")
+    "gm" '(racket-visit-module :which-key "module")
+    "gr" '(racket-open-require-path :which-key "require path")))
 
 ;; Corfu
 (setq corfu-auto t)
@@ -313,9 +710,6 @@ if one already exists."
 
 (advice-add 'project-shell :override #'vterm-project-shell)
 
-(with-eval-after-load 'vterm
-  (require 'hel-vterm))
-
 ;;; Prose
 (set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 145)
 
@@ -383,11 +777,22 @@ edge, and leaves the file's own line endings untouched."
 (add-hook 'racket-mode-hook (lambda () (flycheck-mode -1)))
 (add-hook 'racket-hash-lang-mode-hook (lambda () (flycheck-mode -1)))
 
+(setq lispyville-key-theme
+      '((operators normal)
+        c-w
+        (prettify insert)
+        (atom-movement t)
+        slurp/barf-lispy
+        additional
+        additional-insert))
+
 (dolist (hook '(lisp-data-mode-hook
                 scheme-mode-hook
                 racket-mode-hook
                 racket-repl-mode-hook))
-  (add-hook hook 'hel-paredit-mode))
+  (add-hook hook 'paredit-mode)
+  (add-hook hook 'lispyville-mode)
+  (add-hook hook 'rainbow-delimiters-mode))
 
 ;; Docker
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
@@ -539,7 +944,7 @@ If point was already at that position, move point to beginning of line."
 ;; Vundo
 (global-set-key (kbd "C-x u") 'vundo)
 
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") 'escape-dwim)
 (global-set-key (kbd "<M-up>") 'backward-paragraph)
 (global-set-key (kbd "<M-down>") 'forward-paragraph)
 (global-set-key (kbd "<mouse-8>") 'xref-go-back)
@@ -557,7 +962,12 @@ If point was already at that position, move point to beginning of line."
   "Diminish modes."
   (diminish 'auto-dark-mode)
   (diminish 'eldoc-mode)
+  (diminish 'evil-collection-unimpaired-mode)
+  (diminish 'evil-escape-mode)
+  (diminish 'evil-goggles-mode)
+  (diminish 'evil-snipe-local-mode)
   (diminish 'git-gutter-mode)
+  (diminish 'lispyville-mode)
   (diminish 'rainbow-mode)
   (diminish 'which-key-mode)
   (diminish 'yas-minor-mode))

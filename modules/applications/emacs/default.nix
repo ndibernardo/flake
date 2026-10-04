@@ -29,26 +29,49 @@
           expand-region
           flycheck
           gcmh
+          general
           git-gutter
           git-gutter-fringe
-          hel
-          hel-paredit
-          hel-vterm
           ligature
           lsp-mode
           magit
           marginalia
           orderless
-          paredit
           rainbow-mode
           vertico
           visual-fill-column
           which-key
           treemacs
+          treemacs-evil
           treemacs-magit
+          undo-fu
+          undo-fu-session
           vterm
           vundo
           yasnippet
+        ]
+        ++ [
+          evil
+          evil-args
+          evil-collection
+          evil-easymotion
+          evil-escape
+          evil-exchange
+          evil-goggles
+          evil-indent-plus
+          evil-lion
+          evil-nerd-commenter
+          evil-numbers
+          evil-snipe
+          evil-surround
+          evil-textobj-anyblock
+          evil-visualstar
+        ]
+        ++ [
+          lispy
+          lispyville
+          paredit
+          rainbow-delimiters
         ]
         ++ [
           dockerfile-mode

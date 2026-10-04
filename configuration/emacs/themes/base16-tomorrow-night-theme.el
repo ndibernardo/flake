@@ -372,11 +372,6 @@
    `(git-gutter-fr:modified ((t (:inherit fringe :foreground ,base09))))
    `(git-gutter-fr:deleted ((t (:inherit fringe :foreground ,base08))))
 
-   ;; hel
-   `(hel-extend-selection-cursor ((t (:background ,base09))))
-   `(hel-normal-state-fake-cursor ((t (:foreground ,base00 :background ,base08))))
-   `(hel-insert-state-fake-cursor ((t (:foreground ,base00 :background ,base0D))))
-
    ;; hi-lock
    `(hi-blue ((t (:foreground ,base00 :background ,base0D))))
    `(hi-blue-b ((t (:foreground ,base0D :weight bold))))
