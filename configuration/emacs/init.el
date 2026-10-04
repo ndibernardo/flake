@@ -73,8 +73,8 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :family "JetBrains Mono" :weight 'medium :height 120)
-(set-face-attribute 'fixed-pitch nil :family "JetBrains Mono" :weight 'medium)
+(set-face-attribute 'default nil :family "Berkeley Mono" :weight 'medium :height 120)
+(set-face-attribute 'fixed-pitch nil :family "Berkeley Mono" :weight 'medium)
 
 ;; No startup screen
 (setq inhibit-splash-screen t)

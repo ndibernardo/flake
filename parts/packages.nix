@@ -1,6 +1,7 @@
 { config, ... }:
 {
   flake.overlays.default = final: prev: {
+    berkeley-mono = final.callPackage ../packages/berkeley-mono.nix { };
     helium = final.callPackage ../packages/helium.nix { };
 
     emacsPackagesFor =

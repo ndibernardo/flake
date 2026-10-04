@@ -6,10 +6,10 @@ args = ["new-session"]
 padding = { x = 12, y = 12 }
 
 [font]
-normal = { family = "JetBrains Mono", style = "Regular" }
-bold = { family = "JetBrains Mono", style = "Bold" }
-italic = { family = "JetBrains Mono", style = "Italic" }
-bold_italic = { family = "JetBrains Mono", style = "Bold Italic" }
+normal = { family = "Berkeley Mono", style = "SemiCondensed" }
+bold = { family = "Berkeley Mono", style = "Bold SemiCondensed" }
+italic = { family = "Berkeley Mono", style = "SemiCondensed Oblique" }
+bold_italic = { family = "Berkeley Mono", style = "Bold SemiCondensed Oblique" }
 size = 12.0
 
 [colors.primary]

@@ -87,6 +87,7 @@
             settings."org/gnome/desktop/interface" = {
               accent-color = "teal";
               color-scheme = "prefer-dark";
+              monospace-font-name = "Berkeley Mono 11";
             };
             settings."org/gnome/desktop/wm/keybindings" = {
               move-to-workspace-1 = [ "<Super><Shift>1" ];
