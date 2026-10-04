@@ -944,46 +944,52 @@ edge, and leaves the file's own line endings untouched."
 
 ;;;; Keys
 ;;; Move lines
-(defun move-lines (n)
-  "Move the line(s) spanned by the active region by N lines."
-  (let ((beg) (end) (keep))
-    (if mark-active
-        (save-excursion
-          (setq keep t)
-          (setq beg (region-beginning)
-                end (region-end))
-          (goto-char beg)
-          (setq beg (line-beginning-position))
-          (goto-char end)
-          (setq end (line-beginning-position 2)))
-      (setq beg (line-beginning-position)
-            end (line-beginning-position 2)))
-    (let ((offset (if (and (mark t)
-                           (and (>= (mark t) beg)
-                                (< (mark t) end)))
-                      (- (point) (mark t))))
-          (rewind (- end (point))))
-      (goto-char (if (< n 0) beg end))
-      (forward-line n)
-      (insert (delete-and-extract-region beg end))
-      (backward-char rewind)
-      (if offset (set-mark (- (point) offset))))
-    (if keep
-        (setq mark-active t
-              deactivate-mark nil))))
+(defun move-selected-lines (n)
+  "Move the lines spanned by the visual selection N lines down.
+A negative N moves them up.  The moved lines stay selected linewise, so
+J and K can be pressed repeatedly, as with vim's `:m'>+1<CR>gv'.  A move
+that would push the lines past either end of the buffer does nothing.
+A buffer without a final newline gets one, otherwise its last line could
+not swap places with the one above it."
+  (let* ((start (marker-position evil-visual-beginning))
+         (end (marker-position evil-visual-end))
+         (first (line-number-at-pos start))
+         (last (line-number-at-pos
+                (if (and (> end start)
+                         (save-excursion (goto-char end) (bolp)))
+                    (1- end)
+                  end))))
+    (save-excursion
+      (goto-char (point-max))
+      (unless (bolp) (insert "\n")))
+    (when (and (>= (+ first n) 1)
+               (<= (+ last n) (count-lines (point-min) (point-max))))
+      (goto-char (point-min))
+      (forward-line (1- first))
+      (let* ((beg (point))
+             (text (delete-and-extract-region
+                    beg (progn (forward-line (1+ (- last first))) (point)))))
+        (goto-char beg)
+        (forward-line n)
+        (let ((new-beg (point)))
+          (insert text)
+          (evil-visual-make-selection new-beg (1- (point)) 'line))))
+    (setq deactivate-mark nil)))
 
-(defun move-lines-up (n)
-  "Move the line(s) spanned by the active region up by N lines."
+(defun move-selected-lines-down (count)
+  "Move the selected lines COUNT lines down."
   (interactive "*p")
-  (move-lines (- (or n 1))))
+  (move-selected-lines count))
 
-(defun move-lines-down (n)
-  "Move the line(s) spanned by the active region down by N lines."
+(defun move-selected-lines-up (count)
+  "Move the selected lines COUNT lines up."
   (interactive "*p")
-  (move-lines (or n 1)))
+  (move-selected-lines (- count)))
 
-(global-set-key (kbd "C-s-n") 'move-lines-down)
-(global-set-key (kbd "C-s-p") 'move-lines-up)
+(general-define-key
+ :states 'visual
+ "J" #'move-selected-lines-down
+ "K" #'move-selected-lines-up)
 
 (defun select-line ()
   "Select current line.  If region is active, extend selection downward by line.
