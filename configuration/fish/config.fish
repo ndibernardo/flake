@@ -1,9 +1,9 @@
 if status is-interactive
     set -g fish_greeting
-    set -g fish_color_autosuggestion 8a8a8a
-    set -g fish_color_command f8f8f8
-    set -g fish_color_param b8b8b8
-    set -g fish_color_valid_path --underline
+    set -g fish_color_autosuggestion brblack
+    set -g fish_color_command brwhite
+    set -g fish_color_param white
+    set -g fish_color_valid_path
 
     alias cat bat
     alias ll 'eza -la --git --group-directories-first'
