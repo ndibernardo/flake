@@ -174,6 +174,8 @@ eating the space just typed."
 
 (evil-mode 1)
 (evil-collection-init)
+(evil-define-key 'normal emacs-lisp-mode-map "gz" nil)
+(evil-define-key 'normal lisp-interaction-mode-map "gz" nil)
 
 (setq evil-escape-key-sequence "jk"
       evil-escape-delay 0.15
@@ -201,6 +203,99 @@ eating the space just typed."
 (evil-indent-plus-default-bindings)
 (evilem-default-keybindings "gs")
 (define-key evilem-map (kbd "SPC") #'evil-avy-goto-char-timer)
+
+(defvar evil-mc-key-map (make-sparse-keymap))
+(global-evil-mc-mode 1)
+
+(defun escape-clear-cursors ()
+  "Remove every evil-mc cursor, if there are any.
+Returns non-nil when there were cursors, so `escape-dwim' stops there:
+the first ESC brings all cursors back to normal state, the next one
+removes them, as in Doom."
+  (when (evil-mc-has-cursors-p)
+    (evil-mc-undo-all-cursors)
+    t))
+
+(add-hook 'escape-hook 'escape-clear-cursors)
+
+(general-define-key
+ :states '(normal visual)
+ :prefix "gz"
+ "" '(:ignore t :which-key "multiple cursors")
+ "d" #'evil-mc-make-and-goto-next-match
+ "D" #'evil-mc-make-and-goto-prev-match
+ "s" #'evil-mc-skip-and-goto-next-match
+ "S" #'evil-mc-skip-and-goto-prev-match
+ "c" #'evil-mc-skip-and-goto-next-cursor
+ "C" #'evil-mc-skip-and-goto-prev-cursor
+ "j" #'evil-mc-make-cursor-move-next-line
+ "k" #'evil-mc-make-cursor-move-prev-line
+ "m" #'evil-mc-make-all-cursors
+ "n" #'evil-mc-make-and-goto-next-cursor
+ "N" #'evil-mc-make-and-goto-last-cursor
+ "p" #'evil-mc-make-and-goto-prev-cursor
+ "P" #'evil-mc-make-and-goto-first-cursor
+ "q" #'evil-mc-undo-all-cursors
+ "t" #'toggle-frozen-cursors
+ "u" #'evil-mc-undo-last-added-cursor
+ "z" #'toggle-cursor-here)
+
+(general-define-key
+ :states 'visual
+ :prefix "gz"
+ "I" #'evil-mc-make-cursor-in-visual-selection-beg
+ "A" #'evil-mc-make-cursor-in-visual-selection-end)
+
+(defun toggle-frozen-cursors ()
+  "Freeze the cursors so they stop following, or let them follow again.
+While frozen, the main cursor moves alone, to be placed somewhere else
+before the others resume mirroring it.  Doom's
+`+multiple-cursors/evil-mc-toggle-cursors'."
+  (interactive)
+  (if evil-mc-frozen
+      (evil-mc-resume-cursors)
+    (evil-mc-pause-cursors)))
+
+(defun toggle-cursor-here ()
+  "Add a cursor at point, or remove the one already there.
+The new cursor starts frozen, so further cursors can be placed by moving
+and pressing gzz again; gzt then lets them all follow.  Doom's
+`+multiple-cursors/toggle-cursor-here'."
+  (interactive)
+  (let ((cursor (cl-find-if (lambda (cursor)
+                              (= (evil-mc-get-cursor-start cursor) (point)))
+                            evil-mc-cursor-list)))
+    (if cursor
+        (evil-mc-undo-cursor cursor)
+      (evil-mc-make-cursor-here)
+      (evil-mc-pause-cursors))))
+
+(general-define-key
+ :states 'normal
+ "M-d" #'evil-multiedit-match-symbol-and-next
+ "M-D" #'evil-multiedit-match-symbol-and-prev)
+
+(general-define-key
+ :states 'visual
+ "M-d" #'evil-multiedit-match-and-next
+ "M-D" #'evil-multiedit-match-and-prev
+ "R" #'evil-multiedit-match-all)
+
+(general-define-key
+ :states '(normal visual)
+ "C-M-d" #'evil-multiedit-restore)
+
+(with-eval-after-load 'evil-multiedit
+  (general-define-key
+   :keymaps 'evil-multiedit-mode-map
+   :states '(normal visual)
+   "M-d" #'evil-multiedit-match-and-next
+   "M-D" #'evil-multiedit-match-and-prev
+   "RET" #'evil-multiedit-toggle-or-restrict-region)
+  (general-define-key
+   :keymaps 'evil-multiedit-mode-map
+   "C-n" #'evil-multiedit-next
+   "C-p" #'evil-multiedit-prev))
 
 (define-key evil-inner-text-objects-map "a" #'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" #'evil-outer-arg)
@@ -965,6 +1060,7 @@ If point was already at that position, move point to beginning of line."
   (diminish 'evil-collection-unimpaired-mode)
   (diminish 'evil-escape-mode)
   (diminish 'evil-goggles-mode)
+  (diminish 'evil-mc-mode)
   (diminish 'evil-snipe-local-mode)
   (diminish 'git-gutter-mode)
   (diminish 'lispyville-mode)

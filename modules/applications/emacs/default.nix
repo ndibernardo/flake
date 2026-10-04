@@ -60,6 +60,8 @@
           evil-goggles
           evil-indent-plus
           evil-lion
+          evil-mc
+          evil-multiedit
           evil-nerd-commenter
           evil-numbers
           evil-snipe
