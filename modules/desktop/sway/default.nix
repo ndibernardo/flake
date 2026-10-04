@@ -48,6 +48,7 @@
             thunar-volman
           ];
         };
+        services.blueman.enable = config.core.bluetooth.enable;
         services.gvfs.enable = true;
         services.tumbler.enable = true;
 
