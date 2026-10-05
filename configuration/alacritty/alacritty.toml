@@ -10,7 +10,7 @@ normal = { family = "Berkeley Mono", style = "SemiCondensed" }
 bold = { family = "Berkeley Mono", style = "Bold SemiCondensed" }
 italic = { family = "Berkeley Mono", style = "SemiCondensed Oblique" }
 bold_italic = { family = "Berkeley Mono", style = "Bold SemiCondensed Oblique" }
-size = 12.0
+size = 13.0
 
 [colors.primary]
 background = "#111313"

@@ -73,7 +73,7 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :family "Berkeley Mono" :weight 'medium :height 120)
+(set-face-attribute 'default nil :family "Berkeley Mono" :weight 'medium :height 130)
 (set-face-attribute 'fixed-pitch nil :family "Berkeley Mono" :weight 'medium)
 
 ;; No startup screen
@@ -828,7 +828,7 @@ if one already exists."
 (advice-add 'project-shell :override #'vterm-project-shell)
 
 ;;; Prose
-(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 145)
+(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 155)
 
 (defvar prose-fixed-pitch-faces
   '(markdown-code-face

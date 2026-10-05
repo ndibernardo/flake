@@ -15,7 +15,7 @@ set $menu bemenu-run --center --width-factor 0.4 --list 12 --ignorecase \
 
 ### Appearance
 
-font pango:Berkeley Mono 12
+font pango:Berkeley Mono 13
 
 gaps inner 8
 default_border pixel 2
