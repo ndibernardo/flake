@@ -54,14 +54,14 @@ let
   srcs = {
     x86_64-linux = {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64_linux.tar.xz";
-      hash = "sha256-ib2WLKXlFZkWpMS++lqaCPVA0tjNeU8vlV6NXUpGO/I=";
+      hash = "sha256-cHzzGeOj0qoGHKFddUh3vRi4sokghzjIKfywhzvH7Ns=";
     };
     aarch64-linux = {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64_linux.tar.xz";
-      hash = "sha256-S3t0TlXEAnL7NLFIrq1+NrjY0I0EQTH0Vy9PqV0U7JI=";
+      hash = "sha256-bLAgW4tP2Oukf+o4svzTvXPlFbxWBqviqvdYalej5os=";
     };
   };
-  version = "0.18.3.1";
+  version = "0.19.2.1";
 in
 stdenv.mkDerivation {
   pname = "helium";
