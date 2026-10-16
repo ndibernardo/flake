@@ -40,7 +40,8 @@
         };
 
         desktop = {
-          greetd.enable = lib.mkDefault true;
+          gdm.enable = lib.mkDefault true;
+          gnome.enable = lib.mkDefault true;
           gtk.enable = lib.mkDefault true;
           sway.enable = lib.mkDefault true;
           xdg.enable = lib.mkDefault true;
@@ -62,6 +63,7 @@
           alacritty.enable = lib.mkDefault true;
           emacs.enable = lib.mkDefault true;
           evolution.enable = lib.mkDefault true;
+          firefox.enable = lib.mkDefault true;
           mpd.enable = lib.mkDefault true;
           steam.enable = lib.mkDefault true;
           vim.enable = lib.mkDefault true;
@@ -69,7 +71,6 @@
           extraPackages = with pkgs; [
             foliate
             gimp
-            helium
             krita
             loupe
             lutris

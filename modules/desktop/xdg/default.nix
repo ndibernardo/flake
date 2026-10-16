@@ -60,7 +60,7 @@
 
         browser = lib.mkOption {
           type = lib.types.str;
-          default = "helium.desktop";
+          default = "firefox.desktop";
           description = "Desktop entry handling web links and HTML files.";
         };
 

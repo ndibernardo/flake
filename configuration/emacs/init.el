@@ -73,8 +73,44 @@ eating the space just typed."
 ;; No tooltips
 (tooltip-mode -1)
 
-(set-face-attribute 'default nil :family "Berkeley Mono" :weight 'medium :height 130)
-(set-face-attribute 'fixed-pitch nil :family "Berkeley Mono" :weight 'medium)
+(set-face-attribute 'default nil :family "PragmataPro Mono Liga" :height 130)
+(set-face-attribute 'fixed-pitch nil :family "PragmataPro Mono Liga")
+
+(defun gt/set-fill-column-colors ()
+  (set-face-attribute 'fill-column-indicator nil
+                      :foreground (modus-themes-get-color-value 'bg-inactive)
+                      :background (modus-themes-get-color-value 'unspecified)))
+
+;; We will use the wonderful Modus Vivendi theme by Protesilaos Stavrou,
+;; with some slight customisations:
+;; https://protesilaos.com/modus-themes/
+
+(setq modus-themes-bold-constructs t
+      modus-themes-common-palette-overrides
+      '((fringe unspecified)
+        (comment yellow-cooler)
+        (border-mode-line-inactive unspecified)
+        (border-mode-line-active unspecified)
+        (fg-line-number-inactive "gray50")
+        (fg-line-number-active fg-main)
+        (bg-line-number-inactive unspecified)
+        (bg-line-number-active unspecified)
+        (bg-paren-match bg-magenta-intense)
+        (underline-paren-match fg-main)
+        (fg-region fg-main)
+        (bg-mode-line-active bg-cyan-subtle)
+        (fg-mode-line-active fg-main)
+        (variable fg-main)
+        (variable-use fg-main)
+        (property fg-main)
+        (property-use fg-main))
+      modus-vivendi-tinted-palette-overrides
+      '((bg-main "#000000")
+        (cursor red)))
+
+;;;; Better fill column indicator colours
+
+(add-hook 'modus-themes-after-load-theme-hook #'gt/set-fill-column-colors)
 
 ;; No startup screen
 (setq inhibit-splash-screen t)
@@ -94,7 +130,10 @@ eating the space just typed."
 
 (setq-default fill-column 100)
 
-(load-theme 'mono t)
+(setq auto-dark-themes '((modus-vivendi-tinted) (modus-operandi-tinted)))
+(auto-dark-mode 1)
+
+(doom-modeline-mode 1)
 
 ;; Ligatures
 (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
@@ -130,7 +169,7 @@ eating the space just typed."
 (defun set-line-spacing ()
   "Configure text display properties for better readability."
   (setq-local default-text-properties
-              '(line-spacing 0.10 line-height 1.10)))
+              '(line-spacing 0.20 line-height 1.20)))
 (add-hook 'prog-mode-hook 'set-line-spacing)
 (add-hook 'text-mode-hook 'set-line-spacing)
 

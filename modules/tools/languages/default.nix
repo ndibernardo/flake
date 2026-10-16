@@ -46,7 +46,6 @@
           scala_3
           scalafmt
           typescript
-          typescript-language-server
         ];
       };
     };

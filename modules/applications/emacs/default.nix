@@ -20,11 +20,13 @@
         epkgs:
         with epkgs;
         [
+          auto-dark
           avy
           consult
           corfu
           direnv
           diminish
+          doom-modeline
           exec-path-from-shell
           expand-region
           flycheck
@@ -105,7 +107,6 @@
         core.dotfiles.links = {
           ".config/emacs/early-init.el" = lib.mkDefault "emacs/early-init.el";
           ".config/emacs/init.el" = lib.mkDefault "emacs/init.el";
-          ".config/emacs/themes" = lib.mkDefault "emacs/themes";
         };
       };
     };

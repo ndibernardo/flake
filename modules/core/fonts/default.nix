@@ -17,6 +17,7 @@
         core.nixpkgs.unfreePackages = [
           "26091623PWV3QQ0R.zip"
           "berkeley-mono"
+          "pragmata-pro"
         ];
 
         fonts = {
@@ -56,6 +57,7 @@
             noto-fonts-cjk-sans
             noto-fonts-cjk-serif
             noto-fonts-color-emoji
+            pragmata-pro
             source-code-pro
           ];
         };

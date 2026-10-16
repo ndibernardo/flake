@@ -3,62 +3,53 @@ program = "tmux"
 args = ["new-session"]
 
 [window]
+dimensions = { columns = 120, lines = 48 }
 padding = { x = 12, y = 12 }
 
 [font]
-normal = { family = "Berkeley Mono", style = "SemiCondensed" }
-bold = { family = "Berkeley Mono", style = "Bold SemiCondensed" }
-italic = { family = "Berkeley Mono", style = "SemiCondensed Oblique" }
-bold_italic = { family = "Berkeley Mono", style = "Bold SemiCondensed Oblique" }
+normal = { family = "PragmataPro Mono", style = "Regular" }
+bold = { family = "PragmataPro Mono", style = "Bold" }
+italic = { family = "PragmataPro Mono", style = "Italic" }
+bold_italic = { family = "PragmataPro Mono", style = "Bold Italic" }
 size = 13.0
 
 [colors.primary]
-background = "#111313"
-foreground = "#c2c9c9"
-dim_foreground = "#858f8f"
+background = "#000000"
+foreground = "#ffffff"
+dim_foreground = "#989898"
 
 [colors.cursor]
-text = "#111313"
-cursor = "#dfe5e5"
+text = "#000000"
+cursor = "#ff5f59"
 
 [colors.selection]
-text = "CellForeground"
-background = "#0f2f2d"
+text = "#ffffff"
+background = "#555a66"
 
 [colors.search.matches]
-foreground = "#f2f6f6"
-background = "#0f2f2d"
+foreground = "#ffffff"
+background = "#2266ae"
 
 [colors.search.focused_match]
-foreground = "#111313"
-background = "#01a59e"
+foreground = "#ffffff"
+background = "#7a6100"
 
 [colors.normal]
-black = "#181b1b"
-red = "#d47a72"
-green = "#8dbab7"
-yellow = "#cfb57c"
-blue = "#01a59e"
-magenta = "#dfe5e5"
-cyan = "#8dbab7"
-white = "#c2c9c9"
-
-[colors.dim]
-black = "#111313"
-red = "#d47a72"
-green = "#8dbab7"
-yellow = "#cfb57c"
-blue = "#01a59e"
-magenta = "#858f8f"
-cyan = "#8dbab7"
-white = "#858f8f"
+black = "#1d2235"
+red = "#ff5f59"
+green = "#44bc44"
+yellow = "#d0bc00"
+blue = "#2fafff"
+magenta = "#feacd0"
+cyan = "#00d3d0"
+white = "#989898"
 
 [colors.bright]
-black = "#5a6464"
-red = "#d47a72"
-green = "#8dbab7"
-yellow = "#cfb57c"
-blue = "#01a59e"
-magenta = "#dfe5e5"
-cyan = "#8dbab7"
-white = "#f2f6f6"
+black = "#61647a"
+red = "#ff6b55"
+green = "#75c13e"
+yellow = "#fec43f"
+blue = "#79a8ff"
+magenta = "#f78fe7"
+cyan = "#4ae2f0"
+white = "#ffffff"
