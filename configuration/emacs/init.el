@@ -944,6 +944,17 @@ edge, and leaves the file's own line endings untouched."
         additional
         additional-insert))
 
+(with-eval-after-load 'lispyville
+  (evil-define-key '(operator visual) lispyville-mode-map
+    "il" #'lispyville-inner-list
+    "al" #'lispyville-a-list
+    "ix" #'lispyville-inner-sexp
+    "ax" #'lispyville-a-sexp
+    "if" #'lispyville-inner-function
+    "af" #'lispyville-a-function
+    "iS" #'lispyville-inner-string
+    "aS" #'lispyville-a-string))
+
 (dolist (hook '(lisp-data-mode-hook
                 scheme-mode-hook
                 racket-mode-hook
