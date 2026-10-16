@@ -106,7 +106,8 @@ eating the space just typed."
         (property-use fg-main))
       modus-vivendi-tinted-palette-overrides
       '((bg-main "#000000")
-        (cursor red)))
+        (cursor red)
+        (comment blue-faint)))
 
 ;;;; Better fill column indicator colours
 
@@ -739,6 +740,7 @@ non-blank character, a second one to column 0, and so on back and forth."
             (lsp--warn "%s" (or (lsp--error-string error)
                                 (format "%s Request has failed" method)))))))
 (setq lsp-inlay-hint-enable t)
+(custom-set-faces '(lsp-inlay-hint-face ((t :foreground "gray40"))))
 
 (defun corfu-lsp-setup ()
   "Lsp setup for corfu completion."
