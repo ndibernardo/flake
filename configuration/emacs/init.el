@@ -938,7 +938,7 @@ edge, and leaves the file's own line endings untouched."
 (setq lispyville-key-theme
       '((operators normal)
         c-w
-        (prettify insert)
+        prettify
         (atom-movement t)
         slurp/barf-lispy
         additional
